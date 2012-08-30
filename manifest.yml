@@ -1,0 +1,13 @@
+---
+applications:
+  .:
+    name: cse
+    framework:
+      name: rails3
+      info:
+        mem: 256M
+        description: Rails Application
+        exec: 
+    url: cse.aws.af.cm
+    mem: 256M
+    instances: 1

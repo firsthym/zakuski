@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" xml:lang="zh-CN">
 <head>
-  <title>Myapp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>You Search I Search - 搜索社区</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+ <%= render 'layouts/shim' %>
+ <%= content_for :head_script %>
 </head>
 <body>
-
+ <%= render 'layouts/header' %>
+<div class="container-fluid">
 <%= yield %>
-
+</div>
+<%= render 'layouts/footer' %>
+ <%= content_for :body_bottom_script %>
 </body>
 </html>

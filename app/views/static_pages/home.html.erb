@@ -1,0 +1,97 @@
+<% content_for :head_script do %>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33845460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<% end %>
+<div class="row-fluid"><h1 class="center">You Search, I Search</h1></div>
+<div class="cotainer-fluid">
+<div class="row-fluid">
+<div class="span9">
+<div class="row-fluid">
+  <div class="span10">
+    <input class="span" type="text" id="cse-query" placeholder="c++">
+  </div>
+    <div class="btn-group span2">
+      <a href="#" class="btn" id="cse-go"><i class="icon-search"></i> Search</a>
+      <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      </a>
+    <ul class="dropdown-menu">
+    <!-- dropdown menu links -->
+    <li class="dropdown-link"><a href="#">搜视频</a></li>
+    <li class="dropdown-link"><a href="#">找工作</a></li>
+    <li class="dropdown-link"><a href="#">找租房</a></li>
+    </ul>
+    </div>
+</div>
+<div class="row-fluid">
+<div id="cse-result"></div>
+</div>
+</div>
+<div class="span3">
+   <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+</div>
+</div>
+</div>
+<% content_for :body_bottom_script do %>
+  <script type="text/javascript">
+(function()	{
+    var cx = '016210554812953211518:2rcjzygztzs'; // Insert your own Custom Search engine ID here
+    //var cref = 'http://www.guha.com/cref_cse.xml';
+    var gcse = document.createElement('script'); 
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    //gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cref=' + cref;
+	gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; 
+    s.parentNode.insertBefore(gcse, s);
+  
+  //bind search button
+  $("#cse-go").click(function(){
+    $("#cse-result").html('');
+    var q = $("#cse-query").val();
+    if(q){
+      google.search.cse.element.render(
+            {
+              div: "cse-result",
+              tag: 'searchresults-only'   
+            }).execute(q);
+    }
+  });
+
+  $(".dropdown-link").click(function(){
+
+  })
+
+  })();
+</script>
+ <% end %>
