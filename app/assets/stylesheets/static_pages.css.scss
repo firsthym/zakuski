@@ -1,3 +1,44 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$vspan-small: 10px;
+$vspan-medium: 30px;
+$vspan-large: 50px;
+$vspan-xlarge: 100px;
+$linkColor: #08c;
+
+.cse-container{
+	margin-top: $vspan-large;
+}
+
+.cse-recommend{
+	margin-top: $vspan-large;
+}
+
+.cse-nav-list{
+	li.cse-link{
+		padding: 3px 15px;
+		margin-left: -15px;
+		margin-right: -15px;
+		a{
+			display: inline;
+			&:hover{
+				background-color: transparent;
+			}
+		}
+		div.controls-row{
+			display: none;
+		}
+		&:hover{
+			div.controls-row{
+				display: inline;
+			}
+			cursor: pointer;
+			background-color: $linkColor;
+			a{
+				color: #fff;
+			}
+		}
+	}
+}
