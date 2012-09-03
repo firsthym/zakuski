@@ -10,6 +10,7 @@ Myapp::Application.routes.draw do
   match '/signin', :to => 'users#index'
 
   match '/cse/create', :to => 'custom_search_engines#new'
+  match '/q/:query', :to => 'custom_search_engines#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
