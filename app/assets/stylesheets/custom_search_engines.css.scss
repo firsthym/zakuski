@@ -1,0 +1,44 @@
+$vspan-small: 10px;
+$vspan-medium: 30px;
+$vspan-large: 50px;
+$vspan-xlarge: 70px;
+$vspan-xxlarge: 90px;
+$linkColor: #08c;
+
+.cse-container{
+	margin-top: $vspan-large;
+}
+
+.cse-search-box{
+	padding-top: $vspan-large;
+}
+.cse-recommend{
+	margin-top: $vspan-xlarge;
+}
+
+.cse-nav-list{
+	li.cse-link{
+		padding: 3px 15px;
+		margin-left: -15px;
+		margin-right: -15px;
+		a{
+			display: inline;
+			&:hover{
+				background-color: transparent;
+			}
+		}
+		div.controls-row{
+			display: none;
+		}
+		&:hover{
+			div.controls-row{
+				display: inline;
+			}
+			cursor: pointer;
+			background-color: $linkColor;
+			a{
+				color: #fff;
+			}
+		}
+	}
+}
