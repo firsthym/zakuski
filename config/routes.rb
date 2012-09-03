@@ -4,11 +4,13 @@ Myapp::Application.routes.draw do
 
   match '/about', :to => 'static_pages#about'
   match '/help', :to  => 'static_pages#help'
+  match '/agreement', :to => 'static_pages#agreement'
 
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'users#index'
 
   match '/cse/create', :to => 'custom_search_engines#new'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
