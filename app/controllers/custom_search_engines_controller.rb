@@ -15,7 +15,7 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    @custom_search_engines.query = params([:query])
+    @query = params[:query]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }

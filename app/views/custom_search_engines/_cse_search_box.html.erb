@@ -1,5 +1,5 @@
 <div class="row cse-search-box">
-  <div class="span7 offset2">
+  <div class="span7 offset2 cse-search-input">
   <input class="span7" type="text" id="cse-query" placeholder="c++">
 </div>
 <div class="span2">
@@ -17,3 +17,10 @@
   </div>
 </div>
 </div>
+<% content_for :body_bottom_script do %>
+<script type="text/javascript">
+  (function(){
+    $('#cse-query').val('<%= @query %>');
+  })();
+</script>
+<% end %>

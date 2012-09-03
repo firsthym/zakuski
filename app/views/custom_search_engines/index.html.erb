@@ -1,18 +1,3 @@
-<% content_for :head_script do %>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-33845460-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-<% end %>
 <div class="container-fluid cse-container">
   <!-- cse logo begin-->
   <div class="row cse-logo"><div class="span8 offset2"><h1>You Search I Search</h1></div></div>
@@ -22,44 +7,23 @@
   <%= render 'custom_search_engines/cse_search_box' %>
   <!-- cse search box end -->
 
-  <!-- cse search result start -->
-  <div class="row-fluid"><div id="cse-result"></div></div>
-  <!-- cse search result end -->
-
   <!-- cse recommendation start-->
   <%= render 'custom_search_engines/cse_recommend' %>
   <!-- cse recommendation end -->
 </div>
+
 <% content_for :body_bottom_script do %>
-  <script type="text/javascript">
-(function() {
-    var cx = '016210554812953211518:2rcjzygztzs'; // Insert your own Custom Search engine ID here
-    //var cref = 'http://www.guha.com/cref_cse.xml';
-    var gcse = document.createElement('script'); 
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    //gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cref=' + cref;
-  gcse.src = (document.location.protocol == 'https' ? 'https:' : 'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0]; 
-    s.parentNode.insertBefore(gcse, s);
-  
-  //bind search button
-  $("#cse-go").click(function(){
-    $("#cse-result").html('');
-    var q = $("#cse-query").val();
-    if(q){
-      google.search.cse.element.render(
-            {
-              div: "cse-result",
-              tag: 'searchresults-only'   
-            }).execute(q);
-    }
-  });
-
-  $(".dropdown-link").click(function(){
-
-  })
+<script type="text/javascript">
+  (function() {
+    //bind search button
+    $("#cse-go").click(function(){
+      $("#cse-result").html('');
+      var q = $("#cse-query").val();
+      if(q){
+        window.location = '/q/' + q;
+      }
+    });
 
   })();
 </script>
- <% end %>
+<% end %>

@@ -12,6 +12,16 @@ $linkColor: #08c;
 .cse-search-box{
 	padding-top: $vspan-large;
 }
+
+.cse-search-box-wrapper{
+	.cse-search-box{
+		padding-top: $vspan-small;
+		margin-bottom: $vspan-medium;
+		.cse-search-input{
+			margin-left: 10px;
+		}
+	}
+}
 .cse-recommend{
 	margin-top: $vspan-xlarge;
 }
