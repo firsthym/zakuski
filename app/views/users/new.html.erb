@@ -1,5 +1,45 @@
-<h1>New user</h1>
+<% provide :title,  "注册" %>
+<h1>注册</h1>
+<div class="row">
+<div class="span6 offset5">
+	<%= form_for @user, html: {class: "form-horizontal"} do |f| %>
+		<%= render 'shared/error_messages' %>
+		<div class="control-group">
+		<%= f.label :username, "用户名", class: "control-label" %>
+		<div class="controls">
+			<%= f.text_field :username %>
+		</div>
+		</div>
 
-<%= render 'form' %>
+		<div class="control-group">
+		<%= f.label :email, "邮箱", class: "control-label" %>
+		<div class="controls">
+      		<%= f.text_field :email %>
+      	</div>
+      	</div>
 
-<%= link_to 'Back', users_path %>
+      	<div class="control-group">
+      	<%= f.label :password, "密码" %>
+      	<div class="controls">
+      	<%= f.password_field :password %>
+      	</div>
+      	</div>
+
+      	<div class="control-group">
+      	<%= f.label :password_confirmation, "密码确认" %>
+      	<div class="controls">
+     	<%= f.password_field :password_confirmation %>
+     	</div>
+     	</div>
+
+     	<div class="control-group">
+     	<div class="controls">
+     		<%= f.label :agreement do %>
+     			<%= f.check_box :agreement, checked: "checked" %> 同意<%= link_to '协议', agreement_path %>
+     		<% end %>
+     		<%= f.submit "创建账户", class: "btn btn-large btn-primary" %>
+     	</div>
+     	</div>
+	<% end %>
+</div>
+</div>

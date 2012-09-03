@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
 
 	def help
 	end
+
+	def agreement
+	end
 end
