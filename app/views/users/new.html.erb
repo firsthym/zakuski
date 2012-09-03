@@ -1,32 +1,33 @@
 <% provide :title,  "注册" %>
+<div class="container">
 <h1>注册</h1>
 <div class="row">
-<div class="span6 offset5">
+<div class="span6 offset3">
 	<%= form_for @user, html: {class: "form-horizontal"} do |f| %>
 		<%= render 'shared/error_messages' %>
 		<div class="control-group">
-		<%= f.label :username, "用户名", class: "control-label" %>
+		<%= f.label :username, "用户名", class: 'control-label' %>
 		<div class="controls">
 			<%= f.text_field :username %>
 		</div>
 		</div>
 
 		<div class="control-group">
-		<%= f.label :email, "邮箱", class: "control-label" %>
+		<%= f.label :email, "邮箱", class: 'control-label' %>
 		<div class="controls">
       		<%= f.text_field :email %>
       	</div>
       	</div>
 
       	<div class="control-group">
-      	<%= f.label :password, "密码" %>
+      	<%= f.label :password, "密码", class: 'control-label' %>
       	<div class="controls">
       	<%= f.password_field :password %>
       	</div>
       	</div>
 
       	<div class="control-group">
-      	<%= f.label :password_confirmation, "密码确认" %>
+      	<%= f.label :password_confirmation, "密码确认", class: 'control-label' %>
       	<div class="controls">
      	<%= f.password_field :password_confirmation %>
      	</div>
@@ -41,5 +42,6 @@
      	</div>
      	</div>
 	<% end %>
+</div>
 </div>
 </div>
