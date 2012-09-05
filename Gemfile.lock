@@ -97,6 +97,8 @@ GEM
       activesupport (= 3.2.5)
       bundler (~> 1.0)
       railties (= 3.2.5)
+    rails-i18n (0.6.5)
+      i18n (~> 0.5)
     railties (3.2.5)
       actionpack (= 3.2.5)
       activesupport (= 3.2.5)
@@ -160,6 +162,7 @@ DEPENDENCIES
   mongo
   mongo_mapper
   rails (= 3.2.5)
+  rails-i18n
   rspec-rails (= 2.10.0)
   sass-rails (= 3.2.4)
   uglifier (>= 1.0.3)

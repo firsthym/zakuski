@@ -9,6 +9,7 @@ gem "mongo"
 gem 'bson_ext'
 gem "mongo_mapper"
 gem "bootstrap-sass", "~> 2.0.4.1"
+gem 'rails-i18n'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
