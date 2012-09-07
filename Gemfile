@@ -7,7 +7,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.5'
 gem "mongo"
 gem 'bson_ext'
-gem "mongo_mapper"
+# gem "mongo_mapper"
+gem 'mongoid'
 gem "bootstrap-sass", "~> 2.0.4.1"
 gem 'rails-i18n'
 # Bundle edge Rails instead:

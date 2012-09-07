@@ -1,4 +1,8 @@
 class Annotation
-	include MongoMapper::EmbeddedDocument	
-	belongs_to :custom_search_engnine
+	include Mongoid::Document
+	include Mongoid::Timestamps
+
+	field :about, type: String	
+	
+	embedded_in :custom_search_engnine
 end

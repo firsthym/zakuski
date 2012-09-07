@@ -1,23 +1,23 @@
 class CustomSearchEngine
-  include MongoMapper::EmbeddedDocument
-  key :author_uid, ObjectId, required: true
-  key :category, Integer, required: true
-  key :access, Integer, default: 0, required: true
-  key :voters, Array
-  key :votes, Integer, default: 0
-  key :current_links, Integer, default: 1
-  key :history_links, Integer, default: 1
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :access, type: Integer, default: 0
+  field :voters, type: Array
+  field :votes, type: Integer, default: 0
+  field :current_links, type: Integer, default: 1
+  field :history_links, type: Integer, default: 1
 
   # custom search engine specification
-  one :specification
+  embeds_one :specification
+  
   # custom search engine annotations
-  many :annotations
+  embeds_many :annotations
 
-  many :comments
-  timestamps!
+  has_many :comments
 
   belongs_to :user
+  belongs_to :linking_custom_search_engine
+  belongs_to :category
   
-  attr_accessible :category, :access, :voters, :votes
-
 end

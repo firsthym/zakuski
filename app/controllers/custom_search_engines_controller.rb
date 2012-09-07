@@ -15,7 +15,6 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    @query = params[:query]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }
@@ -26,6 +25,8 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/new.json
   def new
     @custom_search_engine = CustomSearchEngine.new
+    @custom_search_engine.specification = Specification.new
+    @custom_search_engine.annotations = [Annotation.new]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,10 +43,11 @@ class CustomSearchEnginesController < ApplicationController
   # POST /custom_search_engines.json
   def create
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
+    @custom_search_engine.specification = Specification.new(params[:specification])
 
     respond_to do |format|
       if @custom_search_engine.save
-        format.html { redirect_to @custom_search_engine, notice: 'Custom search engine was successfully created.' }
+        format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully created.' }
         format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
       else
         format.html { render action: "new" }
@@ -79,6 +81,16 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to custom_search_engines_url }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /custom_search_engine/:id/q/:query
+  def query
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
+    @query = params[:query]
+
+    respond_to do |format|
+      format.html
     end
   end
 end

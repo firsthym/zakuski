@@ -1,4 +1,9 @@
 class Specification
-	include MongoMapper::EmbeddedDocument
-	belongs_to :custom_search_engnine
+	include Mongoid::Document
+	include Mongoid::Timestamps
+
+	field :title, type: String
+	field :description, type: String
+
+	embedded_in :custom_search_engine
 end

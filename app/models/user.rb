@@ -1,14 +1,18 @@
 class User
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  key :username, String, required: true
-  key :email, String, required: true, unique: true
-  key :password, String, required: true
-  key :agreement, Boolean, required: true
-  #attr_accessor :password_confirmation
+  field :username, type: String
+  field :email, type: String
+  field :password, type: String
+  field :agreement, type: Boolean
+  
+  # link to use the CSEs
+  has_many :linking_custom_search_engines
+  
+  # create or fork the CSEs
+  has_many :custom_search_engines
 
-  many :custom_search_engines
-
-  timestamps!
+  has_many :comments
 
 end
