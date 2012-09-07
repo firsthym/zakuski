@@ -196,6 +196,12 @@ zh-CN:
       welcome_signup: "欢迎你注册, %{name}"
       why_create_cse: "创建一个自定义搜索引擎来分享你的兴趣和发现"
       site_slogan: "一个关于搜索和分享的社区"
+      public: "公共"
+      public_what: "所有人都可以自由使用"
+      protected: "保护"
+      protected_what: "指定的用户才能使用"
+      private: "私有"
+      private_what: "只有自己能使用"
     controls:
       link:
         submit: "提交"
