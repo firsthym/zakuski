@@ -202,6 +202,13 @@ zh-CN:
       protected_what: "指定的用户才能使用"
       private: "私有"
       private_what: "只有自己能使用"
+      title: "名称"
+      title_what: "一目了然的名字更容易被发现"
+      description: "描述"
+      description_what: "尽量详细地描述该搜索引擎的特点"
+      number: "编号"
+      mode: "模式"
+      website: "网址"
     controls:
       link:
         submit: "提交"

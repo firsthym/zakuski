@@ -1,0 +1,28 @@
+<div class="control-group">
+	<div class="row">
+	<div class="span5">
+	<table class="table table-hover">
+		<thead>
+			<th><%= I18n.t('human.text.number') %></th>
+			<th><%= I18n.t('human.text.website') %></th>
+			<th><%= I18n.t('human.text.mode') %></th>
+		</thead>
+		<% @custom_search_engine.annotations.each do |anno| %>
+		<%= fields_for anno do |anno_form| %>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>
+					<%= anno_form.text_field :about %>
+				</td>
+				<td>
+					<%= anno_form.select :mode, ['保留', '去除', '优化'] %>
+				</td>
+			</tr>
+		</tbody>		
+		<% end %>
+		<% end %>
+	</table>
+	</div>
+	</div>
+</div>

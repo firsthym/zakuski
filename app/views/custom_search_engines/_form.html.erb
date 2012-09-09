@@ -1,44 +1,47 @@
 <%= form_for @custom_search_engine do |f| %>
+<div class="row">
+  <div class="span6 offset3">
+  <%= render 'cse_specification' %>
 
-  <div class="controls">
-    <%= f.radio_button :access, 'public' %>
-    <div class="control-group">
-    <%= f.label :access_public, I18n.t('human.text.public'), class: 'control-label' %>
-    <p class="muted small"><%= I18n.t('human.text.public_what') %></p>
+  <div class="cse-divider span5"></div>
+  
+  <!-- access setting start-->
+  <div class="control-group">
+    <div class="controls">
+    <%= f.label :access_public do %>
+        <%= f.radio_button :access, 'public' %>
+        <strong><%= I18n.t('human.text.public') %></strong><small class="cse-small"><%= I18n.t('human.text.public_what') %></small>
+    <% end %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.radio_button :access, 'protected' %>
-    <%= f.label :access_protected, I18n.t('human.text.protected') %>
-  </div>
 
-  <div class="control-group">  
-  <%= f.radio_button :access, 'private' %>
-  <%= f.label :access_private, I18n.t('human.text.private') %>
-  </div>
-
-  <%= fields_for @custom_search_engine.specification do |spec_form| %>
   <div class="control-group">
-      <%= spec_form.label :title, '名称', class: 'control-label' %>
-        <div class="controls">
-          <%= spec_form.text_field :title %>
-        </div>
+    <div class="controls">
+      <%= f.label :access_protected do %>
+        <%= f.radio_button :access, 'protected' %>
+        <strong><%= I18n.t('human.text.protected') %></strong><small class="cse-small"><%= I18n.t('human.text.protected_what') %></small>        
+      <% end %>
+    </div>
   </div>
 
   <div class="control-group">
-      <%= spec_form.label :description, '描述', class: 'control-label' %>
-        <div class="controls">
-          <%= spec_form.text_field :description %>
-        </div>
+    <div class="controls">
+    <%= f.label :access_private do %>
+      <%= f.radio_button :access, 'private' %>
+      <strong><%= I18n.t('human.text.private')  %></strong><small class="cse-small"><%= I18n.t('human.text.private_what') %></small>      
+    <% end %>
   </div>
-  <% end %>
+  </div>
+  <!-- access setting end -->
+  <div class="cse-divider span5"></div>
 
-
-
+  <%= render 'cse_annotations' %>
 
   <div class="control-group">
       <div class="controls">
         <%= f.submit I18n.t("human.controls.link.submit"), class: "btn btn-primary" %>
       </div>
       </div>
+  </div>
+</div>
 <% end %>

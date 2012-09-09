@@ -4,8 +4,7 @@ class CustomSearchEngine
 
   field :voters, type: Array
   field :votes, type: Integer, default: 0
-  # access 0 - public, 1 - protected, 2 - private
-  field :access, type: Integer, default: 0
+  field :access, type: String
   field :current_links, type: Integer, default: 1
   field :history_links, type: Integer, default: 1
 
