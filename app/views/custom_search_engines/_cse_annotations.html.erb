@@ -13,10 +13,10 @@
 			<tr>
 				<td>1</td>
 				<td>
-					<%= anno_form.text_field :about %>
+					<%= anno_form.text_field :about, class: 'span3' %>
 				</td>
 				<td>
-					<%= anno_form.select :mode, ['保留', '去除', '优化'] %>
+					<%= anno_form.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'], [I18n.t('human.controls.select.exclude'), 'exclude'], [I18n.t('human.controls.select.boost'), 'boost'] ]%>
 				</td>
 			</tr>
 		</tbody>		

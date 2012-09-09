@@ -44,7 +44,7 @@ class CustomSearchEnginesController < ApplicationController
   def create
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
     @custom_search_engine.specification = Specification.new(params[:specification])
-    @custom_search_engine.annotation = Annotation.new(params[:annotations])
+    @custom_search_engine.annotations = [Annotation.new(params[:annotations])]
 
     respond_to do |format|
       if @custom_search_engine.save

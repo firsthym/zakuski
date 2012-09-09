@@ -220,3 +220,7 @@ zh-CN:
         search: "搜索"
         about: "关于"
         help: "帮助"
+      select:
+        filter: "保留"
+        exclude: "去除"
+        boost:  "综合"
