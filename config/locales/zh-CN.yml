@@ -209,6 +209,9 @@ zh-CN:
       number: "编号"
       mode: "模式"
       website: "网址"
+    errors:
+      register: "注册出错啦！"
+      cse_create: "自定义搜索引擎创建失败 :("
     controls:
       link:
         submit: "提交"

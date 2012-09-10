@@ -1,9 +1,9 @@
-<% if @user.errors.any? %>
+<% if errors.any? %>
   <div class="alert alert-error alert-block">
     <a href="#" class="close" data-dismiss="alert">×</a>
-    <strong>注册出错啦</strong>
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
+    <strong><%= error_title %></strong>
+    <ul class="unstyled">
+    <% errors.full_messages.each do |msg| %>
       <li>* <%= msg %></li>
     <% end %>
     </ul>
