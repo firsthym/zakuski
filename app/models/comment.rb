@@ -4,6 +4,9 @@ class Comment
 	
 	field :body, type: String
 
+	# validations
+	validates :body, presence: true
+
 	belongs_to :custom_search_engine
 	belongs_to :user
 end

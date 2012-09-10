@@ -9,8 +9,10 @@ Myapp::Application.routes.draw do
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'users#index'
 
-  match '/create', :to => 'custom_search_engines#new', :as => 'cse_create'
-  match '/:id', :to => 'custom_search_engines#show', :as => 'cse_show'
+  match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
+  match '/cse/new', :to => 'custom_search_engines#new', :as => 'cse_create'
+  match '/cse/:id', :to => 'custom_search_engines#show', :as => 'cse_show'
+  match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit'
  
   match '/:id/:query', :to => 'custom_search_engines#query'
 
@@ -63,7 +65,7 @@ Myapp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'custom_search_engines#index'
+  root :to => 'custom_search_engines#home'
 
   # See how all your routes lay out with "rake routes"
 

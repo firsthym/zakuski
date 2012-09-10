@@ -8,6 +8,9 @@ class CustomSearchEngine
   field :current_links, type: Integer, default: 1
   field :history_links, type: Integer, default: 1
 
+  # validations
+  validates :access, presence: true
+  
   # custom search engine specification
   embeds_one :specification
   
@@ -15,6 +18,9 @@ class CustomSearchEngine
   embeds_many :annotations
 
   has_many :comments
+
+  accepts_nested_attributes_for :annotations, allow_destroy: true
+  accepts_nested_attributes_for :specification, allow_destroy: true
 
   belongs_to :user
   belongs_to :linking_custom_search_engine

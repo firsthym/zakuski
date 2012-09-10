@@ -1,29 +1,7 @@
-<div class="container cse-container">
-  <!-- cse logo begin-->
-  <div class="row cse-logo"><div class="span8 offset2"><h1>You Search I Search</h1></div></div>
-  <!-- cse logo end-->
-  
-  <!-- cse search box start -->
-  <%= render 'custom_search_engines/cse_search_box' %>
-  <!-- cse search box end -->
-
-  <!-- cse recommendation start-->
-  <%= render 'custom_search_engines/cse_recommend' %>
-  <!-- cse recommendation end -->
-</div>
-
-<% content_for :body_bottom_script do %>
-<script type="text/javascript">
-  (function() {
-    //bind search button
-    $("#cse-go").click(function(){
-      $("#cse-result").html('');
-      var q = $("#cse-query").val();
-      if(q){
-        window.location = '50499b9b2061c70c4d000005/' + q;
-      }
-    });
-
-  })();
-</script>
+<div class="container">
+<% @custom_search_engines.each do |cse| %>
+	<p><%= cse.specification.title %></p>
+	<p><%= cse.specification.description %></p>
+	<div class="cse-divider"></div>
 <% end %>
+</div>

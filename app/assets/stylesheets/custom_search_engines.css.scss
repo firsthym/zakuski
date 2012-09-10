@@ -73,6 +73,8 @@ $vspan-xxlarge: 90px;
   	float: none
 }
 
-#annotation_mode{
-	width: 100%
+.cse-annotations{
+	select{
+		width: 100%		
+	}
 }
