@@ -1,4 +1,5 @@
 <div class="control-group cse-annotations">
+	<a href="#" class="btn btn-primay" id="cse-add-annotation"><i class="icon-plus"></i> <%= I18n.t('human.text.annotation_set') %></a>
 	<div class="row">
 	<div class="span5">
 	<table class="table table-hover">
@@ -12,7 +13,7 @@
 			<tr>
 				<td>1</td>
 				<td>
-					<%= anno_form.text_field :about, class: 'span3' %>
+					<%= anno_form.text_field :about, class: 'span3', placeholder: 'http://' %>
 				</td>
 				<td>
 					<%= anno_form.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'], [I18n.t('human.controls.select.exclude'), 'exclude'], [I18n.t('human.controls.select.boost'), 'boost'] ] %>
@@ -24,3 +25,13 @@
 	</div>
 	</div>
 </div>
+<% content_for :body_bottom_script do %>
+<script type="text/javascript">
+(function(){
+	$('#cse-add-annotation').click(function(){
+		
+	});
+
+})();
+</script>
+<% end %>
