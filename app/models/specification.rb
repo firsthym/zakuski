@@ -5,8 +5,10 @@ class Specification
 	field :title, type: String, localize: true
 	field :description, type: String, localize: true
 
+	attr_accessible :title, :description
+
 	# validations
-	validates :title, presence: true
+	validates :title, presence: true, length: {maximum: 10, minimum: 2}
 	validates :description, presence: true
 
 	embedded_in :custom_search_engine

@@ -7,6 +7,6 @@ class Comment
 	# validations
 	validates :body, presence: true
 
-	belongs_to :custom_search_engine
+	embedded_in :custom_search_engine
 	belongs_to :user
 end

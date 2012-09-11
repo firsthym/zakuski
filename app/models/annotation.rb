@@ -5,6 +5,7 @@ class Annotation
 	field :about, type: String	
 	field :mode, type: String
 	
+	attr_accessible :about, :mode
 	# validations
 	validates :about, presence: true, format: {with: /\Ahttp(s)?:\/\/.*\z/}
 	validates :mode, presence: true, inclusion: {in: ['filter', 'exclude', 'boost']}

@@ -7,6 +7,7 @@ class User
   field :password, type: String
   field :agreement, type: Boolean
   
+  attr_accessible :username, :email, :password, :agreement
   # link to use the CSEs
   has_many :linking_custom_search_engines
   
