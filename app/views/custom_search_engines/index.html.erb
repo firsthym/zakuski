@@ -2,6 +2,7 @@
 <% @custom_search_engines.each do |cse| %>
 	<p><%= cse.specification.title %></p>
 	<p><%= cse.specification.description %></p>
+	<%=link_to 'Edit', cse_edit_path(cse) %>
 	<div class="cse-divider"></div>
 <% end %>
 </div>

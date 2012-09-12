@@ -10,10 +10,25 @@ $(document).ready ->
 		new_text.val('')
 		new_text.attr('id', new_text.attr('id').replace(/\d/, current_row_number))
 		new_text.attr('name', new_text.attr('name').replace(/\d/, current_row_number))
+		
 		new_select = new_row.find('select')
 		new_select.attr('id', new_select.attr('id').replace(/\d/, current_row_number))
 		new_select.attr('name', new_select.attr('name').replace(/\d/, current_row_number))
-		current_row_number++
-		new_row.find('tr:eq(0)').find('td:eq(0)').html(current_row_number)
-		last_row.after(new_row)
 
+		new_checkbox = new_row.find('input:checkbox')
+		alert(new_checkbox.length)
+		new_checkbox.attr('checked', false)
+		last_row.after(new_row)
+		current_row_number++
+
+	$('#cse-checkbox-manager').click ->
+		check = if $(this).attr('checked') == 'checked' then true else false
+		$(each).attr('checked', check) for each in $('.cse-checkbox-annotation')
+
+	$('.cse-checkbox-annotation').live 'click', ->
+		check = true
+		for each in $('.cse-checkbox-annotation')
+			if $(each).attr('checked') != 'checked'
+				check = false
+				break
+		$('#cse-checkbox-manager').attr('checked', check)
