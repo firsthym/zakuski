@@ -11,10 +11,10 @@ Myapp::Application.routes.draw do
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
   match '/cse/new', :to => 'custom_search_engines#new', :as => 'cse_create'
-  match '/cse/:id', :to => 'custom_search_engines#show', :as => 'cse_show'
+  match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
   match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit'
  
-  match '/:id/:query', :to => 'custom_search_engines#query'
+  match '/:id/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

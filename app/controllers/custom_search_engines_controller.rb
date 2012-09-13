@@ -20,6 +20,7 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }
+      format.xml
     end
   end
 
@@ -89,7 +90,7 @@ class CustomSearchEnginesController < ApplicationController
   def query
     #@custom_search_engine = CustomSearchEngine.find(params[:id])
     @query = params[:query]
-
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
     respond_to do |format|
       format.html
     end
