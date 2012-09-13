@@ -2,9 +2,9 @@
   <div class="alert alert-error alert-block">
     <a href="#" class="close" data-dismiss="alert">×</a>
     <strong><%= error_title %></strong>
-    <ul class="unstyled">
+    <ul>
     <% errors.full_messages.each do |msg| %>
-      <li>* <%= msg %></li>
+      <li><%= msg %></li>
     <% end %>
     </ul>
   </div>
