@@ -233,3 +233,8 @@ zh-CN:
         filter: "保留"
         exclude: "去除"
         boost:  "综合"
+  mongoid:
+    attributes:
+      custom_search_engine:
+        specification:  "普通定义"
+        annotations: "特殊注释"
