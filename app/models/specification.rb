@@ -2,8 +2,8 @@ class Specification
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	field :title, type: String, localize: true
-	field :description, type: String, localize: true
+	field :title, type: String
+	field :description, type: String
 
 	attr_accessible :title, :description
 

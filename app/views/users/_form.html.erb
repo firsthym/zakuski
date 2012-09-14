@@ -1,29 +1,43 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for @user do |f| %>
+		<%= render partial: 'shared/error_messages', locals: {errors: @user.errors, error_title: I18n.t('human.errors.register')} %>
+    <div class="row">
+      <div class="span3 offset1">
+		<div class="control-group">
+		<%= f.label :username, "用户名", class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :username, class: 'span3' %>
+		</div>
+		</div>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+		<div class="control-group">
+		<%= f.label :email, "邮箱", class: 'control-label' %>
+		<div class="controls">
+      		<%= f.text_field :email, class: 'span3' %>
+      	</div>
+      	</div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+      	<div class="control-group">
+      	<%= f.label :password, "密码", class: 'control-label' %>
+      	<div class="controls">
+      	<%= f.password_field :password, class: 'span3' %>
+      	</div>
+      	</div>
+
+      	<div class="control-group">
+      	<%= f.label :password_confirmation, "密码确认", class: 'control-label' %>
+      	<div class="controls">
+     	<%= f.password_field :password_confirmation, class: 'span3' %>
+     	</div>
+     	</div>
+
+     	<div class="control-group">
+     	<div class="controls">
+     		<%= f.label :agreement do %>
+     			<%= f.check_box :agreement, checked: "checked" %> 同意<%= link_to '协议', agreement_path %>
+     		<% end %>
+     		<%= f.submit "创建账户", class: "btn btn-large btn-primary" %>
+     	</div>
+     	</div>
+     </div>
+   </div>
+	<% end %>
