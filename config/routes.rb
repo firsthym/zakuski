@@ -1,13 +1,17 @@
 Myapp::Application.routes.draw do
   resources :users
   resources :custom_search_engines
+  resources :sessions, only: [:new, :destroy, :create]
 
   match '/about', :to => 'static_pages#about'
   match '/help', :to  => 'static_pages#help'
   match '/agreement', :to => 'static_pages#agreement'
 
   match '/signup', :to => 'users#new'
-  match '/signin', :to => 'users#index'
+
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy', :via => :delete
+
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
   match '/cse/new', :to => 'custom_search_engines#new', :as => 'cse_create'
