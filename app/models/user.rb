@@ -25,6 +25,7 @@ class User
   # Massive assignment for User.new
   attr_accessible :username, :email, :password, :password_confirmation, :agreement
 
+  validates :agreement, presence: true
   validates :username, presence: true, length: {minimum: 2, maximum: 10}, uniqueness: {case_sensitive: false}
  
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -35,7 +36,6 @@ class User
 
   validates :password, length: {minimum: 6, maximum: 20}
   validates :password_confirmation, presence:true
-  validates :agreement, presence: true
 
   before_save { |user| user.email.try(:downcase) }
   before_save :create_remember_token
