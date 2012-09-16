@@ -16,6 +16,12 @@ class CustomSearchEngine
 
   embeds_many :votes
 
+  belongs_to :user
+  belongs_to :linking_custom_search_engine
+  belongs_to :category
+
+  # Index
+
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
 
@@ -24,9 +30,5 @@ class CustomSearchEngine
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
-
-  belongs_to :user
-  belongs_to :linking_custom_search_engine
-  belongs_to :category
   
 end

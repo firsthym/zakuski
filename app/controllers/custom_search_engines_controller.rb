@@ -1,7 +1,5 @@
 
 class CustomSearchEnginesController < ApplicationController
-  def home
-  end
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
@@ -84,6 +82,11 @@ class CustomSearchEnginesController < ApplicationController
       format.html { redirect_to custom_search_engines_url }
       format.json { head :no_content }
     end
+  end
+
+  # GET /
+
+  def home
   end
 
   # GET /custom_search_engine/:id/q/:query

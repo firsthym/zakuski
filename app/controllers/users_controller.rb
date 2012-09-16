@@ -43,6 +43,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     respond_to do |format|
       if @user.save
+        sign_in @user
         flash[:success] = "Welcome to cse.so"
         format.html { redirect_to @user}
         format.json { render json: @user, status: :created, location: @user }

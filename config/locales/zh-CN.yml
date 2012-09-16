@@ -217,6 +217,10 @@ zh-CN:
       access_set: "权限设定"
       annotation_add: "添加搜索网址"
       annotation_del: "删除"
+      account: "账户"
+      setting: "设置"
+      profile: "个人主页"
+      sign_out: "注销"
     errors:
       register: "注册出错啦！"
       cse_create: "自定义搜索引擎创建失败 :("
@@ -231,6 +235,7 @@ zh-CN:
         search: "搜索"
         about: "关于"
         help: "帮助"
+        protocol: "协议"
       select:
         filter: "保留"
         exclude: "去除"
@@ -246,3 +251,4 @@ zh-CN:
         password: "密码"
         password_confirmation: "确认密码"
         password_digest: "密码"
+        agreement: "协议"
