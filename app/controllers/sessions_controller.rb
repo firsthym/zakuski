@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 			redirect_to user
 		else
 		# sign in with errors
-			flash.now[:error] = 'Invalid email or password'
+			flash.now[:error] = I18n.t('human.errors.signin')
 			render action: 'new'
 		end
 	end

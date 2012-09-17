@@ -117,6 +117,12 @@ footer {
   @extend .error;
  }
 
+.cse-label-horizontal{
+  @extend .control-label;
+  margin-left: 10px;
+  display: inline;
+}
+
 /* miscellaneous */
 
 .debug_dump {

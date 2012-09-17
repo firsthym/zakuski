@@ -14,8 +14,11 @@
 	</div>
 </div>
 <div class="control-group">
-<div class="controls">
+<div class="control">
 	<%= f.submit I18n.t('human.controls.link.signin'), class: 'btn btn-primary btn-large' %>
+	<%= f.label :remember_me, class: 'cse-label-horizontal' do %>
+		<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>
+	<% end %>
 </div>
 </div>
 </div>
