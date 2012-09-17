@@ -1,7 +1,9 @@
 <%= form_for @user do |f| %>
+    <% if @user.new_record? %>
 		<%= render partial: 'shared/error_messages', locals: {errors: @user.errors, error_title: I18n.t('human.errors.register')} %>
-    <div class="row">
-      <div class="span3 offset1">
+    <% else %>
+    <%= render partial: 'shared/error_messages', locals: {errors: @user.errors, error_title: I18n.t('human.errors.update')} %>
+    <% end %>
 		<div class="control-group">
 		<%= f.label :username, class: 'control-label' %>
 		<div class="controls">
@@ -32,12 +34,14 @@
 
      	<div class="control-group">
      	<div class="controls">
+        <% if @user.new_record? %>
      		<%= f.label :agreement do %>
      			<%= f.check_box :agreement, checked: "checked" %> <%= link_to I18n.t('human.controls.link.agree_protocol'), agreement_path %>
      		<% end %>
      		<%= f.submit I18n.t('human.controls.link.create'), class: "btn btn-large btn-primary" %>
+        <% else %>
+        <%= f.submit I18n.t('human.controls.link.submit'), class: "btn btn-large btn-primary" %>        
+        <% end %>
      	</div>
      	</div>
-     </div>
-   </div>
 	<% end %>
