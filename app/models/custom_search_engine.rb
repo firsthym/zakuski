@@ -25,8 +25,7 @@ class CustomSearchEngine
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
 
-  attr_accessible :access, :current_links, :history_links
-  attr_accessible :specification_attributes, :annotations_attributes, :comments, :votes
+  attr_accessible :access, :specification_attributes, :annotations_attributes
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}

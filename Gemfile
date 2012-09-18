@@ -13,6 +13,7 @@ gem "bootstrap-sass", "~> 2.0.4.1"
 gem 'rails-i18n'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'thin', '~>1.4.1'
+gem 'kaminari'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

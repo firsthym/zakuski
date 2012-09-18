@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 		if(user && user.authenticate(params[:session][:password]))
 		# sign in successfully
 			sign_in user
-			redirect_to user
+			redirect_back_or user
 		else
 		# sign in with errors
 			flash.now[:error] = I18n.t('human.errors.signin')

@@ -6,7 +6,8 @@ class User
   field :username, type: String
   field :email, type: String
   field :password_digest, type: String
-  field :agreement, type: Boolean
+  field :agreement, type: Boolean, default: false
+  field :admin, type: Boolean, default: false
   field :remember_token, type: String
 
   # link to use the CSEs

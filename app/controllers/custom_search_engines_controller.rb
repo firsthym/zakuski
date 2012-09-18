@@ -1,5 +1,7 @@
-
 class CustomSearchEnginesController < ApplicationController
+  before_filter :signed_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: [:destroy]
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
@@ -37,16 +39,14 @@ class CustomSearchEnginesController < ApplicationController
 
   # GET /custom_search_engines/1/edit
   def edit
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
   end
 
   # POST /custom_search_engines
   # POST /custom_search_engines.json
   def create
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
-
     respond_to do |format|
-      if @custom_search_engine.save
+      if current_user.custom_search_engines.push(@custom_search_engine)
         format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully created.' }
         format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
       else
@@ -59,8 +59,6 @@ class CustomSearchEnginesController < ApplicationController
   # PUT /custom_search_engines/1
   # PUT /custom_search_engines/1.json
   def update
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
-
     respond_to do |format|
       if @custom_search_engine.update_attributes(params[:custom_search_engine])
         format.html { redirect_to @custom_search_engine, notice: 'Custom search engine was successfully updated.' }
@@ -98,4 +96,27 @@ class CustomSearchEnginesController < ApplicationController
       format.html
     end
   end
+
+  private
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_path, notice: I18n.t('human.errors.must_sign_in')
+      end
+    end
+
+    def correct_user
+      @custom_search_engine = CustomSearchEngine.find(params[:id])
+      unless current_user?(@custom_search_engine.user)
+        flash[:error] = I18n.t('human.errors.no_privilege')
+        redirect_to root_path
+      end
+    end
+
+    def admin_user
+      unless current_user.admin?
+        flash[:error] = I18n.t('human.errors.no_privilege')
+        redirect_to root_path
+      end
+    end
 end
