@@ -5,7 +5,6 @@
     <% end %>
       <div class="controls">
         <%= specfication_field.text_field :title, class: "span3", placeholder: I18n.t('human.text.chars_limit', minimum:2, maximum: 10) %>
-        <%= cse_form.select :category, Category.all.map(&:title) %>
       </div>
   </div>
 
