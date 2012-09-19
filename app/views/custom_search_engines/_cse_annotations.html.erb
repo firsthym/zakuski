@@ -9,15 +9,15 @@
 			<th><%= I18n.t('human.text.website') %></th>
 			<th><%= I18n.t('human.text.mode') %></th>
 		</thead>
-		<%= cse_form.fields_for :annotations do |anno_form| %>		
+		<%= cse_form.fields_for :annotations do |annotation_field| %>		
 		<tbody>
 			<tr>
-				<td><%= anno_form.check_box :_destroy, class: 'cse-checkbox-annotation' unless anno_form.object.id == @custom_search_engine.annotations.first.id %></td>
+				<td><%= annotation_field.check_box :_destroy, class: 'cse-checkbox-annotation' unless annotation_field.object.id == @custom_search_engine.annotations.first.id %></td>
 				<td>
-					<%= anno_form.text_field :about, class: 'span3', placeholder: 'http://' %>
+					<%= annotation_field.text_field :about, class: 'span3', placeholder: 'http://' %>
 				</td>
 				<td>
-					<%= anno_form.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'], [I18n.t('human.controls.select.exclude'), 'exclude'], [I18n.t('human.controls.select.boost'), 'boost'] ], selected: 'filter' %>
+					<%= annotation_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'], [I18n.t('human.controls.select.exclude'), 'exclude'], [I18n.t('human.controls.select.boost'), 'boost'] ], selected: 'filter' %>
 				</td>
 			</tr>
 		</tbody>		
