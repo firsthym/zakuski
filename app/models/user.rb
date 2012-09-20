@@ -11,10 +11,10 @@ class User
   field :remember_token, type: String
 
   # link to use the CSEs
-  has_many :linking_custom_search_engines
+  has_many :linking_custom_search_engines, dependent: :destroy
   
   # create or fork the CSEs
-  has_many :custom_search_engines
+  has_many :custom_search_engines, dependent: :destroy
 
   belongs_to :vote
 

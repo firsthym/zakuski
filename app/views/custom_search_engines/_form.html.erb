@@ -3,7 +3,6 @@
   <%= render partial: 'cse_specification', locals: {cse_form: f} %>
 
   <div class="cse-divider span5"></div>
-      <%= f.collection_select :category, Category.all, :id, :title %>
   <!-- access setting start-->
   <div class="control-group">
     <div class="controls">

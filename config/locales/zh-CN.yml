@@ -225,6 +225,7 @@ zh-CN:
       must_agree_protocol: "请先同意协议再注册:)"
       agree: "同意"
       protocol: "协议"
+      category: "分类"
     errors:
       general: "操作失败:("
       register: "注册出错啦:("
