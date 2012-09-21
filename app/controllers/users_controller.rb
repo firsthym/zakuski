@@ -1,4 +1,3 @@
-
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
@@ -101,13 +100,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_path, notice: I18n.t('human.errors.must_sign_in')
-      end
-    end
-
     def correct_user
       @user = User.find(params[:id])
       unless current_user?(@user)

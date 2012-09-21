@@ -44,9 +44,9 @@ class CustomSearchEnginesController < ApplicationController
   # POST /custom_search_engines
   # POST /custom_search_engines.json
   def create
-    @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
+    @custom_search_engine = current_user.custom_search_engines.build(params[:custom_search_engine])
     respond_to do |format|
-      if current_user.custom_search_engines.push(@custom_search_engine)
+      if @custom_search_engine.save
         format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully created.' }
         format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
       else
@@ -98,13 +98,6 @@ class CustomSearchEnginesController < ApplicationController
   end
 
   private
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_path, notice: I18n.t('human.errors.must_sign_in')
-      end
-    end
-
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       unless current_user?(@custom_search_engine.user)

@@ -226,6 +226,8 @@ zh-CN:
       agree: "同意"
       protocol: "协议"
       category: "分类"
+      cse_list: "搜索引擎"
+      my_cse: "我的搜索引擎"
     errors:
       general: "操作失败:("
       register: "注册出错啦:("

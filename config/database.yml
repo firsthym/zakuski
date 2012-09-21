@@ -23,3 +23,11 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+proxied-appfog: 
+  adapter: mongodb 
+  database : db
+  username : ae951ea8-be21-420f-9e76-c4111d06463d
+  password : 834eec6e-5c14-4b40-8dbd-d2f75f27d506
+  port: 10000 
+  host: 127.0.0.1

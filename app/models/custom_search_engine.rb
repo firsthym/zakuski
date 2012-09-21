@@ -21,6 +21,8 @@ class CustomSearchEngine
   belongs_to :category
 
   # Index
+  index user_id: 1
+  index category_id: 1
 
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
@@ -29,5 +31,7 @@ class CustomSearchEngine
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
+  validates :user_id, presence: true
+  validates :category_id, presence: true
   
 end
