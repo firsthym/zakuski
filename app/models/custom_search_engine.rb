@@ -18,20 +18,20 @@ class CustomSearchEngine
 
   belongs_to :user
   belongs_to :linking_custom_search_engine
-  belongs_to :category
+  belongs_to :node
 
   # Index
-  index user_id: 1
-  index category_id: 1
+  index({user_id: 1}, {name: 'cse_user_id'})
+  index({node_id: 1}, {name: 'cse_node_id'})
 
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
 
-  attr_accessible :access, :specification_attributes, :annotations_attributes, :category_id
+  attr_accessible :access, :specification_attributes, :annotations_attributes, :node_id
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
   validates :user_id, presence: true
-  validates :category_id, presence: true
+  validates :node_id, presence: true
   
 end

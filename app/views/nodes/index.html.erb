@@ -3,9 +3,9 @@
 		<div class="span8 offset1">
 			<div class="row">
 				<ul class="unstyled">
-					<%= Node.all.each do |node| %>
+					<%= Node.all.each do |n| %>
 						<li>
-							<%= link_to node.title %>
+							<%= link_to n.title %>
 						</li>
 					<% end %>
 				</ul>

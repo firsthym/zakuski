@@ -1,11 +1,11 @@
 class CustomSearchEnginesController < ApplicationController
-  before_filter :signed_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :new, :create, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:destroy]
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
-    @custom_search_engines = CustomSearchEngine.all
+    @custom_search_engines = current_user.custom_search_engines
 
     respond_to do |format|
       format.html # index.html.erb
@@ -83,8 +83,11 @@ class CustomSearchEnginesController < ApplicationController
   end
 
   # GET /
-
   def home
+  end
+
+  # GET /list
+  def list
   end
 
   # GET /custom_search_engine/:id/q/:query

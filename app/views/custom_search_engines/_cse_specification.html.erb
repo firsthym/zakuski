@@ -5,7 +5,7 @@
     <% end %>
       <div class="controls">
         <%= specfication_field.text_field :title, class: "span3", placeholder: I18n.t('human.text.chars_limit', minimum:2, maximum: 10) %>
-        <%= cse_form.collection_select :category_id, Category.all, :id, :title, {}, class: 'input-small' %>
+        <%= cse_form.collection_select :node_id, Node.all, :id, :title, {}, class: 'input-small' %>
 
       </div>
   </div>

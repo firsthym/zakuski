@@ -225,9 +225,10 @@ zh-CN:
       must_agree_protocol: "请先同意协议再注册:)"
       agree: "同意"
       protocol: "协议"
-      category: "分类"
-      cse_list: "搜索引擎"
+      node: "节点"
+      cse_repo: "搜索引擎仓库"
       my_cse: "我的搜索引擎"
+      hotest: "最热"
     errors:
       general: "操作失败:("
       register: "注册出错啦:("

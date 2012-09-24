@@ -19,9 +19,9 @@ class User
   belongs_to :vote
 
   # Index
-  index({remember_token: 1}, {unique: true, name: 'remember_token_index'})
-  index({username: 1}, {unique: true, name: 'username_index'})
-  index({email: 1}, {unique: true, name: 'email_index'})
+  index({remember_token: 1}, {unique: true, name: 'user_remember_token'})
+  index({username: 1}, {unique: true, name: 'user_username'})
+  index({email: 1}, {unique: true, name: 'user_email'})
 
   # Massive assignment for User.new
   attr_accessible :username, :email, :password, :password_confirmation, :agreement
