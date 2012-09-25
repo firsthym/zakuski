@@ -229,6 +229,7 @@ zh-CN:
       cse_repo: "搜索引擎仓库"
       my_cse: "我的搜索引擎"
       hotest: "最热"
+      no_cse_yet: "当前节点下还没有自定义搜索引擎"
     errors:
       general: "操作失败:("
       register: "注册出错啦:("
@@ -252,6 +253,7 @@ zh-CN:
         search: "搜索"
         about: "关于"
         help: "帮助"
+        new_cse: "创建自定义搜索"
       select:
         filter: "保留"
         exclude: "去除"

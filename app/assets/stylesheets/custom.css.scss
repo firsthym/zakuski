@@ -11,6 +11,7 @@
 }
 
 $grayMediumLight: #eaeaea;
+$grayMediumDark: #D0D0D0;
 
 /* universal */
 
@@ -20,6 +21,8 @@ html {
 
 body {
   font-family: Verdana,"Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 13px;
 }
 
 section {
@@ -133,4 +136,22 @@ footer {
   @include box_sizing;
 }
 
+.cse-container{
+  margin-top: $vspan-large;
+}
+
+.cse-box{
+  border: dashed;
+  border-color: #999;
+  padding: 10px;
+}
+
+.cse-box-inner{
+  margin: 10px 0;
+}
+
 /* bootstrap override */
+p small{
+  font-size: 13px;
+  line-height: 13px
+}

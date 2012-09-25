@@ -13,10 +13,11 @@ Myapp::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete
 
-  match '/go(/:title)', :to => 'nodes#index', :as => 'repo_index'
+  match '/go', :to => 'nodes#index', :as => 'node_index'
+  match '/go/:id', :to => 'nodes#show', :as => 'node_show'
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
-  match '/cse/new', :to => 'custom_search_engines#new', :as => 'cse_create'
+  match '/cse/new/:real_node_id', :to => 'custom_search_engines#new', :as => 'cse_new'
   match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
   match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
   match '/:id/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'

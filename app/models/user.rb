@@ -16,6 +16,9 @@ class User
   # create or fork the CSEs
   has_many :custom_search_engines, dependent: :destroy
 
+  has_many :topics, dependent: :destroy
+  has_many :replies, dependent: :destroy
+
   belongs_to :vote
 
   # Index

@@ -1,0 +1,11 @@
+<div class="row-fluid">
+<%= RealNode.all.each do |node| %>
+<%= link_to node.title, node_show_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
+<% end %>
+</div>
+<div class="row-fluid">
+<p class="muted">
+	<small><%= @selected_node.description %></small>
+</p>
+</div>
+

@@ -30,6 +30,7 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.new
     @custom_search_engine.specification = Specification.new
     @custom_search_engine.annotations = [Annotation.new]
+    @custom_search_engine.real_node_id = params[:real_node_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +45,8 @@ class CustomSearchEnginesController < ApplicationController
   # POST /custom_search_engines
   # POST /custom_search_engines.json
   def create
-    @custom_search_engine = current_user.custom_search_engines.build(params[:custom_search_engine])
+    @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
+    @custom_search_engine.user_id = current_user.id
     respond_to do |format|
       if @custom_search_engine.save
         format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully created.' }
@@ -86,9 +88,6 @@ class CustomSearchEnginesController < ApplicationController
   def home
   end
 
-  # GET /list
-  def list
-  end
 
   # GET /custom_search_engine/:id/q/:query
   def query
