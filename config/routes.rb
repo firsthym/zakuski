@@ -13,8 +13,8 @@ Myapp::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete
 
-  match '/go', :to => 'nodes#index', :as => 'node_index'
-  match '/go/:id', :to => 'nodes#show', :as => 'node_show'
+  match '/nodes', :to => 'nodes#index', :as => 'node_index'
+  match '/nodes/:id', :to => 'nodes#show', :as => 'node_show'
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
   match '/cse/new/:real_node_id', :to => 'custom_search_engines#new', :as => 'cse_new'

@@ -4,10 +4,24 @@
 			<%= link_to I18n.t('human.controls.link.new_cse'), cse_new_path(@selected_node), class: 'btn' %>
 		</div>
 		<div class="row-fluid cse-box-inner">
-			<% if @custom_search_engines.all.any? %>
-				<%= @custom_search_engines.all.each do |each| %>
-					<%= each.specification.title %>
-					<%= each.specification.description %>
+			<% if @custom_search_engines.any? %>
+				<% @custom_search_engines.each do |cse| %>
+					<% unless cse.access == 'private' %>
+						<div class="cse-divider"></div>
+						<h4>
+						<% if cse.access == 'public' %>
+							<a class="btn btn-success btn-mini-new" title="<%= I18n.t('human.text.public_what') %>"><%= I18n.t('human.text.public') %></a>
+						<% elsif cse.access == 'protected'%>
+							<a class="btn btn-warning btn-mini-new" title="<%= I18n.t('human.text.protected_what') %>"><%= I18n.t('human.text.protected') %></a>
+						<% end %>
+						<a class="btn btn-info btn-mini-new" title="<%= I18n.t('human.text.annotations_count') %>"><%= cse.annotations.count %></a>
+						<%= link_to cse.specification.title, cse_show_path(cse) %>
+						</h4>
+						<div class="cse-box-inner">
+							<div><%= link_to cse.user.username, user_path(cse.user) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(cse.created_at)%></span>
+							</div>
+						</div>
+					<% end %>
 				<% end %>
 			<% else %>
 			<div class="cse-box-inner">

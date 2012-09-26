@@ -17,6 +17,7 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
+    @selected_node = @custom_search_engine.real_node
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }
@@ -31,6 +32,7 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine.specification = Specification.new
     @custom_search_engine.annotations = [Annotation.new]
     @custom_search_engine.real_node_id = params[:real_node_id]
+    @selected_node = RealNode.find(params[:real_node_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,6 +42,8 @@ class CustomSearchEnginesController < ApplicationController
 
   # GET /custom_search_engines/1/edit
   def edit
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
+    @selected_node = @custom_search_engine.real_node
   end
 
   # POST /custom_search_engines

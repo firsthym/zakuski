@@ -150,8 +150,30 @@ footer {
   margin: 10px 0;
 }
 
+.cse-divider{
+  *width: 100%;
+  height: 1px;
+  margin: 9px 1px 15px 1px;
+    *margin: -5px 0 5px;
+    overflow: hidden;
+    background-color: #c0c0c0;
+    border-bottom: 1px solid #ffffff;
+    float: none
+}
+
+span.divider{
+  margin-left: 5px;
+  margin-right: 5px;
+  color: $grayLight;
+}
 /* bootstrap override */
 p small{
   font-size: 13px;
   line-height: 13px
+}
+
+.btn-mini-new{
+  padding: 2px 3px;
+  font-size: 12px;
+  line-height: 11px
 }
