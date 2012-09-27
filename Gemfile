@@ -4,23 +4,24 @@ require 'rubygems'
 #source "http://ruby.taobao.org"
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.5'
-gem "mongo"
-gem 'bson_ext'
-# gem "mongo_mapper"
-gem 'mongoid'
-gem "bootstrap-sass", "~> 2.0.4.1"
-gem 'rails-i18n'
-gem 'bcrypt-ruby', '3.0.1'
-gem 'thin', '~>1.4.1'
-gem 'kaminari'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-group :development, :test do
-	gem 'rspec-rails', '2.10.0'
-end
+gem 'rails', '3.2.5'
+gem 'rails-i18n'
+gem 'jquery-rails'
 
+# mongo database and the ODM
+gem 'mongoid', '3.0.1'
+
+gem "bootstrap-sass", "~> 2.0.4.1"
+gem 'bcrypt-ruby', '3.0.1'
+
+# paginate
+gem 'kaminari'
+
+# web server
+gem 'thin', '~>1.4.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,15 +31,16 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
-group :test do
-	gem 'capybara', '1.1.2'
+group :development, :test do
+	gem 'rspec-rails', '2.10.0'
+  	gem 'factory_girl_rails'
+  	gem 'database_cleaner'
+  	gem "capybara", :require => false
 end
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

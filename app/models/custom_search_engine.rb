@@ -12,9 +12,9 @@ class CustomSearchEngine
   # custom search engine annotations
   embeds_many :annotations
 
-  embeds_many :comments
-
   embeds_many :votes
+
+  has_many :replies
 
   belongs_to :user
   belongs_to :linking_custom_search_engine
