@@ -17,7 +17,7 @@ Myapp::Application.routes.draw do
   match '/nodes/:id', :to => 'nodes#show', :as => 'node_show'
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
-  match '/cse/new/:real_node_id', :to => 'custom_search_engines#new', :as => 'cse_new'
+  match '/cse/new/:node_id', :to => 'custom_search_engines#new', :as => 'cse_new'
   match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
   match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
   match '/:id/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'

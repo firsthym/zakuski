@@ -14,7 +14,7 @@ gem 'jquery-rails'
 # mongo database and the ODM
 gem 'mongoid', '3.0.1'
 
-gem "bootstrap-sass", "~> 2.0.4.1"
+gem 'bootstrap-sass', '~>2.1.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 
 # paginate

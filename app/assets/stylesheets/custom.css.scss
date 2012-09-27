@@ -41,32 +41,9 @@ textarea {
 }
 
 /* typography */
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
+h1,h2,h3,h4,h5,h6{
+  font-weight: 500;
 }
-
-h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 1.7em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
-  font-weight: normal;
-  color: $grayLight;
-}
-
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
-}
-
 
 /* header */
 
@@ -146,8 +123,11 @@ footer {
   padding: 10px;
 }
 
-.cse-box-inner{
+.cse-grid{
   margin: 10px 0;
+  p{
+    font-size: 14px;
+  }
 }
 
 .cse-divider{
@@ -166,6 +146,7 @@ span.divider{
   margin-right: 5px;
   color: $grayLight;
 }
+
 /* bootstrap override */
 p small{
   font-size: 13px;

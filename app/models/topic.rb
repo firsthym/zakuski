@@ -7,4 +7,7 @@ class Topic
 	belongs_to :node
 	belongs_to :user
 
+	# index
+	index({node_id: 1}, {name: 'topic_node_id'})
+	index({user_id: 1}, {name: 'topic_user_id'})
 end

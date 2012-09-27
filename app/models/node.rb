@@ -7,7 +7,5 @@ class Node
 
 	has_many :custom_search_engines
 	has_many :topics
-	# index
-	index({title: 1}, {name: 'node_title'})
-
+	
 end

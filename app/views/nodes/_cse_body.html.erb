@@ -3,7 +3,7 @@
 		<div class="row-fluid">
 			<%= link_to I18n.t('human.controls.link.new_cse'), cse_new_path(@selected_node), class: 'btn' %>
 		</div>
-		<div class="row-fluid cse-box-inner">
+		<div class="row-fluid cse-grid">
 			<% if @custom_search_engines.any? %>
 				<% @custom_search_engines.each do |cse| %>
 					<% unless cse.access == 'private' %>
@@ -17,14 +17,14 @@
 						<a class="btn btn-info btn-mini-new" title="<%= I18n.t('human.text.annotations_count') %>"><%= cse.annotations.count %></a>
 						<%= link_to cse.specification.title, cse_show_path(cse) %>
 						</h4>
-						<div class="cse-box-inner">
+						<div class="cse-grid">
 							<div><%= link_to cse.user.username, user_path(cse.user) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(cse.created_at)%></span>
 							</div>
 						</div>
 					<% end %>
 				<% end %>
 			<% else %>
-			<div class="cse-box-inner">
+			<div class="cse-grid">
 				<blockquote>
 				  <p><%= I18n.t('human.text.no_cse_yet') %></p>
 				  <small><%= I18n.t('human.text.why_create_cse') %></small>

@@ -1,5 +1,5 @@
 <%= form_for @custom_search_engine do |f| %>
-  <%= f.hidden_field :real_node_id %>
+  <%= f.hidden_field :node_id %>
   <ul class="breadcrumb">
     <li><%= I18n.t('human.text.current_node_is') %><span class="divider">&gt;</span></li>
     <li><%= link_to @selected_node.title, node_show_path(@selected_node) %></li>
@@ -7,13 +7,13 @@
   <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.cse_create')} %>
   <%= render partial: 'cse_specification', locals: {cse_form: f} %>
 
-  <div class="cse-divider span5"></div>
+  <div class="cse-divider"></div>
   <!-- access setting start-->
   <div class="control-group">
     <div class="controls">
     <%= f.label :access_public do %>
         <%= f.radio_button :access, 'public', checked: true %>
-        <strong><%= I18n.t('human.text.public') %></strong><small class="cse-small"><%= I18n.t('human.text.public_what') %></small>
+        <strong><%= I18n.t('human.text.public') %></strong><span class="cse-small"><%= I18n.t('human.text.public_what') %></span>
     <% end %>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div class="controls">
       <%= f.label :access_protected do %>
         <%= f.radio_button :access, 'protected' %>
-        <strong><%= I18n.t('human.text.protected') %></strong><small class="cse-small"><%= I18n.t('human.text.protected_what') %></small>        
+        <strong><%= I18n.t('human.text.protected') %></strong><span class="cse-small"><%= I18n.t('human.text.protected_what') %></span>        
       <% end %>
     </div>
   </div>
@@ -31,12 +31,12 @@
     <div class="controls">
     <%= f.label :access_private do %>
       <%= f.radio_button :access, 'private' %>
-      <strong><%= I18n.t('human.text.private')  %></strong><small class="cse-small"><%= I18n.t('human.text.private_what') %></small>      
+      <strong><%= I18n.t('human.text.private')  %></strong><span class="cse-small"><%= I18n.t('human.text.private_what') %></span>      
     <% end %>
   </div>
   </div>
   <!-- access setting end -->
-  <div class="cse-divider span5"></div>
+  <div class="cse-divider"></div>
 
   <%= render partial: 'cse_annotations', locals: {cse_form: f} %>
 
