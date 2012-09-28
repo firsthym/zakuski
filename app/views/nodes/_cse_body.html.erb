@@ -18,7 +18,7 @@
 						<%= link_to cse.specification.title, cse_show_path(cse) %>
 						</h4>
 						<div class="cse-grid">
-							<div><%= link_to cse.user.username, user_path(cse.user) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(cse.created_at)%></span>
+							<div><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(cse.created_at)%></span>
 							</div>
 						</div>
 					<% end %>
