@@ -110,12 +110,11 @@ class CustomSearchEnginesController < ApplicationController
   # GET /cse/get/:id
   def get
     custom_search_engine = CustomSearchEngine.find(params[:id])
+    custom_search_engine.linkers.push(current_user)
+    current_user.linking_custom_search_engines.push(custom_search_engine)
+    
     respond_to do |format|
-      if current_user.linking_custom_search_engines.new(custom_search_engine).save
-        format.js
-      else
-        format.js { render nothing: true }
-      end
+      format.js
     end
   end
 
