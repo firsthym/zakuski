@@ -17,6 +17,11 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
+    
+    @filter_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'filter'}
+    @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
+    @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
+    
     @selected_node = @custom_search_engine.node
     respond_to do |format|
       format.html # show.html.erb
@@ -50,7 +55,7 @@ class CustomSearchEnginesController < ApplicationController
   # POST /custom_search_engines.json
   def create
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
-    @custom_search_engine.user_id = current_user.id
+    @custom_search_engine.author = current_user
     respond_to do |format|
       if @custom_search_engine.save
         format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully created.' }
@@ -93,13 +98,24 @@ class CustomSearchEnginesController < ApplicationController
   end
 
 
-  # GET /custom_search_engine/:id/q/:query
+  # GET /:id/q/:query
   def query
-    #@custom_search_engine = CustomSearchEngine.find(params[:id])
     @query = params[:query]
     @custom_search_engine = CustomSearchEngine.find(params[:id])
     respond_to do |format|
       format.html
+    end
+  end
+
+  # GET /cse/get/:id
+  def get
+    custom_search_engine = CustomSearchEngine.find(params[:id])
+    respond_to do |format|
+      if current_user.linking_custom_search_engines.new(custom_search_engine).save
+        format.js
+      else
+        format.js { render nothing: true }
+      end
     end
   end
 

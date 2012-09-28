@@ -1,0 +1,6 @@
+<div class="row-fluid">
+	<ul class="breadcrumb span6 offset3">
+    	<li><%= I18n.t('human.text.current_node_is') %><span class="divider">&gt;</span></li>
+    	<li><%= link_to @selected_node.title, node_show_path(@selected_node) %></li>
+  	</ul>
+</div>

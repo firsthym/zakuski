@@ -11,10 +11,10 @@ class User
   field :remember_token, type: String
 
   # link to use the CSEs
-  has_many :linking_custom_search_engines, dependent: :destroy
+  has_and_belongs_to_many :linking_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :linkers
   
   # create or fork the CSEs
-  has_many :custom_search_engines, dependent: :destroy
+  has_many :custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :author, dependent: :destroy
 
   has_many :topics, dependent: :destroy
   has_many :replies, dependent: :destroy

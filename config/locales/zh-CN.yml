@@ -235,6 +235,11 @@ zh-CN:
       update_at: "更新于 %{time}"
       create_at: "创建于 %{time}"
       annotations_count: "收录链接数"
+      link_current_cse: "获取该搜索引擎以便使用"
+      get_current_cse: "克隆该搜索引擎以便自定义"
+      mode_filter: "搜索结果将包含以下网络资源"
+      mode_exclude: "搜索结果将剔除以下网络资源"
+      mode_boost: "搜索结果将自动优化显示以下网络资源"
     errors:
       general: "操作失败:("
       register: "注册出错啦:("
@@ -259,9 +264,10 @@ zh-CN:
         about: "关于"
         help: "帮助"
         new_cse: "创建自定义搜索"
+        create_and_link: "创建并激活"
       select:
-        filter: "保留"
-        exclude: "去除"
+        filter: "包含"
+        exclude: "剔除"
         boost:  "综合"
   mongoid:
     attributes:

@@ -16,12 +16,12 @@ class CustomSearchEngine
 
   has_many :replies
 
-  belongs_to :user
-  belongs_to :linking_custom_search_engine
+  belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
+  has_and_belongs_to_many :linkers, class_name: 'User', inverse_of: :linking_custom_search_engines
   belongs_to :node
 
   # Index
-  index({user_id: 1}, {name: 'cse_user_id'})
+  index({author_id: 1}, {name: 'cse_author_id'})
   index({node_id: 1}, {name: 'cse_node_id'})
 
   accepts_nested_attributes_for :annotations, allow_destroy: true
@@ -31,7 +31,7 @@ class CustomSearchEngine
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
-  validates :user_id, presence: true
+  validates :author_id, presence: true
   validates :node_id, presence: true
 
   before_save {|cse| cse.node.instance_of? RealNode}
