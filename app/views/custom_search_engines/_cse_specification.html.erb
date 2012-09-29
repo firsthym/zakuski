@@ -1,7 +1,7 @@
 <%= cse_form.fields_for :specification do |specfication_field| %>
   <div class="control-group">
     <%= specfication_field.label :title, class: 'control-label' do %>
-      <strong>*<%= I18n.t('human.text.title') %></strong><small class="cse-small"><%= I18n.t('human.text.title_what') %></small>
+      <strong>*<%= I18n.t('human.text.title') %></strong><span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
     <% end %>
       <div class="controls">
         <%= specfication_field.text_field :title, class: "span8", placeholder: I18n.t('human.text.chars_limit', minimum:2, maximum: 10) %>
@@ -10,7 +10,7 @@
 
   <div class="control-group">
       <%= specfication_field.label :description, class: 'control-label' do %>
-        <strong>*<%= I18n.t('human.text.description') %></strong><small class="cse-small"><%= I18n.t('human.text.description_what') %></small>
+        <strong>*<%= I18n.t('human.text.description') %></strong><span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
       <% end %>
         <div class="controls">
           <%= specfication_field.text_area :description, class: 'span12', size: '12x6', placeholder: I18n.t('human.text.chars_limit', minimum: 4, maximum: 255) %>

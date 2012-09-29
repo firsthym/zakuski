@@ -17,7 +17,7 @@ class CustomSearchEngine
   has_many :replies
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
-  has_and_belongs_to_many :linkers, class_name: 'User', inverse_of: :linking_custom_search_engines
+  has_and_belongs_to_many :consumers, class_name: 'User', inverse_of: :linking_custom_search_engines
   belongs_to :node
 
   # Index
@@ -34,6 +34,6 @@ class CustomSearchEngine
   validates :author_id, presence: true
   validates :node_id, presence: true
 
-  before_save {|cse| cse.node.instance_of? RealNode}
+  # before_save {|cse| cse.node.instance_of? RealNode}
   
 end
