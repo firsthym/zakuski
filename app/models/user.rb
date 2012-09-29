@@ -11,7 +11,7 @@ class User
   field :remember_token, type: String
 
   # link to use the CSEs
-  has_and_belongs_to_many :linking_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :linkers
+  has_and_belongs_to_many :linking_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :consumers
   
   # create or fork the CSEs
   has_many :custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :author, dependent: :destroy

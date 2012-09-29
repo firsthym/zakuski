@@ -36,9 +36,8 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.new
     @custom_search_engine.specification = Specification.new
     @custom_search_engine.annotations = [Annotation.new]
-    @custom_search_engine.node_id = params[:node_id]
-    @selected_node = Node.find(params[:node_id])
-
+    @custom_search_engine.node = Node.find(params[:id])
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @custom_search_engine }
@@ -71,8 +70,8 @@ class CustomSearchEnginesController < ApplicationController
   # PUT /custom_search_engines/1.json
   def update
     respond_to do |format|
-      if @custom_search_engine.update_attributes(params[:custom_search_engine])
-        format.html { redirect_to @custom_search_engine, notice: 'Custom search engine was successfully updated.' }
+      if @custom_search_engine.update_attributes!(params[:custom_search_engine])
+        format.html { redirect_to cse_show_path(@custom_search_engine), notice: 'Custom search engine was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -107,10 +106,10 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /cse/get/:id
-  def get
+  # GET /cse/link/:id
+  def link
     custom_search_engine = CustomSearchEngine.find(params[:id])
-    custom_search_engine.linkers.push(current_user)
+    custom_search_engine.consumers.push(current_user)
     current_user.linking_custom_search_engines.push(custom_search_engine)
     
     respond_to do |format|
@@ -121,7 +120,7 @@ class CustomSearchEnginesController < ApplicationController
   private
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
-      unless current_user?(@custom_search_engine.user)
+      unless current_user?(@custom_search_engine.author)
         flash[:error] = I18n.t('human.errors.no_privilege')
         redirect_to root_path
       end
