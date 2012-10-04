@@ -13,7 +13,10 @@
 <div class="cse-wrapper">
 <div class="container-fluid">
 <% flash.each do |key, value| %>
-<%= content_tag :div, value, class: "alert alert-#{key}" %> 
+<div class="alert alert-<%= key %>">
+	<a href="#" class="close" data-dismiss="alert">×</a>
+	<%= value %>
+</div>
 <% end %>
 <%= yield %>
 </div>

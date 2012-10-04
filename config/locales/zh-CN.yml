@@ -227,6 +227,7 @@ zh-CN:
       protocol: "协议"
       node: "节点"
       cse_repo: "搜索引擎仓库"
+      sns: '社区'
       my_cse: "我的搜索引擎"
       hotest: "最热"
       no_cse_yet: "当前节点下还没有自定义搜索引擎"
@@ -235,13 +236,17 @@ zh-CN:
       update_at: "更新于 %{time}"
       create_at: "创建于 %{time}"
       annotations_count: "收录链接数"
-      link_current_cse: "获取该搜索引擎以便使用"
-      get_current_cse: "克隆该搜索引擎以便自定义"
+      link_current_cse: "连接该自定义搜索引擎"
+      cancel_link_current_cse: "取消连接该自定义搜索引擎"
+      get_current_cse: "克隆该自定义搜索引擎"
       mode_filter: "搜索结果将包含以下网络资源"
       mode_exclude: "搜索结果将剔除以下网络资源"
       mode_boost: "搜索结果将自动优化显示以下网络资源"
+      cse: "自定义搜索引擎"
+      are_u_sure: "你确定继续执行该操作吗?"
+      display_more: "显示更多..."
     errors:
-      general: "操作失败:("
+      general: "有错误发生了..."
       register: "注册出错啦:("
       update: "修改资料出错:("
       signin: "邮箱或者密码错误!"
@@ -249,8 +254,12 @@ zh-CN:
       must_sign_in: "你还没有登录"
       no_privilege: "你无权操作!"
       delete_user: "删除用户失败!"
+      already_link: "你已经连接了该自定义搜索引擎"
+      not_link: "你还没有连接该自定义搜索引擎"
     success:
-      general: "操作成功:)"
+      general: "操作成功"
+      create: "%{item} 创建成功"
+      update: "%{item} 修改成功"
       delete_user: "删除用户成功"
     controls:
       link:
@@ -272,8 +281,8 @@ zh-CN:
   mongoid:
     attributes:
       custom_search_engine:
-        specification:  "普通定义"
-        annotations: "特殊注释"
+        specification:  "搜索通用说明"
+        annotations: "网络资源定义"
       user:
         username: "用户名"
         email: "邮箱"

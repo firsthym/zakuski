@@ -42,17 +42,40 @@
 								<% end %>
 							</div>
 							<div class="row-fluid cse-grid">
-								<div class="span6 offset3"><%= link_to I18n.t('human.text.link_current_cse'), cse_link_path(@custom_search_engine), confirm: 'are you sure?', remote: true, class: 'btn btn-block' %></div>
+								<% if @custom_search_engine.consumers.include?(current_user) %>
+									<div class="span6 offset3"><%= link_to  I18n.t('human.text.cancel_link_current_cse'), cse_cancel_path(@custom_search_engine), confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: 'cse-link-btn' %></div>
+								<% else %>
+									<div class="span6 offset3"><%= link_to I18n.t('human.text.link_current_cse'), cse_link_path(@custom_search_engine), confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: 'cse-link-btn' %></div>
+								<% end %>
+								
 							</div>
 							<% unless @custom_search_engine.author == current_user %>
 							<div class="row-fluid cse-grid">
 								<div class="span6 offset3"><a href="javascript:void(0)" class="btn btn-block"><%= I18n.t('human.text.get_current_cse') %></a></div>
 							</div>
 							<% end %>
+							<div id="cse-consumers">
+							<% if @custom_search_engine.consumers.any? %>
+								<div class="cse-divider" id="cse-consumers-divider" ></div>
+								<% @custom_search_engine.consumers[0...10].each do |consumer| %>
+								<%= render partial: 'consumer', locals: {consumer: consumer} %>
+								<% end %>
+								<% if @custom_search_engine.consumers.count > 10 %>
+									<div class="row-fluid">
+										<div class="span9"></div>
+										<div class="span2"><%= link_to I18n.t('human.text.display_more'), cse_consumers_path(@custom_search_engine), remote: true, id: 'more_consumers' %></div>
+										<div class="span1"></div>
+									</div>
+								<% end %>
+							<% end %>
+							</div>
 						</div>
 					</div>
 				</div>
 				</div>				
+			</div>
+			<div class="row-fluid">
+				<%= render partial: 'shared/modal_box' %>
 			</div>
 		</div>
 	</div>

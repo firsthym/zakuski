@@ -117,8 +117,11 @@ footer {
   margin-top: $vspan-large;
 }
 
+.cse-box-padding{
+  padding: 19px;
+}
 .cse-box{
-  border: dashed;
+  border: 2px dashed;
   border-color: #999;
   padding: 10px;
 }
@@ -131,14 +134,14 @@ footer {
 }
 
 .cse-divider{
-  *width: 100%;
+  *width: 95%;
+  width: 95%;
   height: 1px;
   margin: 9px 1px 15px 1px;
-    *margin: -5px 0 5px;
-    overflow: hidden;
-    background-color: #c0c0c0;
-    border-bottom: 1px solid #ffffff;
-    float: none
+  *margin: -5px 0 5px;
+  overflow: hidden;
+  background-color: #c0c0c0;
+  float: none
 }
 
 span.divider{

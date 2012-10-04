@@ -14,11 +14,13 @@ Myapp::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy', :via => :delete
 
   match '/nodes', :to => 'nodes#index', :as => 'node_index'
-  match '/nodes/:id/cse/new', :to => 'custom_search_engines#new', :as => 'cse_new'
-  match '/nodes/:id', :to => 'nodes#show', :as => 'node_show'
+  match '/nodes/:node_id/cse/new', :to => 'custom_search_engines#new', :as => 'cse_new'
+  match '/nodes/:node_id', :to => 'nodes#show', :as => 'node_show'
 
   match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
+  match '/cse/:id/consumers(/:more)', :to => 'custom_search_engines#consumers', :as => 'cse_consumers'  
   match '/cse/link/:id', :to => 'custom_search_engines#link', :as => 'cse_link'
+  match '/cse/cancel/:id', :to => 'custom_search_engines#cancel', :as => 'cse_cancel'  
   match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
   match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
   match '/:id/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'

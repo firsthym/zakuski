@@ -1,6 +1,7 @@
+<% current_node = (@custom_search_engine.node ||= Node.find(params[:node_id])) %>
 <div class="row-fluid">
 	<ul class="breadcrumb">
     	<li><%= I18n.t('human.text.current_node_is') %><span class="divider">&gt;</span></li>
-    	<li><%= link_to @selected_node.title, node_show_path(@selected_node) %></li>
+    	<li><%= link_to current_node.title, node_show_path(current_node) %></li>
   	</ul>
 </div>

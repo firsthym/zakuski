@@ -1,6 +1,6 @@
 <%= form_for @user do |f| %>
     <% if @user.new_record? %>
-		<%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.register')} %>
+		<%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
     <% else %>
     <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.update')} %>
     <% end %>

@@ -1,13 +1,13 @@
 class NodesController < ApplicationController	
 	def index
-		@selected_node = RealNode.first
+		@selected_node = Node.first
 		@custom_search_engines = @selected_node.custom_search_engines
 		@topics = @selected_node.topics
 		render 'layout'
 	end
 
 	def show
-		@selected_node = RealNode.find(params[:id])
+		@selected_node = Node.find(params[:node_id])
 		@custom_search_engines = @selected_node.custom_search_engines
 		@topics = @selected_node.topics
 		render 'layout'
