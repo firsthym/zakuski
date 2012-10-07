@@ -1,8 +1,22 @@
 Myapp::Application.routes.draw do
   resources :users
-  resources :custom_search_engines
+  resources :custom_search_engines, as: :cses, path: :cses do
+    member do
+      get 'link', action: :link
+      get 'cancel', action: :cancel
+      get 'consumers', action: :consumers
+      get 'reply/:page', action: :show
+      get ':query', action: :query, as: 'query'
+    end
+  end
   resources :sessions, only: [:new, :destroy, :create]
-  resources :nodes, only: [:index]
+  resources :nodes, only: [:index, :show] do
+    member do
+      get 'page/:page', action: :show
+    end
+    resources :custom_search_engines, as: :cses, path: :cses, only: [:new]
+  end
+  resources :replies, only: [:index, :new, :create, :edit, :update]
 
   match '/about', :to => 'static_pages#about'
   match '/help', :to  => 'static_pages#help'
@@ -13,17 +27,18 @@ Myapp::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy', :via => :delete
 
-  match '/nodes', :to => 'nodes#index', :as => 'node_index'
-  match '/nodes/:node_id/cse/new', :to => 'custom_search_engines#new', :as => 'cse_new'
-  match '/nodes/:node_id', :to => 'nodes#show', :as => 'node_show'
+  #match '/nodes', :to => 'nodes#index', :as => 'node_index'
+  #match '/nodes/:node_id/cse/new', :to => 'custom_search_engines#new', :as => 'cse_new'
+  #match '/nodes/:node_id', :to => 'nodes#show', :as => 'node_show'
 
-  match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
-  match '/cse/:id/consumers(/:more)', :to => 'custom_search_engines#consumers', :as => 'cse_consumers'  
-  match '/cse/link/:id', :to => 'custom_search_engines#link', :as => 'cse_link'
-  match '/cse/cancel/:id', :to => 'custom_search_engines#cancel', :as => 'cse_cancel'  
-  match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
-  match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
-  match '/:id/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
+  #match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
+  #match '/cse/link/:id', :to => 'custom_search_engines#link', :as => 'cse_link'
+  #match '/cse/cancel/:id', :to => 'custom_search_engines#cancel', :as => 'cse_cancel'  
+  #match '/cse/:id/consumers(/:more)', :to => 'custom_search_engines#consumers', :as => 'cse_consumers'
+  #match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
+  #match '/cse/:id/reply/:page', :to => 'custom_search_engines#show', :as => 'cse_show'
+  #match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
+  #match '/q/:id/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

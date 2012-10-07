@@ -236,8 +236,8 @@ zh-CN:
       update_at: "更新于 %{time}"
       create_at: "创建于 %{time}"
       annotations_count: "收录链接数"
-      link_current_cse: "连接该自定义搜索引擎"
-      cancel_link_current_cse: "取消连接该自定义搜索引擎"
+      link_current_cse: "收藏该自定义搜索引擎"
+      cancel_link_current_cse: "取消收藏该自定义搜索引擎"
       get_current_cse: "克隆该自定义搜索引擎"
       mode_filter: "搜索结果将包含以下网络资源"
       mode_exclude: "搜索结果将剔除以下网络资源"
@@ -261,6 +261,7 @@ zh-CN:
       create: "%{item} 创建成功"
       update: "%{item} 修改成功"
       delete_user: "删除用户成功"
+      reply: "回复成功"
     controls:
       link:
         submit: "提交"
@@ -274,6 +275,7 @@ zh-CN:
         help: "帮助"
         new_cse: "创建自定义搜索"
         create_and_link: "创建并激活"
+        reply: "回复"
       select:
         filter: "包含"
         exclude: "剔除"

@@ -1,6 +1,7 @@
 class CustomSearchEngine
   include Mongoid::Document
   include Mongoid::Timestamps
+  paginates_per 5
 
   field :access, type: String, default: 'public'
   field :current_links, type: Integer, default: 1
@@ -27,7 +28,7 @@ class CustomSearchEngine
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
 
-  attr_accessible :access, :specification_attributes, :annotations_attributes, :node_id
+  attr_accessible :access, :specification_attributes, :annotations_attributes, :replies_attributes, :node_id
 
   # validations
   validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}

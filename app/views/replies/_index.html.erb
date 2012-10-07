@@ -1,0 +1,36 @@
+<% replies = object.replies.page(params[:page]) %>
+<div class="row-fluid <%= 'hide' unless object.replies.any? %>" id="replies-box">
+	<div class="well">
+		<div class="row-fluid">
+			<p class="pull-right"><span class="cse-muted" id="replis-count"><%= object.replies.count %></span><%= I18n.t('human.controls.link.reply') %></p>
+		</div>
+		<div class="row-fluid" id="replies">
+			<% replies.each do |reply| %>
+				<%= render partial: 'replies/show', locals: {reply: reply} %>
+			<% end %>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="pull-right">
+		<%= paginate replies %>
+		</div>
+	</div>
+</div>
+<% if signed_in? %>
+<div class="row-fluid" id="reply-alert">
+</div>
+<div class="row-fluid">
+<div class="well">
+	<%= form_for object.replies.new, remote: true do |f| %>
+	<%= f.hidden_field :custom_search_engine_id %>
+	<%= f.hidden_field :topic_id %>	
+	<div class="row-fluid">
+		<%= f.text_area :body, class: "span12", rows: 6, tabindex: 1 %>
+	</div>
+	<div class="row-fluid">
+		<%= f.submit I18n.t('human.controls.link.reply') , class: "btn btn-primary span2 pull-right" %>
+	</div>
+	<% end %>
+	</div>
+</div>
+<% end %>

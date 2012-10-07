@@ -2,7 +2,7 @@
 	$(document).ready(function(){
 		alert('<%= @message %>')
 		<% if @already_link %>
-		$('#cse-link-btn').html("<%= I18n.t('human.text.link_current_cse') %>").attr('href', "<%= cse_link_path(@custom_search_engine) %>");
+		$('#cse-link-btn').html("<%= I18n.t('human.text.link_current_cse') %>").attr('href', "<%= link_cse_path(@custom_search_engine) %>");
 		$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
 		<% end %>
 	});

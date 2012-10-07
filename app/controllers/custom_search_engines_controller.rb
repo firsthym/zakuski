@@ -56,7 +56,7 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       if @custom_search_engine.save
         flash[:success] = I18n.t('human.success.create', item: I18n.t('human.text.cse'))
-        format.html { redirect_to cse_show_path(@custom_search_engine)}
+        format.html { redirect_to cse_path(@custom_search_engine)}
         format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
       else
         format.html { render action: "new" }
@@ -71,7 +71,7 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       if @custom_search_engine.update_attributes(params[:custom_search_engine])
         flash[:success] = I18n.t('human.success.update', item: I18n.t('human.text.cse'))
-        format.html { redirect_to cse_show_path(@custom_search_engine) }
+        format.html { redirect_to cse_path(@custom_search_engine) }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -87,7 +87,7 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine.destroy
 
     respond_to do |format|
-      format.html { redirect_to custom_search_engines_url }
+      format.html { redirect_to cses_url }
       format.json { head :no_content }
     end
   end
