@@ -10,8 +10,8 @@ class User
   field :admin, type: Boolean, default: false
   field :remember_token, type: String
 
-  # link to use the CSEs
-  has_and_belongs_to_many :linking_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :consumers
+  # keep the CSEs
+  has_and_belongs_to_many :keeped_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :consumers
   
   # create or fork the CSEs
   has_many :custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :author, dependent: :destroy

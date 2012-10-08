@@ -10,9 +10,13 @@
     </a>
   <ul class="dropdown-menu">
   <!-- dropdown menu links -->
-  <li class="dropdown-link"><a href="javascript:void(0)">搜视频</a></li>
-  <li class="dropdown-link"><a href="javascript:void(0)">找工作</a></li>
-  <li class="dropdown-link"><a href="javascript:void(0)">找租房</a></li>
+  <% @custom_search_engines.each do |cse| %>
+  <li class="dropdown-link"><%= link_to cse.specification.title, link_cse_path(cse) ,remote: true %></li>
+  <% end %>
+  <% unless @custom_search_engines.any? %>
+  <li class="dropdown-link"><a href="javascript:void(0)">Hot1!</a></li>
+  <li class="dropdown-link"><a href="javascript:void(0)">Hot2!</a></li>
+  <% end %>
   </ul>
   </div>
 </div>

@@ -81,7 +81,7 @@
 	(function() {
 	    //var cx = '016210554812953211518:2rcjzygztzs'; // Insert your own Custom Search engine ID here
 	    //var cref = 'http://www.guha.com/cref_cse.xml';
-	    var cref = '<%= cse_show_url @custom_search_engine, format:'xml' %>'
+	    var cref = '<%= cse_url @custom_search_engine, format:'xml' %>'
 	    var gcse = document.createElement('script'); 
 	    gcse.type = 'text/javascript';
 	    gcse.async = true;

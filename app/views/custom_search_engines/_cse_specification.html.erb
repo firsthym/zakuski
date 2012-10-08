@@ -4,7 +4,7 @@
       <strong>*<%= I18n.t('human.text.title') %></strong><span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
     <% end %>
       <div class="controls">
-        <%= specfication_field.text_field :title, class: "span8", placeholder: I18n.t('human.text.chars_limit', minimum:2, maximum: 10) %>
+        <%= specfication_field.text_field :title, class: "span8", placeholder: I18n.t('human.text.chars_limit', minimum:5, maximum: 50) %>
       </div>
   </div>
 
@@ -13,7 +13,7 @@
         <strong>*<%= I18n.t('human.text.description') %></strong><span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
       <% end %>
         <div class="controls">
-          <%= specfication_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 4, maximum: 255) %>
+          <%= specfication_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 0, maximum: 1024) %>
         </div>
   </div>
   <% end %>

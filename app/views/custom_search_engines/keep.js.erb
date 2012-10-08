@@ -1,8 +1,8 @@
 (function(){
 	$(document).ready(function(){
 		alert('<%= @message %>')
-		<% unless @already_link %>
-		$('#cse-link-btn').html("<%= I18n.t('human.text.cancel_link_current_cse') %>").attr('href', "<%= cancel_cse_path(@custom_search_engine) %>");
+		<% unless @already_keeped %>
+		$('#cse-keep-btn').html("<%= I18n.t('human.text.cancel_keep_current_cse') %>").attr('href', "<%= cancel_cse_path(@custom_search_engine) %>");
 		var consumer_html = '<%= render partial: "consumer", locals: {consumer: current_user} %>';
 		if($('#cse-consumers-divider').length == 0){
 			$('#cse-consumers').append('<div class="cse-divider" id="cse-consumers-divider"></div>');

@@ -8,8 +8,8 @@ class Specification
 	attr_accessible :title, :description
 
 	# validations
-	validates :title, presence: true, length: {maximum: 10, minimum: 2}
-	validates :description, presence: true, length: {minimum: 4, maximum: 256}
+	validates :title, presence: true, length: {maximum: 50, minimum: 5}
+	validates :description, length: {minimum: 0, maximum: 1024}
 
 	embedded_in :custom_search_engine
 end

@@ -2,6 +2,6 @@
 <div class="row-fluid">
 	<ul class="breadcrumb">
     	<li><%= I18n.t('human.text.current_node_is') %><span class="divider">&gt;</span></li>
-    	<li><%= link_to current_node.title, node_show_path(current_node) %></li>
+    	<li><%= link_to current_node.title, node_path(current_node) %></li>
   	</ul>
 </div>

@@ -1,8 +1,8 @@
 (function(){
 	$(document).ready(function(){
 		alert('<%= @message %>')
-		<% if @already_link %>
-		$('#cse-link-btn').html("<%= I18n.t('human.text.link_current_cse') %>").attr('href', "<%= link_cse_path(@custom_search_engine) %>");
+		<% if @already_keeped %>
+		$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
 		$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
 		<% end %>
 	});

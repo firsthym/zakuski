@@ -3,10 +3,10 @@ Myapp::Application.routes.draw do
   resources :custom_search_engines, as: :cses, path: :cses do
     member do
       get 'link', action: :link
+      get 'keep', action: :keep
       get 'cancel', action: :cancel
       get 'consumers', action: :consumers
       get 'reply/:page', action: :show
-      get ':query', action: :query, as: 'query'
     end
   end
   resources :sessions, only: [:new, :destroy, :create]
@@ -38,7 +38,7 @@ Myapp::Application.routes.draw do
   #match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
   #match '/cse/:id/reply/:page', :to => 'custom_search_engines#show', :as => 'cse_show'
   #match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
-  #match '/q/:id/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
+  match '/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

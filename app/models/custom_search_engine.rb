@@ -1,11 +1,11 @@
 class CustomSearchEngine
   include Mongoid::Document
   include Mongoid::Timestamps
-  paginates_per 5
+  paginates_per 20
 
   field :access, type: String, default: 'public'
-  field :current_links, type: Integer, default: 1
-  field :history_links, type: Integer, default: 1
+  field :keeps, type: Integer, default: 1
+  field :links, type: Integer, default: 1
   
   # custom search engine specification
   embeds_one :specification
@@ -18,7 +18,7 @@ class CustomSearchEngine
   has_many :replies
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
-  has_and_belongs_to_many :consumers, class_name: 'User', inverse_of: :linking_custom_search_engines
+  has_and_belongs_to_many :consumers, class_name: 'User', inverse_of: :keeped_custom_search_engines
   belongs_to :node
 
   # Index

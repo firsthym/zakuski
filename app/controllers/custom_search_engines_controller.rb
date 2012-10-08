@@ -5,7 +5,7 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
-    @custom_search_engines = current_user.custom_search_engines
+    @custom_search_engines = current_user.keeped_custom_search_engines
 
     respond_to do |format|
       format.html # index.html.erb
@@ -106,22 +106,32 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /cse/link/:id
-  def link
+  # GET /cse/:id/keep
+  def keep
     @custom_search_engine = CustomSearchEngine.find(params[:id])
     
     respond_to do |format|
       if @custom_search_engine.consumers.include?(current_user)
-        @already_link = true
+        @already_keeped = true
         @message = I18n.t('human.errors.already_link')
         format.js
       else
-        @already_link = false
-        current_user.linking_custom_search_engines.push(@custom_search_engine)
+        @already_keeped = false
+        current_user.keeped_custom_search_engines.push(@custom_search_engine)
         @custom_search_engine.consumers.push(current_user)
+        @custom_search_engine.keeps += 1
         @message = I18n.t('human.success.general')
         format.js
       end
+    end
+  end
+
+  # GET /cses/:id/link
+  def link
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
+
+    respond_to do |format|
+
     end
   end
 
@@ -131,13 +141,14 @@ class CustomSearchEnginesController < ApplicationController
 
     respond_to do |format|
       if @custom_search_engine.consumers.include?(current_user)
-        @already_link = true
+        @already_keeped = true
         @custom_search_engine.consumers.delete(current_user)
-        current_user.linking_custom_search_engines.delete(@custom_search_engine)
+        current_user.keeped_custom_search_engines.delete(@custom_search_engine)
+        @custom_search_engine.keeps -= 1
         @message = I18n.t('human.success.general')
         format.js
       else
-        already_link = false
+        already_keeped = false
         @message = I18n.t('human.errors.not_link');
         format.js
       end

@@ -1,7 +1,7 @@
 class Reply
 	include Mongoid::Document
   	include Mongoid::Timestamps
-  	paginates_per 7
+  	paginates_per 20
 
   	field :body, type: String
   	field :index, type: Integer
@@ -27,5 +27,8 @@ class Reply
   	index({topic_id: 1}, {name: 'topic_id'})
   	index({custom_search_engine_id: 1}, {name: 'custom_search_engine_id'})
   	index({user_id: 1}, {name: 'user_id'})
+
+  	# Scope
+  	scope :recent, asc(:created_at)
 
 end
