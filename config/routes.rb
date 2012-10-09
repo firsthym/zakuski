@@ -4,7 +4,7 @@ Myapp::Application.routes.draw do
     member do
       get 'link', action: :link
       get 'keep', action: :keep
-      get 'cancel', action: :cancel
+      get 'remove', action: :remove
       get 'consumers', action: :consumers
       get 'reply/:page', action: :show
     end

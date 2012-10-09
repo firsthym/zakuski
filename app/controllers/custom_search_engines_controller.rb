@@ -100,25 +100,26 @@ class CustomSearchEnginesController < ApplicationController
   # GET /:id/q/:query
   def query
     @query = params[:query]
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
+    @cse_id = cookies[:linking_cse]
+    @custom_search_engine = CustomSearchEngine.find(@cse_id)
+    @custom_search_engines = current_user.keeped_custom_search_engines
     respond_to do |format|
       format.html
     end
   end
 
-  # GET /cse/:id/keep
+  # GET /cses/:id/keep
   def keep
     @custom_search_engine = CustomSearchEngine.find(params[:id])
     
     respond_to do |format|
       if @custom_search_engine.consumers.include?(current_user)
         @already_keeped = true
-        @message = I18n.t('human.errors.already_link')
+        @message = I18n.t('human.errors.already_keep')
         format.js
       else
         @already_keeped = false
         current_user.keeped_custom_search_engines.push(@custom_search_engine)
-        @custom_search_engine.consumers.push(current_user)
         @custom_search_engine.keeps += 1
         @message = I18n.t('human.success.general')
         format.js
@@ -126,34 +127,33 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /cses/:id/link
-  def link
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
-
-    respond_to do |format|
-
-    end
-  end
-
-  # GET /cse/cancel/:id
-  def cancel
+  # GET /cses/remove/:id
+  def remove
     @custom_search_engine = CustomSearchEngine.find(params[:id])
 
     respond_to do |format|
       if @custom_search_engine.consumers.include?(current_user)
         @already_keeped = true
-        @custom_search_engine.consumers.delete(current_user)
         current_user.keeped_custom_search_engines.delete(@custom_search_engine)
         @custom_search_engine.keeps -= 1
         @message = I18n.t('human.success.general')
         format.js
       else
         already_keeped = false
-        @message = I18n.t('human.errors.not_link');
+        @message = I18n.t('human.errors.not_keep');
         format.js
       end
     end
 
+  end
+
+ # GET /cses/:id/link
+  def link
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
+
+    respond_to do |format|
+
+    end
   end
 
   def consumers

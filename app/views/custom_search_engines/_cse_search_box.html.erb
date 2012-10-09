@@ -11,7 +11,9 @@
   <ul class="dropdown-menu">
   <!-- dropdown menu links -->
   <% @custom_search_engines.each do |cse| %>
-  <li class="dropdown-link"><%= link_to cse.specification.title, link_cse_path(cse) ,remote: true %></li>
+  <li class="dropdown-link"><%= link_to cse.specification.title, 'javascript:void(0)', class: 'link-cse' %>
+    <%= hidden_field_tag :cseid, cse.id %>
+  </li>
   <% end %>
   <% unless @custom_search_engines.any? %>
   <li class="dropdown-link"><a href="javascript:void(0)">Hot1!</a></li>

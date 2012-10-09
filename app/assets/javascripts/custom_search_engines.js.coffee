@@ -55,4 +55,11 @@ $(document).ready ->
 	# cse-create-submit begin
 
 	# cse-create-submit end
+
+	$('.link-cse').click ->
+		cseid = $(this).siblings(':hidden').val()
+		$.cookie('linking_cse', cseid)
+		return
+	
+	# document ready end
 	return

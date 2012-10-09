@@ -4,6 +4,9 @@
 		<% if @already_keeped %>
 		$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
 		$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
+		if($('.cse-consumer').length == 0){
+			$('#cse-consumers').find('#cse-consumers-divider').remove();
+		}
 		<% end %>
 	});
 }).call(this);
