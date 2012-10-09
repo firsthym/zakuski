@@ -100,7 +100,7 @@ class CustomSearchEnginesController < ApplicationController
   # GET /:id/q/:query
   def query
     @query = params[:query]
-    @cse_id = cookies[:linking_cse]
+    @cse_id = cookies[:linked_cseid]
     @custom_search_engine = CustomSearchEngine.find(@cse_id)
     @custom_search_engines = current_user.keeped_custom_search_engines
     respond_to do |format|
@@ -127,7 +127,7 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /cses/remove/:id
+  # GET /cses/:id/remove
   def remove
     @custom_search_engine = CustomSearchEngine.find(params[:id])
 
@@ -136,6 +136,9 @@ class CustomSearchEnginesController < ApplicationController
         @already_keeped = true
         current_user.keeped_custom_search_engines.delete(@custom_search_engine)
         @custom_search_engine.keeps -= 1
+        if(cookies[:linked_cseid] == params[:id])
+          cookies.delete(:linked_cseid)
+        end
         @message = I18n.t('human.success.general')
         format.js
       else

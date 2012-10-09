@@ -1,18 +1,16 @@
 <% provide :title, @query %>
 
-<div class="container-fluid">
-<div class="row-fluid">
+<div class="container">
+<div class="row">
 	<div class="span2"><p>You Search I Search</p></div>
 	<div class="span10">
-		<!-- cse search box start -->
-		<div class="cse-search-box-wrapper">
+		<div class="row-fluid">
 		<%= render 'custom_search_engines/cse_search_box' %>
 		</div>
-		<!-- cse search box end -->
 	</div>
 </div>
 
-<div class="row-fluid">
+<div class="row">
 	<div class="span2" id="cse-recommend-side" style="display: none">
 		<!-- cse search recommend start -->
 		<%= render 'custom_search_engines/cse_recommend_side' %>
@@ -92,7 +90,7 @@
 	  
 	  //bind search button
 	  //var cse_id = window.location.pathname.split('/')[1];
-	  var search_url = 'http://' + window.location.host + '/' + <%= @cse_id %> + '/'
+	  //var search_url = 'http://' + window.location.host + '/' + <%= @cse_id %> + '/'
 	  $("#cse-go").click(function(){
 	    $("#cse-result").html('');
 	    var q = $("#cse-query").val();
