@@ -1,6 +1,8 @@
-<div class="container-fluid cse-container">
+<div class="cse-container">
+  <div class="row">
+  <div class="span8 offset2">
   <!-- cse logo begin-->
-  <div class="row-fluid cse-logo"><div class="span8 offset2"><h1>You Search I Search</h1></div></div>
+  <div class="row-fluid cse-logo center"><h1>You Search I Search</h1></div>
   <!-- cse logo end-->
   
   <!-- cse search box start -->
@@ -10,6 +12,8 @@
   <!-- cse recommendation start-->
   <%= render 'custom_search_engines/cse_recommend' %>
   <!-- cse recommendation end -->
+  </div>
+  </div>
 </div>
 
 <% content_for :body_bottom_script do %>

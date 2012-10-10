@@ -1,11 +1,8 @@
-<!-- cse search box start -->
-<div class="cse-search-box-wrapper">
-<div class="cse-search-box">
-  <div class="span7 offset2 cse-search-input">
-  <input class="span7" type="text" id="cse-query" placeholder="c++">
+<div class="row-fluid">
+<div class="span10 cse-search-input">
+  <input type="text" class="span12" id="cse-query" placeholder="c++">
 </div>
-<div class="span2">
-  <div class="btn-group">
+<div class="btn-group span2">
     <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
     <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
     <span class="caret"></span>
@@ -22,11 +19,8 @@
   <li class="dropdown-link"><a href="javascript:void(0)">Hot2!</a></li>
   <% end %>
   </ul>
-  </div>
 </div>
 </div>
-</div>
-<!-- cse search box end -->
 <% content_for :body_bottom_script do %>
 <script type="text/javascript">
   (function(){

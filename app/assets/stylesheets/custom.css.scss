@@ -129,6 +129,9 @@ footer {
   @include box_sizing;
 }
 
+.align-center{
+  margin: 0 auto;
+}
 .cse-container{
   margin-top: $vspan-large;
 }
