@@ -1,28 +1,26 @@
 <% provide :title, @query %>
+<div class="container cse-container">
+  <div class="row">
+    <div class="span9">
+        <!-- cse search box start -->
+        <%= render 'custom_search_engines/cse_search_box' %>
+        <!-- cse search box end -->
 
-<div class="container">
-<div class="row">
-	<div class="span2"><p>You Search I Search</p></div>
-	<div class="span10">
-		<div class="row-fluid">
-		<%= render 'custom_search_engines/cse_search_box' %>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="span2" id="cse-recommend-side" style="display: none">
-		<!-- cse search recommend start -->
-		<%= render 'custom_search_engines/cse_recommend_side' %>
-		<!-- cse search recommend end -->		
-	</div>
-	<div class="span7">
-		<!-- cse search result start -->
+        <!-- cse search result start -->
 		<div class="row-fluid"><div id="cse-result"></div></div>
 		<!-- cse search result end -->
-	</div>
-	<div class="span3" id="cse-ads" style="display: none">Ads</div>
-</div>
+    </div>
+    <div class="span3">
+    	<div class="row-fluid">
+	 	  <!-- cse recommendation start-->
+	      <%= render 'custom_search_engines/cse_recommend' %>
+	      <!-- cse recommendation end -->
+    	</div>
+    	<div class="row-fluid">
+    		<div class="span3" id="cse-ads">Ads</div>
+    	</div>
+    </div>
+  </div>
 </div>
 
 <% content_for :head_script do %>

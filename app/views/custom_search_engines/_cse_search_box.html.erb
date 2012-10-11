@@ -1,25 +1,10 @@
 <div class="row-fluid">
-<div class="cse-search-box-wrapper clearfix">
+<div class="clearfix">
 <div class="span10 cse-search-input">
   <input type="text" class="span12" id="cse-query" placeholder="c++">
 </div>
 <div class="btn-group span2">
     <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
-    <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
-    <span class="caret"></span>
-    </a>
-  <ul class="dropdown-menu">
-  <!-- dropdown menu links -->
-  <% @custom_search_engines.each do |cse| %>
-  <li class="dropdown-link"><%= link_to cse.specification.title, 'javascript:void(0)', class: 'link-cse' %>
-    <%= hidden_field_tag :cseid, cse.id %>
-  </li>
-  <% end %>
-  <% unless @custom_search_engines.any? %>
-  <li class="dropdown-link"><a href="javascript:void(0)">Hot1!</a></li>
-  <li class="dropdown-link"><a href="javascript:void(0)">Hot2!</a></li>
-  <% end %>
-  </ul>
 </div>
 </div>
 </div>

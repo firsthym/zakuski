@@ -1,98 +1,19 @@
-<div class="row-fluid cse-container-medium">
+<div class="row-fluid">
    <div class="well">
     <div class="row-fluid">
-      <ul class="nav nav-list span4 cse-nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-             <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-      </ul>
-      <ul class="nav nav-list span4 cse-nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-             <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-      </ul>
-      <ul class="nav nav-list span4 cse-nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-             <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
-              <li class="cse-link"><a href="#">Link</a>
-                <div class="controls-row pull-right">
-                  <a href="#"><i class="icon-plus icon-white"></i></a>
-                  <a href="#"><i class="icon-heart icon-white"></i></a>
-                  <a href="#"><i class="icon-random icon-white"></i></a>
-                </div>
-              </li>
+      <ul class="nav nav-list cse-nav-list">
+          <li class="nav-header cse-small"><%= I18n.t('human.text.cse') %></li>
+          <% @custom_search_engines.each do |cse| %>
+            <li class="cse-link">
+              <%= link_to cse.specification.title, cse_path(cse) %>
+               <div class="controls-row pull-right">
+                <a href="#"><i class="icon-plus icon-white"></i></a>
+                <a href="#"><i class="icon-heart icon-white"></i></a>
+                <a href="javascript:void(0)" class="link-cse"><i class="icon-random icon-white"></i></a>
+                <%= hidden_field_tag :cseid, cse.id %>
+              </div>
+            </li>
+          <% end %>
       </ul>
     </div>
     </div>

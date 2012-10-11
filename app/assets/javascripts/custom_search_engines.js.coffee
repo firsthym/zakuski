@@ -59,6 +59,7 @@ $(document).ready ->
 	$('.link-cse').click ->
 		cseid = $(this).siblings(':hidden').val()
 		$.cookie('linked_cseid', cseid)
+		$('#linked-cse-desc').html('Linking CSE: ' + cseid)
 		return
 	
 	# document ready end

@@ -1,18 +1,16 @@
 <div class="container cse-container">
   <div class="row">
-  <div class="span8 offset2">
-  <!-- cse logo begin-->
-  <div class="row-fluid cse-logo center"><h1>You Search I Search</h1></div>
-  <!-- cse logo end-->
-  
-  <!-- cse search box start -->
-  <%= render 'custom_search_engines/cse_search_box' %>
-  <!-- cse search box end -->
-
-  <!-- cse recommendation start-->
-  <%= render 'custom_search_engines/cse_recommend' %>
-  <!-- cse recommendation end -->
-  </div>
+    <div class="span9">
+        <!-- cse search box start -->
+        <%= render 'custom_search_engines/cse_search_box' %>
+        <!-- cse search box end -->
+        <div class="row-fluid" id="linked-cse-desc"></div>
+    </div>
+    <div class="span3">
+      <!-- cse recommendation start-->
+      <%= render 'custom_search_engines/cse_recommend' %>
+      <!-- cse recommendation end --> 
+    </div>
   </div>
 </div>
 
