@@ -132,8 +132,16 @@ footer {
 .align-center{
   margin: 0 auto;
 }
-.cse-container{
+.cse-container-large, .cse-container{
   margin-top: $vspan-large;
+}
+
+.cse-container-small{
+  margin-top: $vspan-small;
+}
+
+.cse-container-medium{
+  margin-top: $vspan-medium;
 }
 
 .cse-box-padding{

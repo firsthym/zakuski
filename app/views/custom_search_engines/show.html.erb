@@ -44,6 +44,7 @@
 									<% end %>
 								<% end %>
 							</div>
+							<% if signed_in? %>
 							<div class="row-fluid cse-grid">
 								<% if @custom_search_engine.consumers.include?(current_user) %>
 									<div class="span6 offset3"><%= link_to  I18n.t('human.text.remove_current_cse'), remove_cse_path(@custom_search_engine), confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: 'cse-keep-btn' %></div>
@@ -56,6 +57,7 @@
 							<div class="row-fluid cse-grid">
 								<div class="span6 offset3"><a href="javascript:void(0)" class="btn btn-block"><%= I18n.t('human.text.clone_current_cse') %></a></div>
 							</div>
+							<% end %>
 							<% end %>
 							<div id="cse-consumers">
 							<% if @custom_search_engine.consumers.any? %>
