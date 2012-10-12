@@ -10,12 +10,8 @@
 					<% unless cse.access == 'private' %>
 						<div class="cse-divider"></div>
 						<h5>
-						<% if cse.access == 'public' %>
-							<a class="btn btn-success btn-mini-new" title="<%= I18n.t('human.text.public_what') %>"><%= I18n.t('human.text.public') %></a>
-						<% elsif cse.access == 'protected'%>
-							<a class="btn btn-warning btn-mini-new" title="<%= I18n.t('human.text.protected_what') %>"><%= I18n.t('human.text.protected') %></a>
-						<% end %>
-						<a class="btn btn-info btn-mini-new" title="<%= I18n.t('human.text.annotations_count') %>"><%= cse.annotations.count %></a>
+						<%= get_access_html(cse) %>
+						<%= get_link_count_html(cse) %>
 						<%= link_to cse.specification.title, cse_path(cse) %>
 						</h5>
 						<div class="cse-grid">

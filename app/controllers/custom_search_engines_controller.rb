@@ -5,7 +5,17 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
-    @custom_search_engines = current_user.keeped_custom_search_engines
+    if current_user.keeped_custom_search_engines.blank?
+      @custom_search_engines = CustomSearchEngine.get_hot_cses
+    else
+      @custom_search_engines = current_user.keeped_custom_search_engines
+    end
+
+    if(cookies[:linked_cse].nil?)
+      @linked_cse = CustomSearchEngine.first
+    else
+      @linked_cse = CustomSearchEngine.find(cookies[:linked_cse])
+    end
 
     respond_to do |format|
       format.html # index.html.erb

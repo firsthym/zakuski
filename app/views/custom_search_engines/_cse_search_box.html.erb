@@ -1,5 +1,4 @@
 <div class="row-fluid">
-<div class="clearfix">
 <div class="span10 cse-search-input">
   <input type="text" class="span12" id="cse-query" placeholder="c++">
 </div>
@@ -7,7 +6,12 @@
     <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
 </div>
 </div>
+<div class="row-fluid" id="linked-cse-desc">
+<% if @linked_cse.present? %>
+<p class="muted"><%= I18n.t('human.text.linked_cse') %><%= link_to @linked_cse.specification.title, cse_path(@linked_cse) %><span class="divider">•</span><%= get_access_html(@linked_cse) %>
+  <%= get_link_count_html(@linked_cse) %></p>
 </div>
+<% end %>
 <% content_for :body_bottom_script do %>
 <script type="text/javascript">
   (function(){

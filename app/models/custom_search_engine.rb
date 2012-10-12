@@ -37,4 +37,7 @@ class CustomSearchEngine
 
   # before_save {|cse| cse.node.instance_of? RealNode}
   
+  def self.get_hot_cses
+    self.all
+  end
 end
