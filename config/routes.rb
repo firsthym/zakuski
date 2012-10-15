@@ -1,4 +1,6 @@
 Myapp::Application.routes.draw do
+  devise_for :users
+
   resources :users
   resources :custom_search_engines, as: :cses, path: :cses do
     member do

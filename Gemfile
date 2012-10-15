@@ -17,6 +17,8 @@ gem 'mongoid', '3.0.1'
 gem 'bootstrap-sass', '~>2.1.0.0'
 gem 'bcrypt-ruby', '3.0.1'
 
+# User Authentication & Authorization
+gem 'devise'
 # paginate
 gem 'kaminari'
 
