@@ -1,7 +1,5 @@
 Myapp::Application.routes.draw do
-  devise_for :users
-
-  resources :users
+  resources :users, only: [:index, :show, :edit, :update]
   resources :custom_search_engines, as: :cses, path: :cses do
     member do
       get 'link', action: :link
@@ -11,7 +9,6 @@ Myapp::Application.routes.draw do
       get 'reply/:page', action: :show
     end
   end
-  resources :sessions, only: [:new, :destroy, :create]
   resources :nodes, only: [:index, :show] do
     member do
       get 'page/:page', action: :show
@@ -24,22 +21,18 @@ Myapp::Application.routes.draw do
   match '/help', :to  => 'static_pages#help'
   match '/agreement', :to => 'static_pages#agreement'
 
-  match '/signup', :to => 'users#new'
+  devise_for :users, :skip => [:sessions, :registrations]  
+  devise_scope :user do
+    get "signin", :to => "devise/sessions#new", :as => :signin
+    post 'signin', :to => 'devise/sessions#create'
+    match 'signout', :to => 'devise/sessions#destroy', :as => :signout
+    
+    get 'signup', :to => 'devise/registrations#new', :as => :signup
+    post 'signup', :to => 'devise/registrations#create'
+  end
 
-  match '/signin', :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy', :via => :delete
+  #match '/signout', :to => 'sessions#destroy', :via => :delete
 
-  #match '/nodes', :to => 'nodes#index', :as => 'node_index'
-  #match '/nodes/:node_id/cse/new', :to => 'custom_search_engines#new', :as => 'cse_new'
-  #match '/nodes/:node_id', :to => 'nodes#show', :as => 'node_show'
-
-  #match '/cse', :to => 'custom_search_engines#index', :as => 'cse_index'
-  #match '/cse/link/:id', :to => 'custom_search_engines#link', :as => 'cse_link'
-  #match '/cse/cancel/:id', :to => 'custom_search_engines#cancel', :as => 'cse_cancel'  
-  #match '/cse/:id/consumers(/:more)', :to => 'custom_search_engines#consumers', :as => 'cse_consumers'
-  #match '/cse/:id/edit', :to => 'custom_search_engines#edit', :as => 'cse_edit' 
-  #match '/cse/:id/reply/:page', :to => 'custom_search_engines#show', :as => 'cse_show'
-  #match '/cse/:id(.:format)', :to => 'custom_search_engines#show', :as => 'cse_show'
   match '/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
 
   # The priority is based upon order of creation:
@@ -91,7 +84,7 @@ Myapp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'custom_search_engines#index'
+  root :to => 'nodes#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,7 +1,9 @@
 class CustomSearchEnginesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :link, :cancel]
+  before_filter :available_cses
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: [:destroy]
+  #before_filter :admin_user, only: [:destroy]
+  
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
@@ -9,12 +11,6 @@ class CustomSearchEnginesController < ApplicationController
       @custom_search_engines = CustomSearchEngine.get_hot_cses
     else
       @custom_search_engines = current_user.keeped_custom_search_engines
-    end
-
-    if(cookies[:linked_cse].nil?)
-      @linked_cse = CustomSearchEngine.first
-    else
-      @linked_cse = CustomSearchEngine.find(cookies[:linked_cse])
     end
 
     respond_to do |format|
@@ -102,16 +98,9 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /
-  def home
-  end
-
-
-  # GET /:id/q/:query
+  # GET /q/:query
   def query
     @query = params[:query]
-    @cse_id = cookies[:linked_cseid]
-    @custom_search_engine = CustomSearchEngine.find(@cse_id)
     @custom_search_engines = current_user.keeped_custom_search_engines
     respond_to do |format|
       format.html
@@ -187,16 +176,29 @@ class CustomSearchEnginesController < ApplicationController
   private
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
-      unless current_user?(@custom_search_engine.author)
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to root_path
-      end
+      correct_user!(@custom_search_engine.author)
     end
 
-    def admin_user
-      unless current_user.admin?
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to root_path
+    def available_cses
+      # the linked custom search engine
+      if(cookies[:linked_cseid].nil?)
+        @linked_cse = CustomSearchEngine.get_hot_cses.first
+        cookies[:linked_cseid] = @linked_cse.id
+      else
+        @linked_cse = CustomSearchEngine.find(cookies[:linked_cseid])
+      end
+
+      # keeped custom search engines
+      if user_signed_in?
+        @keeped_custom_search_engines = current_user.keeped_custom_search_engines
+        cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map { |cse| cse.id }.join(',')
+      else
+        if(cookies[:keeped_cse_ids].nil?)
+          @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(10)
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map { |cse| cse.id }.join(',')
+        else
+          @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
+        end
       end
     end
 end

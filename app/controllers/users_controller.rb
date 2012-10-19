@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: [:destroy]
+  #before_filter :admin_user, only: [:destroy]
 
   # GET /users
   # GET /users.json
@@ -25,47 +25,8 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.json
-  def new
-    if signed_in?
-      redirect_to root_path
-      return
-    end
-
-    @user = User.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
-    end
-  end
-
   # GET /users/1/edit
   def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(params[:user])
-    
-    if !@user.agreement
-      flash.now[:notice] = I18n.t('human.text.must_agree_protocol')
-      render action: 'new'
-      return
-    end
-
-    respond_to do |format|
-      if @user.save
-        sign_in @user
-        flash[:success] = "Welcome to cse.so"
-        format.html { redirect_to @user}
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /users/1
@@ -102,16 +63,6 @@ class UsersController < ApplicationController
   private
     def correct_user
       @user = User.find(params[:id])
-      unless current_user?(@user)
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to user_path(current_user)
-      end
-    end
-
-    def admin_user
-      unless current_user.admin?
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to user_path(current_user)
-      end
+      correct_user!(@user)
     end
 end

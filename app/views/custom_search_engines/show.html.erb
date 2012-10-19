@@ -44,15 +44,12 @@
 									<% end %>
 								<% end %>
 							</div>
-							<% if signed_in? %>
 							<div class="row-fluid cse-grid">
-								<% if @custom_search_engine.consumers.include?(current_user) %>
-									<div class="span6 offset3"><%= link_to  I18n.t('human.text.remove_current_cse'), remove_cse_path(@custom_search_engine), confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: 'cse-keep-btn' %></div>
-								<% else %>
-									<div class="span6 offset3"><%= link_to I18n.t('human.text.keep_current_cse'), keep_cse_path(@custom_search_engine), confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: 'cse-keep-btn' %></div>
-								<% end %>
-								
+								<div class="span6 offset3">
+									<%= get_keep_or_remove_html(@custom_search_engine) %>
+								</div>
 							</div>
+							<% if user_signed_in? %>
 							<% unless @custom_search_engine.author == current_user %>
 							<div class="row-fluid cse-grid">
 								<div class="span6 offset3"><a href="javascript:void(0)" class="btn btn-block"><%= I18n.t('human.text.clone_current_cse') %></a></div>
