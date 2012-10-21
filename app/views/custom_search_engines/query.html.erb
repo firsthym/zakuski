@@ -5,20 +5,11 @@
         <!-- cse search box start -->
         <%= render 'custom_search_engines/cse_search_box' %>
         <!-- cse search box end -->
-
-        <!-- cse search result start -->
-		<div class="row-fluid"><div id="cse-result"></div></div>
-		<!-- cse search result end -->
     </div>
     <div class="span3">
-    	<div class="row-fluid">
-	 	  <!-- cse recommendation start-->
-	      <%= render 'custom_search_engines/cse_recommend' %>
-	      <!-- cse recommendation end -->
-    	</div>
-    	<div class="row-fluid">
-    		<div class="span3" id="cse-ads">Ads</div>
-    	</div>
+      <!-- cse recommendation start-->
+      <%= render 'custom_search_engines/cse_list' %>
+      <!-- cse recommendation end --> 
     </div>
   </div>
 </div>
@@ -77,7 +68,7 @@
 	(function() {
 	    //var cx = '016210554812953211518:2rcjzygztzs'; // Insert your own Custom Search engine ID here
 	    //var cref = 'http://www.guha.com/cref_cse.xml';
-	    var cref = '<%= cse_url @custom_search_engine, format:'xml' %>'
+	    var cref = '<%= cse_url @linked_cse, format:'xml' %>'
 	    var gcse = document.createElement('script'); 
 	    gcse.type = 'text/javascript';
 	    gcse.async = true;
@@ -87,13 +78,12 @@
 	    s.parentNode.insertBefore(gcse, s);
 	  
 	  //bind search button
-	  //var cse_id = window.location.pathname.split('/')[1];
-	  //var search_url = 'http://' + window.location.host + '/' + <%= @cse_id %> + '/'
 	  $("#cse-go").click(function(){
 	    $("#cse-result").html('');
 	    var q = $("#cse-query").val();
 	    if(q){
-	      window.location.href = search_url + q;
+			search_url = 'http://' + window.location.host + '/q/' + q;
+			window.location.href = search_url
 	    }
 	  });
 

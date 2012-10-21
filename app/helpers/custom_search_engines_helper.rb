@@ -2,15 +2,23 @@ module CustomSearchEnginesHelper
 	def get_access_html(custom_search_engine)
 		if custom_search_engine.access == 'public'
 			title = I18n.t('human.text.public_what')
-			link_to I18n.t('human.text.public'), 'javascript:void(0)', class: 'btn btn-success btn-mini-new', title: title
+			content = I18n.t('human.text.public')
+			style = 'badge-success'
 		elsif custom_search_engine.access == 'protected'			
 			title = I18n.t('human.text.protected_what')
-			link_to I18n.t('human.text.protected'), 'javascript:void(0)', class: 'btn btn-warning btn-mini-new', title: title
+			content = I18n.t('human.text.protected')
+			style = 'badge-important'
 		end
+		content_tag :span, "#{content}", class: "badge #{style}", title: title
 	end
 
 	def get_link_count_html(custom_search_engine)
 		title = I18n.t('human.text.annotations_count')
-		link_to custom_search_engine.annotations.count, 'javascript:void(0)', class: 'btn btn-info btn-mini-new', title: title
+		content = custom_search_engine.annotations.count
+		content_tag :span, "#{content}", class: "badge badge-info", title: title
+	end
+
+	def get_linked_cse_info(custom_search_engine)
+
 	end
 end

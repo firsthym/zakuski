@@ -245,7 +245,7 @@ zh-CN:
       cse: "自定义搜索引擎"
       are_u_sure: "你确定继续执行该操作吗?"
       display_more: "显示更多..."
-      linked_cse: "当前连接的搜索引擎："
+      linked_cse: "当前连接的搜索引擎"
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("

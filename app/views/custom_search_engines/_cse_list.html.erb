@@ -4,13 +4,16 @@
       <ul class="nav nav-list cse-nav-list">
           <li class="nav-header cse-small"><%= I18n.t('human.text.cse') %></li>
           <% @custom_search_engines.each do |cse| %>
-            <li class="cse-link">
+            <li class="cse-link <%= 'cse-selected' if cse == @linked_cse %>">
               <%= link_to cse.specification.title, cse_path(cse) %>
                <div class="controls-row pull-right">
                 <a href="#"><i class="icon-plus icon-white"></i></a>
                 <a href="#"><i class="icon-heart icon-white"></i></a>
                 <a href="javascript:void(0)" class="link-cse"><i class="icon-random icon-white"></i></a>
                 <%= hidden_field_tag :cseid, cse.id %>
+              </div>
+              <div class="hide">
+                <%= render partial: 'linked_cse_info', locals: {cse: cse} %>
               </div>
             </li>
           <% end %>

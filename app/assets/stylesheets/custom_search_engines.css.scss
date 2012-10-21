@@ -33,6 +33,16 @@
 			}
 		}
 	}
+	li.cse-selected{
+		div.controls-row{
+			display: inline;
+		}
+		cursor: pointer;
+		background-color: $pink;
+		a{
+			color: #fff;
+		}
+	}
 }
 
 .cse-control-radio{

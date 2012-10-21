@@ -1,22 +1,12 @@
 class CustomSearchEnginesController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :link, :cancel]
+  before_filter :signed_in_user, only: [:new, :create, :edit, :update, :destroy, :link, :cancel]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: [:destroy]
+
+  before_filter :generate_cses, only: [:index, :query]
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
-    if current_user.keeped_custom_search_engines.blank?
-      @custom_search_engines = CustomSearchEngine.get_hot_cses
-    else
-      @custom_search_engines = current_user.keeped_custom_search_engines
-    end
-
-    if(cookies[:linked_cse].nil?)
-      @linked_cse = CustomSearchEngine.first
-    else
-      @linked_cse = CustomSearchEngine.find(cookies[:linked_cse])
-    end
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @custom_search_engines }
@@ -107,12 +97,10 @@ class CustomSearchEnginesController < ApplicationController
   end
 
 
-  # GET /:id/q/:query
+  # GET /q/:query
   def query
     @query = params[:query]
-    @cse_id = cookies[:linked_cseid]
-    @custom_search_engine = CustomSearchEngine.find(@cse_id)
-    @custom_search_engines = current_user.keeped_custom_search_engines
+
     respond_to do |format|
       format.html
     end
@@ -197,6 +185,20 @@ class CustomSearchEnginesController < ApplicationController
       unless current_user.admin?
         flash[:error] = I18n.t('human.errors.no_privilege')
         redirect_to root_path
+      end
+    end
+
+    def generate_cses
+      if current_user.keeped_custom_search_engines.blank?
+        @custom_search_engines = CustomSearchEngine.get_hot_cses
+      else
+        @custom_search_engines = current_user.keeped_custom_search_engines
+      end
+
+      if(cookies[:linked_cse].nil?)
+        @linked_cse = CustomSearchEngine.get_default_cse
+      else
+        @linked_cse = CustomSearchEngine.find(cookies[:linked_cse])
       end
     end
 end

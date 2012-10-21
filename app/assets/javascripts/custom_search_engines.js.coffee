@@ -59,7 +59,10 @@ $(document).ready ->
 	$('.link-cse').click ->
 		cseid = $(this).siblings(':hidden').val()
 		$.cookie('linked_cseid', cseid)
-		$('#linked-cse-desc').html('Linking CSE: ' + cseid)
+		linked_cse_info = $(this).closest('div').siblings('.hide').html()
+		$('#linked-cse-desc').html(linked_cse_info)
+		$(this).closest('ul').find('.cse-selected').removeClass('cse-selected')
+		$(this).closest('li.cse-link').addClass('cse-selected')
 		return
 	
 	# document ready end

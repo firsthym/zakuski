@@ -40,4 +40,8 @@ class CustomSearchEngine
   def self.get_hot_cses
     self.all
   end
+
+  def self.get_default_cse
+    self.first
+  end
 end
