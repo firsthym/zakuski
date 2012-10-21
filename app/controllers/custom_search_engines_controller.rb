@@ -1,9 +1,9 @@
 class CustomSearchEnginesController < ApplicationController
-  before_filter :signed_in_user, only: [:new, :create, :edit, :update, :destroy, :link, :cancel]
+  before_filter :available_cses
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: [:destroy]
-
-  before_filter :generate_cses, only: [:index, :query]
+  #before_filter :admin_user, only: [:destroy]
+  
   # GET /custom_search_engines
   # GET /custom_search_engines.json
   def index
@@ -92,15 +92,9 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /
-  def home
-  end
-
-
   # GET /q/:query
   def query
     @query = params[:query]
-
     respond_to do |format|
       format.html
     end
@@ -111,14 +105,17 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.find(params[:id])
     
     respond_to do |format|
-      if @custom_search_engine.consumers.include?(current_user)
+      if @keeped_custom_search_engines.include?(@custom_search_engine)
         @already_keeped = true
         @message = I18n.t('human.errors.already_keep')
         format.js
       else
         @already_keeped = false
-        current_user.keeped_custom_search_engines.push(@custom_search_engine)
-        @custom_search_engine.keeps += 1
+        if user_signed_in?
+          current_user.keeped_custom_search_engines.push(@custom_search_engine)
+        else
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.push(@custom_search_engine).join(',')
+        end
         @message = I18n.t('human.success.general')
         format.js
       end
@@ -130,10 +127,13 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.find(params[:id])
 
     respond_to do |format|
-      if @custom_search_engine.consumers.include?(current_user)
+      if @keeped_custom_search_engines.include?(@custom_search_engine)
         @already_keeped = true
-        current_user.keeped_custom_search_engines.delete(@custom_search_engine)
-        @custom_search_engine.keeps -= 1
+        if user_signed_in?
+          current_user.keeped_custom_search_engines.delete(@custom_search_engine)
+        else
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.delete(@custom_search_engine).join(',')
+        end
         if(cookies[:linked_cseid] == params[:id])
           cookies.delete(:linked_cseid)
         end
@@ -175,30 +175,29 @@ class CustomSearchEnginesController < ApplicationController
   private
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
-      unless current_user?(@custom_search_engine.author)
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to root_path
-      end
+      correct_user!(@custom_search_engine.author)
     end
 
-    def admin_user
-      unless current_user.admin?
-        flash[:error] = I18n.t('human.errors.no_privilege')
-        redirect_to root_path
-      end
-    end
-
-    def generate_cses
-      if current_user.keeped_custom_search_engines.blank?
-        @custom_search_engines = CustomSearchEngine.get_hot_cses
+    def available_cses
+      # the linked custom search engine
+      if(cookies[:linked_cseid].nil?)
+        @linked_cse = CustomSearchEngine.get_hot_cses.first
+        cookies[:linked_cseid] = @linked_cse.id
       else
-        @custom_search_engines = current_user.keeped_custom_search_engines
+        @linked_cse = CustomSearchEngine.find(cookies[:linked_cseid])
       end
 
-      if(cookies[:linked_cse].nil?)
-        @linked_cse = CustomSearchEngine.get_default_cse
+      # keeped custom search engines
+      if user_signed_in?
+        @keeped_custom_search_engines = current_user.keeped_custom_search_engines
       else
-        @linked_cse = CustomSearchEngine.find(cookies[:linked_cse])
+        if(cookies[:keeped_cse_ids].nil?)
+          @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(10)
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map { |cse| cse.id }.join(',')
+        else
+          @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
+        end
       end
     end
+
 end

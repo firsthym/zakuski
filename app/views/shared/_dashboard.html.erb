@@ -3,7 +3,7 @@
     <div class="row-fluid">
       <ul class="nav nav-list cse-nav-list">
           <li class="nav-header cse-small"><%= I18n.t('human.text.cse') %></li>
-          <% @custom_search_engines.each do |cse| %>
+          <% @keeped_custom_search_engines.each do |cse| %>
             <li class="cse-link <%= 'cse-selected' if cse == @linked_cse %>">
               <%= link_to cse.specification.title, cse_path(cse) %>
                <div class="controls-row pull-right">

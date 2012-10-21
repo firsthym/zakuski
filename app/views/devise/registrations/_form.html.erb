@@ -1,5 +1,6 @@
-<%= form_for @user do |f| %>
-    <% if @user.new_record? %>
+<%= form_for(resource, :as => resource_name, :url => signup_path) do |f| %>
+<div class="row-fluid">
+    <% if resource.new_record? %>
 		<%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
     <% else %>
     <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.update')} %>
@@ -7,34 +8,34 @@
 		<div class="control-group">
 		<%= f.label :username, class: 'control-label' %>
 		<div class="controls">
-			<%= f.text_field :username, class: 'span6' %>
+			<%= f.text_field :username, class: 'span12' %>
 		</div>
 		</div>
 
 		<div class="control-group">
 		<%= f.label :email, class: 'control-label' %>
 		<div class="controls">
-      		<%= f.text_field :email, class: 'span6' %>
+      		<%= f.text_field :email, class: 'span12' %>
       	</div>
       	</div>
 
       	<div class="control-group">
       	<%= f.label :password, class: 'control-label' %>
       	<div class="controls">
-      	<%= f.password_field :password, class: 'span6' %>
+      	<%= f.password_field :password, class: 'span12' %>
       	</div>
       	</div>
 
       	<div class="control-group">
       	<%= f.label :password_confirmation, class: 'control-label' %>
       	<div class="controls">
-     	<%= f.password_field :password_confirmation, class: 'span6' %>
+     	<%= f.password_field :password_confirmation, class: 'span12' %>
      	</div>
      	</div>
 
      	<div class="control-group">
      	<div class="controls">
-        <% if @user.new_record? %>
+        <% if resource.new_record? %>
      		<%= f.label :agreement do %>
      			<%= f.check_box :agreement, checked: "checked" %> <%= I18n.t('human.text.agree') %><%= link_to I18n.t('human.text.protocol'), agreement_path %>
      		<% end %>
@@ -44,4 +45,5 @@
         <% end %>
      	</div>
      	</div>
-	<% end %>
+</div>
+<% end %>

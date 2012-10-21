@@ -1,6 +1,5 @@
-<%= form_for :session, url: sessions_path do |f|%>
+<%= form_for(resource, :as => resource_name, :url => signin_path) do |f| %>
 <div class="row-fluid">
-<div class="span6 offset1">
 <div class="control-group">
 	<%= f.label :email, I18n.t('mongoid.attributes.user.email') %>
 	<div class="controls">
@@ -16,10 +15,11 @@
 <div class="control-group">
 <div class="control">
 	<%= f.submit I18n.t('human.controls.link.signin'), class: 'btn btn-primary btn-large' %>
-	<%= f.label :remember_me, class: 'cse-label-horizontal' do %>
-		<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>
+	<% if devise_mapping.rememberable? %>
+		<%= f.label :remember_me, class: 'cse-label-horizontal' do %>
+			<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>
+		<% end %>
 	<% end %>
-</div>
 </div>
 </div>
 </div>
