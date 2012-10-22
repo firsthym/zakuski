@@ -13,7 +13,7 @@
                 <%= hidden_field_tag :cseid, cse.id %>
               </div>
               <div class="hide">
-                <%= render partial: 'linked_cse_info', locals: {cse: cse} %>
+                <%= render partial: 'custom_search_engines/linked_cse_info', locals: {cse: cse} %>
               </div>
             </li>
           <% end %>

@@ -177,27 +177,4 @@ class CustomSearchEnginesController < ApplicationController
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       correct_user!(@custom_search_engine.author)
     end
-
-    def available_cses
-      # the linked custom search engine
-      if(cookies[:linked_cseid].nil?)
-        @linked_cse = CustomSearchEngine.get_hot_cses.first
-        cookies[:linked_cseid] = @linked_cse.id
-      else
-        @linked_cse = CustomSearchEngine.find(cookies[:linked_cseid])
-      end
-
-      # keeped custom search engines
-      if user_signed_in?
-        @keeped_custom_search_engines = current_user.keeped_custom_search_engines
-      else
-        if(cookies[:keeped_cse_ids].nil?)
-          @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(10)
-          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map { |cse| cse.id }.join(',')
-        else
-          @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
-        end
-      end
-    end
-
 end

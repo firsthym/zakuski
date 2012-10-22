@@ -1,6 +1,6 @@
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span7 offset2">
+<div class="container">
+	<div class="row">
+		<div class="span7 offset1">
 			<!-- breadcrumb -->
 			<div class="row-fluid">
 				<%= render 'nodes/breadcrumb' %>
@@ -81,6 +81,9 @@
 			</div>
 			<!-- Replies and reply box -->
 			<%= render partial: 'replies/index', locals: {object: @custom_search_engine} %>
+		</div>
+		<div class="span3">
+			<%= render 'shared/dashboard' %>
 		</div>
 	</div>
 </div>
