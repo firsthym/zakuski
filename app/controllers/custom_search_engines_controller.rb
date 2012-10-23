@@ -114,7 +114,7 @@ class CustomSearchEnginesController < ApplicationController
         if user_signed_in?
           current_user.keeped_custom_search_engines.push(@custom_search_engine)
         else
-          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.push(@custom_search_engine).join(',')
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.push(@custom_search_engine).map{ |cse| cse.id }.join(',')
         end
         @message = I18n.t('human.success.general')
         format.js
@@ -132,10 +132,14 @@ class CustomSearchEnginesController < ApplicationController
         if user_signed_in?
           current_user.keeped_custom_search_engines.delete(@custom_search_engine)
         else
-          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.delete(@custom_search_engine).join(',')
+           @keeped_custom_search_engines.delete(@custom_search_engine)
+          cookies[:keeped_cse_ids] =@keeped_custom_search_engines.map{ |cse| cse.id }.join(',')
         end
         if(cookies[:linked_cseid] == params[:id])
           cookies.delete(:linked_cseid)
+        end
+        if @keeped_custom_search_engines.count == 0
+          cookies.delete(:keeped_cse_ids)
         end
         @message = I18n.t('human.success.general')
         format.js

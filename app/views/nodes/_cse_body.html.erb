@@ -4,9 +4,10 @@
 			<%= link_to I18n.t('human.controls.link.new_cse'), new_node_cse_path(@selected_node), class: 'btn' %>
 		</div>
 		<div class="row-fluid cse-grid">
-			<% if @custom_search_engines.any? %>
-				<% custom_search_engines = @custom_search_engines.page(params[:page]) %>
+			<% if @custom_search_engines.present? %>
+				<% custom_search_engines = CustomSearchEngine.page(params[:page]) %>
 				<% custom_search_engines.each do |cse| %>
+				<% unless cse.nil? %>
 					<% unless cse.access == 'private' %>
 						<div class="cse-divider"></div>
 						<h5>
@@ -19,6 +20,7 @@
 							</div>
 						</div>
 					<% end %>
+				<% end %>
 				<% end %>
 				<div class="row-fluid">
 					<div class="pull-right">

@@ -3,10 +3,16 @@
 		alert('<%= @message %>')
 		<% if @already_keeped %>
 		$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
-		$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
-		if($('.cse-consumer').length == 0){
-			$('#cse-consumers').find('#cse-consumers-divider').remove();
-		}
+			<% if user_signed_in? %>
+			$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
+			if($('.cse-consumer').length == 0){
+				$('#cse-consumers').find('#cse-consumers-divider').remove();
+			}
+			<% end %>
+			$('li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
+			if($('li.cse-link').length == 0){
+				$('ul#dashboard-cse').append('<li><%= I18n.t('human.text.no_cses') %></li>');
+			}
 		<% end %>
 	});
 }).call(this);

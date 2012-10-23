@@ -10,24 +10,34 @@ class ApplicationController < ActionController::Base
 	def available_cses
       # the linked custom search engine
       if(cookies[:linked_cseid].nil?)
-        @linked_cse = CustomSearchEngine.get_hot_cses.first
-        cookies[:linked_cseid] = @linked_cse.id
+        @linked_cse = CustomSearchEngine.get_default_cse
       else
         @linked_cse = CustomSearchEngine.find(cookies[:linked_cseid])
+      end
+      if @linked_cse.nil?
+        cookies.delete(:linked_cseid)
+      else
+        cookies[:linked_cseid] = @linked_cse.id
       end
 
       # keeped custom search engines
       if user_signed_in?
         @keeped_custom_search_engines = current_user.keeped_custom_search_engines
+        cookies.delete(:keeped_cse_ids)
       else
-        if(cookies[:keeped_cse_ids].nil?)
+        if(cookies[:keeped_cse_ids].blank?)
           @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(10)
-          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map { |cse| cse.id }.join(',')
         else
           @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
         end
+        @keeped_custom_search_engines.compact!
+        if @keeped_custom_search_engines.blank?
+          cookies.delete(:keeped_cse_ids)
+        else
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map{ |cse| cse.id }.join(',') 
+        end
       end
-    end
+  end
     
 	private 
 		def extract_locale_from_accept_language_header

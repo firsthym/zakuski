@@ -1,21 +1,17 @@
 <div class="row-fluid">
    <div class="well">
     <div class="row-fluid">
-      <ul class="nav nav-list cse-nav-list">
-          <li class="nav-header cse-small"><%= I18n.t('human.text.cse') %></li>
-          <% @keeped_custom_search_engines.each do |cse| %>
-            <li class="cse-link <%= 'cse-selected' if cse == @linked_cse %>">
-              <%= link_to cse.specification.title, cse_path(cse) %>
-               <div class="controls-row pull-right">
-                <a href="#"><i class="icon-plus icon-white"></i></a>
-                <a href="#"><i class="icon-heart icon-white"></i></a>
-                <a href="javascript:void(0)" class="link-cse"><i class="icon-random icon-white"></i></a>
-                <%= hidden_field_tag :cseid, cse.id %>
-              </div>
-              <div class="hide">
-                <%= render partial: 'custom_search_engines/linked_cse_info', locals: {cse: cse} %>
-              </div>
-            </li>
+      <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
+          <li class="nav-header cse-small"><a href="<%= cses_path %>"><%= I18n.t('human.text.cse') %> <i class="icon-search"></i></a>
+</li>
+          <% if @keeped_custom_search_engines.present? %>
+            <% @keeped_custom_search_engines.each do |cse| %>
+            <% unless cse.nil? %>
+            <%= render partial: 'shared/keeped_cse', locals: {cse: cse} %>
+            <% end %>
+            <% end %>
+          <% else %>
+            <li><%= I18n.t('human.text.no_cses') %></li>
           <% end %>
       </ul>
     </div>
