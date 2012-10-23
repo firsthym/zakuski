@@ -26,11 +26,14 @@ class ApplicationController < ActionController::Base
         cookies.delete(:keeped_cse_ids)
       else
         if(cookies[:keeped_cse_ids].blank?)
-          @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(10)
+          @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(5)
         else
           @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
+          @keeped_custom_search_engines.compact!
+          if @keeped_custom_search_engines.blank?
+            @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(5)
+          end
         end
-        @keeped_custom_search_engines.compact!
         if @keeped_custom_search_engines.blank?
           cookies.delete(:keeped_cse_ids)
         else

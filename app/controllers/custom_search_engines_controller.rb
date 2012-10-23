@@ -9,7 +9,6 @@ class CustomSearchEnginesController < ApplicationController
   def index
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @custom_search_engines }
     end
   end
 
@@ -89,6 +88,13 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cses_url }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /home
+  def home
+    respond_to do |format|
+      format.html # index.html.erb
     end
   end
 

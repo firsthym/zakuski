@@ -6,8 +6,11 @@
     <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
 </div>
 </div>
-<div class="row-fluid" id="linked-cse-desc">
-<% if @linked_cse.present? %>
-<%= render partial: 'shared/cse_info', locals: {cse: @linked_cse} %>
+<div class="row-fluid">
+	<span class="muted"><%= I18n.t('human.text.linked_cse') %></span>
+	<span id="linked-cse-desc">
+	<% if @linked_cse.present? %>
+	<%= render partial: 'shared/cse_info', locals: {cse: @linked_cse} %>
+	</span>
 </div>
 <% end %>

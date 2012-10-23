@@ -34,6 +34,7 @@ Myapp::Application.routes.draw do
   #match '/signout', :to => 'sessions#destroy', :via => :delete
 
   match '/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
+  match '/home', :to => 'custom_search_engines#home', :as => 'cse_home'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

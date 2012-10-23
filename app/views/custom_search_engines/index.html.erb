@@ -1,30 +1,22 @@
 <div class="container cse-container">
   <div class="row">
     <div class="span9">
-        <!-- cse search box start -->
-        <%= render 'custom_search_engines/cse_search_box' %>
-        <!-- cse search box end -->
+      <div class="well">
+      <% if @keeped_custom_search_engines.present? %>
+        <% @keeped_custom_search_engines.each do |cse| %>
+          <p><%= render partial: 'shared/cse_info', locals: {cse: cse} %></p>
+        <% end %>
+      <% else %>
+        <div class="page-header">
+          <h1><%= I18n.t('human.text.no_cses_header') %></h1>
+        </div>
+      <% end %>
+      </div>
     </div>
     <div class="span3">
-      <!-- cse recommendation start-->
+      <!-- cse dashboard start-->
       <%= render 'shared/dashboard' %>
-      <!-- cse recommendation end --> 
+      <!-- cse dashboard end --> 
     </div>
   </div>
 </div>
-
-<% content_for :body_bottom_script do %>
-<script type="text/javascript">
-  (function() {
-    //bind search button
-    $("#cse-go").click(function(){
-      $("#cse-result").html('');
-      var q = $("#cse-query").val();
-      if(q){
-        window.location = '/q/' + q;
-      }
-    });
-
-  })();
-</script>
-<% end %>

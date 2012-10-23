@@ -2,7 +2,7 @@
    <div class="well">
     <div class="row-fluid">
       <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
-          <li class="nav-header cse-small"><a href="<%= cses_path %>"><%= I18n.t('human.text.cse') %> <i class="icon-search"></i></a>
+          <li class="nav-header cse-small"><a href="<%= cse_home_path %>"><%= I18n.t('human.text.cse') %> <i class="icon-search"></i></a>
 </li>
           <% if @keeped_custom_search_engines.present? %>
             <% @keeped_custom_search_engines.each do |cse| %>
@@ -14,6 +14,7 @@
             <li><%= I18n.t('human.text.no_cses') %></li>
           <% end %>
       </ul>
+      <div class="cse-container-medium pull-right"><%= link_to t('human.text.display_more'), cses_path %></div>
     </div>
     </div>
 </div>
