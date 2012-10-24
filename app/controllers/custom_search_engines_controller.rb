@@ -119,10 +119,15 @@ class CustomSearchEnginesController < ApplicationController
         @already_keeped = false
         if user_signed_in?
           current_user.keeped_custom_search_engines.push(@custom_search_engine)
+          @message = I18n.t('human.success.general')
         else
-          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.push(@custom_search_engine).map{ |cse| cse.id }.join(',')
+          if @keeped_custom_search_engines.count >= 10
+            @message = I18n.t('human.errors.limit_cses')
+            @keeped_custom_search_engines.pop(@keeped_custom_search_engines - 10)
+          else
+            cookies[:keeped_cse_ids] = @keeped_custom_search_engines.push(@custom_search_engine).map{ |cse| cse.id }.join(',')
+          end
         end
-        @message = I18n.t('human.success.general')
         format.js
       end
     end

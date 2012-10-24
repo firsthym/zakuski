@@ -12,10 +12,10 @@
  <%= render 'layouts/header' %>
 <div class="cse-wrapper">
 <% flash.each do |key, value| %>
-<div class="alert alert-<%= key %>">
-	<a href="#" class="close" data-dismiss="alert">×</a>
-	<%= value %>
-</div>
+	<div class="alert alert-<%= key %>">
+		<a href="#" class="close" data-dismiss="alert">×</a>
+		<%= value %>
+	</div>
 <% end %>
 <%= yield %>
 </div>

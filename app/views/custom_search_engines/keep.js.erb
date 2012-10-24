@@ -11,7 +11,7 @@
 		$('#cse-consumers-divider').after(consumer_html);
 		<% end %>
 		var cse_html = '<%= escape_javascript(render partial: 'shared/keeped_cse', locals: {cse: @custom_search_engine}) %>'
-		$('ul#dashboard-cse').find('li:not(.cse-link) + li:not(.nav-header)').remove();
+		$('ul#dashboard-cse').find('li:not([class])').remove();
 		$('ul#dashboard-cse').append(cse_html);
 		<% end %>
 	});
