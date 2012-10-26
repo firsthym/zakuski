@@ -37,10 +37,12 @@ group :assets do
 end
 
 group :development, :test do
-	gem 'rspec-rails', '2.10.0'
-  	gem 'factory_girl_rails'
-  	gem 'database_cleaner'
-  	gem "capybara", :require => false
+	gem 'rspec-rails', '~>2.10.0'
+	gem 'factory_girl_rails'
+	gem 'database_cleaner'
+	gem "capybara"
+  gem "spork-rails"
+  gem 'faker', '1.0.1'
 end
 
 

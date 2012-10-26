@@ -8,7 +8,12 @@ class ApplicationController < ActionController::Base
   		I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
   	end
 
-  	def available_cses
+		def extract_locale_from_accept_language_header
+			client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first
+			client_locale if I18n.available_locales.include?(client_locale)
+		end
+
+    def available_cses
         # the linked custom search engine
         if(cookies[:linked_cseid].nil?)
           @linked_cse = CustomSearchEngine.get_default_cse
@@ -48,12 +53,7 @@ class ApplicationController < ActionController::Base
           end
         end
     end
-
-		def extract_locale_from_accept_language_header
-			client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first
-			client_locale if I18n.available_locales.include?(client_locale)
-		end
-
+    
     def after_sign_in_path_for(resource_or_scope)
       root_path
     end

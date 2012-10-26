@@ -14,7 +14,9 @@
             <li><%= I18n.t('human.text.no_cses') %></li>
           <% end %>
       </ul>
+      <% if @keeped_custom_search_engines.present? %>
       <div class="cse-container-medium pull-right"><%= link_to t('human.text.display_more'), cses_path %></div>
+      <% end %>
     </div>
     </div>
 </div>

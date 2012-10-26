@@ -62,6 +62,7 @@ class User
 
   # Massive assignment for User.new
   attr_accessible :email, :username, :agreement, :password, :password_confirmation
+  attr_accessor :agreement, :password_confirmation
   validates :password_confirmation, presence: true
   validates :agreement, presence: true
  
