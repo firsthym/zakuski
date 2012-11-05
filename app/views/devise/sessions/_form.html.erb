@@ -14,7 +14,7 @@
 </div>
 <div class="control-group">
 <div class="control">
-	<%= f.submit I18n.t('human.controls.link.signin'), class: 'btn btn-primary btn-large' %>
+	<%= f.submit I18n.t('human.controls.link.signin'), class: 'btn btn-primary btn-large', id:'signin' %>
 	<% if devise_mapping.rememberable? %>
 		<%= f.label :remember_me, class: 'cse-label-horizontal' do %>
 			<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>

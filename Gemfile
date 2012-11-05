@@ -43,6 +43,7 @@ group :development, :test do
 	gem "capybara"
   gem "spork-rails"
   gem 'faker', '1.0.1'
+  gem 'launchy'
 end
 
 

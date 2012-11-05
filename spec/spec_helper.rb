@@ -1,3 +1,9 @@
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV["RAILS_ENV"] ||= 'development'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+
 require 'rubygems'
 require 'spork'
 #uncomment the following line to use spork with the debugger
@@ -44,16 +50,13 @@ end
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
 
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'development'
-require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
-require 'rspec/autorun'
-
 # Add this to load Capybara integration:
 require 'capybara/rspec'
 require 'capybara/rails'
+Capybara.register_driver :rack_test do |app|
+  Capybara::RackTest::Driver.new(app, 
+        :headers => {'HTTP_ACCEPT_LANGUAGE' => 'zh-CN'})
+end
 
 require 'database_cleaner'
 DatabaseCleaner.strategy = :truncation, {except: %w[nodes]}

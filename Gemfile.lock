@@ -82,6 +82,8 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     mail (2.4.4)
@@ -193,6 +195,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   jquery-rails
   kaminari
+  launchy
   mongoid (= 3.0.1)
   rails (= 3.2.5)
   rails-i18n

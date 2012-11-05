@@ -1,34 +1,42 @@
 require 'spec_helper'
-
 describe "CustomSearchEngines" do
-let(:request_env) { {'HTTP_ACCEPT_LANGUAGE' => 'zh-CN'} }
-
-  describe "GET /cses" do
-  	before { get cses_path, {}, request_env }
-
-    it "should works" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      response.status.should be(200)
+    subject {page}
+    describe "GET /cses" do
+    	before { visit cses_path }
+      it 'should have dashboard' do
+       should have_selector('li.nav-header.cse-small')
+   	  end
     end
-    it 'should have dashboard' do
-     response.body.should have_selector('li.nav-header.cse-small')
- 	end
-  end
 
-  describe 'GET /nodes' do
-  	before { get nodes_path, {}, request_env }
+    describe 'GET /nodes' do
+      before {visit nodes_path}
+    	it 'is 2-columns layout' do
+    		should have_selector 'div.span7'
+    		should have_selector 'div.span3'
+    	end
+    end
 
-  	it 'should works' do 
-  		response.status.should be(200)
-  	end
-  	it 'is 2-columns layout' do
-  		response.body.should have_selector 'div.span7'
-  		response.body.should have_selector 'div.span3'
-  	end
-  end
-
-  describe 'Create a new cse' do
-  	before { get new_cse_path, {}, request_env }
-  	
-  end
+    describe 'Create a new cse' do
+      before do
+        visit root_path
+        find('#new_cse').click
+      end
+      describe 'without login' do
+        it 'redirect to the root page with a alert flash' do 
+          should have_selector '.alert.alert-alert'
+        end
+      end
+      describe 'signin' do
+        let(:user) {FactoryGirl.create(:user)}
+        before do 
+          visit signin_path
+          fill_in 'user_email', with: user.email
+          fill_in 'user_password', with: user.password
+          click_button 'signin'
+        end
+        it 'should redirect to new_cse_path' do
+          should have_content I18n.t('human.text.description_what')
+        end
+      end
+    end
 end

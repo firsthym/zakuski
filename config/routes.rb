@@ -24,11 +24,11 @@ Myapp::Application.routes.draw do
   devise_for :users, :skip => [:sessions, :registrations]  
   devise_scope :user do
     get "signin", :to => "devise/sessions#new", :as => :signin
-    post 'signin', :to => 'devise/sessions#create'
+    post 'signin', :to => 'devise/sessions#create', :as => :signin
     match 'signout', :to => 'devise/sessions#destroy', :as => :signout
     
     get 'signup', :to => 'devise/registrations#new', :as => :signup
-    post 'signup', :to => 'devise/registrations#create'
+    post 'signup', :to => 'devise/registrations#create', :as => :signup
   end
 
   #match '/signout', :to => 'sessions#destroy', :via => :delete
