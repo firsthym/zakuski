@@ -248,6 +248,7 @@ zh-CN:
       are_u_sure: "你确定继续执行该操作吗?"
       display_more: "显示更多..."
       linked_cse: "当前连接的搜索引擎"
+      topic: "讨论"
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("
@@ -280,6 +281,9 @@ zh-CN:
         new_cse: "创建自定义搜索"
         create_and_link: "创建并激活"
         reply: "回复"
+        clear: "清空"
+        delete: "删除"
+        start_search: "开始搜索!"
       select:
         filter: "包含"
         exclude: "剔除"
@@ -296,6 +300,8 @@ zh-CN:
         password_confirmation: "确认密码"
         password_digest: "密码"
         agreement: "协议"
+      reply:
+        body: '回复'
   views:
     pagination:
       first: "&laquo; 第一页"
@@ -311,7 +317,7 @@ zh-CN:
       locked: 'Your account is locked.'
       invalid: 'Invalid email or password.'
       invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
+      timeout: '登录超时，请重新登录'
       inactive: 'Your account was not activated yet.'
     sessions:
       signed_in: '登录成功'
@@ -348,3 +354,9 @@ zh-CN:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
+  notification:
+    name: '通知'
+    new_reply: '%{user} 回复了你的主题 %{topic}'
+    keep: '%{user} 收藏了你的自定义搜索引擎 %{cse}'
+    is_empty: '没有通知消息'
+    mark_all_read: '全部标记为已读'

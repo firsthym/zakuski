@@ -53,6 +53,7 @@ class User
 
   has_many :topics, dependent: :destroy
   has_many :replies, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   belongs_to :vote
 

@@ -91,10 +91,10 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /home
-  def home
+  # GET /search
+  def search
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
     end
   end
 
@@ -119,6 +119,17 @@ class CustomSearchEnginesController < ApplicationController
         @already_keeped = false
         if user_signed_in?
           current_user.keeped_custom_search_engines.push(@custom_search_engine)
+          unless current_user == @custom_search_engine.author
+            notification = Notification.new
+            notification.user = @custom_search_engine.author
+            notification.source = 'cse'
+            notification.title = I18n.t('notification.keep', 
+              {user: view_context.link_to(current_user.username, 
+                user_path(current_user)),
+                cse:view_context.link_to(@custom_search_engine.specification.title,
+                  cse_path(@custom_search_engine))})
+            notification.save
+          end
           @message = I18n.t('human.success.general')
         else
           if @keeped_custom_search_engines.count >= 10

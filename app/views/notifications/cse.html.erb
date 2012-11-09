@@ -1,0 +1,31 @@
+<div class="container cse-container">
+  <div class="row">
+    <div class="span9">
+      <div class="row-fluid">
+        <ul class="nav nav-pills pull-right">
+          <li>
+            <%= link_to t('human.text.topic'), notifications_path %>
+          </li>
+          <li class="active">
+            <%= link_to t('human.text.cse'), cse_notifications_path %>
+          </li>
+        </ul>
+      </div>
+      <div class="well"> 
+        <div class="row-fluid">
+          <% if @notifications.present? %>
+          <%= link_to I18n.t('human.controls.link.clear'), clear_notifications_path(source: 'cse'), class: 'btn btn-danger' %>
+          <% else %>
+            <p><%= t('notification.is_empty') %></p>
+          <% end %>
+        </div>
+        <%= render partial: 'body' %>
+      </div>
+    </div>
+    <div class="span3">
+      <!-- cse dashboard start-->
+      <%= render 'shared/dashboard' %>
+      <!-- cse dashboard end --> 
+    </div>
+  </div>
+</div>

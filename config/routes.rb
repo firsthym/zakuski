@@ -1,4 +1,14 @@
 Myapp::Application.routes.draw do
+  constraints(source: /topic|cse/) do
+    resources :notifications do
+      collection do
+        get 'clear/:source', action: :clear
+        get 'markread/:source', action: :mark_read, as: :mark_read
+        get ':source(/:page)', action: :index, as: :source,
+                      defaults: {source: 'topic'}
+      end
+    end
+  end
   resources :users, only: [:index, :show, :edit, :update]
   resources :custom_search_engines, as: :cses, path: :cses do
     member do
@@ -34,7 +44,7 @@ Myapp::Application.routes.draw do
   #match '/signout', :to => 'sessions#destroy', :via => :delete
 
   match '/q/:query', :to => 'custom_search_engines#query', :as => 'cse_query'
-  match '/home', :to => 'custom_search_engines#home', :as => 'cse_home'
+  match '/search', :to => 'custom_search_engines#search', :as => 'cse_search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -85,7 +95,7 @@ Myapp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'nodes#index'
+  root :to => 'custom_search_engines#search'
 
   # See how all your routes lay out with "rake routes"
 

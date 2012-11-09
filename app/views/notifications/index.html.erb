@@ -1,0 +1,42 @@
+<div class="container cse-container">
+  <div class="row">
+    <div class="span9">
+      <div class="row-fluid">
+        <ul class="nav nav-pills pull-right">
+          <li <%= "class='active'" if @source == 'topic' %>>
+            <%= link_to t('human.text.topic') + count_html(@topic_count), 
+                        source_notifications_path %>
+          </li>
+          <li <%= "class='active'" if @source == 'cse' %>>
+            <%= link_to t('human.text.cse') + count_html(@cse_count), source_notifications_path(source: 'cse') %>
+          </li>
+        </ul>
+      </div>
+      <div class="well"> 
+        <div class="row-fluid" id="cse-topbar">
+          <% if @notifications.present? %>
+            <%= link_to I18n.t('notification.mark_all_read'), 
+            mark_read_notifications_path(source: @source),
+            class: 'btn btn-danger' %>
+            <%= link_to I18n.t('human.controls.link.clear'), 
+            clear_notifications_path(source: @source),
+            class: 'btn btn-danger pull-right' %>
+            <%= render partial: 'body', locals: {object: @notifications} %>
+          <% else %>
+            <p><%= t('notification.is_empty') %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="pull-right">
+        <%= paginate @notifications %>
+        </div>
+      </div>
+    </div>
+    <div class="span3">
+      <!-- cse dashboard start-->
+      <%= render 'shared/dashboard' %>
+      <!-- cse dashboard end --> 
+    </div>
+  </div>
+</div>

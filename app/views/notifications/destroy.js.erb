@@ -1,0 +1,9 @@
+(function(){
+	$(document).ready(function(){
+		$('div#<%= @notification.id %>').remove();
+		if($('.cse-notification').length == 0){
+			$('#cse-topbar').html('<p><%= I18n.t('notification.is_empty') %></p>');
+		}
+
+	});
+}).call(this);

@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery
+  include ApplicationHelper
 
 	before_filter :set_locale
+  before_filter :unread_notifications_count
 
 	private
     def set_locale
@@ -30,10 +32,6 @@ class ApplicationController < ActionController::Base
         if user_signed_in?
           @keeped_custom_search_engines = current_user.keeped_custom_search_engines
           if(cookies[:keeped_cse_ids].present?)
-            keeped_cse_ids = @keeped_custom_search_engines.map{|cse| cse.id}
-            cses_from_cookie = CustomSearchEngine.in(id: cookies[:keeped_cse_ids].split(',').delete_if{|cseid| keeped_cse_ids.include?(cseid)}).compact
-            @keeped_custom_search_engines.push(cses_from_cookie)
-            current_user.keeped_custom_search_engines.push(cses_from_cookie)
             cookies.delete(:keeped_cse_ids)
           end
         else
@@ -54,7 +52,16 @@ class ApplicationController < ActionController::Base
         end
     end
     
-     def after_sign_out_path_for(resource_or_scope)
+    def after_sign_out_path_for(resource_or_scope)
       signin_path
     end
+
+    def unread_notifications_count
+      if user_signed_in?
+        @topic_count = current_user.notifications.all_unread('topic').count
+        @cse_count = current_user.notifications.all_unread('cse').count
+        @total_count = @topic_count + @cse_count
+      end
+    end
+
 end

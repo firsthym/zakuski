@@ -1,0 +1,22 @@
+<div class="row-fluid cse-container-small">
+  <% object.each do |notification| %>
+  <div id="<%= notification.id %>" class="cse-notification">
+    <div class="cse-divider"></div>
+    <div class="row-fluid">
+      <div class="span10 offset2">
+        <div class="row-fluid">
+          <%= raw notification.title %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(notification.created_at)%></span>
+          <% unless notification.read %>
+            <span class="badge badge-info">new</span>
+          <% end %>
+          <%= link_to I18n.t('human.controls.link.delete'), notification, 
+          method: :delete, remote: true, class: 'btn btn-warning pull-right' %>
+        </div>
+        <div class="row-fluid cse-grid">
+          <p class="cse-word"><%= notification.body %></p>
+        </div>
+      </div>
+    </div>
+    </div>
+  <% end %>
+</div>

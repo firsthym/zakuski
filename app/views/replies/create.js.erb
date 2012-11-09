@@ -7,10 +7,10 @@
 		<% end %>
 		messages += '</ul></div></div>'
 
-		var reply = '<%= escape_javascript(render partial: "replies/show", locals: {reply: @reply}) %>';
 		$('#reply-alert').html(messages);
 		$('#reply-alert').fadeIn();
 		<% if @flag == 'success' %>
+			var reply = '<%= escape_javascript(render partial: "replies/show", locals: {reply: @reply}) %>';
 			$('#replies').append(reply);
 			<% if @reply.index == 1 %>
 				$('#replies-box').removeClass('hide')

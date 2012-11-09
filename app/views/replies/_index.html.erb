@@ -1,4 +1,4 @@
-<% replies = object.replies.recent.page(params[:page]) %>
+<% replies = object.replies.page(params[:page]) %>
 <div class="row-fluid <%= 'hide' unless object.replies.any? %>" id="replies-box">
 	<div class="well">
 		<div class="row-fluid">
