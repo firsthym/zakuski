@@ -14,6 +14,7 @@ Myapp::Application.routes.draw do
     member do
       get 'link', action: :link
       get 'keep', action: :keep
+      get 'clone', action: :clone
       get 'remove', action: :remove
       get 'consumers', action: :consumers
       get 'reply/:page', action: :show

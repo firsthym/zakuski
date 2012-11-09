@@ -6,7 +6,7 @@ class CustomSearchEngine
   field :access, type: String, default: 'public'
   field :keeps, type: Integer, default: 1
   field :links, type: Integer, default: 1
-  
+
   # custom search engine specification
   embeds_one :specification
   
@@ -36,6 +36,7 @@ class CustomSearchEngine
   validates :node_id, presence: true
 
   # before_save {|cse| cse.node.instance_of? RealNode}
+  scope :recent, desc(:created_at)
   
   def self.get_hot_cses
     self.all

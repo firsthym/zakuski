@@ -43,13 +43,16 @@ class User
   # field :authentication_token, :type => String
   
   field :username, type: String
-  validates :username, presence: true, length: {minimum: 2, maximum: 10}, uniqueness: {case_sensitive: false}
+  validates :username, presence: true, length: {minimum: 2, maximum: 10}, 
+            uniqueness: {case_sensitive: false}
 
   # keep the CSEs
-  has_and_belongs_to_many :keeped_custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :consumers
+  has_and_belongs_to_many :keeped_custom_search_engines, class_name: 'CustomSearchEngine', 
+                          inverse_of: :consumers
   
   # create or fork the CSEs
-  has_many :custom_search_engines, class_name: 'CustomSearchEngine', inverse_of: :author, dependent: :destroy
+  has_many :custom_search_engines, inverse_of: :author, dependent: :destroy
+  has_many :cloned_custom_search_engines, inverse_of: :author, dependent: :destroy
 
   has_many :topics, dependent: :destroy
   has_many :replies, dependent: :destroy
@@ -67,4 +70,13 @@ class User
   validates :password_confirmation, presence: true
   validates :agreement, presence: true
  
+  def own_cse?(custom_search_engine)
+    if self.custom_search_engines.include? custom_search_engine
+      true
+    elsif self.cloned_custom_search_engines.map{|cse| cse.parent_id }.include? custom_search_engine
+      true
+    else
+      false
+    end
+  end
 end

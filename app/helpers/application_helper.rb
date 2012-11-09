@@ -6,7 +6,7 @@ module ApplicationHelper
 	def correct_user!(user)
 		unless current_user?(user)
 	        flash[:error] = I18n.t('human.errors.no_privilege')
-	        redirect_to(:back)
+	        redirect_to nodes_path
 		end
 	end
 
