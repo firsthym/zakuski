@@ -4,8 +4,7 @@ class CustomSearchEngine
   paginates_per 20
 
   field :access, type: String, default: 'public'
-  field :keeps, type: Integer, default: 1
-  field :links, type: Integer, default: 1
+  field :parent_id, type: Integer, default: 0
 
   # custom search engine specification
   embeds_one :specification
@@ -35,7 +34,6 @@ class CustomSearchEngine
   validates :author_id, presence: true
   validates :node_id, presence: true
 
-  # before_save {|cse| cse.node.instance_of? RealNode}
   scope :recent, desc(:created_at)
   
   def self.get_hot_cses

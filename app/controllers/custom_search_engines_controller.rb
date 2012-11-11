@@ -186,14 +186,10 @@ class CustomSearchEnginesController < ApplicationController
   # GET /cses/:id/clone
   def clone
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    if current_user.custom_search_engines.include?(@custom_search_engine)
-      flash[:error] = I18n.t('human.errors.clone_own')
-    elsif current_user.cloned_custom_search_engines.include?(@custom_search_engine)
-      flash[:error] = I18n.t('human.errors.clone_twice')
+    if current_user.own_cse?(@custom_search_engine)
+      flash[:error] = I18n.t('human.errors.clone') 
     else
-      @new = ClonedCustomSearchEngine.new
-      @new.node_id = @custom_search_engine.node_id
-      @new.access = 'public'
+      @new = @custom_search_engine.clone
       @new.parent_id = @custom_search_engine.id
       @new.author = current_user
       @new.specification = @custom_search_engine.specification.clone
@@ -201,7 +197,7 @@ class CustomSearchEnginesController < ApplicationController
     end
 
     respond_to do |format|
-      if @new.present? && @new.save
+      if @new.save
         format.html {redirect_to edit_cse_path(@new)}
       else
         flash[:error] = I18n.t('human.errors.clone_error')

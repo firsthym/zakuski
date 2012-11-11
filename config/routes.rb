@@ -2,7 +2,7 @@ Myapp::Application.routes.draw do
   constraints(source: /topic|cse/) do
     resources :notifications do
       collection do
-        get 'clear/:source', action: :clear
+        get 'clear/:source', action: :clearl, as: :clear
         get 'markread/:source', action: :mark_read, as: :mark_read
         get ':source(/:page)', action: :index, as: :source,
                       defaults: {source: 'topic'}

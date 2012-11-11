@@ -14,14 +14,15 @@
       </div>
       <div class="well"> 
         <div class="row-fluid" id="cse-topbar">
-          <% if @notifications.present? %>
+          <% if @current_page_notifications.present? %>
             <%= link_to I18n.t('notification.mark_all_read'), 
             mark_read_notifications_path(source: @source),
             class: 'btn btn-danger' %>
             <%= link_to I18n.t('human.controls.link.clear'), 
             clear_notifications_path(source: @source),
             class: 'btn btn-danger pull-right' %>
-            <%= render partial: 'body', locals: {object: @notifications} %>
+            <%= render partial: 'body', locals: {object: @current_page_notifications} %>
+            <% @notifications.update_all(read: true) %>
           <% else %>
             <p><%= t('notification.is_empty') %></p>
           <% end %>
@@ -29,7 +30,7 @@
       </div>
       <div class="row-fluid">
         <div class="pull-right">
-        <%= paginate @notifications %>
+        <%= paginate @current_page_notifications %>
         </div>
       </div>
     </div>
