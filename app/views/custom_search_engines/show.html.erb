@@ -9,13 +9,27 @@
 			<!-- CSE contents -->
 			<div class="row-fluid">
 				<div class="well">
-				<h3><%= escape_javascript(@custom_search_engine.specification.title) %></h3>
-				<div class="row-fluid">
-					<div class="cse-grid"><%= link_to @custom_search_engine.author.username, user_path(@custom_search_engine.author) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(@custom_search_engine.created_at)%></span>
+				<h3>
+					<%= @custom_search_engine.specification.title %>
+					<div class="btn-group">
+					<% if @custom_search_engine.author == current_user %>
+					<%= link_to raw('<i class="icon-edit"></i>'), 
+								edit_cse_path(@custom_search_engine), class: "btn pull-right", 
+								title: t('human.controls.link.edit') %>
+					<% end %>
+					<% if @custom_search_engine.status == 'draft' %>
+					<%= link_to raw('<i class="icon-share"></i>'), 
+								share_cse_path(@custom_search_engine), class: "btn pull-right", 
+								title: t('human.controls.link.publish') %>
+					<% end %>
 					</div>
+				</h3>
+				<div class="row-fluid">
+					<div class="cse-grid"><%= link_to @custom_search_engine.author.username, user_path(@custom_search_engine.author) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(@custom_search_engine.created_at)%></span></div>
+						
 					<div class="cse-grid cse-word">
 						<blockquote>
-  							<p><%= escape_javascript(@custom_search_engine.specification.description) %></p>
+  							<p><%= @custom_search_engine.specification.description %></p>
 						</blockquote>
 					</div>
 					<div class="row-fluid">
@@ -64,10 +78,10 @@
 							<div id="cse-consumers">
 							<% if @custom_search_engine.consumers.any? %>
 								<div class="cse-divider" id="cse-consumers-divider" ></div>
-								<% @custom_search_engine.consumers[0...10].each do |consumer| %>
+								<% @custom_search_engine.consumers.limit(50).each do |consumer| %>
 								<%= render partial: 'consumer', locals: {consumer: consumer} %>
 								<% end %>
-								<% if @custom_search_engine.consumers.count > 10 %>
+								<% if @custom_search_engine.consumers.count > 50 %>
 									<div class="row-fluid">
 										<div class="span9"></div>
 										<div class="span2"><%= link_to I18n.t('human.text.display_more'), cse_consumers_path(@custom_search_engine), remote: true, id: 'more_consumers' %></div>
@@ -84,8 +98,10 @@
 			<div class="row-fluid">
 				<%= render partial: 'shared/modal_box' %>
 			</div>
+			<% if @custom_search_engine.status == 'publish' %>
 			<!-- Replies and reply box -->
 			<%= render partial: 'replies/index', locals: {object: @custom_search_engine} %>
+			<% end %>
 		</div>
 		<div class="span3">
 			<%= render 'shared/dashboard' %>

@@ -1,16 +1,26 @@
 class NodesController < ApplicationController	
 	before_filter :available_cses
+	before_filter :current_nodes_cses
+	before_filter :current_nodes_topics
 	def index
-		@selected_node = Node.first
-		@custom_search_engines = @selected_node.custom_search_engines.recent.compact
-		@topics = @selected_node.topics
 		render 'layout'
 	end
 
 	def show
-		@selected_node = Node.find(params[:id])
-		@custom_search_engines = @selected_node.custom_search_engines.recent.compact
-		@topics = @selected_node.topics
 		render 'layout'
 	end
+	
+	private
+		def current_nodes_cses
+			if(params[:id].present?)
+				@selected_node = Node.find(params[:id])
+			else
+				@selected_node = Node.first
+			end
+			@custom_search_engines = @selected_node.custom_search_engines.recent('publish').page(params[:page])
+		end
+
+		def current_nodes_topics
+			@topics = @selected_node.topics
+		end
 end

@@ -22,4 +22,10 @@ class Notification
   scope :all_unread, ->(source) { where({source: source, read: false}) }
   scope :today_unread, ->(source) { where({source: source, read: false, 
   	:created_at.gt => Time.now.at_beginning_of_day()}) }
+
+  def self.messager(option)
+  	new_notification = self.create(title: option[:title], body: option[:body],
+  							from: option[:from] || 'system', source: option[:source],
+  							user_id: option[:receiver].id, read: false)
+  end
 end

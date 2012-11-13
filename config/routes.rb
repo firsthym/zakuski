@@ -17,6 +17,7 @@ Myapp::Application.routes.draw do
       get 'clone', action: :clone
       get 'remove', action: :remove
       get 'consumers', action: :consumers
+      get 'share', action: :share
       get 'reply/:page', action: :show
     end
   end

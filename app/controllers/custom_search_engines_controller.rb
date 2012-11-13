@@ -1,7 +1,8 @@
 class CustomSearchEnginesController < ApplicationController
   before_filter :available_cses
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
+                                      :destroy, :share, :clone]
+  before_filter :correct_user, only: [:edit, :update, :share, :destroy]
   #before_filter :admin_user, only: [:destroy]
   
   # GET /custom_search_engines
@@ -52,9 +53,13 @@ class CustomSearchEnginesController < ApplicationController
   def create
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
     @custom_search_engine.author = current_user
+    @custom_search_engine.status = 'draft'
     respond_to do |format|
       if @custom_search_engine.save
         flash[:success] = I18n.t('human.success.create', item: I18n.t('human.text.cse'))
+        # keep and link the new custom search engine
+        keep_and_link_cse @custom_search_engine
+        link_cse(@custom_search_engine)
         format.html { redirect_to cse_path(@custom_search_engine)}
         format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
       else
@@ -120,15 +125,13 @@ class CustomSearchEnginesController < ApplicationController
         if user_signed_in?
           current_user.keeped_custom_search_engines.push(@custom_search_engine)
           unless current_user == @custom_search_engine.author
-            notification = Notification.new
-            notification.user = @custom_search_engine.author
-            notification.source = 'cse'
-            notification.title = I18n.t('notification.keep', 
+            Notification.messager(title: I18n.t('notification.keep', 
               {user: view_context.link_to(current_user.username, 
                 user_path(current_user)),
                 cse:view_context.link_to(@custom_search_engine.specification.title,
-                  cse_path(@custom_search_engine))})
-            notification.save
+                  cse_path(@custom_search_engine))}),
+                                  receiver: @custom_search_engine.author,
+                                  source: 'cse')
           end
           @message = I18n.t('human.success.general')
         else
@@ -155,7 +158,7 @@ class CustomSearchEnginesController < ApplicationController
           current_user.keeped_custom_search_engines.delete(@custom_search_engine)
         else
            @keeped_custom_search_engines.delete(@custom_search_engine)
-          cookies[:keeped_cse_ids] =@keeped_custom_search_engines.map{ |cse| cse.id }.join(',')
+          cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map{ |cse| cse.id }.join(',')
         end
         if(cookies[:linked_cseid] == params[:id])
           cookies.delete(:linked_cseid)
@@ -189,20 +192,39 @@ class CustomSearchEnginesController < ApplicationController
     if current_user.own_cse?(@custom_search_engine)
       flash[:error] = I18n.t('human.errors.clone') 
     else
-      @new = @custom_search_engine.clone
-      @new.parent_id = @custom_search_engine.id
+      @new = CustomSearchEngine.new
+      @new.node = @custom_search_engine.node
       @new.author = current_user
-      @new.specification = @custom_search_engine.specification.clone
-      @new.annotations = @custom_search_engine.annotations.clone
+      @new.parent_id = @custom_search_engine.id
+      @new.specification = @custom_search_engine.specification
+      @new.annotations = @custom_search_engine.annotations
     end
 
     respond_to do |format|
       if @new.save
+        Notification.messager(receiver: @custom_search_engine.author, source: 'cse',
+              title: I18n.t('notification.clone', 
+                      {user: view_context.link_to(current_user.username, 
+                        user_path(current_user)),
+                        cse:view_context.link_to(@custom_search_engine.specification.title,
+                        cse_path(@custom_search_engine))}))
+        keep_and_link_cse(@new)
         format.html {redirect_to edit_cse_path(@new)}
       else
         flash[:error] = I18n.t('human.errors.clone_error')
         format.html { redirect_to nodes_path }
       end
+    end
+  end
+
+  def share
+    respond_to do |format|
+      if @custom_search_engine.update_attributes(status: "publish")
+        flash[:success] = I18n.t('human.success.publish')
+      else
+        flash[:error] = @custom_search_engine.errors.full_messages
+      end
+      format.html {redirect_to cse_path(@custom_search_engine)}
     end
   end
 

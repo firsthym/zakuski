@@ -3,8 +3,9 @@ class CustomSearchEngine
   include Mongoid::Timestamps
   paginates_per 20
 
-  field :access, type: String, default: 'public'
-  field :parent_id, type: Integer, default: 0
+  #field :access, type: String, default: 'public'
+  field :parent_id
+  field :status
 
   # custom search engine specification
   embeds_one :specification
@@ -27,14 +28,15 @@ class CustomSearchEngine
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
 
-  attr_accessible :access, :specification_attributes, :annotations_attributes, :replies_attributes, :node_id
+  attr_accessible :specification_attributes, :annotations_attributes, :node_id
 
   # validations
-  validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
+  #validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
+  validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
   validates :node_id, presence: true
 
-  scope :recent, desc(:created_at)
+  scope :recent, ->(status) { where(status: status).desc(:created_at) }
   
   def self.get_hot_cses
     self.all

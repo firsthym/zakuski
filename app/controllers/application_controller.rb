@@ -64,4 +64,20 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def link_cse(custom_search_engine)
+      cookies[:linked_cseid] = custom_search_engine.id
+    end
+
+    def keep_cse(custom_search_engine)
+      if user_signed_in?
+        current_user.keeped_custom_search_engines.push custom_search_engine
+      else
+        cookies[:keeped_cse_ids] += ",#{custom_search_engine.id}"
+      end
+    end
+
+    def keep_and_link_cse(custom_search_engine)
+      keep_cse(custom_search_engine)
+      link_cse(custom_search_engine)
+    end
 end

@@ -1,5 +1,5 @@
 <li class="cse-link <%= 'cse-selected' if cse == @linked_cse %>" id="dashboard-cse-<%= cse.id %>">
-	<%= link_to cse.specification.title, cse_path(cse) %>
+	<%= link_to cse.specification.title[0,20], cse_path(cse) %>
 	 <div class="controls-row pull-right">
 	  <a href="javascript:void(0)" class="link-cse" title="Link"><i class="icon-random icon-white"></i></a>
 	  <%= hidden_field_tag :cseid, cse.id %>

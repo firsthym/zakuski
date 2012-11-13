@@ -13,43 +13,13 @@ end
   <%= f.hidden_field :node_id %>
   <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
   <%= render partial: 'cse_specification', locals: {cse_form: f} %>
-
   <div class="cse-divider"></div>
-  <!-- access setting start-->
-  <div class="control-group">
-    <div class="controls">
-    <%= f.label :access_public do %>
-        <%= f.radio_button :access, 'public', checked: true %>
-        <strong><%= I18n.t('human.text.public') %></strong><span class="cse-small"><%= I18n.t('human.text.public_what') %></span>
-    <% end %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <div class="controls">
-      <%= f.label :access_protected do %>
-        <%= f.radio_button :access, 'protected' %>
-        <strong><%= I18n.t('human.text.protected') %></strong><span class="cse-small"><%= I18n.t('human.text.protected_what') %></span>        
-      <% end %>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <div class="controls">
-    <%= f.label :access_private do %>
-      <%= f.radio_button :access, 'private' %>
-      <strong><%= I18n.t('human.text.private')  %></strong><span class="cse-small"><%= I18n.t('human.text.private_what') %></span>      
-    <% end %>
-  </div>
-  </div>
-  <!-- access setting end -->
-  <div class="cse-divider"></div>
-
   <%= render partial: 'cse_annotations', locals: {cse_form: f} %>
-
+  <div class="row-fluid">
   <div class="control-group">
       <div class="controls">
-        <%= f.submit I18n.t("human.controls.link.submit"), class: "btn btn-primary", id: "cse-create-submit" %>
+        <%= f.submit I18n.t("human.controls.link.save"), class: "btn btn-primary pull-right", id: "cse-save" %>
       </div>
+  </div>
   </div>
 <% end %>
