@@ -2,21 +2,19 @@
    <div class="well">
     <div class="row-fluid">
       <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
-          <li class="nav-header cse-small"><a href="<%= cse_search_path %>"><%= t('human.text.cse') + " - " + I18n.t('human.controls.link.start_search') %> <i class="icon-search"></i></a>
+          <li class="nav-header cse-small"><a href="<%= cse_search_path %>"><%= t('human.text.dashboard') + " - " + I18n.t('human.controls.link.start_search') %> <i class="icon-search"></i></a>
 </li>
-          <% if @keeped_custom_search_engines.present? %>
-            <% @keeped_custom_search_engines.each do |cse| %>
+          <% if @dashboard_cses.present? %>
+            <% @dashboard_cses.each do |cse| %>
             <% unless cse.nil? %>
             <%= render partial: 'shared/keeped_cse', locals: {cse: cse} %>
             <% end %>
             <% end %>
           <% else %>
-            <li><%= I18n.t('human.text.no_cses') %></li>
+            <li><%= I18n.t('human.text.no_cses_ondashboard') %></li>
           <% end %>
       </ul>
-      <% if @keeped_custom_search_engines.present? %>
-      <div class="cse-container-medium pull-right"><%= link_to t('human.text.display_more'), cses_path %></div>
-      <% end %>
+      <div class="cse-container-medium pull-right"><%= link_to t('human.controls.link.manage_cses'), cses_path %></div>
     </div>
     </div>
 </div>

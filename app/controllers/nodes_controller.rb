@@ -1,5 +1,5 @@
 class NodesController < ApplicationController	
-	before_filter :available_cses
+	before_filter :initialize_cses
 	before_filter :current_nodes_cses
 	before_filter :current_nodes_topics
 	def index
@@ -17,7 +17,7 @@ class NodesController < ApplicationController
 			else
 				@selected_node = Node.first
 			end
-			@custom_search_engines = @selected_node.custom_search_engines.recent('publish').page(params[:page])
+			@custom_search_engines = @selected_node.custom_search_engines.recent.publish.page(params[:page])
 		end
 
 		def current_nodes_topics

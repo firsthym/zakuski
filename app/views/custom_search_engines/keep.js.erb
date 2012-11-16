@@ -1,18 +1,29 @@
 (function(){
 	$(document).ready(function(){
-		alert('<%= @message %>')
-		<% unless @already_keeped %>
-		$('#cse-keep-btn').html("<%= I18n.t('human.text.remove_current_cse') %>").attr('href', "<%= remove_cse_path(@custom_search_engine) %>");
-		<% if user_signed_in? %>
-		var consumer_html = '<%= render partial: "consumer", locals: {consumer: current_user} %>';
-		if($('#cse-consumers-divider').length == 0){
-			$('#cse-consumers').append('<div class="cse-divider" id="cse-consumers-divider"></div>');
-		}
-		$('#cse-consumers-divider').after(consumer_html);
-		<% end %>
-		var cse_html = '<%= escape_javascript(render partial: 'shared/keeped_cse', locals: {cse: @custom_search_engine}) %>'
-		$('ul#dashboard-cse').find('li:not([class])').remove();
-		$('ul#dashboard-cse').append(cse_html);
+		<% if @error.nil? %>
+			alert('<%= @message %>')
+			$('#cse-keep-btn').html("<%= I18n.t('human.text.remove_current_cse') %>").attr('href', "<%= remove_cse_path(@custom_search_engine) %>");
+			<% if user_signed_in? %>
+			var consumer_html = '<%= render partial: "consumer", locals: {consumer: current_user} %>';
+			if($('#cse-consumers-divider').length == 0){
+				$('#cse-consumers').append('<div class="cse-divider" id="cse-consumers-divider"></div>');
+			}
+			$('#cse-consumers-divider').after(consumer_html);
+			<% end %>
+			
+			<% if user_signed_in?
+				limit = 10
+			else
+				limit = 5
+			end
+			%>
+			if($('li.cse-link').length < <%= limit %>){
+				var cse_html = '<%= escape_javascript(render partial: 'shared/keeped_cse', locals: {cse: @custom_search_engine}) %>'
+				$('ul#dashboard-cse').find('li:not([class])').remove();
+				$('ul#dashboard-cse').append(cse_html);
+			}
+		<% else %>
+			alert('<%= @error %>')
 		<% end %>
 	});
 }).call(this);

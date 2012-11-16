@@ -59,3 +59,15 @@
 		width: 100%		
 	}
 }
+
+ul.cse-sortable,.cse-draggable{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+	li{
+		margin: 5px;
+		padding: 5px;
+		width: 550px;
+	}
+}

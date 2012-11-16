@@ -24,7 +24,9 @@ module CustomSearchEnginesHelper
 
 	def get_keep_or_remove_html(custom_search_engine)
 		if user_signed_in?
-			if custom_search_engine.consumers.include?(current_user)
+			if current_user == custom_search_engine.author
+				return ""
+			elsif custom_search_engine.consumers.include?(current_user)
 				label = I18n.t('human.text.remove_current_cse')
 				path = remove_cse_path(@custom_search_engine)
 			else

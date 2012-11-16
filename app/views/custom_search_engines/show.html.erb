@@ -13,14 +13,14 @@
 					<%= @custom_search_engine.specification.title %>
 					<div class="btn-group">
 					<% if @custom_search_engine.author == current_user %>
-					<%= link_to raw('<i class="icon-edit"></i>'), 
-								edit_cse_path(@custom_search_engine), class: "btn pull-right", 
-								title: t('human.controls.link.edit') %>
-					<% end %>
-					<% if @custom_search_engine.status == 'draft' %>
-					<%= link_to raw('<i class="icon-share"></i>'), 
-								share_cse_path(@custom_search_engine), class: "btn pull-right", 
-								title: t('human.controls.link.publish') %>
+						<%= link_to raw('<i class="icon-edit"></i>'), 
+									edit_cse_path(@custom_search_engine), class: "btn pull-right", 
+									title: t('human.controls.link.edit') %>
+						<% if @custom_search_engine.status == 'draft'%>
+						<%= link_to raw('<i class="icon-share"></i>'), 
+									share_cse_path(@custom_search_engine), class: "btn pull-right", 
+									title: t('human.controls.link.publish') %>
+						<% end %>
 					<% end %>
 					</div>
 				</h3>

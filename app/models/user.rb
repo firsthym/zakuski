@@ -52,6 +52,7 @@ class User
   
   # create or fork the CSEs
   has_many :custom_search_engines, inverse_of: :author, dependent: :destroy
+  has_many :dashboard_custom_search_engines, class_name: 'CustomSearchEngine'
 
   has_many :topics, dependent: :destroy
   has_many :replies, dependent: :destroy
@@ -74,6 +75,15 @@ class User
       true
     elsif self.custom_search_engines.map{|cse| cse.parent_id}.include? custom_search_engine.id
       true
+    else
+      false
+    end
+  end
+
+  def mark_read(notifications)
+    if notifications.present?
+      ids = notifications.map{|cse| cse.id}
+      Notification.in(id: ids).update_all(read: true)
     else
       false
     end

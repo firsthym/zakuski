@@ -140,6 +140,9 @@ footer {
   margin-top: $vspan-small;
 }
 
+.cse-container-normal{
+  margin-top: $vspan-normal;
+}
 .cse-container-medium{
   margin-top: $vspan-medium;
 }
@@ -204,4 +207,8 @@ p small{
 
 small{
   font-size: 90%;
+}
+
+.normal-font{
+  font-size: 100%;
 }

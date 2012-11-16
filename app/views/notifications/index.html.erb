@@ -22,7 +22,7 @@
             clear_notifications_path(source: @source),
             class: 'btn btn-danger pull-right' %>
             <%= render partial: 'body', locals: {object: @notifications} %>
-            <% @notifications.update_all(:read => true) %>
+            <% current_user.mark_read(@notifications) %>
           <% else %>
             <p><%= t('notification.is_empty') %></p>
           <% end %>

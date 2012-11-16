@@ -1,7 +1,7 @@
 (function(){
 	$(document).ready(function(){
+		<% if @error.nil? %>
 		alert('<%= @message %>')
-		<% if @already_keeped %>
 		$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
 			<% if user_signed_in? %>
 			$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
@@ -11,8 +11,10 @@
 			<% end %>
 			$('li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
 			if($('li.cse-link').length == 0){
-				$('ul#dashboard-cse').append('<li><%= I18n.t('human.text.no_cses') %></li>');
+				$('ul#dashboard-cse').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
 			}
+		<% else %>
+			alert('<%= @error %>')
 		<% end %>
 	});
 }).call(this);

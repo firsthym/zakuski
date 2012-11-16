@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_cookie
+//= require jquery-ui
 // Loads Bootstrap javascripts
 //= require bootstrap
 //= require_tree .

@@ -3,7 +3,6 @@
 	 <div class="controls-row pull-right">
 	  <a href="javascript:void(0)" class="link-cse" title="Link"><i class="icon-random icon-white"></i></a>
 	  <%= hidden_field_tag :cseid, cse.id %>
-	  <a href="<%= remove_cse_path(cse) %>" data-remote="true" data-confirm="<%= I18n.t('human.text.remove_current_cse') %>" title="remove"><i class="icon-remove icon-white"></i></a>
 	</div>
 	<div class="hide">
 	<%= render partial: 'shared/cse_info', locals: {cse: cse} %>

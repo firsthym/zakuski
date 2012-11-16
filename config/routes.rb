@@ -2,7 +2,7 @@ Myapp::Application.routes.draw do
   constraints(source: /topic|cse/) do
     resources :notifications do
       collection do
-        get 'clear/:source', action: :clearl, as: :clear
+        get 'clear/:source', action: :clear, as: :clear
         get 'markread/:source', action: :mark_read, as: :mark_read
         get ':source(/:page)', action: :index, as: :source,
                       defaults: {source: 'topic'}
@@ -19,6 +19,9 @@ Myapp::Application.routes.draw do
       get 'consumers', action: :consumers
       get 'share', action: :share
       get 'reply/:page', action: :show
+    end
+    collection do
+      post 'dashboard/save', action: :dashboard_save
     end
   end
   resources :nodes, only: [:index, :show] do

@@ -15,41 +15,77 @@ class ApplicationController < ActionController::Base
 			client_locale if I18n.available_locales.include?(client_locale)
 		end
 
-    def available_cses
-        # the linked custom search engine
-        if(cookies[:linked_cseid].nil?)
-          @linked_cse = CustomSearchEngine.get_default_cse
-        else
-          @linked_cse = CustomSearchEngine.find(cookies[:linked_cseid])
+    def initialize_cses
+      # keeped/dashboard custom search engines
+      @created_cses = []
+      @keeped_cses = []
+      @dashboard_cses = []
+      if user_signed_in?
+        # for members
+        @created_cses = current_user.custom_search_engines.recent.compact
+        @keeped_cses = current_user.keeped_custom_search_engines.publish.recent.compact
+        @dashboard_cses = current_user.dashboard_custom_search_engines.asc(:dashboard_index).compact
+        if(@dashboard_cses.blank?)
+          # 10 slots at most for members
+          @dashboard_cses = (@keeped_cses | @created_cses)[0,10]
+          current_user.dashboard_custom_search_engines = @dashboard_cses
         end
-        if @linked_cse.nil?
-          cookies.delete(:linked_cseid)
-        else
-          cookies[:linked_cseid] = @linked_cse.id
+        # clear cookies
+        if(cookies[:keeped_cse_ids].present?)
+          cookies.delete(:keeped_cse_ids)
         end
-
-        # keeped custom search engines
-        if user_signed_in?
-          @keeped_custom_search_engines = current_user.keeped_custom_search_engines
-          if(cookies[:keeped_cse_ids].present?)
-            cookies.delete(:keeped_cse_ids)
+        if(cookies[:dashboard_cse_ids].present?)
+          cookies.delete(:dashboard_cse_ids)
+        end
+      else
+        # for guests, retrieve keeps and dashboard cses from cookies
+        if(cookies[:keeped_cse_ids].blank?)
+          @keeped_cses = CustomSearchEngine.get_hot_cses
+        else
+          @keeped_cses = CustomSearchEngine.get_from_cookie(cookies[:keeped_cse_ids])
+          if @keeped_cses.blank?
+            @keeped_cses = CustomSearchEngine.get_hot_cses
           end
+        end
+        keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
+        cookies[:keeped_cse_ids] = keeped_cse_ids.join(',')
+
+        if(cookies[:dashboard_cse_ids].blank?)
+          # guests only get 5 slot at most
+          @dashboard_cses = @keeped_cses[0,5]
         else
-          if(cookies[:keeped_cse_ids].blank?)
-            @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(5)
-          else
-            @keeped_custom_search_engines = cookies[:keeped_cse_ids].split(',').map{|cseid| CustomSearchEngine.find(cseid)}
-            @keeped_custom_search_engines.compact!
-            if @keeped_custom_search_engines.blank?
-              @keeped_custom_search_engines = CustomSearchEngine.get_hot_cses.limit(5)
+          cse_ids = cookies[:dashboard_cse_ids].split(',') & keeped_cse_ids
+          cse_ids.each do |id|
+            @keeped_cses.each do |cse|
+              if cse.id.to_s == id
+                @dashboard_cses << cse
+                break
+              end
             end
           end
-          if @keeped_custom_search_engines.blank?
-            cookies.delete(:keeped_cse_ids)
-          else
-            cookies[:keeped_cse_ids] = @keeped_custom_search_engines.map{ |cse| cse.id }.join(',') 
+          #@dashboard_cses = @keeped_cses.map{|cse| cse if cse_ids.include?(cse.id.to_s)}.compact
+          if @dashboard_cses.blank?
+            @dashboard_cses = @keeped_cses[0,5]
           end
         end
+        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+      end
+
+      # the linked custom search engine
+      if(cookies[:linked_cseid].nil?)
+        @linked_cse = @dashboard_cses.first
+      else
+        @dashboard_cses.each do |cse|
+          if cse.id.to_s == cookies[:linked_cseid]
+            @linked_cse = cse 
+            break
+          end
+        end
+        if @linked_cse.nil?
+          @linked_cse = @dashboard_cses.first || CustomSearchEngine.get_default_cse
+        end
+      end
+      cookies[:linked_cseid] = @linked_cse.id
     end
     
     def after_sign_out_path_for(resource_or_scope)
@@ -79,5 +115,31 @@ class ApplicationController < ActionController::Base
     def keep_and_link_cse(custom_search_engine)
       keep_cse(custom_search_engine)
       link_cse(custom_search_engine)
+    end
+
+    def add_cse_to_dashboard(custom_search_engine)
+      if user_signed_in?
+        if current_user.custom_search_engines.include?(custom_search_engine) || current_user.keeped_custom_search_engines.include?(custom_search_engine)
+          # members get 10 slots at most
+          if current_user.dashboard_custom_search_engines.count <= 9
+            current_user.dashboard_custom_search_engines.push custom_search_engine
+          else
+            false
+          end
+        else
+          false
+        end
+      else
+        # guests only get 5 slot at most
+        if @keeped_cses.include?(custom_search_engine)
+          if @dashboard_cses.count <= 4
+            cookies[:dashboard_cse_ids] += ",#{custom_search_engine.id}"
+          else
+            false
+          end
+        else
+          false
+        end
+      end
     end
 end
