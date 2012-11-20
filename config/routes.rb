@@ -21,7 +21,8 @@ Myapp::Application.routes.draw do
       get 'reply/:page', action: :show
     end
     collection do
-      post 'dashboard/save', action: :dashboard_save
+      post 'dashboard/save', action: :save_dashboard_cses
+      post 'keepedcses/save', action: :save_keeped_cses
     end
   end
   resources :nodes, only: [:index, :show] do

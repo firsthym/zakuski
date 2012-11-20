@@ -246,35 +246,77 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  def dashboard_save
-    @new_dashboard_cse_ids = params[:dashboard_cses]
+  def save_dashboard_cses
+    @new_dashboard_cse_ids = params[:saved_cses]
     # & removes the redudent cse
     @new_dashboard_cse_ids &= @new_dashboard_cse_ids
     if @new_dashboard_cse_ids.present?
-      @dashboard_cses.clear
+      @new_dashboard_cses = []
       cses_array = (@created_cses | @keeped_cses)
-      dashboard_index = 0
       @new_dashboard_cse_ids.each do |id|
-        dashboard_index += 1
         cses_array.each do |cse|
           if cse.id.to_s == id
-            cse.dashboard_index = dashboard_index
-            cse.save
-            @dashboard_cses << cse
+            @new_dashboard_cses << cse
             break
           end
         end
       end
+    end 
+    
+    if @new_dashboard_cses.present?
+      @dashboard_cses = @new_dashboard_cses
+      if(user_signed_in?)
+        current_user.set_dashboard_cses(@dashboard_cses)
+      else
+        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+      end
+      flash[:success] = I18n.t('human.success.general')
+    elsif user_signed_in?
+      current_user.dashboard_cse_ids.clear
+      flash[:success] = I18n.t('human.success.general')
     else
-      @dashboard_cses.clear
+      flash[:error] = I18n.t('human.errors.guest_clear')
     end
-    #flash[:error] = @dashboard_cses
-    if(user_signed_in?)
-      current_user.dashboard_custom_search_engines = @dashboard_cses
+
+    respond_to do |format|
+      format.html {redirect_to cses_path}
+    end
+  end
+
+  def save_keeped_cses
+    @new_keeped_cse_ids = params[:saved_cses]
+    @new_keeped_cse_ids &= @new_keeped_cse_ids
+    if @new_keeped_cse_ids.present?
+      @new_keeped_cses = []
+      @new_keeped_cse_ids.each do |id|
+        @keeped_cses.each do |cse|
+          if cse.id.to_s == id
+            @new_keeped_cses << cse
+            break
+          end
+        end
+      end
+    end
+    
+    if @new_keeped_cses.present?
+      @keeped_cses = @new_keeped_cses
+      # clean dashboard cses out of keeped cses
+      @dashboard_cses &= @keeped_cses
+      if user_signed_in?
+        current_user.keeped_custom_search_engines = @keeped_cses
+        # update dashboard cses with new keeped cses
+        current_user.set_dashboard_cses(@dashboard_cses)
+      else
+        cookies[:keeped_cse_ids] = @keeped_cses.map{|cse| cse.id}.join(',')
+        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+      end
+      flash[:success] = I18n.t('human.success.general')
+    elsif user_signed_in?
+      current_user.keeped_custom_search_engines.clear
+      flash[:success] = I18n.t('human.success.general')
     else
-      cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+      flash[:error] = I18n.t('human.errors.guest_clear')
     end
-    flash[:success] = I18n.t('human.success.general')
     respond_to do |format|
       format.html {redirect_to cses_path}
     end

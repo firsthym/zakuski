@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
         # for members
         @created_cses = current_user.custom_search_engines.recent.compact
         @keeped_cses = current_user.keeped_custom_search_engines.publish.recent.compact
-        @dashboard_cses = current_user.dashboard_custom_search_engines.asc(:dashboard_index).compact
+        @dashboard_cses = current_user.get_dashboard_cses
         if(@dashboard_cses.blank?)
           # 10 slots at most for members
           @dashboard_cses = (@keeped_cses | @created_cses)[0,10]
-          current_user.dashboard_custom_search_engines = @dashboard_cses
+          current_user.set_dashboard_cses(@dashboard_cses)
         end
         # clear cookies
         if(cookies[:keeped_cse_ids].present?)
@@ -47,14 +47,14 @@ class ApplicationController < ActionController::Base
             @keeped_cses = CustomSearchEngine.get_hot_cses
           end
         end
-        keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
-        cookies[:keeped_cse_ids] = keeped_cse_ids.join(',')
+        @keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
+        cookies[:keeped_cse_ids] = @keeped_cse_ids.join(',')
 
         if(cookies[:dashboard_cse_ids].blank?)
           # guests only get 5 slot at most
           @dashboard_cses = @keeped_cses[0,5]
         else
-          cse_ids = cookies[:dashboard_cse_ids].split(',') & keeped_cse_ids
+          cse_ids = cookies[:dashboard_cse_ids].split(',') & @keeped_cse_ids
           cse_ids.each do |id|
             @keeped_cses.each do |cse|
               if cse.id.to_s == id
@@ -86,6 +86,10 @@ class ApplicationController < ActionController::Base
         end
       end
       cookies[:linked_cseid] = @linked_cse.id
+
+      @dashboard_cse_ids = @dashboard_cses.map{|cse| cse.id} if @dashboard_cse_ids.nil?
+      @keeped_cse_ids = @keeped_cses.map{|cse| cse.id} if @keeped_cse_ids.nil?
+      @created_cses_ids = @created_cses.map{|cse| cse.id} if @created_cses_ids.nil?
     end
     
     def after_sign_out_path_for(resource_or_scope)
@@ -121,8 +125,8 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         if current_user.custom_search_engines.include?(custom_search_engine) || current_user.keeped_custom_search_engines.include?(custom_search_engine)
           # members get 10 slots at most
-          if current_user.dashboard_custom_search_engines.count <= 9
-            current_user.dashboard_custom_search_engines.push custom_search_engine
+          if current_user.get_dashboard_cses.count <= 9
+            current_user.dashboard_cse_ids.push custom_search_engine
           else
             false
           end

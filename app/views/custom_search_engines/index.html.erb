@@ -14,7 +14,7 @@
           <% @dashboard_cses.compact.each do |cse| %>
            <li class="ui-state-default"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span class="muted"><%= t('human.text.creator') %></span><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%= time_ago_in_words(cse.created_at) %></span>
             <span class="dashboard-cse-remove pull-right"><i class="icon-remove"></i></span>
-            <input type="hidden" name="dashboard_cses[]" value="<%= cse.id %>" />
+            <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
            </li> 
           <% end %>
         </ul>
@@ -36,7 +36,7 @@
           <% @created_cses.compact.each do |cse| %>
             <li class="cse-to-dashboard <%= @dashboard_cses.include?(cse) ? "ui-state-default" : "ui-state-highlight" %>"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span class="muted"><%= time_ago_in_words(cse.created_at) %></span>
             <% unless @dashboard_cses.include?(cse) %>
-            <input type="hidden" name="dashboard_cses[]" value="<%= cse.id %>" />
+            <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
             <% end %>
             </li>
           <% end %>
@@ -56,15 +56,17 @@
       </div>
       <div class="row-fluid cse-container-normal">
         <% if @keeped_cses.any? %>
+        <%= form_tag keepedcses_save_cses_path, {method: 'post'} do %>
         <ul class="cse-draggable">
         <% @keeped_cses.each do |cse| %>
           <li class="cse-to-dashboard <%= @dashboard_cses.include?(cse) ? "ui-state-default" : "ui-state-highlight" %>"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span class="muted"><%= t('human.text.creator') %></span><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%= time_ago_in_words(cse.created_at) %></span>
-            <% unless @dashboard_cses.include?(cse) %>
-            <input type="hidden" name="dashboard_cses[]" value="<%= cse.id %>" />
-            <% end %>
+            <span class="dashboard-cse-remove pull-right"><i class="icon-remove"></i></span>
+            <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
           </li>
         <% end %>
+        <input type="submit" value="<%= t('human.controls.link.save') %>" class="btn" />
         </ul>
+        <% end %>
       <% else %>
         <%= t('human.text.no_records') %>
       <% end %>
@@ -92,7 +94,7 @@
     $( "ul, li" ).disableSelection();
 
     $('.dashboard-cse-remove').click(function(){
-      $(this).closest('li.ui-state-default').remove();
+      $(this).closest('li').remove();
     })
   })
 </script>

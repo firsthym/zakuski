@@ -276,6 +276,8 @@ zh-CN:
       clone_twice: "你已经克隆过该自定义搜索引擎"
       clone_error: "克隆出错了..."
       publish: "发布失败..."
+      save: "保存失败..."
+      guest_clear: "非注册用户不能清空"
       only_publish_cse_available: "你不能查看未共享发布的自定义搜索引擎"
     success:
       general: "操作成功"

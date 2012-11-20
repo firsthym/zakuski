@@ -17,7 +17,7 @@ class NodesController < ApplicationController
 			else
 				@selected_node = Node.first
 			end
-			@custom_search_engines = @selected_node.custom_search_engines.recent.publish.page(params[:page])
+			@custom_search_engines = @selected_node.custom_search_engines.recent.publish.limit(20).page(params[:page])
 		end
 
 		def current_nodes_topics

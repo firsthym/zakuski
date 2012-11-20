@@ -46,13 +46,13 @@ class User
   validates :username, presence: true, length: {minimum: 2, maximum: 10}, 
             uniqueness: {case_sensitive: false}
 
+  field :dashboard_cse_ids, type: Array
   # keep the CSEs
   has_and_belongs_to_many :keeped_custom_search_engines, class_name: 'CustomSearchEngine', 
                           inverse_of: :consumers
   
-  # create or fork the CSEs
+  # created or cloned the CSEs
   has_many :custom_search_engines, inverse_of: :author, dependent: :destroy
-  has_many :dashboard_custom_search_engines, class_name: 'CustomSearchEngine'
 
   has_many :topics, dependent: :destroy
   has_many :replies, dependent: :destroy
@@ -87,5 +87,13 @@ class User
     else
       false
     end
+  end
+
+  def get_dashboard_cses
+    CustomSearchEngine.in(id: self.dashboard_cse_ids).compact
+  end
+
+  def set_dashboard_cses(custom_search_engines)
+    self.update_attribute(:dashboard_cse_ids, custom_search_engines.map{|cse| cse.id})
   end
 end
