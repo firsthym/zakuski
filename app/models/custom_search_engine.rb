@@ -8,6 +8,9 @@ class CustomSearchEngine
   field :status, type: String
   field :keep_count, type: Integer
 
+  # consumers
+  field :consumers, type: Array, default: []
+
   # custom search engine specification
   embeds_one :specification
   
@@ -19,7 +22,6 @@ class CustomSearchEngine
   has_many :replies
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
-  has_and_belongs_to_many :consumers, class_name: 'User', inverse_of: :keeped_custom_search_engines
   belongs_to :node
 
   # Index
@@ -45,14 +47,32 @@ class CustomSearchEngine
 
   #TBD
   def self.get_default_cse
-    self.publish.recent.first
+    self.build_parent([self.publish.recent.first])
   end
 
   def self.get_from_cookie(cookie, limit = 10)
-    self.publish.in(id: cookie.split(',')[0,limit]).limit(limit).compact
+    self.build_parent(self.publish.in(id: cookie.split(',')[0,limit]).limit(limit).compact)
   end
 
   def self.get_hot_cses(limit = 10)
-    self.publish.hot.limit(limit).compact
+    self.build_parent(self.publish.hot.limit(limit).compact)
+  end
+
+  def get_consumers(limit = 50)
+    User.in(id: self.consumers.map{|each| each["uid"]}).compact
+  end
+
+  def self.build_parent(custom_search_engines)
+    parent_ids = custom_search_engines.map{|cse| cse.parent_id if cse.parent_id.present?}
+    parent_cses = self.in(id: parent_ids).compact
+    custom_search_engines.each do |cse|
+      cse[:parent] = nil
+      parent_cses.each do |pcse|
+        if cse.parent_id.present? && cse.parent_id == pcse.id
+          cse[:parent] = pcse
+          break
+        end
+      end
+    end
   end
 end

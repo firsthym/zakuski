@@ -26,7 +26,7 @@ module CustomSearchEnginesHelper
 		if user_signed_in?
 			if current_user == custom_search_engine.author
 				return ""
-			elsif custom_search_engine.consumers.include?(current_user)
+			elsif custom_search_engine.get_consumers.include?(current_user)
 				label = I18n.t('human.text.remove_current_cse')
 				path = remove_cse_path(@custom_search_engine)
 			else

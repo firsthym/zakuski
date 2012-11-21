@@ -258,6 +258,7 @@ zh-CN:
       unshared: "未共享"
       creator: "创建者: "
       created_time: "创建时间"
+      cloned_from: "克隆自: "
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("
@@ -269,7 +270,7 @@ zh-CN:
       delete_user: "删除用户失败!"
       already_keep: "你已经收藏了该自定义搜索引擎"
       not_keep: "你还没有收藏该自定义搜索引擎"
-      limit_cses: "非注册用户最多只能收藏10个自定义收藏引擎"
+      limit_cses: "你已经达到了自定义搜索引擎收藏上限值: %{limit}"
       keep_own: "你不能收藏自己的自定义引擎"
       clone: "你不能克隆自己的搜索引擎或者你已经克隆过该引擎"
       clone_own: "你不能克隆自己定义的搜索引擎"
@@ -279,6 +280,7 @@ zh-CN:
       save: "保存失败..."
       guest_clear: "非注册用户不能清空"
       only_publish_cse_available: "你不能查看未共享发布的自定义搜索引擎"
+      no_records: "记录不存在"
     success:
       general: "操作成功"
       create: "%{item} 创建成功"

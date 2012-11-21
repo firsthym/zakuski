@@ -22,8 +22,8 @@ class ApplicationController < ActionController::Base
       @dashboard_cses = []
       if user_signed_in?
         # for members
-        @created_cses = current_user.custom_search_engines.recent.compact
-        @keeped_cses = current_user.keeped_custom_search_engines.publish.recent.compact
+        @created_cses = current_user.get_created_cses
+        @keeped_cses = current_user.get_keeped_cses
         @dashboard_cses = current_user.get_dashboard_cses
         if(@dashboard_cses.blank?)
           # 10 slots at most for members
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
 
     def keep_cse(custom_search_engine)
       if user_signed_in?
-        current_user.keeped_custom_search_engines.push custom_search_engine
+        current_user.push(:keeped_cses, {id: custom_search_engine.id, time: Time.now})
       else
         cookies[:keeped_cse_ids] += ",#{custom_search_engine.id}"
       end
@@ -123,10 +123,10 @@ class ApplicationController < ActionController::Base
 
     def add_cse_to_dashboard(custom_search_engine)
       if user_signed_in?
-        if current_user.custom_search_engines.include?(custom_search_engine) || current_user.keeped_custom_search_engines.include?(custom_search_engine)
+        if current_user.get_created_cses.include?(custom_search_engine) || current_user.get_keeped_cses.include?(custom_search_engine)
           # members get 10 slots at most
           if current_user.get_dashboard_cses.count <= 9
-            current_user.dashboard_cse_ids.push custom_search_engine
+            current_user.push(:dashboard_cses, id: custom_search_engine.id)
           else
             false
           end
@@ -146,4 +146,5 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
 end

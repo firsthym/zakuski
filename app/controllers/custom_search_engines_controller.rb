@@ -112,34 +112,37 @@ class CustomSearchEnginesController < ApplicationController
   # GET /cses/:id/keep
   def keep
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    
-    if @keeped_cses.include?(@custom_search_engine)
+    if @custom_search_engine.nil?
+      @error = I18n.t('human.errors.no_records')
+    elsif @keeped_cses.include?(@custom_search_engine)
       @error = I18n.t('human.errors.already_keep')
-    else
-      if user_signed_in?
-        if current_user == @custom_search_engine.author
-          @error = I18n.t('human.errors.keep_own')
-        elsif(current_user.keeped_custom_search_engines.push(@custom_search_engine))
-          Notification.messager(title: I18n.t('notification.keep', 
-            {user: view_context.link_to(current_user.username, 
-              user_path(current_user)),
-              cse:view_context.link_to(@custom_search_engine.specification.title[0,30],
-                cse_path(@custom_search_engine))}),
-                                receiver: @custom_search_engine.author,
-                                source: 'cse')
-        else
-          @error = I18n.t('human.errors.general')
-        end
+    elsif user_signed_in?
+      # for members
+      if current_user == @custom_search_engine.author
+        @error = I18n.t('human.errors.keep_own')
+      elsif @keeped_cses.count > 19
+        @error = I18n.t('human.errors.limit_cses', limit: 20)
       else
-        if @keeped_cses.count > 9
-          # guests only keep 10 cses at most
-          @error = I18n.t('human.errors.limit_cses')
-        else
-          @keeped_cses.push @custom_search_engine
-          cookies[:keeped_cse_ids] += ",#{@custom_search_engine.id}"
-        end
+        current_user.keeps_cse(@custom_search_engine)
+        Notification.messager(title: I18n.t('notification.keep', 
+          {user: view_context.link_to(current_user.username, 
+            user_path(current_user)),
+            cse:view_context.link_to(@custom_search_engine.specification.title[0,30],
+              cse_path(@custom_search_engine))}),
+                              receiver: @custom_search_engine.author,
+                              source: 'cse')
+      end
+    else
+      #for guests
+      if @keeped_cses.count > 9
+        # guests only keep 10 cses at most
+        @error = I18n.t('human.errors.limit_cses', limit: 10)
+      else
+        @keeped_cses.push @custom_search_engine
+        cookies[:keeped_cse_ids] += ",#{@custom_search_engine.id}"
       end
     end
+
     if @error.nil?
       @message = I18n.t('human.success.general')
       add_cse_to_dashboard(@custom_search_engine)
@@ -153,11 +156,11 @@ class CustomSearchEnginesController < ApplicationController
   # GET /cses/:id/remove
   def remove
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-
-    if @keeped_cses.include?(@custom_search_engine)
+    if @custom_search_engine.nil?
+      @error = I18n.t('human.errors.no_records')
+    elsif @keeped_cses.include?(@custom_search_engine)
       if user_signed_in?
-        current_user.keeped_custom_search_engines.delete(@custom_search_engine)
-        current_user.dashboard_custom_search_engines.delete(@custom_search_engine)
+        current_user.removes_cse(@custom_search_engine)
       else
         @keeped_cses.delete(@custom_search_engine)
         @dashboard_cses.delete(@custom_search_engine)
@@ -200,6 +203,7 @@ class CustomSearchEnginesController < ApplicationController
       @new.specification = @custom_search_engine.specification
       @new.annotations = @custom_search_engine.annotations
       @new.status = 'draft'
+      @new.keep_count = 0
     end
 
     respond_to do |format|
@@ -221,8 +225,7 @@ class CustomSearchEnginesController < ApplicationController
 
   def share
     respond_to do |format|
-      @custom_search_engine.status = 'publish'
-      if @custom_search_engine.save
+      if @custom_search_engine.update_attribute(:status, 'publish')
         flash[:success] = I18n.t('human.success.publish')
       else
         flash[:error] = @custom_search_engine.errors.full_messages
@@ -272,7 +275,7 @@ class CustomSearchEnginesController < ApplicationController
       end
       flash[:success] = I18n.t('human.success.general')
     elsif user_signed_in?
-      current_user.dashboard_cse_ids.clear
+      current_user.update_attribute(:dashboard_cses, [])
       flash[:success] = I18n.t('human.success.general')
     else
       flash[:error] = I18n.t('human.errors.guest_clear')
@@ -285,8 +288,8 @@ class CustomSearchEnginesController < ApplicationController
 
   def save_keeped_cses
     @new_keeped_cse_ids = params[:saved_cses]
-    @new_keeped_cse_ids &= @new_keeped_cse_ids
     if @new_keeped_cse_ids.present?
+      @new_keeped_cse_ids &= @new_keeped_cse_ids
       @new_keeped_cses = []
       @new_keeped_cse_ids.each do |id|
         @keeped_cses.each do |cse|
@@ -297,22 +300,36 @@ class CustomSearchEnginesController < ApplicationController
         end
       end
     end
-    
+
     if @new_keeped_cses.present?
+      diff_cses = @keeped_cses - @new_keeped_cses
       @keeped_cses = @new_keeped_cses
-      # clean dashboard cses out of keeped cses
-      @dashboard_cses &= @keeped_cses
+      @dashboard_cses &= (@keeped_cses | @created_cses)
       if user_signed_in?
-        current_user.keeped_custom_search_engines = @keeped_cses
+        current_user.set_keeped_cses(@keeped_cses)
         # update dashboard cses with new keeped cses
         current_user.set_dashboard_cses(@dashboard_cses)
+        
+        if(diff_cses.present?)
+          diff_cses.each do |cse|
+            cse.consumers.delete_if{|each| each["uid"] == current_user.id}
+            cse.update(validate: false)
+          end
+        end
       else
         cookies[:keeped_cse_ids] = @keeped_cses.map{|cse| cse.id}.join(',')
         cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
       end
       flash[:success] = I18n.t('human.success.general')
     elsif user_signed_in?
-      current_user.keeped_custom_search_engines.clear
+      current_user.update_attribute(:keeped_cses, [])
+      current_user.set_dashboard_cses(@created_cses)
+
+      @keeped_cses.each do |cse|
+        cse.consumers.delete_if{|each| each["uid"] == current_user.id}
+        cse.update(validate: false)
+      end
+      @keeped_cses = []
       flash[:success] = I18n.t('human.success.general')
     else
       flash[:error] = I18n.t('human.errors.guest_clear')

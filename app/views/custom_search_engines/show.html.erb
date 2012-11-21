@@ -76,12 +76,13 @@
 							<% end %>
 							<% end %>
 							<div id="cse-consumers">
-							<% if @custom_search_engine.consumers.any? %>
+							<% consumers = @custom_search_engine.get_consumers(50) %>
+							<% if consumers.any? %>
 								<div class="cse-divider" id="cse-consumers-divider" ></div>
-								<% @custom_search_engine.consumers.limit(50).each do |consumer| %>
+								<% consumers.each do |consumer| %>
 								<%= render partial: 'consumer', locals: {consumer: consumer} %>
 								<% end %>
-								<% if @custom_search_engine.consumers.count > 50 %>
+								<% if consumers.count > 50 %>
 									<div class="row-fluid">
 										<div class="span9"></div>
 										<div class="span2"><%= link_to I18n.t('human.text.display_more'), cse_consumers_path(@custom_search_engine), remote: true, id: 'more_consumers' %></div>
