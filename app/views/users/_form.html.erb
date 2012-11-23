@@ -1,0 +1,47 @@
+<%= form_for @user, html: {class: 'form-horizontal'} do |f| %>
+<ul class="nav nav-pills">
+	<li class="active">
+	<%= link_to t('human.text.profile_setting'), edit_user_path(@user) %>
+	</li>
+</ul>
+<div class="cse-divider"></div>
+<div class="cse-container-medium">
+<%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
+<div class="row-fluid">
+	<div class="span2 offset1">
+		<%= image_tag(@user.avatar_url, {width: 120, height: 120, class: "img-polaroid"}) if @user.avatar.present? %>
+	</div>
+	<div class="span7">
+	<div class="control-group">
+		<%= f.label :email, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :email, disabled: true %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :username, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :username %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :mood, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :mood, placeholder: t('human.text.chars_limit', minimum: 0, maximum: 35) %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :avatar, class: 'control-label' %>
+		<div class="controls">
+			<%= f.file_field :avatar %>
+		</div>
+	</div>
+	<div class="control-group">
+	  <div class="controls">
+	    <%= f.submit I18n.t("human.controls.link.save"), class: "btn btn-primary" %>
+	  </div>
+	</div>
+	</div>
+</div>
+</div>
+<% end %>

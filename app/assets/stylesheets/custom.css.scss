@@ -163,6 +163,14 @@ footer {
   }
 }
 
+.cse-grid-dashed{
+  margin: 15px 0;
+  line-height: 20px;
+  border-bottom: 1px dashed #838383;
+  word-break: break-word;
+  overflow: hidden;
+}
+
 .cse-divider{
   *width: 100%;
   width: 100%;
@@ -211,4 +219,10 @@ small{
 
 .normal-font{
   font-size: 100%;
+}
+
+.form-horizontal .control-group:before, .form-horizontal .field_with_errors:before, .form-horizontal .control-group:after, .form-horizontal .field_with_errors:after {
+  display: none;
+  content: "";
+  line-height: 0;
 }

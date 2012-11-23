@@ -1,8 +1,8 @@
 require 'rubygems'
 #require 'mongo'
 #source 'http://gemcutter.org'
-#source "http://ruby.taobao.org"
-source 'https://rubygems.org'
+source "http://ruby.taobao.org"
+#source 'https://rubygems.org'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,7 +12,7 @@ gem 'rails-i18n'
 gem 'jquery-rails'
 
 # mongo database and the ODM
-gem 'mongoid', '3.0.1'
+gem 'mongoid'
 
 gem 'bootstrap-sass', '~>2.1.0.0'
 gem 'bcrypt-ruby', '3.0.1'
@@ -24,6 +24,11 @@ gem 'kaminari'
 
 # web server
 gem 'thin', '~>1.4.1'
+
+# upload
+gem "carrierwave-mongoid", :git => "git://github.com/jnicklas/carrierwave-mongoid.git", 
+    :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
+gem 'mini_magick','3.3'
 
 # Gems used only for assets and not required
 # in production environments by default.

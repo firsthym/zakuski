@@ -9,7 +9,7 @@
           </a>
           <div class="nav-collapse">
             <ul class="nav pull-right">
-              <li><%= link_to I18n.t('human.text.sns'), nodes_path %></li>
+              <li><%= link_to t('human.controls.link.start_search'), cse_search_path %></li>
               <% if user_signed_in? %>
                <li><%= link_to I18n.t('notification.name') + count_html(@total_count), source_notifications_path %></li>
               <li class="dropdown">
@@ -35,7 +35,7 @@
               <% end %>
             </ul>
             <ul class="nav">
-              <li><%= link_to t('human.controls.link.start_search'), cse_search_path %></li>
+              <li><%= link_to I18n.t('human.text.sns'), nodes_path %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

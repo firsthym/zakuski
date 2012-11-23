@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -42,15 +43,21 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
   
+  # ==> Below are customize fields
+  field :email_public, type: Boolean, default: true
   field :username, type: String
   validates :username, presence: true, length: {minimum: 2, maximum: 10}, 
             uniqueness: {case_sensitive: false}
+
+  field :mood, type: String
+  validates :mood, length: {maximum: 35}
 
   # dashboard CSEs
   field :dashboard_cses, type: Array, default: []
   # keeped CSEs including ids and keep-time
   field :keeped_cses, type: Array, default: []
 
+  mount_uploader :avatar, AvatarUploader
 
   # created or cloned the CSEs
   has_many :custom_search_engines, inverse_of: :author, dependent: :destroy
@@ -66,10 +73,10 @@ class User
   index({email: 1}, {unique: true, name: 'user_email'})
 
   # Massive assignment for User.new
-  attr_accessible :email, :username, :agreement, :password, :password_confirmation
+  attr_accessible :email, :username, :agreement, :password, :password_confirmation, :avatar, :mood
   attr_accessor :agreement, :password_confirmation
-  validates :password_confirmation, presence: true
-  validates :agreement, presence: true
+  validates :password_confirmation, presence: true, on: :create
+  validates :agreement, presence: true, on: :create
  
   def own_cse?(custom_search_engine)
     if self.custom_search_engines.include? custom_search_engine

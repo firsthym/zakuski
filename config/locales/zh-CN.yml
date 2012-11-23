@@ -120,6 +120,9 @@ zh-CN:
       too_long: 过长（最长为 %{count} 个字符）
       too_short: 过短（最短为 %{count} 个字符）
       wrong_length: 长度非法（必须为 %{count} 个字符）
+      carrierwave_processing_error: "Cannot resize image."
+      carrierwave_integrity_error: "Not an image."
+      carrierwave_download_error: "Couldn\'t download image."
     template:
       body: 如下字段出现错误：
       header:
@@ -220,6 +223,7 @@ zh-CN:
       account: "账户"
       setting: "设置"
       profile: "个人主页"
+      profile_setting: "个人资料"
       sign_out: "注销"
       remember_me:  "记住我"
       must_agree_protocol: "请先同意协议再注册:)"
@@ -249,7 +253,7 @@ zh-CN:
       are_u_sure: "你确定继续执行该操作吗?"
       display_more: "显示更多..."
       linked_cse: "当前连接的搜索引擎"
-      topic: "讨论"
+      topic: "主题"
       created_cses_by_me: "我创建的搜索引擎"
       keeped_cses_by_me: "收藏的搜索引擎"
       dashboard: "控制面板"
@@ -259,6 +263,12 @@ zh-CN:
       creator: "创建者: "
       created_time: "创建时间"
       cloned_from: "克隆自: "
+      register_time: "加入时间"
+      creates: "创建"
+      clones_and_creates: "克隆并创建"
+      keeps: "收藏"
+      replies: "回复"
+      discussion: "讨论"
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("
@@ -326,6 +336,8 @@ zh-CN:
         password_confirmation: "确认密码"
         password_digest: "密码"
         agreement: "协议"
+        avatar: "头像"
+        mood: "签名"
       reply:
         body: '回复'
   views:

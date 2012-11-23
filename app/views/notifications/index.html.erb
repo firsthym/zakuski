@@ -4,7 +4,7 @@
       <div class="row-fluid">
         <ul class="nav nav-pills pull-right">
           <li <%= "class='active'" if @source == 'topic' %>>
-            <%= link_to t('human.text.topic') + count_html(@topic_count), 
+            <%= link_to t('human.text.discussion') + count_html(@topic_count), 
                         source_notifications_path %>
           </li>
           <li <%= "class='active'" if @source == 'cse' %>>

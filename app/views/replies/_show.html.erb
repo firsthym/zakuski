@@ -1,8 +1,11 @@
 <div class="cse-divider"></div>
 <div class="row-fluid">
-	<div class="span10 offset2">
+	<div class="span2">
+		<%= image_tag reply.user.avatar_url %>
+	</div>
+	<div class="span10">
 		<div class="row-fluid">
-			<%= link_to reply.user.username, reply.user %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(reply.created_at)%></span><span class="badge badge-important pull-right"><%= reply.index %></span>
+			<%= link_to reply.user.username, reply.user %><small class="muted"><%= reply.user.mood.present? ? " (#{reply.user.mood})" : "" %></small><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(reply.created_at)%></span><span class="badge badge-important pull-right"><%= reply.index %></span>
 		</div>
 		<div class="row-fluid cse-grid">
 			<p class="cse-word"><%= reply.body %></p>
