@@ -34,35 +34,31 @@
 					</div>
 					<div class="row-fluid">
 						<div class="cse-box">
+							<% if @filter_annotations.any? %>
 							<div class="row-fluid cse-grid">
-								<% if @filter_annotations.any? %>
-									<h5><strong><%= I18n.t('human.text.mode_filter') %></strong></h5>
-									<% @filter_annotations.each do |annotation| %>
-									<p><%= annotation.about %></p>
-									<% end %>
+								<h5><strong><%= I18n.t('human.text.mode_filter') %></strong></h5>
+								<% @filter_annotations.each do |annotation| %>
+								<p><%= annotation.about %></p>
+								<% end %>
+							</div>	
+							<% end %>
+							<% if @exclude_annotations.any? %>
+							<div class="row-fluid cse-grid">
+								<h5><strong><%= I18n.t('human.text.mode_exclude') %></strong></h5>
+								<% @exclude_annotations.each do |annotation| %>
+								<p><%= annotation.about %></p>
 								<% end %>
 							</div>
-							<div class="row-fluid cse-grid">
-								<% if @exclude_annotations.any? %>
-									<h5><strong><%= I18n.t('human.text.mode_exclude') %></strong></h5>
-									<% @exclude_annotations.each do |annotation| %>
-									<p><%= annotation.about %></p>
-									<% end %>
-								<% end %>
-							</div>
+							<% end %>
+							<% if @boost_annotations.any? %>
 							<div class="row-fluid cse-grid cse-word">
-								<% if @boost_annotations.any? %>
-									<h5><strong><%= I18n.t('human.text.mode_boost') %></strong></h5>
-									<% @boost_annotations.each do |annotation| %>
-									<p><%= annotation.about %></p>
-									<% end %>
+								<h5><strong><%= I18n.t('human.text.mode_boost') %></strong></h5>
+								<% @boost_annotations.each do |annotation| %>
+								<p><%= annotation.about %></p>
 								<% end %>
 							</div>
-							<div class="row-fluid cse-grid">
-								<div class="span6 offset3">
-									<%= get_keep_or_remove_html(@custom_search_engine) %>
-								</div>
-							</div>
+							<% end %>
+							<%= raw(get_keep_or_remove_html(@custom_search_engine)) %>
 							<% if user_signed_in? %>
 							<% unless current_user.own_cse?(@custom_search_engine) %>
 							<div class="row-fluid cse-grid">
@@ -75,18 +71,16 @@
 							</div>
 							<% end %>
 							<% end %>
-							<div id="cse-consumers">
-							<% consumers = @custom_search_engine.get_consumers(50) %>
+							<div id="cse-consumers" class="row-fluid">
+							<% consumers = @custom_search_engine.get_consumers %>
 							<% if consumers.any? %>
-								<div class="cse-divider" id="cse-consumers-divider" ></div>
+							<div id="cse-consumers-divider" class="cse-divider"></div>
 								<% consumers.each do |consumer| %>
 								<%= render partial: 'consumer', locals: {consumer: consumer} %>
 								<% end %>
 								<% if consumers.count > 50 %>
 									<div class="row-fluid">
-										<div class="span9"></div>
-										<div class="span2"><%= link_to I18n.t('human.text.display_more'), cse_consumers_path(@custom_search_engine), remote: true, id: 'more_consumers' %></div>
-										<div class="span1"></div>
+										<div class="span2 offset9"><%= link_to I18n.t('human.text.display_more'), consumers_cse_path(@custom_search_engine), remote: true, id: 'more_consumers' %></div>
 									</div>
 								<% end %>
 							<% end %>

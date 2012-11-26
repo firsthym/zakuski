@@ -27,9 +27,9 @@
 	      				</p>
 	      			<% end %>
       			<% end %>
-      			<div class="cse-divider"></div>
       			<!-- keeped cses -->
       			<% if @keeped_cses.any? %>
+      			<div class="cse-divider"></div>
 	      			<% @keeped_cses.each do |cse| %>
 	      				<p><span class="muted"><%= time_ago_in_words(cse.keeped_at) %></span>
 	      					<%= t('human.text.keeps') %>&nbsp;<%= link_to cse.node.title, node_path(cse.node) %><span class="divider">/</span><%= link_to cse.specification.title, cse_path(cse) %>

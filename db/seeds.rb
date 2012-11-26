@@ -8,13 +8,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Node.delete_all
-Node.create(title: '新闻', description: '军事 评论 图片')
-Node.create(title: '体育', description: 'NBA 中超 英超')
-Node.create(title: '娱乐', description: '电影 电视 音乐')
-Node.create(title: '财经', description: '股票 基金 商业')
-Node.create(title: '科技', description: '概念 创造')
-Node.create(title: '汽车', description: 'F1 购车')
-Node.create(title: '旅游', description: '文化 自由 小站')
-Node.create(title: '房产', description: '家居 装饰 交易')
-Node.create(title: '游戏', description: '试玩 攻略')
-Node.create(title: '生活', description: '亲子 教育 分享')
+Node.create(title: '兴趣', description: '游戏 电影 音乐 汽车 创意 艺术 旅行 文化')
+Node.create(title: '信息', description: '新闻 科技 金融 生活 娱乐 体育 房产 女人')
+Node.create(title: '综合', description: '视频 购物 好玩 分享 城市 教育 工作 财经 问答')

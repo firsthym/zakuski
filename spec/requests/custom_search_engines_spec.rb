@@ -4,7 +4,7 @@ describe "CustomSearchEngines" do
     describe "GET /nodes" do
     	before { visit nodes_path }
       it 'should have dashboard' do
-       should have_selector('dashboard-cse')
+       should have_selector('#dashboard-cse')
        #save_and_open_page
    	  end
     end

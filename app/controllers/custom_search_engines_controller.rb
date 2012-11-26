@@ -21,6 +21,7 @@ class CustomSearchEnginesController < ApplicationController
     @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
     @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
     
+    @custom_search_engine.inc(:browse_count, 1)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }
@@ -199,7 +200,7 @@ class CustomSearchEnginesController < ApplicationController
       @new = CustomSearchEngine.new
       @new.node = @custom_search_engine.node
       @new.author = current_user
-      @new.parent_id = @custom_search_engine.id
+      #@new.parent_id = @custom_search_engine.id
       @new.specification = @custom_search_engine.specification
       @new.annotations = @custom_search_engine.annotations
       @new.status = 'draft'
@@ -236,14 +237,18 @@ class CustomSearchEnginesController < ApplicationController
 
   def consumers
     @custom_search_engine = CustomSearchEngine.find(params[:id])
+    get_consumers_count = 50
+    step = 20
 
     if params[:more].nil?
-      @more = 10
+      @more = get_consumers_count
     else
-      @more = params[:more].to_i + 10
+      @more = params[:more].to_i + step
     end
-    @more_consumers = @custom_search_engine.consumers.slice(@more, 10)
-
+    more = @custom_search_engine.consumers.slice(@more, step)
+    if more.present?
+     @more_consumers = User.in(id: more.map{|each| each["uid"]}).compact
+    end
     respond_to do |format|
       format.js
     end

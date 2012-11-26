@@ -6,7 +6,8 @@ class CustomSearchEngine
   #field :access, type: String, default: 'public'
   field :parent_id
   field :status, type: String
-  field :keep_count, type: Integer
+  field :keep_count, type: Integer, default: 0
+  field :browse_count, type: Integer, default: 0
 
   # consumers
   field :consumers, type: Array, default: []
@@ -47,7 +48,8 @@ class CustomSearchEngine
 
   #TBD
   def self.get_default_cse
-    self.build_parent([self.publish.recent.first])
+    cse_array = self.build_parent(self.publish.hot)
+    cse_array.first
   end
 
   def self.get_from_cookie(cookie, limit = 10)
@@ -58,7 +60,7 @@ class CustomSearchEngine
     self.build_parent(self.publish.hot.limit(limit).compact)
   end
 
-  def get_consumers(limit = 50)
+  def get_consumers
     User.in(id: self.consumers.map{|each| each["uid"]}).compact
   end
 

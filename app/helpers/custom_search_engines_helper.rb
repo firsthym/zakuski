@@ -43,6 +43,10 @@ module CustomSearchEnginesHelper
 			end
 		end
 		id = 'cse-keep-btn'
-		link_to label, path, confirm: I18n.t('human.text.are_u_sure'), remote: true, class: 'btn btn-block', id: id
+		"<div class='row-fluid cse-grid'><div class='span6 offset3'>" + 
+		link_to(label, path, confirm: I18n.t('human.text.are_u_sure'), 
+			remote: true, class: 'btn btn-block', id: id) + 
+		"</div></div>"
+		
 	end
 end

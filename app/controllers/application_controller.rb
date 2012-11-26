@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
           end
         end
         @keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
-        cookies[:keeped_cse_ids] = @keeped_cse_ids.join(',')
+        cookies[:keeped_cse_ids] = @keeped_cse_ids.join(',') if @keeped_cses.present?
 
         if(cookies[:dashboard_cse_ids].blank?)
           # guests only get 5 slot at most
@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
             @dashboard_cses = @keeped_cses[0,5]
           end
         end
-        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',') if @dashboard_cses.present?
       end
 
       # the linked custom search engine
@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
           @linked_cse = @dashboard_cses.first || CustomSearchEngine.get_default_cse
         end
       end
-      cookies[:linked_cseid] = @linked_cse.id
+      cookies[:linked_cseid] = @linked_cse.id if @linked_cse.present?
 
       @dashboard_cse_ids = @dashboard_cses.map{|cse| cse.id} if @dashboard_cse_ids.nil?
       @keeped_cse_ids = @keeped_cses.map{|cse| cse.id} if @keeped_cse_ids.nil?

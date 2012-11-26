@@ -74,9 +74,9 @@ class User
 
   # Massive assignment for User.new
   attr_accessible :email, :username, :agreement, :password, :password_confirmation, :avatar, :mood
-  attr_accessor :agreement, :password_confirmation
+  attr_accessor :password_confirmation
   validates :password_confirmation, presence: true, on: :create
-  validates :agreement, presence: true, on: :create
+  # validates :agreement, presence: true, on: :create
  
   def own_cse?(custom_search_engine)
     if self.custom_search_engines.include? custom_search_engine

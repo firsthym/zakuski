@@ -1,8 +1,8 @@
-<% unless @more_consumers.nil? %>
 (function(){
 	$(document).ready(function(){
+		<% if @more_consumers.present? %>
 			var href = $('#more_consumers').attr('href');
-			<% if @more == 10 %>
+			<% if @more == 50 %>
 				var new_href = href + "/<%= @more %>";
 			<% else %>
 				var new_href = href.substring(0, href.lastIndexOf('/')) + "/<%= @more %>";
@@ -11,6 +11,8 @@
 			<% @more_consumers.each do |consumer| %>
 				$('.cse-consumer').last().after('<%= render partial: "consumer", locals: {consumer: consumer} %>')
 			<% end %>
+		<% else %>
+			alert('<%= t("human.text.no_more") %>')
+		<% end %>
 	});
 }).call(this);
-<% end %>

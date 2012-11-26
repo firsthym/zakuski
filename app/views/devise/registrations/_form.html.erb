@@ -36,9 +36,6 @@
      	<div class="control-group">
      	<div class="controls">
         <% if resource.new_record? %>
-     		<%= f.label :agreement do %>
-     			<%= f.check_box :agreement, checked: "checked" %> <%= I18n.t('human.text.agree') %><%= link_to I18n.t('human.text.protocol'), agreement_path %>
-     		<% end %>
      		<%= f.submit I18n.t('human.controls.link.create'), class: "btn btn-large btn-primary" %>
         <% else %>
         <%= f.submit I18n.t('human.controls.link.submit'), class: "btn btn-large btn-primary" %>        
