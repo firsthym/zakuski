@@ -173,4 +173,5 @@ class User
     custom_search_engine.consumers.delete_if{|each| each["uid"] == self.id}
     custom_search_engine.update
   end
+
 end

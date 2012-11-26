@@ -4,7 +4,7 @@
     <div class="row-fluid">
     	<div class="span3">
     		<div class="row-fluid">
-    		<%= image_tag(@user.avatar_url, {width: 220, height: 220, class: "img-polaroid"}) if @user.avatar.present? %>
+    		<%= get_avatar(@user, 'large') %>
     		</div>
   			<div class="row-fluid">
   				<h4><%= @user.username %></h4>

@@ -8,7 +8,6 @@ class NotificationsController < ApplicationController
   # GET /notifications.json
   def index
     @notifications = current_user.notifications.recent(@source).page(params[:page])
-    #@current_page_notifications = @notifications.page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
     end

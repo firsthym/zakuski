@@ -47,6 +47,31 @@ module CustomSearchEnginesHelper
 		link_to(label, path, confirm: I18n.t('human.text.are_u_sure'), 
 			remote: true, class: 'btn btn-block', id: id) + 
 		"</div></div>"
-		
+	end
+
+	def get_avatar(user,size='normal')
+		if size == 'small'
+			width = '32px'
+			height = '32px'
+		elsif size == 'normal'
+			width = '64px'
+			height = '64px'
+		elsif size == 'medium'
+			width = '80px'
+			height = '80px'
+		elsif size == 'big'
+			width = '120px'
+			height = '120px'
+		elsif size = 'large'
+			width = '220px'
+			height = '220px'
+		end
+			
+		if user.avatar.present?
+			avatar = user.avatar_url
+		else
+			avatar = 'rails.png'
+		end
+		image_tag avatar, width: width, height: height
 	end
 end

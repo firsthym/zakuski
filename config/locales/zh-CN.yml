@@ -401,3 +401,4 @@ zh-CN:
     clone: '%{user} 克隆了你的自定义搜索引擎 %{cse}'
     is_empty: '没有通知消息'
     mark_all_read: '全部标记为已读'
+    at: '%{user} 在 %{discus} 提到了你'

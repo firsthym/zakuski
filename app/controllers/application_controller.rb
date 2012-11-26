@@ -98,9 +98,9 @@ class ApplicationController < ActionController::Base
 
     def unread_notifications_count
       if user_signed_in?
-        @topic_count = current_user.notifications.all_unread('topic').count
+        @discus_count = current_user.notifications.all_unread('discus').count
         @cse_count = current_user.notifications.all_unread('cse').count
-        @total_count = @topic_count + @cse_count
+        @total_count = @discus_count + @cse_count
       end
     end
 

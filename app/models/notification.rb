@@ -11,10 +11,11 @@ class Notification
   field :body, type: String
   field :from, type: String, default: 'system'
   field :source, type: String
+  field :sender
   field :read, type: Boolean, default: false
 
   validates :title, presence: true
-  validates :source, presence: true, inclusion: {in: ['topic', 'cse']}
+  validates :source, presence: true, inclusion: {in: ['discus', 'cse']}
   validates :user_id, presence: true
 
   # Scope
@@ -26,6 +27,6 @@ class Notification
   def self.messager(option)
   	new_notification = self.create(title: option[:title], body: option[:body],
   							from: option[:from] || 'system', source: option[:source],
-  							user_id: option[:receiver].id, read: false)
+  							user_id: option[:receiver].id, read: false, sender: option[:sender].id)
   end
 end

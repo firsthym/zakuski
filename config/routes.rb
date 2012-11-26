@@ -1,11 +1,11 @@
 Myapp::Application.routes.draw do
-  constraints(source: /topic|cse/) do
+  constraints(source: /discus|cse/) do
     resources :notifications do
       collection do
         get 'clear/:source', action: :clear, as: :clear
         get 'markread/:source', action: :mark_read, as: :mark_read
         get ':source(/:page)', action: :index, as: :source,
-                      defaults: {source: 'topic'}
+                      defaults: {source: 'discus'}
       end
     end
   end

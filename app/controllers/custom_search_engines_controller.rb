@@ -130,7 +130,7 @@ class CustomSearchEnginesController < ApplicationController
             user_path(current_user)),
             cse:view_context.link_to(@custom_search_engine.specification.title[0,30],
               cse_path(@custom_search_engine))}),
-                              receiver: @custom_search_engine.author,
+                              receiver: @custom_search_engine.author, sender: current_user,
                               source: 'cse')
       end
     else
@@ -209,7 +209,8 @@ class CustomSearchEnginesController < ApplicationController
 
     respond_to do |format|
       if @new.present? && @new.save
-        Notification.messager(receiver: @custom_search_engine.author, source: 'cse',
+        Notification.messager(receiver: @custom_search_engine.author, sender: current_user, 
+            source: 'cse', 
               title: I18n.t('notification.clone', 
                       {user: view_context.link_to(current_user.username, 
                         user_path(current_user)),
