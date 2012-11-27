@@ -62,7 +62,7 @@ module CustomSearchEnginesHelper
 		elsif size == 'big'
 			width = '120px'
 			height = '120px'
-		elsif size = 'large'
+		elsif size == 'large'
 			width = '220px'
 			height = '220px'
 		end

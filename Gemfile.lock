@@ -10,8 +10,6 @@ GIT
 
 GEM
   remote: http://ruby.taobao.org/
-  remote: http://gemcutter.org/
-  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.5)
       actionpack (= 3.2.5)
@@ -150,6 +148,7 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    redcarpet (2.2.2)
     rspec (2.10.0)
       rspec-core (~> 2.10.0)
       rspec-expectations (~> 2.10.0)
@@ -222,6 +221,7 @@ DEPENDENCIES
   mongoid
   rails (= 3.2.5)
   rails-i18n
+  redcarpet
   rspec-rails (~> 2.10.0)
   sass-rails (= 3.2.4)
   spork-rails

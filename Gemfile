@@ -1,8 +1,8 @@
 require 'rubygems'
 #require 'mongo'
 source "http://ruby.taobao.org"
-source 'http://gemcutter.org'
-source 'https://rubygems.org'
+#source 'http://gemcutter.org'
+#source 'https://rubygems.org'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -29,6 +29,9 @@ gem 'thin', '~>1.4.1'
 gem "carrierwave-mongoid", :git => "git://github.com/jnicklas/carrierwave-mongoid.git", 
     :branch => "mongoid-3.0", :require => 'carrierwave/mongoid'
 gem 'mini_magick','3.3'
+
+# markdown
+gem "redcarpet"
 
 # Gems used only for assets and not required
 # in production environments by default.

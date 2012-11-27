@@ -22,7 +22,9 @@ html {
 body {
   font-family: Verdana,"Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
-  line-height: 13px;
+  line-height: 20px;
+  word-wrap:break-word; 
+  overflow:hidden;
 }
 
 section {
@@ -186,8 +188,8 @@ footer {
   font-size: 14px;
   line-height: 24px;
   color: #000;
+  word-wrap:break-word; 
   overflow:hidden;
-  word-break: break-word;
 }
 
 .cse-muted{
