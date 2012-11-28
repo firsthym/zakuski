@@ -1,4 +1,4 @@
-<%= link_to cse.node.title, cse.node %><span class="divider">/</span><%= link_to cse.specification.title[0,20], cse_path(cse) %><span class="divider">•</span><%= get_link_count_html(cse) %>
+<%= link_to cse.node.title, cse.node %><span class="divider">/</span><%= link_to truncate(cse.specification.title, length: 20), cse_path(cse) %><span class="divider">•</span><%= get_link_count_html(cse) %>
 <% if cse.status == 'draft' %>
 	<span class="divider">•</span><span class="label"><%= t('human.text.unshared') %></span>
 <% end %>

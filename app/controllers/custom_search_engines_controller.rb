@@ -21,7 +21,7 @@ class CustomSearchEnginesController < ApplicationController
     @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
     @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
     
-    @custom_search_engine.inc(:browse_count, 1)
+    @custom_search_engine.inc(:browse_count, 1) if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @custom_search_engine }
@@ -200,7 +200,7 @@ class CustomSearchEnginesController < ApplicationController
       @new = CustomSearchEngine.new
       @new.node = @custom_search_engine.node
       @new.author = current_user
-      #@new.parent_id = @custom_search_engine.id
+      @new.parent_id = @custom_search_engine.id
       @new.specification = @custom_search_engine.specification
       @new.annotations = @custom_search_engine.annotations
       @new.status = 'draft'
