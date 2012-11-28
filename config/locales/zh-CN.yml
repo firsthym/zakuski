@@ -293,6 +293,7 @@ zh-CN:
       guest_clear: "非注册用户不能清空"
       only_publish_cse_available: "你不能查看未共享发布的自定义搜索引擎"
       no_records: "记录不存在"
+      no_user: "该用户不存在"
     success:
       general: "操作成功"
       create: "%{item} 创建成功"

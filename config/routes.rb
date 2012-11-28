@@ -10,6 +10,7 @@ Myapp::Application.routes.draw do
     end
   end
   resources :users, only: [:index, :show, :edit, :update]
+
   resources :custom_search_engines, as: :cses, path: :cses do
     member do
       get 'link', action: :link
@@ -101,7 +102,7 @@ Myapp::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'custom_search_engines#search'
+  root :to => 'nodes#index'
 
   # See how all your routes lay out with "rake routes"
 

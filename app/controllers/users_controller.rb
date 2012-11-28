@@ -64,12 +64,22 @@ class UsersController < ApplicationController
 
   private
     def correct_user
-      @user = User.find(params[:id])
-      correct_user!(@user)
+      @user = User.find_by(username: params[:id])
+      if @user.nil?
+        flash[:error] = I18n.t('human.errors.no_user')
+        redirect_to root_path
+      else
+        correct_user!(@user)
+      end
     end
     def initialize_cses
-      @user = User.find(params[:id]) 
-      @keeped_cses = @user.get_keeped_cses
-      @created_cses = @user.get_created_cses
+      @user = User.find_by(username: params[:id])
+      if(@user.nil?)
+        flash[:error] = I18n.t('human.errors.no_user')
+        redirect_to root_path
+      else
+        @keeped_cses = @user.get_keeped_cses
+        @created_cses = @user.get_created_cses
+      end
     end
 end

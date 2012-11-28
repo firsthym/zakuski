@@ -50,7 +50,7 @@
 	      				<p><span class="muted"><%= time_ago_in_words(reply.created_at) %></span>
 	      					<%= t('human.text.replies') %>&nbsp;<%= link_to reply.custom_search_engine.node.title, node_path(reply.custom_search_engine.node) %><span class="divider">/</span><%= link_to reply.custom_search_engine.specification.title, cse_path(reply.custom_search_engine) %>
 	      				</p>
-	      				<p><%= reply.body %></p>
+	      				<p><%= simple_text(reply.body) %></p>
 	      			</div>
 	      			<% end %>
       			<% end %>

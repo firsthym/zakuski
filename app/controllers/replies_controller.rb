@@ -34,6 +34,7 @@ class RepliesController < ApplicationController
 	private
 		def at_users
 			user_names = @reply.body.scan(/@(\w+)/).map{|each| each[0]}
+			user_names &= user_names
 			User.in(username: user_names).each do |u|
 				if u.present? && u != current_user && u != @reply.custom_search_engine.author
 					Notification.messager(title: I18n.t('notification.at',

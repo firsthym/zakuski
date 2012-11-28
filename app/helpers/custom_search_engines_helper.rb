@@ -72,6 +72,10 @@ module CustomSearchEnginesHelper
 		else
 			avatar = 'rails.png'
 		end
-		image_tag avatar, width: width, height: height
+		link_to(image_tag(avatar, width: width, height: height), user_path(user))
+	end
+
+	def simple_text(text)
+		simple_format(h(text).gsub(/@(\w+)/) { |name| link_to(name, user_path(id: name.delete('@'))) })
 	end
 end

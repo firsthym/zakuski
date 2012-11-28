@@ -16,7 +16,7 @@
           method: :delete, remote: true, class: 'btn btn-warning pull-right' %>
         </div>
         <div class="row-fluid">
-          <%= simple_format(h(notification.body)) %>
+          <%= simple_text(notification.body) %>
         </div>
       </div>
     </div>

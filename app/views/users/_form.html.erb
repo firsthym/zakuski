@@ -9,7 +9,7 @@
 <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
 <div class="row-fluid">
 	<div class="span2 offset1">
-		<%= image_tag(@user.avatar_url, {width: 120, height: 120, class: "img-polaroid"}) if @user.avatar.present? %>
+		<%= get_avatar(@user, 'big') %>
 	</div>
 	<div class="span7">
 	<div class="control-group">

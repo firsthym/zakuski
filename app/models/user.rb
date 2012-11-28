@@ -174,4 +174,7 @@ class User
     custom_search_engine.update
   end
 
+  def to_param
+    username
+  end
 end
