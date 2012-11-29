@@ -9,5 +9,5 @@
 
 Node.delete_all
 Node.create(title: '兴趣', description: '游戏 电影 音乐 汽车 创意 艺术 旅行 文化')
-Node.create(title: '信息', description: '新闻 科技 金融 生活 娱乐 体育 房产 女人')
-Node.create(title: '综合', description: '视频 购物 好玩 分享 城市 教育 工作 财经 问答')
+Node.create(title: '职业', description: '科技 金融 教育 媒体 服务 建筑 人力')
+Node.create(title: '信息', description: '视频 购物 好玩 分享 城市 交易 工作 问答')
