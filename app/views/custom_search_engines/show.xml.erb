@@ -24,7 +24,7 @@
 <Annotations>
   <% @custom_search_engine.annotations.each do |annotation| %>
     <Annotation about="<%= annotation.about %>" score="1">
-      <Label name="<%= annotation.mode %>"/>
+      <Label name="_cse_<%= annotation.mode %>"/>
     </Annotation>
   <% end %>
 </Annotations>
