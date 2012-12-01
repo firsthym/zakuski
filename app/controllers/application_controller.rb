@@ -11,8 +11,10 @@ class ApplicationController < ActionController::Base
   	end
 
 		def extract_locale_from_accept_language_header
-			client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first
-			client_locale if I18n.available_locales.include?(client_locale)
+      if request.env['HTTP_ACCEPT_LANGUAGE'].present?
+        client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first
+  			client_locale if I18n.available_locales.include?(client_locale)
+      end
 		end
 
     def initialize_cses
