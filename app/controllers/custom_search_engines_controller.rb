@@ -3,7 +3,6 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
-  before_filter :only_publish_cse_available, only: [:show]
   #before_filter :admin_user, only: [:destroy]
   
   # GET /custom_search_engines
@@ -17,14 +16,19 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1
   # GET /custom_search_engines/1.json
   def show
-    @filter_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'filter'}
-    @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
-    @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
-    
-    @custom_search_engine.inc(:browse_count, 1) if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+    @custom_search_engine = CustomSearchEngine.find(params[:id])
+
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @custom_search_engine }
+      format.html do 
+        only_publish_cse_available(@custom_search_engine)
+
+        @filter_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'filter'}
+        @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
+        @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
+        @custom_search_engine.inc(:browse_count, 1) if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+        render 'show'
+      end
+      #format.json { render json: @custom_search_engine }
       format.xml
     end
   end
@@ -351,9 +355,8 @@ class CustomSearchEnginesController < ApplicationController
       correct_user!(@custom_search_engine.author)
     end
 
-    def only_publish_cse_available
-      @custom_search_engine = CustomSearchEngine.find(params[:id])
-      if @custom_search_engine.status == 'draft' && current_user != @custom_search_engine.author
+    def only_publish_cse_available(custom_search_engine)
+      if custom_search_engine.status == 'draft' && current_user != custom_search_engine.author
         flash[:error] = I18n.t('human.errors.only_publish_cse_available')
         redirect_to nodes_path
       end
