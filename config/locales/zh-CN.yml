@@ -199,7 +199,7 @@ zh-CN:
       signup: "注册"
       signin: "登录"
       welcome_signup: "欢迎你注册, %{name}"
-      why_create_cse: "创建一个自定义搜索引擎来分享你的兴趣和发现"
+      why_create_cse: "创建一个自定义搜索引擎来分享你的关注和发现"
       site_slogan: "一个关于搜索和分享的社区"
       public: "公共"
       public_what: "所有人都可以自由使用"

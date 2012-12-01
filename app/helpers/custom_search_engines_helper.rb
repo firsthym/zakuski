@@ -70,7 +70,7 @@ module CustomSearchEnginesHelper
 		if user.avatar.present?
 			avatar = user.avatar_url
 		else
-			avatar = 'rails.png'
+			avatar = 'default.jpeg'
 		end
 		link_to(image_tag(avatar, width: width, height: height), user_path(user))
 	end

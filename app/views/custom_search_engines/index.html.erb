@@ -12,7 +12,7 @@
         <%= form_tag dashboard_save_cses_path, {method: 'post'} do %>
         <ul id="dashboard-cses" class="cse-sortable">
           <% @dashboard_cses.each do |cse| %>
-           <li class="ui-state-default"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span class="muted"><%= t('human.text.creator') %></span><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%= time_ago_in_words(cse.created_at) %></span><% if cse.parent.present? %><span class="divider">•</span><span class="muted"><%= t('human.text.cloned_from') %></span>%= link_to truncate(cse.parent.specification.title, length: 10), cse_path(cse.parent) %><% end %>
+           <li class="ui-state-default"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span class="muted"><%= t('human.text.creator') %></span><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%= time_ago_in_words(cse.created_at) %></span><% if cse.parent.present? %><span class="divider">•</span><span class="muted"><%= t('human.text.cloned_from') %></span><%= link_to truncate(cse.parent.specification.title, length: 10), cse_path(cse.parent) %><% end %>
             <span class="dashboard-cse-remove pull-right"><i class="icon-remove"></i></span>
             <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
            </li> 
