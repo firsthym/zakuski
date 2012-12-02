@@ -9,7 +9,7 @@ GIT
       mongoid-grid_fs (~> 1.3.1)
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.5)
       actionpack (= 3.2.5)
