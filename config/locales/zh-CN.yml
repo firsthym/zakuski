@@ -352,14 +352,14 @@ zh-CN:
       truncate: "..."
   devise:
     failure:
-      already_authenticated: 'You are already signed in.'
+      already_authenticated: '你已经登录了'
       unauthenticated: '请先登录或注册账号'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
-      invalid: 'Invalid email or password.'
+      unconfirmed: '你还没激活你的账户'
+      locked: '账户被锁定'
+      invalid: '用户名或邮箱错误'
       invalid_token: 'Invalid authentication token.'
       timeout: '登录超时，请重新登录'
-      inactive: 'Your account was not activated yet.'
+      inactive: '你的账号还未激活'
     sessions:
       signed_in: '登录成功'
       signed_out: '退出成功'
