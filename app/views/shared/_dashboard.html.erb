@@ -7,7 +7,7 @@
           <% if @dashboard_cses.present? %>
             <% @dashboard_cses.each do |cse| %>
             <% unless cse.nil? %>
-            <%= render partial: 'shared/keeped_cse', locals: {cse: cse} %>
+            <%= render partial: 'shared/dashboard_cse', locals: {cse: cse} %>
             <% end %>
             <% end %>
           <% else %>
