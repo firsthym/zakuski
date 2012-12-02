@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GoogleCustomizations>
-<CustomSearchEngine language="zh-Hans">
+<CustomSearchEngine language="zh-Hans" autocompletions="true">
   <Title><%= @custom_search_engine.specification.title %></Title>
   <Description><%= @custom_search_engine.specification.description %></Description>
   <Context>
@@ -21,6 +21,7 @@
   <EnterpriseAccount />
   <autocomplete_settings />
 </CustomSearchEngine>
+<% if @custom_search_engine.annotations.present? %>
 <Annotations>
   <% @custom_search_engine.annotations.each do |annotation| %>
     <Annotation about="<%= annotation.about %>" score="1">
@@ -28,4 +29,5 @@
     </Annotation>
   <% end %>
 </Annotations>
+<% end %>
 </GoogleCustomizations>
