@@ -61,12 +61,9 @@ development:
 test:
   sessions:
     default:
-      database: <%= JSON.parse( ENV['VCAP_SERVICES'] )['mongodb-1.8'].first['credentials']['db'] rescue 'tutorial_db' %>
+      database: cse_test 
       hosts:
-        - <%= JSON.parse(ENV['VCAP_SERVICES'])['mongodb-1.8'].first['credentials']['hostname'] rescue 'localhost' %>
-      port: <%= JSON.parse( ENV['VCAP_SERVICES'] )['mongodb-1.8'].first['credentials']['port'] rescue 27017 %>
-      username: <%= JSON.parse( ENV['VCAP_SERVICES'] )['mongodb-1.8'].first['credentials']['username'] rescue '' %>
-      password: <%= JSON.parse( ENV['VCAP_SERVICES'] )['mongodb-1.8'].first['credentials']['password'] rescue '' %>
+        - localhost:27017 
       options:
         consistency: :strong
 production:
@@ -77,5 +74,4 @@ production:
         - localhost:27017
       options:
         identity_map_enabled: true
-        raise_not_found_error: false
         consistency: :strong
