@@ -18,7 +18,7 @@
 			end
 			%>
 			if($('li.cse-link').length < <%= limit %>){
-				var cse_html = '<%= escape_javascript(render partial: 'shared/keeped_cse', locals: {cse: @custom_search_engine}) %>'
+				var cse_html = '<%= escape_javascript(render partial: 'shared/dashboard_cse', locals: {cse: @custom_search_engine}) %>'
 				$('ul#dashboard-cse').find('li:not([class])').remove();
 				$('ul#dashboard-cse').append(cse_html);
 			}
