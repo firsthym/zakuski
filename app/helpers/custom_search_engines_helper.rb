@@ -53,7 +53,7 @@ module CustomSearchEnginesHelper
 		if user.avatar.present?
 			avatar = user.avatar_url(version)
 		else
-			avatar = 'default.jpeg'
+			avatar = "#{version}_default.jpeg"
 		end
 		link_to(image_tag(avatar), user_path(user))
 	end
