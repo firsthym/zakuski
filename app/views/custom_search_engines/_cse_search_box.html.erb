@@ -14,3 +14,25 @@
 	</span>
 </div>
 <% end %>
+
+<%= content_for :body_bottom_script do %>
+<script type="text/javascript">
+(function(){
+	//bind search button
+	$("#cse-go").click(function(){
+	$("#cse-result").html('');
+	var q = $("#cse-query").val();
+	if(q){
+		search_url = 'http://' + window.location.host + '/q/' + q;
+		window.location.href = search_url
+	}
+	});
+
+	$('#cse-query').bind('keyup', function(e){
+		if(e.keyCode == "13"){
+			$('#cse-go').click();
+		}
+	});
+})();
+</script>
+<% end %>

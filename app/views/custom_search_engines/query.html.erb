@@ -6,7 +6,7 @@
         <%= render 'custom_search_engines/cse_search_box' %>
         <!-- cse search box end -->
         <div class="row-fluid cse-container-normal">
-        	<div class="span11" id="cse-result"></div>
+        	<div class="span11" id="cse-result"><%= t('human.text.searching') %></div>
         </div>
     </div>
     <div class="span3">
@@ -78,16 +78,6 @@
 	    var s = document.getElementsByTagName('script')[0]; 
 	    s.parentNode.insertBefore(gcse, s);
 	  
-	  //bind search button
-	  $("#cse-go").click(function(){
-	    $("#cse-result").html('');
-	    var q = $("#cse-query").val();
-	    if(q){
-			search_url = 'http://' + window.location.host + '/q/' + q;
-			window.location.href = search_url
-	    }
-	  });
-
 	 })();
 </script>
  <% end %>
