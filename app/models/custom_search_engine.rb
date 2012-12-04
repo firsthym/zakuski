@@ -78,7 +78,7 @@ class CustomSearchEngine
     end
   end
 
-  def self.keep_count
+  def keep_count
     self.consumers.count
   end
 end
