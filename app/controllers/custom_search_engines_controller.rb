@@ -151,7 +151,6 @@ class CustomSearchEnginesController < ApplicationController
     if @error.nil?
       @message = I18n.t('human.success.general')
       add_cse_to_dashboard(@custom_search_engine)
-      @custom_search_engine.inc(:keep_count, 1)
     end
     respond_to do |format|
       format.js
@@ -187,7 +186,6 @@ class CustomSearchEnginesController < ApplicationController
 
     if @error.nil?
       @message = I18n.t('human.success.general')
-      @custom_search_engine.inc(:keep_count, -1)
     end
     respond_to do |format|
       format.js
