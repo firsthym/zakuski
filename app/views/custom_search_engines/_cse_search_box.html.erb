@@ -1,6 +1,6 @@
 <div class="row-fluid">
 <div class="span10 cse-search-input">
-  <input type="text" class="span12" id="cse-query" placeholder="c++", value="<%= @query %>"/>
+  <input type="text" class="span12" id="cse-query" value="<%= @query %>"/>
 </div>
 <div class="btn-group span2">
     <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
@@ -20,7 +20,6 @@
 (function(){
 	//bind search button
 	$("#cse-go").click(function(){
-	$("#cse-result").html('');
 	var q = $("#cse-query").val();
 	if(q){
 		search_url = 'http://' + window.location.host + '/q/' + q;
