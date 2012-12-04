@@ -78,7 +78,16 @@ class CustomSearchEngine
     end
   end
 
-  def self.keep_count
+  def keep_count
     self.consumers.count
   end
+ 
+  def publish?
+    if self.status == 'publish'
+	true
+    else
+        false
+    end
+  end
+
 end
