@@ -49,30 +49,13 @@ module CustomSearchEnginesHelper
 		"</div></div>"
 	end
 
-	def get_avatar(user,size='normal')
-		if size == 'small'
-			width = '32px'
-			height = '32px'
-		elsif size == 'normal'
-			width = '64px'
-			height = '64px'
-		elsif size == 'medium'
-			width = '80px'
-			height = '80px'
-		elsif size == 'big'
-			width = '120px'
-			height = '120px'
-		elsif size == 'large'
-			width = '220px'
-			height = '220px'
-		end
-			
+	def get_avatar(user,version='normal')
 		if user.avatar.present?
-			avatar = user.avatar_url
+			avatar = user.avatar_url(version)
 		else
 			avatar = 'default.jpeg'
 		end
-		link_to(image_tag(avatar, width: width, height: height), user_path(user))
+		link_to(image_tag(avatar), user_path(user))
 	end
 
 	def simple_text(text)
