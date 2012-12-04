@@ -6,7 +6,7 @@ class CustomSearchEngine
   #field :access, type: String, default: 'public'
   field :parent_id
   field :status, type: String
-  field :keep_count, type: Integer, default: 0
+  #field :keep_count, type: Integer, default: 0
   field :browse_count, type: Integer, default: 0
 
   # consumers
@@ -76,5 +76,9 @@ class CustomSearchEngine
         end
       end
     end
+  end
+
+  def self.keep_count
+    self.consumers.count
   end
 end
