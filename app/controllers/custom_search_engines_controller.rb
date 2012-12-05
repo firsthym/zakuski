@@ -209,7 +209,6 @@ class CustomSearchEnginesController < ApplicationController
       @new.specification = @custom_search_engine.specification
       @new.annotations = @custom_search_engine.annotations
       @new.status = 'draft'
-      @new.keep_count = 0
     end
 
     respond_to do |format|
