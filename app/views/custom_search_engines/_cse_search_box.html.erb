@@ -20,11 +20,12 @@
 (function(){
 	//bind search button
 	$("#cse-go").click(function(){
-	var q = $("#cse-query").val();
-	if(q){
-		search_url = 'http://' + window.location.host + '/q/' + q;
-		window.location.href = search_url
-	}
+		var q = $("#cse-query").val();
+		if(q){
+			$("#cse-result").html('');
+			search_url = 'http://' + window.location.host + '/q/'+ $.cookie('linked_cseid') + '/' + q;
+			window.location.href = search_url
+		}
 	});
 
 	$('#cse-query').bind('keyup', function(e){
