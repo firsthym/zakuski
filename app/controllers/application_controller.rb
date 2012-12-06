@@ -149,4 +149,14 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def can_access?(cse)
+      if cse.status == 'publish'
+        true
+      elsif user_signed_in? && (current_user == cse.author)
+        true
+      else
+        false
+      end
+    end
+
 end
