@@ -111,9 +111,15 @@ class CustomSearchEnginesController < ApplicationController
     if params[:id].present?
       @linked_cse = CustomSearchEngine.find(params[:id])
     end
+
     @query = params[:query]
     respond_to do |format|
-      format.html
+      if @linked_cse.present?
+        format.html
+      else
+        flash[:error] = I18n.t('human.errors.invalid_link_cse')
+        format.html {redirect_to nodes_path}
+      end
     end
   end
 
