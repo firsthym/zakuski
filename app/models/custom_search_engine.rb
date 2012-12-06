@@ -41,7 +41,7 @@ class CustomSearchEngine
   validates :author_id, presence: true
   validates :node_id, presence: true
 
-  scope :recent, desc(:created_at)
+  scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   scope :hot, desc(:keep_count)

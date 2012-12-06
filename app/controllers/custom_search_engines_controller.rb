@@ -106,8 +106,11 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /q/:query
+  # GET /:id/q/:query
   def query
+    if params[:id].present?
+      @linked_cse = CustomSearchEngine.find(params[:id])
+    end
     @query = params[:query]
     respond_to do |format|
       format.html
