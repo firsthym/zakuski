@@ -12,19 +12,3 @@
     </div>
   </div>
 </div>
-
-<% content_for :body_bottom_script do %>
-<script type="text/javascript">
-  (function() {
-    //bind search button
-    $("#cse-go").click(function(){
-      $("#cse-result").html('');
-      var q = $("#cse-query").val();
-      if(q){
-        window.location = '/q/' + q;
-      }
-    });
-
-  })();
-</script>
-<% end %>

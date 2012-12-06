@@ -21,6 +21,7 @@ class CustomSearchEngine
   embeds_many :votes
 
   has_many :replies
+  has_and_belongs_to_many :tags
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
   belongs_to :node
@@ -40,7 +41,7 @@ class CustomSearchEngine
   validates :author_id, presence: true
   validates :node_id, presence: true
 
-  scope :recent, desc(:created_at)
+  scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   scope :hot, desc(:keep_count)

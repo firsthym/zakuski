@@ -295,6 +295,7 @@ zh-CN:
       only_publish_cse_available: "你不能查看未共享发布的自定义搜索引擎"
       no_records: "记录不存在"
       no_user: "该用户不存在"
+      invalid_link_cse: "你没有连接一个有效的自定义搜索引擎"
     success:
       general: "操作成功"
       create: "%{item} 创建成功"

@@ -1,6 +1,6 @@
 <div class="row-fluid">
 	<div>
-		<% Node.all.each do |node| %>
+		<% Node.all.desc(:weight).each do |node| %>
 		<%= link_to node.title, node_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
 		<% end %>
 		<div class="row-fluid cse-grid">
