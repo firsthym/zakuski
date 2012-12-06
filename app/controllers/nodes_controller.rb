@@ -15,7 +15,7 @@ class NodesController < ApplicationController
 			if(params[:id].present?)
 				@selected_node = Node.find(params[:id])
 			else
-				@selected_node = Node.first
+				@selected_node = Node.desc(:weight).limit(1).first
 			end
 			@custom_search_engines = @selected_node.custom_search_engines.recent.publish.limit(20).page(params[:page])
 		end
