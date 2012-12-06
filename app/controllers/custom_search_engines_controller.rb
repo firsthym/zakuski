@@ -114,7 +114,7 @@ class CustomSearchEnginesController < ApplicationController
 
     @query = params[:query]
     respond_to do |format|
-      if @linked_cse.present?
+      if @linked_cse.present? && can_access?(@linked_cse)
         format.html
       else
         flash[:error] = I18n.t('human.errors.invalid_link_cse')
