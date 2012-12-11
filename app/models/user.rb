@@ -50,7 +50,7 @@ class User
             uniqueness: {case_sensitive: false}
 
   field :mood, type: String
-  validates :mood, length: {maximum: 35}
+  validates :mood, length: {maximum: 20}
 
   # dashboard CSEs
   field :dashboard_cses, type: Array, default: []

@@ -271,7 +271,7 @@ zh-CN:
       replies: "回复"
       discussion: "讨论"
       browse: "浏览"
-      searching: "正在搜索..."
+      searching: "正在搜索...(如果长时间无结果，你应该尝试使用vpn)"
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("

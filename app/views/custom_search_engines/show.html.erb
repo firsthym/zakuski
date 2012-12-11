@@ -17,7 +17,7 @@
 				<div class="row-fluid">
 					<div class="cse-grid">
 						<div class="row-fluid">
-						<%= link_to @custom_search_engine.author.username, user_path(@custom_search_engine.author) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(@custom_search_engine.created_at)%></span><span class="divider">•</span><span class="muted"><%= t('human.text.browse') %>&nbsp;<%= @custom_search_engine.browse_count %></span><span class="divider">•</span><span class="muted"><%= t('human.text.keeps') %>&nbsp;<%= @custom_search_engine.keep_count %></span>
+						<%= link_to @custom_search_engine.author.username, user_path(@custom_search_engine.author) %><small class="muted"><%= @custom_search_engine.author.mood.present? ? " (#{@custom_search_engine.author.mood})" : "" %></small><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(@custom_search_engine.created_at)%></span><span class="divider">•</span><span class="muted"><%= t('human.text.browse') %>&nbsp;<%= @custom_search_engine.browse_count %></span><span class="divider">•</span><span class="muted"><%= t('human.text.keeps') %>&nbsp;<%= @custom_search_engine.keep_count %></span>
 						<% if user_signed_in? && @custom_search_engine.author == current_user %>
 						<div class="btn-group pull-right">
 							<%= link_to raw('<i class="icon-edit"></i>'), 
