@@ -83,6 +83,7 @@
 							<% consumers = @custom_search_engine.get_consumers %>
 							<% if consumers.any? %>
 							<div id="cse-consumers-divider" class="cse-divider"></div>
+								<p class="muted"><%= t('human.text.cse_friends') %></p>
 								<% consumers.each do |consumer| %>
 								<%= render partial: 'consumer', locals: {consumer: consumer} %>
 								<% end %>

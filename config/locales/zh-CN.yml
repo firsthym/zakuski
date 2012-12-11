@@ -272,6 +272,7 @@ zh-CN:
       discussion: "讨论"
       browse: "浏览"
       searching: "正在搜索...(如果长时间无结果，你应该尝试使用vpn)"
+      cse_friends: "对此类信息同样关注并收藏了该自定义搜索的用户："
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("
