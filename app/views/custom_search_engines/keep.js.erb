@@ -7,8 +7,9 @@
 			var consumer_html = '<%= render partial: "consumer", locals: {consumer: current_user} %>';
 			if($('#cse-consumers-divider').length == 0){
 				$('#cse-consumers').append('<div class="cse-divider" id="cse-consumers-divider"></div>');
+				$('#cse-consumers').append('<p id="cse-keep-note" class="muted"><%= t('human.text.cse_friends') %></p>');
 			}
-			$('#cse-consumers-divider').after(consumer_html);
+			$('#cse-keep-note').after(consumer_html);
 			<% end %>
 			
 			<% if user_signed_in?

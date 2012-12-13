@@ -61,6 +61,10 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
     @custom_search_engine.author = current_user
     @custom_search_engine.status = 'draft'
+    @custom_search_engine.annotations.each do |a|
+      prefix = a.about.slice(/http(s)?:\/\//)
+      a.about = prefix.nil? ?  "http://#{a.about}" : "#{a.about}"
+    end
     respond_to do |format|
       if @custom_search_engine.save
         add_cse_to_dashboard(@custom_search_engine)

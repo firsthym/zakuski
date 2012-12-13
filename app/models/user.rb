@@ -46,7 +46,7 @@ class User
   # ==> Below are customize fields
   field :email_public, type: Boolean, default: true
   field :username, type: String
-  validates :username, presence: true, length: {minimum: 2, maximum: 10}, 
+  validates :username, presence: true, length: {minimum: 2, maximum: 20}, 
             uniqueness: {case_sensitive: false}
 
   field :mood, type: String
