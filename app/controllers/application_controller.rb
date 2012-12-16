@@ -87,8 +87,11 @@ class ApplicationController < ActionController::Base
           @linked_cse = @dashboard_cses.first || CustomSearchEngine.get_default_cse
         end
       end
-      cookies[:linked_cseid] = @linked_cse.id if @linked_cse.present?
-
+      if @linked_cse.present?
+        cookies[:linked_cseid] = @linked_cse.id 
+        @active_cse = @linked_cse
+        cookies[:active_cseid] = @active_cse.id
+      end
       @dashboard_cse_ids = @dashboard_cses.map{|cse| cse.id} if @dashboard_cse_ids.nil?
       @keeped_cse_ids = @keeped_cses.map{|cse| cse.id} if @keeped_cse_ids.nil?
       @created_cses_ids = @created_cses.map{|cse| cse.id} if @created_cses_ids.nil?
