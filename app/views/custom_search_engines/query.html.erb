@@ -6,7 +6,7 @@
         <%= render 'custom_search_engines/cse_search_box' %>
         <!-- cse search box end -->
         <div class="row-fluid cse-container-normal">
-        	<div class="span11" id="cse-result"><%= t('human.text.searching') %></div>
+        	<div class="span11" id="cse-result"><%= @query.present? ? t('human.text.searching') : '' %></div>
         </div>
     </div>
     <div class="span3">
@@ -16,6 +16,7 @@
     </div>
   </div>
 </div>
+<% if @query.present? %>
 <% content_for :body_bottom_script do %>
 <script type="text/javascript">
 	function init(){
@@ -63,4 +64,5 @@
 	  
 	 })();
 </script>
- <% end %>
+<% end %>
+<% end %>

@@ -8,11 +8,13 @@
 </div>
 <% if @linked_cse.present? %>
 <div class="row-fluid">
-	<span class="muted"><%= I18n.t('human.text.linked_cse') %></span>
+	<span class="muted"><%= I18n.t('human.text.loaded_cse') %></span>
 	<span id="linked-cse-desc">
 	<%= render partial: 'shared/cse_info', locals: {cse: @linked_cse} %>
 	</span>
 </div>
+<% else %>
+<p class="muted"><%= t('human.text.no_cses_header') %></p>
 <% end %>
 
 <%= content_for :body_bottom_script do %>

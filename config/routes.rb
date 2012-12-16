@@ -51,7 +51,7 @@ Myapp::Application.routes.draw do
   #match '/signout', :to => 'sessions#destroy', :via => :delete
 
   match '/search', :to => 'custom_search_engines#search', :as => 'cse_search'
-  match '/q/:id/:query', :to => 'custom_search_engines#query', :query =>/.*/, :as => 'cse_query'
+  match '/q/:id(/:query)', :to => 'custom_search_engines#query', :query =>/.*/, :as => 'cse_query'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

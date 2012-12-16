@@ -21,13 +21,14 @@
 						<% if user_signed_in? && @custom_search_engine.author == current_user %>
 						<div class="btn-group pull-right">
 							<%= link_to raw('<i class="icon-edit"></i>'), 
-										edit_cse_path(@custom_search_engine), class: "btn pull-right", 
+										edit_cse_path(@custom_search_engine), class: "btn", 
 										title: t('human.controls.link.edit') %>
 							<% if @custom_search_engine.status == 'draft'%>
 							<%= link_to raw('<i class="icon-share"></i>'), 
-										share_cse_path(@custom_search_engine), class: "btn pull-right", 
+										share_cse_path(@custom_search_engine), class: "btn", 
 										title: t('human.controls.link.publish') %>
 							<% end %>
+							<%= link_to raw('<i class="icon-search"></i>'), cse_query_path(id: @custom_search_engine.id) ,class: 'btn', title: t('human.text.try_search') %>
 						</div>
 						<% end %>
 						</div>
