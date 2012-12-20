@@ -20,6 +20,7 @@
 			<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>
 		<% end %>
 	<% end %>
+ 	<%= link_to t('human.controls.link.reset_password'), new_password_path %>
 </div>
 </div>
 </div>

@@ -328,6 +328,7 @@ zh-CN:
         save: "保存"
         publish: "共享发布"
         manage_cses: "管理搜索引擎"
+        reset_password: "忘记密码?"
       select:
         filter: "包含"
         exclude: "去除"
@@ -363,22 +364,22 @@ zh-CN:
       unconfirmed: '你还没激活你的账户'
       locked: '账户被锁定'
       invalid: '用户名或邮箱错误'
-      invalid_token: 'Invalid authentication token.'
+      invalid_token: '激活码无效'
       timeout: '登录超时，请重新登录'
       inactive: '你的账号还未激活'
     sessions:
       signed_in: '登录成功'
       signed_out: '退出成功'
     passwords:
-      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
-      updated: 'Your password was changed successfully. You are now signed in.'
-      updated_not_active: 'Your password was changed successfully.'
+      send_instructions: '你将在几分钟后收到一封告诉你如何重置密码的邮件'
+      updated: '密码重置成功。'
+      updated_not_active: '密码重置成功，但还没有登录'
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
     confirmations:
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: '账号激活成功，请登陆'
+      confirmed: '账号激活成功'
     registrations:
       signed_up: '注册成功!'
       signed_up_but_unconfirmed: '请点击邮箱中的注册链接以激活你的账户'

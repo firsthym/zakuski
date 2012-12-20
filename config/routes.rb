@@ -38,15 +38,25 @@ Myapp::Application.routes.draw do
   match '/help', :to  => 'static_pages#help'
   match '/agreement', :to => 'static_pages#agreement'
 
-  devise_for :users, :skip => [:sessions, :registrations]  
+  devise_for :users, :skip => [:sessions, :registrations, :confirmations, :passwords]  
   devise_scope :user do
     get "signin", :to => "devise/sessions#new", :as => :signin
     post 'signin', :to => 'devise/sessions#create', :as => :signin
     match 'signout', :to => 'devise/sessions#destroy', :as => :signout
-	 
+   
     get 'signup', :to => 'devise/registrations#new', :as => :signup
     post 'signup', :to => 'devise/registrations#create', :as => :signup
-	end
+     
+    get 'confirm/resend', :to => 'devise/confirmations#new', :as => :new_confirmation
+    post 'confirm', :to => 'devise/confirmations#create', :as => :confirmation
+    get 'confirm/:confirmation_token', :to => 'devise/confirmations#show', :as => :confirmation
+
+    get 'password/forget', :to => 'devise/passwords#new', :as => :new_password
+    post 'password', :to => 'devise/passwords#create', :as => :password
+    get 'password/reset/:reset_password_token', :to => 'devise/passwords#edit', 
+                                                        :as => :edit_password
+    put 'password', :to => 'devise/passwords#update', :as => :password
+  end
 
   #match '/signout', :to => 'sessions#destroy', :via => :delete
 
