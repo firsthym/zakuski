@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery
-  include ApplicationHelper
+  	include ApplicationHelper
 
 	before_filter :set_locale
-  before_filter :unread_notifications_count
+  	before_filter :unread_notifications_count
 
 	private
     def set_locale

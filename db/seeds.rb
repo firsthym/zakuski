@@ -6,7 +6,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
 Node.delete_all
 Node.create(title: '兴趣', description: '游戏 电影 音乐 汽车 创意 艺术 旅行 文化', weight: 3)
 Node.create(title: '职业', description: '科技 金融 教育 媒体 服务 建筑 人力', weight: 2)

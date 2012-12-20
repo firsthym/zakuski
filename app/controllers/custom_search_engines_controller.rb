@@ -24,7 +24,9 @@ class CustomSearchEnginesController < ApplicationController
           @filter_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'filter'}
           @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
           @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
-          @custom_search_engine.inc(:browse_count, 1) if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+          if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+		@custom_search_engine.inc(:browse_count, 1) 
+	    end
           render 'show'
 	else
 	 flash[:error] = I18n.t('human.errors.only_publish_cse_available')
@@ -71,7 +73,8 @@ class CustomSearchEnginesController < ApplicationController
         link_cse(@custom_search_engine)
         flash[:success] = I18n.t('human.success.create', item: I18n.t('human.text.cse'))
         format.html { redirect_to cse_path(@custom_search_engine)}
-        format.json { render json: @custom_search_engine, status: :created, location: @custom_search_engine }
+        format.json { render json: @custom_search_engine, status: :created, 
+							location: @custom_search_engine }
       else
         format.html { render action: "new" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
