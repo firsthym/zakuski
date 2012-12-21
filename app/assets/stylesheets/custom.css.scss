@@ -98,7 +98,12 @@ footer {
   @extend .control-group;
   @extend .error;
  }
-
+.form-inline .control-group .field_with_errors{
+	display: inline;
+}
+.form-horizontal .control-group .field_with_errors{
+	display: inline;
+}
 .cse-label-horizontal{
   @extend .control-label;
   margin-left: 10px;

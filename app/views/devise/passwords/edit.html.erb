@@ -1,9 +1,10 @@
 <div class="container cse-container">
 <div class="row">
 <div class="span6 offset3">
-	<h2>Change your password</h2>
+<div class="row-fluid">
+	<h3>更改密码</h3>
 
-	<%= form_for(resource, :as => resource_name, :url => password_path, :html => { :method => :put }) do |f| %>
+	<%= form_for(resource, :as => resource_name, :url => edit_password_path, :html => { :method => :put }) do |f| %>
 	  <%= devise_error_messages! %>
 	  <%= f.hidden_field :reset_password_token %>
 
@@ -17,6 +18,7 @@
 	<% end %>
 
 	<%= render "devise/shared/links" %>
+</div>
 </div>
 </div>
 </div>

@@ -348,6 +348,7 @@ zh-CN:
         agreement: "协议"
         avatar: "头像"
         mood: "签名"
+        confirmation_token: "激活码"
       reply:
         body: '回复'
   views:
