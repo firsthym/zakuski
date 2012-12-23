@@ -1,4 +1,4 @@
-<%= form_for(resource, :as => resource_name, :url => signin_path) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => user_session_path) do |f| %>
 <div class="row-fluid">
 <div class="control-group">
 	<%= f.label :email, I18n.t('mongoid.attributes.user.email') %>
@@ -20,7 +20,7 @@
 			<%= f.check_box :remember_me, checked: 'checked' %> <%= I18n.t('human.text.remember_me') %>
 		<% end %>
 	<% end %>
- 	<%= link_to t('human.controls.link.reset_password'), new_password_path %>
+ 	<%= link_to t('human.controls.link.reset_password'), new_user_password_path %>
 </div>
 </div>
 </div>

@@ -41,26 +41,24 @@ Myapp::Application.routes.draw do
   devise_for :users, :skip => [:sessions, :registrations, 
                               :confirmations, :passwords]  
   devise_scope :user do
-    get "signin", :to => "devise/sessions#new", :as => :signin
-    post 'signin', :to => 'devise/sessions#create', :as => :signin
-    match 'signout', :to => 'devise/sessions#destroy', :as => :signout
+    get "signin", :to => "devise/sessions#new", :as => :new_user_session
+    post 'signin', :to => 'devise/sessions#create', :as => :user_session
+    match 'signout', :to => 'devise/sessions#destroy', :as => :destroy_user_session
    
-    get 'signup', :to => 'devise/registrations#new', :as => :signup
-    post 'signup', :to => 'devise/registrations#create', :as => :signup
+    get 'signup', :to => 'devise/registrations#new', :as => :new_user_registration
+    post 'signup', :to => 'devise/registrations#create', :as => :user_registration
     
-    get 'confirm/resend', :to => 'devise/confirmations#new', :as => :new_confirmation
-	 post 'confirm', :to => 'devise/confirmations#create', :as => :new_confirmation
+    get 'confirm/resend', :to => 'devise/confirmations#new', :as => :new_user_confirmation
+    post 'confirm', :to => 'devise/confirmations#create', :as => :user_confirmation
     get 'confirm/:confirmation_token', :to => 'devise/confirmations#show',
                                        :as => :confirmation
 
-    get 'password/forget', :to => 'devise/passwords#new', :as => :new_password
-    post 'password', :to => 'devise/passwords#create', :as => :new_password
+    get 'password/forget', :to => 'devise/passwords#new', :as => :new_user_password
+    post 'password', :to => 'devise/passwords#create', :as => :user_password
     get 'password/reset/:reset_password_token', 
-          :to => 'devise/passwords#edit', :as => :edit_password
-    put 'password', :to => 'devise/passwords#update', :as => :edit_password
+          :to => 'devise/passwords#edit', :as => :edit_user_password
+    put 'password', :to => 'devise/passwords#update', :as => :user_password
   end
-
-  #match '/signout', :to => 'sessions#destroy', :via => :delete
 
   match '/search', :to => 'custom_search_engines#search', :as => 'cse_search'
   match '/q/:id(/:query)', :to => 'custom_search_engines#query', 

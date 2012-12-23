@@ -2,20 +2,19 @@
 <div class="row">
 <div class="span6 offset3">
 <div class="row-fluid">
-	<h3>重新发送激活码</h3>
-	<%= form_for(resource, :as => resource_name , :url => new_confirmation_path, 
+	<%= form_for(resource, :as => resource_name , :url => user_confirmation_path, 
 								:html => { :method => :post, class: 'form-inline' }) do |f| %>
 	  <%= render partial: 'shared/error_messages', locals: {object: f.object, 
 	  							error_title: I18n.t('human.errors.general')} %>
 	  <div class="control-group">
 	  <div class="controls">
 		  <%= f.email_field :email, placeholder: "Email" %>
-		  <%= f.submit "重新发送", class: "btn" %>
+		  <%= f.submit "重新发送激活码", class: "btn" %>
 	  </div>
 	  </div>
 	<% end %>
-	<%= render "devise/shared/links" %>
 </div>
+<%= render "devise/shared/links" %>
 </div>
 </div>
 </div>

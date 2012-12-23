@@ -1,15 +1,19 @@
+<div class="row-fluid cse-container">
+<div class="pull-right">
 <% if controller_name != 'sessions' %>
-  <%= link_to "Sign in", signin_path %><br />
+  <%= link_to "登录", new_user_session_path %>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", signup_path %><br />
+<span class="divider">|</span><%= link_to "立即注册", new_user_registration_path %>
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-  <%= link_to "Forgot your password?", new_password_path %><br />
+<span class="divider">|</span><%= link_to "忘记密码？", new_user_password_path %>
 <% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path %><br />
+<span class="divider">|</span><%= link_to "没有收到激活码？", new_user_confirmation_path %>
 <% end %>
+</div>
+</div>

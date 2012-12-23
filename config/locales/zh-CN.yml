@@ -351,6 +351,13 @@ zh-CN:
         confirmation_token: "激活码"
       reply:
         body: '回复'
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              already_confirmed: "账户已经激活"
+              not_found: "账号不存在"
   views:
     pagination:
       first: "&laquo; 第一页"
@@ -378,7 +385,7 @@ zh-CN:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
     confirmations:
-      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
+      send_instructions: '激活码已经发出，请进入你的注册邮箱查收激活码。'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: '账号激活成功'
     registrations:
