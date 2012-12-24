@@ -48,7 +48,7 @@ Myapp::Application.routes.draw do
     get 'signup', :to => 'devise/registrations#new', :as => :new_user_registration
     post 'signup', :to => 'devise/registrations#create', :as => :user_registration
     
-    get 'confirm/resend', :to => 'devise/confirmations#new', :as => :new_user_confirmation
+    get 'confirm/send', :to => 'devise/confirmations#new', :as => :new_user_confirmation
     post 'confirm', :to => 'devise/confirmations#create', :as => :user_confirmation
     get 'confirm/:confirmation_token', :to => 'devise/confirmations#show',
                                        :as => :confirmation
