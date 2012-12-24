@@ -3,6 +3,8 @@ class Annotation
 
 	field :about, type: String	
 	field :mode, type: String
+	field :score, type: Integer, default: 1
+	field :facet, type: String
 	
 	attr_accessible :about, :mode
 

@@ -213,6 +213,8 @@ zh-CN:
       description_what: "尽量详细地描述该搜索引擎的特点"
       number: "编号"
       mode: "模式"
+      score: "优先系数"
+      facet: "分类"
       website: "网址"
       required: "必填"
       optional: "选填"
@@ -333,7 +335,7 @@ zh-CN:
       select:
         filter: "包含"
         exclude: "去除"
-        boost:  "综合"
+        boost:  "全网"
   mongoid:
     attributes:
       custom_search_engine:
