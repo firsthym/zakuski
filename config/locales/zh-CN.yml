@@ -329,6 +329,7 @@ zh-CN:
         publish: "共享发布"
         manage_cses: "管理搜索引擎"
         reset_password: "忘记密码?"
+        need_confirm: "账号没有激活?"
       select:
         filter: "包含"
         exclude: "去除"
