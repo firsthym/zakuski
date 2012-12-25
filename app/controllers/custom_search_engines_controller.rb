@@ -20,21 +20,21 @@ class CustomSearchEnginesController < ApplicationController
 
     respond_to do |format|
       format.html do 
-	if @custom_search_engine.publish? || current_user == @custom_search_engine.author
-          @filter_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'filter'}
-          @exclude_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'exclude'}
-          @boost_annotations = @custom_search_engine.annotations.find_all{|a| a.mode == 'boost'}
-          if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
-		@custom_search_engine.inc(:browse_count, 1) 
-	    end
-          render 'show'
-	else
-	 flash[:error] = I18n.t('human.errors.only_publish_cse_available')
-         redirect_to nodes_path  
-	end
+			if @custom_search_engine.publish? || current_user == @custom_search_engine.author
+			  @mode_arr = @custom_search_engine.annotations.group_by{ |a| a.mode }
+			  if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+			  	@custom_search_engine.inc(:browse_count, 1)
+			  end
+			  render 'show'
+			else
+			 flash[:error] = I18n.t('human.errors.only_publish_cse_available')
+				 redirect_to nodes_path  
+			end
       end
       #format.json { render json: @custom_search_engine }
-      format.xml
+      format.xml do
+      		@facet_labels = @custom_search_engine.annotations.group_by{ |a| a.facet }.keys
+      	end
     end
   end
 

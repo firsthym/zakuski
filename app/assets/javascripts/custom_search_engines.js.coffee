@@ -5,17 +5,17 @@ $(document).ready ->
 	current_annotation_count = $('.cse-annotations').find('tbody').length
 	# cse-add-annotation click begin
 	$('#cse-add-annotation').click (e) ->
-		new_row = $(this).parent('.cse-annotations').find("tbody:first").clone(); 
-		new_text = new_row.find(':text')
-		new_text.val('')
-		new_text.attr('id', new_text.attr('id').replace(/\d/, current_annotation_count))
-		new_text.attr('name', new_text.attr('name').replace(/\d/, current_annotation_count))
-		
+		new_row = $(this).parent('.cse-annotations').find("tbody:last").clone(); 
+		new_text_arr = new_row.find(':text')
+		new_text_arr.each (index, element)->
+			$(this).val('') if index == 0
+			$(this).attr('id', $(this).attr('id').replace(/\d/, current_annotation_count))
+			$(this).attr('name', $(this).attr('name').replace(/\d/, current_annotation_count))
 		new_select = new_row.find('select')
 		new_select.attr('id', new_select.attr('id').replace(/\d/, current_annotation_count))
 		new_select.attr('name', new_select.attr('name').replace(/\d/, current_annotation_count))
 
-		new_row.find('td:first').append('<input type="checkbox" class="cse-checkbox-annotation"/>')
+		new_row.find('td:first').html('<input type="checkbox" class="cse-checkbox-annotation"/>')
 		$(this).parent('.cse-annotations').find("tbody:last").after(new_row)
 		current_annotation_count++
 		return
