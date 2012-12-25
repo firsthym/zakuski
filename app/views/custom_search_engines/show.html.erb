@@ -43,27 +43,39 @@
 					<% end %>
 					<div class="row-fluid">
 						<div class="cse-box">
-							<% if @filter_annotations.any? %>
-							<div class="row-fluid cse-grid">
+							<% if @mode_arr['filter'].present? %>
+							<div class="row-fluid cse-grid cse-word">
 								<h5><strong><%= I18n.t('human.text.mode_filter') %></strong></h5>
-								<% @filter_annotations.each do |annotation| %>
-								<p><%= annotation.about %></p>
+								<% @mode_arr['filter'].each do |annotation| %>
+								<p><span class="label" title="<%= t('human.text.score') %>">
+								<%= annotation.score %></span>
+								<span class="label label-success" title="<%= t('human.text.facet') %>">
+								<%= annotation.facet %></span>
+								<%= annotation.about %></p>
 								<% end %>
 							</div>	
 							<% end %>
-							<% if @exclude_annotations.any? %>
-							<div class="row-fluid cse-grid">
+							<% if @mode_arr['exclude'].present? %>
+							<div class="row-fluid cse-grid cse-word">
 								<h5><strong><%= I18n.t('human.text.mode_exclude') %></strong></h5>
-								<% @exclude_annotations.each do |annotation| %>
-								<p><%= annotation.about %></p>
+								<% @mode_arr['exclude'].each do |annotation| %>
+								<p><span class="label" title="<%= t('human.text.score') %>">
+								<%= annotation.score %></span>
+								<span class="label label-success" title="<%= t('human.text.facet') %>">
+								<%= annotation.facet %></span>
+								<%= annotation.about %></p>
 								<% end %>
 							</div>
 							<% end %>
-							<% if @boost_annotations.any? %>
+							<% if @mode_arr['boost'].present? %>
 							<div class="row-fluid cse-grid cse-word">
 								<h5><strong><%= I18n.t('human.text.mode_boost') %></strong></h5>
-								<% @boost_annotations.each do |annotation| %>
-								<p><%= annotation.about %></p>
+								<% @mode_arr['boost'].each do |annotation| %>
+								<p><span class="label" title="<%= t('human.text.score') %>">
+								<%= annotation.score %></span>
+								<span class="label label-success" title="<%= t('human.text.facet') %>">
+								<%= annotation.facet %></span>
+								<%= annotation.about %></p>
 								<% end %>
 							</div>
 							<% end %>

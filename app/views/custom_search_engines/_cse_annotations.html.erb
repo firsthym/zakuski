@@ -19,7 +19,7 @@
 				<td>
 					<%= annotation_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'],
 					 [I18n.t('human.controls.select.exclude'), 'exclude'], 
-					 [I18n.t('human.controls.select.boost'), 'boost'] ], selected: 'filter', 
+					 [I18n.t('human.controls.select.boost'), 'boost'] ], 
 					 class: "input-small" %>
 				</td>
 				<td><%= annotation_field.text_field :score, class: "input-mini" %></td>
