@@ -11,14 +11,19 @@
     </BackgroundLabels>
     <Facet>
     	<% @facet_labels.each do |label| %>
-	<% if label.present? %>
-			<FacetItem>
-				<Label name="<%= label %>" mode="FILTER">
-					<Rewrite></Rewrite>
-		    	</Label>
-		    	<Title><%= label %></Title>
-			</FacetItem>
-	<% end %>
+		<% if label.present? %>
+				<FacetItem>
+					<Label name="_cse_<%= label %>_filter" mode="FILTER"></Label>
+					<Title><%= label %></Title>
+				</FacetItem>
+				<FacetItem>
+					<Label name="_cse_<%= label %>_boost" mode="BOOST"></Label>
+					<Title><%= label %></Title>
+				</FacetItem>
+				<FacetItem>
+					<Label name="_cse_<%= label %>_exclude" mode="ELIMINATE"></Label>
+				</FacetItem>
+		<% end %>
     	<% end %>
     </Facet>
   </Context>
@@ -36,10 +41,11 @@
 <% if @custom_search_engine.annotations.present? %>
 <Annotations>
   <% @custom_search_engine.annotations.each do |annotation| %>
-    <Annotation about="<%= annotation.about %>" score="<%= annotation.score.to_f/10 %>">
-      <Label name="_cse_<%= annotation.mode %>"/>
+    <Annotation about="<%= annotation.about %>" score="<%= 0.7+annotation.score.to_f/100 %>">
       	<% if annotation.facet.present? %>
-      		<Label name="<%= annotation.facet %>"/>
+      		<Label name="_cse_<%= annotation.facet %>_<%= annotation.mode %>"/>
+      	<% else %>
+      		<Label name="_cse_<%= annotation.mode %>"/>
       	<% end %>
     </Annotation>
   <% end %>

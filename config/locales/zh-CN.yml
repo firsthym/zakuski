@@ -213,7 +213,7 @@ zh-CN:
       description_what: "尽量详细地描述该搜索引擎的特点"
       number: "编号"
       mode: "模式"
-      score: "优先系数"
+      score: "排名系数"
       facet: "标签"
       website: "网址"
       required: "必填"
@@ -334,8 +334,8 @@ zh-CN:
         need_confirm: "账号没有激活?"
       select:
         filter: "包含"
-        exclude: "去除"
-        boost:  "全网"
+        exclude: "排除"
+        boost:  "优先"
   mongoid:
     attributes:
       custom_search_engine:
