@@ -33,7 +33,9 @@ class CustomSearchEnginesController < ApplicationController
       end
       #format.json { render json: @custom_search_engine }
       format.xml do
-      		@facet_labels = @custom_search_engine.annotations.group_by{ |a| a.facet }.keys
+      		#@facet_labels = @custom_search_engine.annotations.group_by{ |a| a.facet }.keys
+      		facet_hash = @custom_search_engine.annotations.group_by{ |a| a.facet }
+      		@facet_labels = facet_hash.each{ |k, v| facet_hash[k] = v.group_by{ |e| e.mode }.keys }
       	end
     end
   end

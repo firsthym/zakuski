@@ -9,23 +9,24 @@
       <Label name="_cse_exclude" mode="ELIMINATE" />
       <Label name="_cse_boost" mode="BOOST" />
     </BackgroundLabels>
+    <% if @facet_labels.present? %>
     <Facet>
-    	<% @facet_labels.each do |label| %>
-		<% if label.present? %>
-				<FacetItem>
-					<Label name="_cse_<%= label %>_filter" mode="FILTER"></Label>
-					<Title><%= label %></Title>
-				</FacetItem>
-				<FacetItem>
-					<Label name="_cse_<%= label %>_boost" mode="BOOST"></Label>
-					<Title><%= label %></Title>
-				</FacetItem>
-				<FacetItem>
-					<Label name="_cse_<%= label %>_exclude" mode="ELIMINATE"></Label>
-				</FacetItem>
+    	<% @facet_labels.each do |label, modes| %>
+		<% if modes.present? %>
+			<% modes.each do |m| %>
+					<FacetItem>
+						<Label name="_cse_<%= label %>_<%= m %>" mode="<%= m.upcase %>"></Label>
+						<% if m != 'exclude' %>
+							<Title><%= label %></Title>
+						<% else %>
+							<Title/>
+						<% end %>
+					</FacetItem>
+			<% end %>
 		<% end %>
     	<% end %>
     </Facet>
+	<% end %>
   </Context>
   <LookAndFeel code="4" nonprofit="false" element_layout="1" theme="7" custom_theme="false" text_font="Arial, sans-serif" url_length="full" enable_cse_thumbnail="true" promotion_url_length="full" ads_layout="1">
     <Logo />
@@ -42,10 +43,9 @@
 <Annotations>
   <% @custom_search_engine.annotations.each do |annotation| %>
     <Annotation about="<%= annotation.about %>" score="<%= 0.7+annotation.score.to_f/100 %>">
+      <Label name="_cse_<%= annotation.mode %>"/>
       	<% if annotation.facet.present? %>
-      		<Label name="_cse_<%= annotation.facet %>_<%= annotation.mode %>"/>
-      	<% else %>
-      		<Label name="_cse_<%= annotation.mode %>"/>
+      		<Label name="_cse_<%= annotation.facet %>_<%= annotation.mode %>"/>		
       	<% end %>
     </Annotation>
   <% end %>
