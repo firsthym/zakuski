@@ -1,19 +1,39 @@
-<%= cse_form.fields_for :specification do |specfication_field| %>
+<%= cse_form.fields_for :specification do |specification_field| %>
   <div class="control-group">
-    <%= specfication_field.label :title, class: 'control-label' do %>
-      <strong>*<%= I18n.t('human.text.title') %></strong><span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
+    <%= specification_field.label :title, class: 'control-label' do %>
+      <strong>*<%= I18n.t('human.text.title') %></strong>
+      <span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
     <% end %>
       <div class="controls">
-        <%= specfication_field.text_field :title, class: "span8", placeholder: I18n.t('human.text.chars_limit', minimum:5, maximum: 50) %>
+        <%= specification_field.text_field :title, class: "span8", 
+        							placeholder: I18n.t('human.text.chars_limit', minimum:5, maximum: 50) %>
       </div>
   </div>
 
   <div class="control-group">
-      <%= specfication_field.label :description, class: 'control-label' do %>
+      <%= specification_field.label :description, class: 'control-label' do %>
         <strong>*<%= I18n.t('human.text.description') %></strong><span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
       <% end %>
         <div class="controls">
-          <%= specfication_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 0, maximum: 1024) %>
+          <%= specification_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 0, maximum: 1024) %>
         </div>
   </div>
+  <div class="cse-divider"></div>
+  <table class="table">
+  <thead>
+  	<th><input type="checkbox" /></th>
+  	<th>Name</th>
+  	<th>Mode</th>
+  </thead>
+  <%= specification_field.fields_for :labels do |label_field| %>
+  	<tbody><tr>
+  		<td><%= label_field.check_box :_destroy %></td>
+  		<td><%= label_field.text_field :name %></td>
+  		<td><%= label_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'],
+					 [I18n.t('human.controls.select.exclude'), 'exclude'], 
+					 [I18n.t('human.controls.select.boost'), 'boost'] ], 
+					 class: "input-small" %></td>
+  	</tr></tbody>
   <% end %>
+  </table>
+<% end %>
