@@ -3,12 +3,12 @@
   <strong>*<%= I18n.t('human.text.cse_annotations') %></strong>
   <span class="cse-small"><%= I18n.t('human.text.cse_annotations_what') %></span>
 <% end %>
-<div class="controls cse-annotations cse-container-normal">
-	<a href="javascript:void(0)" class="btn btn-primay" id="cse-add-annotation"><i class="icon-plus"></i> <%= I18n.t('human.text.annotation_add') %></a>
-	<a href="javascript:void(0)" class="btn btn-primay" id="cse-del-annotation"><%= I18n.t('human.text.annotation_del') %></a>
+<div class="controls cse-container-normal">
+	<a href="javascript:void(0)" class="btn btn-primay cse-add-item"><i class="icon-plus"></i> <%= I18n.t('human.text.annotation_add') %></a>
+	<a href="javascript:void(0)" class="btn btn-primay cse-del-item"><%= I18n.t('human.text.annotation_del') %></a>
 	<table class="table table-hover">
 		<thead>
-			<th><input type="checkbox" id="cse-checkbox-manager"/></th>
+			<th><input type="checkbox" class="cse-checkbox-manager"/></th>
 			<th><%= I18n.t('human.text.website') %></th>
 			<th><%= I18n.t('human.text.cse_labels') %></th>
 			<th><%= I18n.t('human.text.score') %></th>
@@ -16,7 +16,7 @@
 		<%= cse_form.fields_for :annotations do |annotation_field| %>		
 		<tbody>
 			<tr>
-				<td><%= annotation_field.check_box :_destroy, class: 'cse-checkbox-annotation' unless annotation_field.object.id == @custom_search_engine.annotations.first.id %></td>
+				<td><%= annotation_field.check_box :_destroy, class: 'cse-checkbox-item' unless annotation_field.object.id == @custom_search_engine.annotations.first.id %></td>
 				<td>
 					<%= annotation_field.text_field :about, placeholder: 'http://' %>
 				</td>

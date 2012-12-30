@@ -4,44 +4,40 @@
 $(document).ready ->
 	current_annotation_count = $('.cse-annotations').find('tbody').length
 	# cse-add-annotation click begin
-	$('#cse-add-annotation').click (e) ->
-		new_row = $(this).parent('.cse-annotations').find("tbody:last").clone(); 
-		new_text_arr = new_row.find(':text')
-		new_text_arr.each (index, element)->
-			$(this).val('') if index == 0
-			$(this).attr('id', $(this).attr('id').replace(/\d/, current_annotation_count))
-			$(this).attr('name', $(this).attr('name').replace(/\d/, current_annotation_count))
-		new_select = new_row.find('select')
-		new_select.attr('id', new_select.attr('id').replace(/\d/, current_annotation_count))
-		new_select.attr('name', new_select.attr('name').replace(/\d/, current_annotation_count))
-
-		new_row.find('td:first').html('<input type="checkbox" class="cse-checkbox-annotation"/>')
-		$(this).parent('.cse-annotations').find("tbody:last").after(new_row)
-		current_annotation_count++
+	$('.cse-add-item').click (e) ->
+		last_row = $(this).closest('.controls').find("tbody:last")
+		new_row = last_row.clone()
+		count = $(this).closest('.controls').find('tbody').length
+		new_row.find(':input').not('input:checkbox').each ->
+			$(this).val('')
+			$(this).attr('id', $(this).attr('id').replace(/\d/, count))
+			$(this).attr('name', $(this).attr('name').replace(/\d/, count))
+		new_row.find('td:first').html('<input type="checkbox" class="cse-checkbox-item"/>')
+		last_row.after(new_row)
 		return
 	# cse-add-annotation click end
 
 	# cse-checkbox-manager click begin
-	$('#cse-checkbox-manager').click ->
+	$('.cse-checkbox-manager').click ->
 		check = if $(this).attr('checked') == 'checked' then true else false
-		$(each).attr('checked', check) for each in $('.cse-checkbox-annotation')
+		$(each).attr('checked', check) for each in $(this).closest('.controls').find('.cse-checkbox-item')
 		return
 	# cse-checkbox-manager click end
 
 	# cse-checkbox-annotation click begin
-	$('.cse-checkbox-annotation').live 'click', ->
+	$('.cse-checkbox-item').live 'click', ->
 		check = true
-		for each in $('.cse-checkbox-annotation')
+		for each in $(this).closest('.controls').find('.cse-checkbox-item')
 			if $(each).attr('checked') != 'checked'
 				check = false
 				break
-		$('#cse-checkbox-manager').attr('checked', check)
+		$(this).closest('.controls').find('.cse-checkbox-manager').attr('checked', check)
 		return
 	# cse-checkbox-annotation click end
 
 	# cse-del-annotation click begin
-	$('#cse-del-annotation').click ->
-		for each in $('.cse-checkbox-annotation')
+	$('.cse-del-item').click ->
+		for each in $(this).closest('.controls').find('.cse-checkbox-item')
 			if $(each).attr('checked') == 'checked'
 				if (_destroy = $(each).siblings(':hidden')).length
 					_destroy.val(true)
