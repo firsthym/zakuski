@@ -45,6 +45,7 @@ class CustomSearchEnginesController < ApplicationController
   def new
     @custom_search_engine = CustomSearchEngine.new
     @custom_search_engine.specification = Specification.new
+    @custom_search_engine.specification.labels = [Label.new]
     @custom_search_engine.annotations = [Annotation.new]
     @custom_search_engine.node = Node.find(params[:node_id])
     

@@ -1,13 +1,17 @@
-<div class="control-group cse-annotations">
+<div class="control-group">
+<%= cse_form.label :annotations, class: 'control-label' do %>
+  <strong>*<%= I18n.t('human.text.cse_annotations') %></strong>
+  <span class="cse-small"><%= I18n.t('human.text.cse_annotations_what') %></span>
+<% end %>
+<div class="controls cse-annotations cse-container-normal">
 	<a href="javascript:void(0)" class="btn btn-primay" id="cse-add-annotation"><i class="icon-plus"></i> <%= I18n.t('human.text.annotation_add') %></a>
 	<a href="javascript:void(0)" class="btn btn-primay" id="cse-del-annotation"><%= I18n.t('human.text.annotation_del') %></a>
 	<table class="table table-hover">
 		<thead>
 			<th><input type="checkbox" id="cse-checkbox-manager"/></th>
 			<th><%= I18n.t('human.text.website') %></th>
-			<th><%= I18n.t('human.text.mode') %></th>
+			<th><%= I18n.t('human.text.cse_labels') %></th>
 			<th><%= I18n.t('human.text.score') %></th>
-			<th><%= I18n.t('human.text.facet') %></th>
 		</thead>
 		<%= cse_form.fields_for :annotations do |annotation_field| %>		
 		<tbody>
@@ -17,15 +21,12 @@
 					<%= annotation_field.text_field :about, placeholder: 'http://' %>
 				</td>
 				<td>
-					<%= annotation_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'],
-					 [I18n.t('human.controls.select.exclude'), 'exclude'], 
-					 [I18n.t('human.controls.select.boost'), 'boost'] ], 
-					 class: "input-small" %>
+					<%= annotation_field.select :label, [] %>
 				</td>
 				<td><%= annotation_field.text_field :score, class: "input-mini" %></td>
-				<td><%= annotation_field.text_field :facet, class: "input-mini" %></td>
 			</tr>
 		</tbody>		
 		<% end %>
 	</table>
+</div>
 </div>

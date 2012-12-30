@@ -2,9 +2,10 @@ class Annotation
 	include Mongoid::Document
 
 	field :about, type: String	
-	field :mode, type: String
+	#field :mode, type: String
 	field :score, type: Integer, default: 1
-	field :facet, type: String
+	#field :facet, type: String
+	field :label, type: String
 	
 	attr_accessible :about, :mode, :score, :facet
 
