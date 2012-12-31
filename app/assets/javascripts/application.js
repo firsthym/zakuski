@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery_cookie
-//= require jquery-ui
+//= require jquery-cookie
+//= require jquery-ui-1.9.2.custom
+//= require tag-it
 // Loads Bootstrap javascripts
 //= require bootstrap
 //= require_tree .

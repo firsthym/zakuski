@@ -21,7 +21,11 @@
 					<%= annotation_field.text_field :about, placeholder: 'http://' %>
 				</td>
 				<td>
-					<%= annotation_field.select :label, [] %>
+					<ul class="cse-labels">
+					<% annotation_field.object.labels do |label| %>
+						<li><%= label %></li>
+					<% end %>
+					</ul>
 				</td>
 				<td><%= annotation_field.text_field :score, class: "input-mini" %></td>
 			</tr>

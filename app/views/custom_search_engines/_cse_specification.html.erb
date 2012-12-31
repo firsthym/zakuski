@@ -19,31 +19,4 @@
         <%= specification_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 0, maximum: 1024) %>
       </div>
 </div>
-<div class="control-group">
-<%= specification_field.label :label, class: 'control-label' do %>
-      <strong><%= I18n.t('human.text.cse_labels') %></strong>
-      <span class="cse-small"><%= I18n.t('human.text.cse_labels_what') %></span>
-    <% end %>
-<div class="controls cse-container-normal">
-<a href="javascript:void(0)" class="btn btn-primay cse-add-item"><i class="icon-plus"></i> <%= I18n.t('human.text.label_add') %></a>
-  <a href="javascript:void(0)" class="btn btn-primay cse-del-item"><%= I18n.t('human.text.label_del') %></a>
-<table class="table">
-<thead>
-	<th><input type="checkbox" class="cse-checkbox-manager"/></th>
-	<th><%= t('human.text.label_name') %></th>
-	<th><%= t('human.text.label_mode') %></th>
-</thead>
-<%= specification_field.fields_for :labels do |label_field| %>
-	<tbody><tr>
-		<td><%= label_field.check_box :_destroy unless label_field.object.id == specification_field.object.labels.first.id %></td>
-		<td><%= label_field.text_field :name %></td>
-		<td><%= label_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'],
-				 [I18n.t('human.controls.select.exclude'), 'exclude'], 
-				 [I18n.t('human.controls.select.boost'), 'boost'] ], 
-				 class: "input-small" %></td>
-	</tr></tbody>
-<% end %>
-</table>
-</div>
-</div>
 <% end %>

@@ -8,5 +8,5 @@ class Label
 	validates :mode, presence:true, inclusion: { in: ['filter', 'exclude', 'boost'] }
 	validates :weight, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than: 11 }
 
-	embedded_in :specification
+	embedded_in :custom_search_engine
 end

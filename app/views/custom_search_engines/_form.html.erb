@@ -13,6 +13,7 @@ end
   <%= f.hidden_field :node_id %>
   <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
   <%= render partial: 'cse_specification', locals: {cse_form: f} %>
+  <%= render partial: 'cse_labels', locals: {cse_form: f} %>
   <%= render partial: 'cse_annotations', locals: {cse_form: f} %>
   <div class="row-fluid">
   <div class="control-group">

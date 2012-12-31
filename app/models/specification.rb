@@ -3,11 +3,8 @@ class Specification
 
 	field :title, type: String
 	field :description, type: String
-	
-	embeds_many :labels
 
-	accepts_nested_attributes_for :labels, allow_destroy: true
-	attr_accessible :title, :description, :labels_attributes
+	attr_accessible :title, :description
 
 	# validations
 	validates :title, presence: true, length: {maximum: 50, minimum: 5}

@@ -3,10 +3,8 @@ class CustomSearchEngine
   include Mongoid::Timestamps
   paginates_per 20
 
-  #field :access, type: String, default: 'public'
   field :parent_id
   field :status, type: String
-  #field :keep_count, type: Integer, default: 0
   field :browse_count, type: Integer, default: 0
 
   # consumers
@@ -18,8 +16,8 @@ class CustomSearchEngine
   # custom search engine annotations
   embeds_many :annotations
 
-  embeds_many :votes
-
+  embeds_many :labels
+  
   has_many :replies
   has_and_belongs_to_many :tags
 
@@ -32,8 +30,9 @@ class CustomSearchEngine
 
   accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
+  accepts_nested_attributes_for :labels, allow_destroy: true
 
-  attr_accessible :specification_attributes, :annotations_attributes, :node_id
+  attr_accessible :specification_attributes, :annotations_attributes, :node_id, :labels_attributes
 
   # validations
   #validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
