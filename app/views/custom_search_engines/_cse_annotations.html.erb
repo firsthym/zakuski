@@ -18,16 +18,12 @@
 			<tr>
 				<td><%= annotation_field.check_box :_destroy, class: 'cse-checkbox-item' unless annotation_field.object.id == @custom_search_engine.annotations.first.id %></td>
 				<td>
-					<%= annotation_field.text_field :about, placeholder: 'http://' %>
+					<%= annotation_field.text_field :about, placeholder: 'http://', class: "cse-input" %>
 				</td>
 				<td>
-					<ul class="cse-labels">
-					<% annotation_field.object.labels do |label| %>
-						<li><%= label %></li>
-					<% end %>
-					</ul>
+					<%= annotation_field.text_field :labels, class: "cse-labels cse-input" %>
 				</td>
-				<td><%= annotation_field.text_field :score, class: "input-mini" %></td>
+				<td><%= annotation_field.text_field :score, class: "input-mini cse-input" %></td>
 			</tr>
 		</tbody>		
 		<% end %>

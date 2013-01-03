@@ -3,7 +3,7 @@ class Annotation
 
 	field :about, type: String	
 	field :score, type: Integer, default: 1
-	field :labels, type: Array
+	field :labels, type: String
 	
 	attr_accessible :about, :score
 

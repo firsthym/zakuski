@@ -4,19 +4,25 @@
 $(document).ready ->
 	# initializations for widgets
 	
-	$('.cse-labels').tagit()
+	labels = $('.cse-labels').tagit()
 	
 	# Event bind
+
+	$('.tagit-new').live 'click', ->
+		labels.each ->
+			$(this).createTag('test')
+			
 
 	$('.cse-add-item').click (e) ->
 		last_row = $(this).closest('.controls').find("tbody:last")
 		new_row = last_row.clone()
 		count = $(this).closest('.controls').find('tbody').length
-		new_row.find(':input').not('input:checkbox').each ->
+		new_row.find('.cse-input').each ->
 			$(this).val('')
 			$(this).attr('id', $(this).attr('id').replace(/\d/, count))
 			$(this).attr('name', $(this).attr('name').replace(/\d/, count))
 		new_row.find('td:first').html('<input type="checkbox" class="cse-checkbox-item"/>')
+		new_row.find('.cse-labels')
 		last_row.after(new_row)
 		return
 
