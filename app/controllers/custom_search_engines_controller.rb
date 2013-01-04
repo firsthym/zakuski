@@ -3,6 +3,7 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
+  before_filter :remove_hidden_input, only: [:create, :update]
   #before_filter :admin_user, only: [:destroy]
   
   # GET /custom_search_engines
@@ -66,8 +67,6 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
     @custom_search_engine.author = current_user
     @custom_search_engine.status = 'draft'
-    @custom_search_engine.labels.delete_if { |l| l.name.blank? }
-    @custom_search_engine.annotations.delete_if { |a| a.about.blank? }
     @custom_search_engine.annotations.each do |a|
       prefix = a.about.slice(/http(s)?:\/\//)
       a.about = prefix.nil? ?  "http://#{a.about}" : "#{a.about}"
@@ -375,5 +374,10 @@ class CustomSearchEnginesController < ApplicationController
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       correct_user!(@custom_search_engine.author)
+    end
+
+    def remove_hidden_input
+      params[:custom_search_engine][:labels_attributes].delete('#')
+      params[:custom_search_engine][:annotations_attributes].delete('#')
     end
 end

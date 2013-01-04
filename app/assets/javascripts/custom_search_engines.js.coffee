@@ -33,14 +33,14 @@ $(document).ready ->
 
 	$('.cse-checkbox-manager').click ->
 		check = if $(this).attr('checked') == 'checked' then true else false
-		$(each).attr('checked', check) for each in $(this).closest('.controls').find('.cse-checkbox-item')
+		$(each).attr('checked', check) for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
 		return
 	# cse-checkbox-manager click end
 
 
 	$('.cse-checkbox-item').live 'click', ->
 		check = true
-		for each in $(this).closest('.controls').find('.cse-checkbox-item')
+		for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
 			if $(each).attr('checked') != 'checked'
 				check = false
 				break
@@ -49,13 +49,13 @@ $(document).ready ->
 
 
 	$('.cse-del-item').click ->
-		for each in $(this).closest('.controls').find('.cse-checkbox-item')
+		for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
 			if $(each).attr('checked') == 'checked'
 				if (_destroy = $(each).siblings(':hidden')).length
 					_destroy.val(true)
 					$(each).closest('tbody').hide()
 				else
-					$(each).closest('tbody:not(.hidden)').remove()
+					$(each).closest('tbody').remove()
 		return
 
 
