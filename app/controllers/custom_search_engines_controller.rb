@@ -21,7 +21,7 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       format.html do 
 			if @custom_search_engine.publish? || current_user == @custom_search_engine.author
-			  @mode_arr = @custom_search_engine.annotations.group_by{ |a| a.mode }
+			  @labels_arr = @custom_search_engine.annotations.group_by{ |a| a.labels }
 			  if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
 			  	@custom_search_engine.inc(:browse_count, 1)
 			  end
@@ -66,6 +66,8 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
     @custom_search_engine.author = current_user
     @custom_search_engine.status = 'draft'
+    @custom_search_engine.labels.delete_if { |l| l.name.blank? }
+    @custom_search_engine.annotations.delete_if { |a| a.about.blank? }
     @custom_search_engine.annotations.each do |a|
       prefix = a.about.slice(/http(s)?:\/\//)
       a.about = prefix.nil? ?  "http://#{a.about}" : "#{a.about}"

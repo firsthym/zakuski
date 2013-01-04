@@ -9,19 +9,24 @@ $(document).ready ->
 	# Event bind
 
 	$('.tagit-new input').live 'click', ->
+		labels = []
 		$('.cse-label-name').each ->
-			$('.cse-labels').tagit('createTag', 'hello')
+			labels.push($(this).val()) if $(this).val() != ''
+		if labels?
+			$(this).closest('td').find('.cse-labels').tagit
+				availableTags: labels
+				showAutocompleteOnFocus: true
+			
 			
 
 	$('.cse-add-item').click (e) ->
-		new_row = $(this).closest('.controls').find("tbody.new-row").clone().removeClass('new-row')
-		count = $(this).closest('.controls').find('tbody').length - 1
+		new_row = $(this).closest('.controls').find("tbody.hidden").clone()
+		count = $(this).closest('.controls').find('tbody:not(.hidden)').length
 		new_row.find('.cse-input').each ->
 			$(this).attr('id', $(this).attr('id').replace(/#/, count))
 			$(this).attr('name', $(this).attr('name').replace(/#/, count))
 		$(this).closest('.controls').find('tbody:last').after(new_row)
-		label = new_row.find('.new-cse-labels')
-		label.removeClass('new-cse-labels').addClass('cse-labels').tagit() if label?
+		new_row.find('.new-cse-labels').addClass('cse-labels').tagit()
 		new_row.removeClass('hidden')
 		return
 
@@ -50,8 +55,7 @@ $(document).ready ->
 					_destroy.val(true)
 					$(each).closest('tbody').hide()
 				else
-					$(each).closest('tbody').remove()
-		# $('#cse-checkbox-manager').attr('checked', false) if $('.cse-checkbox-annotation').length == 0
+					$(each).closest('tbody:not(.hidden)').remove()
 		return
 
 

@@ -43,41 +43,17 @@
 					<% end %>
 					<div class="row-fluid">
 						<div class="cse-box">
-							<% if @mode_arr['filter'].present? %>
-							<div class="row-fluid cse-grid cse-word">
-								<h5><strong><%= I18n.t('human.text.mode_filter') %></strong></h5>
-								<% @mode_arr['filter'].each do |annotation| %>
-								<p><span class="label" title="<%= t('human.text.score') %>">
-								<%= annotation.score %></span>
-								<span class="label label-success" title="<%= t('human.text.facet') %>">
-								<%= annotation.facet %></span>
-								<%= annotation.about %></p>
+							<% if @labels_arr.present? %>
+								<% @labels_arr.each do |label, annotations| %>
+									<div class="row-fluid cse-grid cse-word">
+										<h5><strong><%= label %></strong></h5>
+										<% annotations.each do |annotation| %>
+											<p><span class="label" title="<%= t('human.text.score') %>">
+											<%= annotation.score %></span>
+											<%= annotation.about %></p>
+										<% end %>
+									</div>
 								<% end %>
-							</div>	
-							<% end %>
-							<% if @mode_arr['exclude'].present? %>
-							<div class="row-fluid cse-grid cse-word">
-								<h5><strong><%= I18n.t('human.text.mode_exclude') %></strong></h5>
-								<% @mode_arr['exclude'].each do |annotation| %>
-								<p><span class="label" title="<%= t('human.text.score') %>">
-								<%= annotation.score %></span>
-								<span class="label label-success" title="<%= t('human.text.facet') %>">
-								<%= annotation.facet %></span>
-								<%= annotation.about %></p>
-								<% end %>
-							</div>
-							<% end %>
-							<% if @mode_arr['boost'].present? %>
-							<div class="row-fluid cse-grid cse-word">
-								<h5><strong><%= I18n.t('human.text.mode_boost') %></strong></h5>
-								<% @mode_arr['boost'].each do |annotation| %>
-								<p><span class="label" title="<%= t('human.text.score') %>">
-								<%= annotation.score %></span>
-								<span class="label label-success" title="<%= t('human.text.facet') %>">
-								<%= annotation.facet %></span>
-								<%= annotation.about %></p>
-								<% end %>
-							</div>
 							<% end %>
 							<%= raw(get_keep_or_remove_html(@custom_search_engine)) %>
 							<% if user_signed_in? %>

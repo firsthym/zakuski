@@ -2,7 +2,7 @@ class Label
 	include Mongoid::Document
 	field :name, type: String
 	field :mode, type: String
-	field :weight, type: Integer, default: 10
+	field :weight, type: Integer
 	
 	validates :mode, inclusion: { in: ['filter', 'exclude', 'boost'] }
 	validates :weight, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than: 11 }
