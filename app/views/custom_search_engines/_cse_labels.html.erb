@@ -12,6 +12,13 @@
 	<th><%= t('human.text.label_name') %></th>
 	<th><%= t('human.text.label_mode') %></th>
 </thead>
+<tbody class="new-row hidden">
+<td><input type="checkbox" class="cse-checkbox-item"/></td>
+<td><input class="cse-input cse-label-name" id="custom_search_engine_labels_attributes_#_name" name="custom_search_engine[labels_attributes][#][name]" size="30" type="text"></td>
+<td><select class="cse-input input-small " id="custom_search_engine_labels_attributes_#_mode" name="custom_search_engine[labels_attributes][#][mode]"><option value="filter"><%= t('human.controls.select.filter') %></option>
+<option value="exclude"><%= t('human.controls.select.exclude') %></option>
+<option value="boost"><%= t('human.controls.select.boost') %></option></select></td>
+</tbody>
 <%= cse_form.fields_for :labels do |label_field| %>
 	<tbody><tr>
 		<td><%= label_field.check_box :_destroy unless label_field.object.id == cse_form.object.labels.first.id %></td>

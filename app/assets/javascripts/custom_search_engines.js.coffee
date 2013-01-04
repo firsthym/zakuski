@@ -4,26 +4,25 @@
 $(document).ready ->
 	# initializations for widgets
 	
-	labels = $('.cse-labels').tagit()
+	$('.cse-labels').tagit()
 	
 	# Event bind
 
-	$('.tagit-new').live 'click', ->
-		labels.each ->
-			$(this).createTag('test')
+	$('.tagit-new input').live 'click', ->
+		$('.cse-label-name').each ->
+			$('.cse-labels').tagit('createTag', 'hello')
 			
 
 	$('.cse-add-item').click (e) ->
-		last_row = $(this).closest('.controls').find("tbody:last")
-		new_row = last_row.clone()
-		count = $(this).closest('.controls').find('tbody').length
+		new_row = $(this).closest('.controls').find("tbody.new-row").clone().removeClass('new-row')
+		count = $(this).closest('.controls').find('tbody').length - 1
 		new_row.find('.cse-input').each ->
-			$(this).val('')
-			$(this).attr('id', $(this).attr('id').replace(/\d/, count))
-			$(this).attr('name', $(this).attr('name').replace(/\d/, count))
-		new_row.find('td:first').html('<input type="checkbox" class="cse-checkbox-item"/>')
-		new_row.find('.cse-labels')
-		last_row.after(new_row)
+			$(this).attr('id', $(this).attr('id').replace(/#/, count))
+			$(this).attr('name', $(this).attr('name').replace(/#/, count))
+		$(this).closest('.controls').find('tbody:last').after(new_row)
+		label = new_row.find('.new-cse-labels')
+		label.removeClass('new-cse-labels').addClass('cse-labels').tagit() if label?
+		new_row.removeClass('hidden')
 		return
 
 
