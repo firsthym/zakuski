@@ -15,7 +15,9 @@ class Annotation
 	
 	def labels=(labels)
 		if labels.present?
-			self.labels_list = (labels.split(',') & self.custom_search_engine.labels.map{ |l| l.name })
+			self.labels_list = labels.split(',') | self.custom_search_engine.labels.map do |l| 
+				l.cse_destroy
+			end
 		end
 	end
 	
