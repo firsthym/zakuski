@@ -32,10 +32,9 @@ class CustomSearchEngine
   accepts_nested_attributes_for :specification
   accepts_nested_attributes_for :labels, allow_destroy: true
 
-  attr_accessible :specification_attributes, :annotations_attributes, :node_id, :labels_attributes
+  attr_accessible :node_id, :specification_attributes, :labels_attributes, :annotations_attributes
 
   # validations
-  #validates :access, presence: true, inclusion: {in: ['public', 'protected', 'private']}
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
   validates :node_id, presence: true
@@ -44,7 +43,6 @@ class CustomSearchEngine
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   scope :hot, desc(:keep_count)
-  #scope :dashboard, desc(:dashboard_index)
 
   #TBD
   def self.get_default_cse

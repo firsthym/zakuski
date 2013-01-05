@@ -10,8 +10,8 @@ $(document).ready ->
 
 	$('.tagit-new input').live 'click', ->
 		labels = []
-		$('.cse-label-name').each ->
-			labels.push($(this).val()) if $(this).val() != ''
+		$('.cse-label-name:visible').each ->
+			labels.push($(this).val().trim()) if $(this).val() != ''
 		if labels?
 			$(this).closest('td').find('.cse-labels').tagit
 				availableTags: labels
@@ -20,12 +20,13 @@ $(document).ready ->
 			
 
 	$('.cse-add-item').click (e) ->
-		new_row = $(this).closest('.controls').find("tbody.hidden").clone()
-		count = $(this).closest('.controls').find('tbody:not(.hidden)').length
+		controls = $(this).closest('.controls')
+		new_row = controls.find("tbody.hidden").clone()
+		count = controls.find('tbody:not(.hidden)').length
 		new_row.find('.cse-input').each ->
 			$(this).attr('id', $(this).attr('id').replace(/#/, count))
 			$(this).attr('name', $(this).attr('name').replace(/#/, count))
-		$(this).closest('.controls').find('tbody:last').after(new_row)
+		controls.find('table').append(new_row)
 		new_row.find('.new-cse-labels').addClass('cse-labels').tagit()
 		new_row.removeClass('hidden')
 		return
@@ -33,14 +34,14 @@ $(document).ready ->
 
 	$('.cse-checkbox-manager').click ->
 		check = if $(this).attr('checked') == 'checked' then true else false
-		$(each).attr('checked', check) for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
+		$(each).attr('checked', check) for each in $(this).closest('.controls').find('tbody:visible .cse-checkbox-item')
 		return
 	# cse-checkbox-manager click end
 
 
 	$('.cse-checkbox-item').live 'click', ->
 		check = true
-		for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
+		for each in $(this).closest('.controls').find('tbody:visible .cse-checkbox-item')
 			if $(each).attr('checked') != 'checked'
 				check = false
 				break
@@ -49,13 +50,16 @@ $(document).ready ->
 
 
 	$('.cse-del-item').click ->
-		for each in $(this).closest('.controls').find('tbody:not(.hidden) .cse-checkbox-item')
+		controls = $(this).closest('.controls')
+		for each in controls.find('tbody:visible .cse-checkbox-item')
 			if $(each).attr('checked') == 'checked'
 				if (_destroy = $(each).siblings(':hidden')).length
 					_destroy.val(true)
 					$(each).closest('tbody').hide()
 				else
 					$(each).closest('tbody').remove()
+		if controls.find('tbody:visible').length == 0
+			controls.find('.cse-checkbox-manager').attr('checked', false)
 		return
 
 

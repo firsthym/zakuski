@@ -28,7 +28,9 @@
 		<%= cse_form.fields_for :annotations do |annotation_field| %>		
 		<tbody>
 			<tr>
-				<td><%= annotation_field.check_box(:_destroy, class: 'cse-checkbox-item') unless annotation_field.object.id == @custom_search_engine.annotations.first.id %></td>
+				<td><input class='cse-checkbox-item' type="checkbox" />
+				<%= annotation_field.hidden_field :_destroy %>
+				</td>
 				<td>
 					<%= annotation_field.text_field :about, placeholder: 'http://', class: "cse-input" %>
 				</td>

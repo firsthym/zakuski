@@ -3,7 +3,7 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
-  before_filter :remove_hidden_input, only: [:create, :update]
+  before_filter :pre_handle_input, only: [:create, :update]
   #before_filter :admin_user, only: [:destroy]
   
   # GET /custom_search_engines
@@ -59,6 +59,8 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1/edit
   def edit
     @custom_search_engine = CustomSearchEngine.find(params[:id])
+    #@custom_search_engine.labels = [Label.new] unless @custom_search_engine.labels.any?
+    #@custom_search_engine.annotations = [Annotation.new] unless @custom_search_engine.annotations.any?
   end
 
   # POST /custom_search_engines
@@ -376,8 +378,15 @@ class CustomSearchEnginesController < ApplicationController
       correct_user!(@custom_search_engine.author)
     end
 
-    def remove_hidden_input
+    def pre_handle_input
       params[:custom_search_engine][:labels_attributes].delete('#')
+      params[:custom_search_engine][:labels_attributes].each do |k,v|
+      		params[:custom_search_engine][:labels_attributes].delete(k) if v[:name].blank?
+      		params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = true if v[:_destroy] == true
+      	end
       params[:custom_search_engine][:annotations_attributes].delete('#')
+      params[:custom_search_engine][:annotations_attributes].delete_if { |k,v| v[:about].blank? }
+      params[:custom_search_engine][:labels_attributes].each { |k,v| v[:name].strip! }
+      params[:custom_search_engine][:annotations_attributes].each { |k,v| v[:about].strip! }
     end
 end
