@@ -382,12 +382,13 @@ class CustomSearchEnginesController < ApplicationController
       params[:custom_search_engine][:labels_attributes].delete('#')
       params[:custom_search_engine][:labels_attributes].each do |k,v|
       		params[:custom_search_engine][:labels_attributes].delete(k) if v[:name].blank?
-      		if v['_destroy'] == true
+      		if v[:_destroy] == "true"
       			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = true
       		else
       			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = false
       		end
       	end
+      	
       params[:custom_search_engine][:annotations_attributes].delete('#')
       params[:custom_search_engine][:annotations_attributes].delete_if { |k,v| v[:about].blank? }
       params[:custom_search_engine][:labels_attributes].each { |k,v| v[:name].strip! }
