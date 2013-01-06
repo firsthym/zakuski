@@ -59,8 +59,8 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1/edit
   def edit
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    #@custom_search_engine.labels = [Label.new] unless @custom_search_engine.labels.any?
-    #@custom_search_engine.annotations = [Annotation.new] unless @custom_search_engine.annotations.any?
+    @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
+    @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
   end
 
   # POST /custom_search_engines
@@ -379,19 +379,29 @@ class CustomSearchEnginesController < ApplicationController
     end
 
     def pre_handle_input
-      params[:custom_search_engine][:labels_attributes].delete('#')
-      params[:custom_search_engine][:labels_attributes].each do |k,v|
-      		params[:custom_search_engine][:labels_attributes].delete(k) if v[:name].blank?
-      		if v[:_destroy] == "true"
-      			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = true
-      		else
-      			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = false
-      		end
-      	end
-      	
-      params[:custom_search_engine][:annotations_attributes].delete('#')
-      params[:custom_search_engine][:annotations_attributes].delete_if { |k,v| v[:about].blank? }
-      params[:custom_search_engine][:labels_attributes].each { |k,v| v[:name].strip! }
-      params[:custom_search_engine][:annotations_attributes].each { |k,v| v[:about].strip! }
+		params[:custom_search_engine][:labels_attributes].delete('#')
+		if params[:custom_search_engine][:labels_attributes].any?
+		  params[:custom_search_engine][:labels_attributes].each do |k,v|
+		  		if v[:name].blank?
+		  			params[:custom_search_engine][:labels_attributes].delete(k)
+		  		elsif v[:_destroy] == "true"
+		  			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = true
+		  		else
+		  			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = false
+		  			v[:name].strip!
+		  		end
+		  	end
+		end
+		
+      	params[:custom_search_engine][:annotations_attributes].delete('#')
+      	if params[:custom_search_engine][:annotations_attributes].any?
+      	  params[:custom_search_engine][:annotations_attributes].each do |k,v|
+      	  		if v[:about].blank?
+      	  			params[:custom_search_engine][:annotations_attributes].delete(k)
+      	  		else
+      	  			v[:about].strip!
+      	  		end
+      	  end
+		 end
     end
 end

@@ -13,10 +13,10 @@ class CustomSearchEngine
   # custom search engine specification
   embeds_one :specification
   
+  embeds_many :labels
+  
   # custom search engine annotations
   embeds_many :annotations
-
-  embeds_many :labels
   
   has_many :replies
   has_and_belongs_to_many :tags
@@ -28,9 +28,9 @@ class CustomSearchEngine
   index({author_id: 1}, {name: 'cse_author_id'})
   index({node_id: 1}, {name: 'cse_node_id'})
 
-  accepts_nested_attributes_for :annotations, allow_destroy: true
   accepts_nested_attributes_for :specification
   accepts_nested_attributes_for :labels, allow_destroy: true
+  accepts_nested_attributes_for :annotations, allow_destroy: true
 
   attr_accessible :node_id, :specification_attributes, :labels_attributes, :annotations_attributes
 

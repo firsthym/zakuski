@@ -13,12 +13,9 @@ class Annotation
 																	less_than: 11 }
 	embedded_in :custom_search_engine
 	
-	def labels=(labels)
-		if labels.present?
-			self.labels_list = labels.split(',') & self.custom_search_engine.labels.map do |l| 
-				l.name
-				logger.debug "fffff #{l.cse_destroy}.inspect"
-			end
+	def labels=(labels_str)
+		if labels_str.present?
+			self.labels_list = labels_str.split(',')
 		end
 	end
 	
@@ -29,4 +26,5 @@ class Annotation
 			''
 		end
 	end
+
 end
