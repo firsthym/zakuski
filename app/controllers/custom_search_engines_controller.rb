@@ -3,8 +3,6 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
-  before_filter :pre_handle_input, only: [:create, :update]
-  #before_filter :admin_user, only: [:destroy]
   
   # GET /custom_search_engines
   # GET /custom_search_engines.json
@@ -376,32 +374,5 @@ class CustomSearchEnginesController < ApplicationController
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       correct_user!(@custom_search_engine.author)
-    end
-
-    def pre_handle_input
-		params[:custom_search_engine][:labels_attributes].delete('#')
-		if params[:custom_search_engine][:labels_attributes].any?
-		  params[:custom_search_engine][:labels_attributes].each do |k,v|
-		  		if v[:name].blank?
-		  			params[:custom_search_engine][:labels_attributes].delete(k)
-		  		elsif v[:_destroy] == "true"
-		  			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = true
-		  		else
-		  			params[:custom_search_engine][:labels_attributes][k][:cse_destroy] = false
-		  			v[:name].strip!
-		  		end
-		  	end
-		end
-		
-      	params[:custom_search_engine][:annotations_attributes].delete('#')
-      	if params[:custom_search_engine][:annotations_attributes].any?
-      	  params[:custom_search_engine][:annotations_attributes].each do |k,v|
-      	  		if v[:about].blank?
-      	  			params[:custom_search_engine][:annotations_attributes].delete(k)
-      	  		else
-      	  			v[:about].strip!
-      	  		end
-      	  end
-		 end
     end
 end

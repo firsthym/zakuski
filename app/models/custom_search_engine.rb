@@ -28,9 +28,9 @@ class CustomSearchEngine
   index({author_id: 1}, {name: 'cse_author_id'})
   index({node_id: 1}, {name: 'cse_node_id'})
 
-  accepts_nested_attributes_for :specification
-  accepts_nested_attributes_for :labels, allow_destroy: true
-  accepts_nested_attributes_for :annotations, allow_destroy: true
+  accepts_nested_attributes_for :specification, reject_if: proc { |attr| attr[:title].blank? }
+  accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: proc { |attr| attr[:name].blank? }
+  accepts_nested_attributes_for :annotations, allow_destroy: true, reject_if: proc { |attr| attr[:about].blank? }
 
   attr_accessible :node_id, :specification_attributes, :labels_attributes, :annotations_attributes
 
