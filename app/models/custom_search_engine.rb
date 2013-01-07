@@ -43,6 +43,8 @@ class CustomSearchEngine
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   scope :hot, desc(:keep_count)
+  
+  before_save :check_labels
 
   #TBD
   def self.get_default_cse
@@ -87,5 +89,12 @@ class CustomSearchEngine
         false
     end
   end
-
+  
+  private
+  	def check_labels
+  		labels = self.labels.map{ |l| l.name unless l.marked_for_destruction? }
+  		self.annotations.each do |a|
+			a.labels_list = a.labels_list & labels
+		end
+  	end
 end
