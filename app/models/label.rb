@@ -7,6 +7,7 @@ class Label
 	attr_accessor :cse_destroy
 	attr_accessible :name, :mode, :cse_destroy
 	
+	validates :name, uniqueness: true
 	validates :mode, inclusion: { in: ['filter', 'exclude', 'boost'] }
 	validates :weight, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than: 11 }
 

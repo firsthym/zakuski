@@ -286,6 +286,7 @@ zh-CN:
       cse_labels_what: "标签可以用来分类显示和控制搜索结果"
       cse_annotations: "搜索网址资源"
       cse_annotations_what: "可以使用通配符*来匹配URL"
+      what_is_labels: "该搜索引擎包含以下标签，可用于分类显示"
     errors:
       general: "有错误发生了..."
       register: "注册出错啦:("

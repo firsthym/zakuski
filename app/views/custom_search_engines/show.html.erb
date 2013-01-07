@@ -43,15 +43,32 @@
 					<% end %>
 					<div class="row-fluid">
 						<div class="cse-box">
-							<% if @labels_arr.present? %>
-								<% @labels_arr.each do |label, annotations| %>
+							<% if @valid_labels.present? %>
+							<div class="row-fluid">
+							<h5><%= t('human.text.what_is_labels') %></h5>
+								<% @valid_labels.each do |vl| %>
+										<span class="label label-info"><%= vl %></span>
+								<% end %>
+							</div>
+							<% end %>
+							
+							<% if @labels_hash.any? %>
+								<% @labels_hash.each do |label, annotations| %>
+								<div class="cse-divider"></div>
 									<div class="row-fluid cse-grid cse-word">
-										<h5><strong><%= label %></strong></h5>
-										<% annotations.each do |annotation| %>
-											<p><span class="label" title="<%= t('human.text.score') %>">
-											<%= annotation.score %></span>
-											<%= annotation.about %></p>
+										<h5><span class="label label-info"><%= label %></span></h5>
+										<% annotations.each do |a| %>
+											<%= render 'annotation', annotation: a %>
 										<% end %>
+									</div>
+								<% end %>
+							<% end %>
+							
+							<% if @no_labels_arr.any? %>
+							<div class="cse-divider"></div>
+								<% @no_labels_arr.each do |a| %>
+									<div class="row-fluid cse-grid cse-word">
+										<%= render 'annotation', annotation: a %>
 									</div>
 								<% end %>
 							<% end %>

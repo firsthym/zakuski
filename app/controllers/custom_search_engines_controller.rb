@@ -20,7 +20,23 @@ class CustomSearchEnginesController < ApplicationController
     respond_to do |format|
       format.html do 
 			if @custom_search_engine.publish? || current_user == @custom_search_engine.author
-			  @labels_arr = @custom_search_engine.annotations.group_by{ |a| a.labels }
+			  @valid_labels = @custom_search_engine.labels.map { |l| l.name }
+			  @labels_hash = Hash.new
+			  @no_labels_arr = Array.new
+			  @custom_search_engine.annotations.each do |a|
+			  	if a.labels_list.any?
+				  	a.labels_list.each do |l|
+				  		if @valid_labels.include?(l)
+				  			@labels_hash[l] = Array.new if @labels_hash[l].nil?
+				  			@labels_hash[l].push(a)
+				  		else
+				  			@no_labels_arr.push(a)
+				  		end
+				  	end
+				else
+					@no_labels_arr.push(a)
+				end  
+			  end
 			  if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
 			  	@custom_search_engine.inc(:browse_count, 1)
 			  end
@@ -80,6 +96,8 @@ class CustomSearchEnginesController < ApplicationController
         format.json { render json: @custom_search_engine, status: :created, 
 							location: @custom_search_engine }
       else
+      	  @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
+      	  @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
         format.html { render action: "new" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
       end
@@ -95,6 +113,8 @@ class CustomSearchEnginesController < ApplicationController
         format.html { redirect_to cse_path(@custom_search_engine) }
         format.json { head :no_content }
       else
+      	  @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
+      	  @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
         format.html { render action: "edit" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
       end
