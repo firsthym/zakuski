@@ -9,21 +9,17 @@
       <Label name="_cse_exclude" mode="ELIMINATE" />
       <Label name="_cse_boost" mode="BOOST" />
     </BackgroundLabels>
-    <% if @facet_labels.present? %>
+    <% if @labels.present? %>
     <Facet>
-    	<% @facet_labels.each do |label, modes| %>
-		<% if modes.present? %>
-			<% modes.each do |m| %>
-					<FacetItem>
-						<Label name="_cse_<%= label %>_<%= m %>" mode="<%= m.upcase %>"></Label>
-						<% if m != 'exclude' %>
-							<Title><%= label %>(<%= t("human.controls.select.#{m}") %>)</Title>
-						<% else %>
-							<Title/>
-						<% end %>
-					</FacetItem>
-			<% end %>
-		<% end %>
+    	<% @labels.each do |label| %>
+			<FacetItem>
+				<Label name="_cse_<%= label.name.strip.gsub(/\s+/, '_') %>" mode="<%= label.mode.upcase %>"></Label>
+				<% if label.mode != 'exclude' %>
+					<Title><%= label.name.strip %></Title>
+				<% else %>
+					<Title/>
+				<% end %>
+			</FacetItem>
     	<% end %>
     </Facet>
 	<% end %>
@@ -43,9 +39,11 @@
 <Annotations>
   <% @custom_search_engine.annotations.each do |annotation| %>
     <Annotation about="<%= annotation.about %>" score="<%= annotation.score.to_f/10 %>">
-      <Label name="_cse_<%= annotation.mode %>"/>
-      	<% if annotation.facet.present? %>
-      		<Label name="_cse_<%= annotation.facet %>_<%= annotation.mode %>"/>		
+    	<Label name="_cse_filter" />
+      	<% if annotation.labels_list.present? %>
+      	<% annotation.labels_list.each do |label| %>
+      		<Label name="_cse_<%= label.strip.gsub(/\s+/, '_') %>"/>
+      	<% end %>
       	<% end %>
     </Annotation>
   <% end %>

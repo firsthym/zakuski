@@ -16,7 +16,7 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-
+	 
     respond_to do |format|
       format.html do 
 			if @custom_search_engine.publish? || current_user == @custom_search_engine.author
@@ -47,11 +47,7 @@ class CustomSearchEnginesController < ApplicationController
 			end
       end
       #format.json { render json: @custom_search_engine }
-      format.xml do
-      		#@facet_labels = @custom_search_engine.annotations.group_by{ |a| a.facet }.keys
-      		facet_hash = @custom_search_engine.annotations.group_by{ |a| a.facet }
-      		@facet_labels = facet_hash.each{ |k, v| facet_hash[k] = v.group_by{ |e| e.mode }.keys }
-      	end
+      format.xml { @labels = @custom_search_engine.labels }
     end
   end
 
