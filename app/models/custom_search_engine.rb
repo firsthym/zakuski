@@ -20,6 +20,7 @@ class CustomSearchEngine
   
   has_many :replies
   has_and_belongs_to_many :tags
+  has_one :theme
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
   belongs_to :node
@@ -31,8 +32,10 @@ class CustomSearchEngine
   accepts_nested_attributes_for :specification, reject_if: proc { |attr| attr[:title].blank? }
   accepts_nested_attributes_for :labels, allow_destroy: true, reject_if: proc { |attr| attr[:name].blank? }
   accepts_nested_attributes_for :annotations, allow_destroy: true, reject_if: proc { |attr| attr[:about].blank? }
-
-  attr_accessible :node_id, :specification_attributes, :labels_attributes, :annotations_attributes
+  accepts_nested_attributes_for :theme
+	
+  attr_accessible :node_id, :specification_attributes, :labels_attributes, :annotations_attributes,
+  						:theme_attributes
 
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}

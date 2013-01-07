@@ -58,6 +58,7 @@ class CustomSearchEnginesController < ApplicationController
     @custom_search_engine.specification = Specification.new
     @custom_search_engine.labels = [Label.new]
     @custom_search_engine.annotations = [Annotation.new]
+    @custom_search_engine.theme = Theme.new
     @custom_search_engine.node = Node.find(params[:node_id])
     
     respond_to do |format|
@@ -94,6 +95,7 @@ class CustomSearchEnginesController < ApplicationController
       else
       	  @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
       	  @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
+      	  @custom_search_engine.theme.build if @custom_search_engine.theme.empty?
         format.html { render action: "new" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
       end

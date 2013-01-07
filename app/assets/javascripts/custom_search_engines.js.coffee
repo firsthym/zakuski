@@ -73,5 +73,10 @@ $(document).ready ->
 		$(this).closest('li.cse-link').addClass('cse-selected')
 		return
 	
+	
+	$('.cse-theme-box .thumbnail').click ->
+		$('.cse-theme-box .thumbnail').removeClass('cse-theme-choose')
+		$(this).addClass('cse-theme-choose')
+	
 	# document ready end
 	return

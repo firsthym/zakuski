@@ -76,3 +76,42 @@ ul.cse-sortable,.cse-draggable{
 	margin-right: 5px;
 	height: 48px;
 }
+
+//cse themes
+.thumbnail{
+		border: 2px solid #DDD
+	}
+.cse-theme-box{
+	width: 80px;
+}
+.cse-theme{
+	height: 64px;
+	width: 64px;
+	margin: 0 auto;
+	cursor: pointer;
+	background-image: url(image_path('cse_themes_sprite.png'))
+}
+.cse-theme-choose{
+	border: 2px solid #3BAAE3;
+}
+.cse-theme-default{
+	background-position: -64px -320px;
+}
+.cse-theme-greensky{
+	background-position: -64px 0px;
+}
+.cse-theme-minimalist{
+	background-position: -64px -128px;
+}
+.cse-theme-shiny{
+	background-position: -128px -64px;
+}
+.cse-theme-espresso{
+	background-position: -64px -64px;
+}
+.cse-theme-bubblegum{
+	background-position: -128px 0px;
+}
+.cse-theme-classic{
+	background-position: 0px 0px;
+}
