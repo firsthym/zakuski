@@ -72,6 +72,14 @@
 									</div>
 								<% end %>
 							<% end %>
+							
+							<div class="cse-divider"></div>
+							<div class="row-fluid cse-theme-show">
+							<h5><%= t('human.text.what_is_theme') %></h5>
+							<div class="row-fluid"><%= generate_themes_html(@custom_search_engine.theme,
+									[@custom_search_engine.theme.name]) %></div>
+							</div>
+							
 							<%= raw(get_keep_or_remove_html(@custom_search_engine)) %>
 							<% if user_signed_in? %>
 							<% unless current_user.own_cse?(@custom_search_engine) %>

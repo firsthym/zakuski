@@ -77,6 +77,8 @@ $(document).ready ->
 	$('.cse-theme-box .thumbnail').click ->
 		$('.cse-theme-box .thumbnail').removeClass('cse-theme-choose')
 		$(this).addClass('cse-theme-choose')
+		theme = $(this).find('.cse-theme-name').val()
+		$(this).closest('.control-group').find('.cse-theme-selected').val(theme)
 	
 	# document ready end
 	return

@@ -1,12 +1,12 @@
-<div class="control-group">
 <%= cse_form.fields_for :theme do |builder| %>
-<%= builder.hidden_field :name %>
-<% end %>
+<div class="control-group">
+<%= builder.hidden_field :name, class: "cse-theme-selected" %>
 	<label class="control-label">
 		  <strong>*<%= t('human.text.look_and_feel') %></strong>
 		  <span class="cse-small"><%= t('human.text.what_is_look_and_feel') %></span>
 	</label>
 	<div class="controls cse-container-normal">
-	<%= generate_themes_html %>
+	<%= generate_themes_html(builder.object) %>
 	</div>
 </div>
+<% end %>

@@ -62,12 +62,16 @@ module CustomSearchEnginesHelper
 		simple_format(h(text).gsub(/@(\w+)/) { |name| link_to(name, user_path(id: name.delete('@'))) })
 	end
 	
-	def generate_themes_html
-		themes = ['default', 'greensky', 'espresso', 'minimalist', 'shiny', 'bubblegum', 'classic']
+	def generate_themes_html(theme_obj, 
+	themes = ['default', 'greensky', 'espresso', 'minimalist', 'shiny', 'bubblegum', 'classic'])
 		html = '<ul class="thumbnails">'
 		themes.each do |theme|
+			choose_class = theme_obj.name == theme ? "cse-theme-choose" : ""
 			html += "<li class=\"cse-theme-box\">
-			<div class=\"thumbnail\"><div class=\"cse-theme cse-theme-#{theme}\"></div>
+			<div class=\"thumbnail\ #{choose_class}\">
+			<div class=\"cse-theme cse-theme-#{theme}\">
+			<input type=\"hidden\" class=\"cse-theme-name\" value=\"#{theme}\" />
+			</div>
 			<h6 class=\"center\">#{t("human.text.theme.#{theme}")}</h6></div>
 			</li>"
 		end

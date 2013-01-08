@@ -55,10 +55,6 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/new.json
   def new
     @custom_search_engine = CustomSearchEngine.new
-    @custom_search_engine.specification = Specification.new
-    @custom_search_engine.labels = [Label.new]
-    @custom_search_engine.annotations = [Annotation.new]
-    @custom_search_engine.theme = Theme.new
     @custom_search_engine.node = Node.find(params[:node_id])
     
     respond_to do |format|
@@ -70,8 +66,6 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1/edit
   def edit
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
-    @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
   end
 
   # POST /custom_search_engines
@@ -93,9 +87,6 @@ class CustomSearchEnginesController < ApplicationController
         format.json { render json: @custom_search_engine, status: :created, 
 							location: @custom_search_engine }
       else
-      	  @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
-      	  @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
-      	  @custom_search_engine.theme.build if @custom_search_engine.theme.empty?
         format.html { render action: "new" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
       end
@@ -111,8 +102,6 @@ class CustomSearchEnginesController < ApplicationController
         format.html { redirect_to cse_path(@custom_search_engine) }
         format.json { head :no_content }
       else
-      	  @custom_search_engine.labels.build if @custom_search_engine.labels.empty?
-      	  @custom_search_engine.annotations.build if @custom_search_engine.annotations.empty?
         format.html { render action: "edit" }
         format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
       end
@@ -247,6 +236,8 @@ class CustomSearchEnginesController < ApplicationController
       @new.parent_id = @custom_search_engine.id
       @new.specification = @custom_search_engine.specification
       @new.annotations = @custom_search_engine.annotations
+      @new.labels = @custom_search_engine.labels
+      @new.theme = @custom_search_engine.theme
       @new.status = 'draft'
     end
 

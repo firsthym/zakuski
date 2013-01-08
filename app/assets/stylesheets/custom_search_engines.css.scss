@@ -94,6 +94,13 @@ ul.cse-sortable,.cse-draggable{
 .cse-theme-choose{
 	border: 2px solid #3BAAE3;
 }
+.cse-theme-show{
+	.thumbnails{
+		li{
+			margin-left: 0px;
+		}
+	}
+}
 .cse-theme-default{
 	background-position: -64px -320px;
 }
