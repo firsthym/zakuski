@@ -234,10 +234,10 @@ class CustomSearchEnginesController < ApplicationController
       @new.node = @custom_search_engine.node
       @new.author = current_user
       @new.parent_id = @custom_search_engine.id
-      @new.specification = @custom_search_engine.specification
-      @new.annotations = @custom_search_engine.annotations
-      @new.labels = @custom_search_engine.labels
-      @new.theme = @custom_search_engine.theme
+      @new.specification = @custom_search_engine.specification.clone
+      @new.annotations = @custom_search_engine.annotations.map { |a| a.clone }
+      @new.labels = @custom_search_engine.labels.map { |l| l.clone }
+      @new.theme = @custom_search_engine.theme.clone
       @new.status = 'draft'
     end
 

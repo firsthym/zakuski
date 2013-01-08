@@ -1,8 +1,8 @@
 require 'rubygems'
 #require 'mongo'
-#source "http://ruby.taobao.org"
+source "http://ruby.taobao.org"
 #source 'http://gemcutter.org'
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

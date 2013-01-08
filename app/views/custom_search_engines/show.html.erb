@@ -50,6 +50,7 @@
 										<span class="label label-info"><%= vl %></span>
 								<% end %>
 							</div>
+							<div class="cse-divider"></div>
 							<% end %>
 							
 							<% if @labels_hash.any? %>
@@ -62,10 +63,10 @@
 										<% end %>
 									</div>
 								<% end %>
+								<div class="cse-divider"></div>
 							<% end %>
 							
 							<% if @no_labels_arr.any? %>
-							<div class="cse-divider"></div>
 								<% @no_labels_arr.each do |a| %>
 									<div class="row-fluid cse-grid cse-word">
 										<%= render 'annotation', annotation: a %>
