@@ -97,6 +97,7 @@ class CustomSearchEnginesController < ApplicationController
   # PUT /custom_search_engines/1.json
   def update
     respond_to do |format|
+      @custom_search_engine.updated_at = Time.now
       if @custom_search_engine.update_attributes(params[:custom_search_engine])
         flash[:success] = I18n.t('human.success.update', item: I18n.t('human.text.cse'))
         format.html { redirect_to cse_path(@custom_search_engine) }
