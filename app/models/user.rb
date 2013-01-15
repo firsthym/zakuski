@@ -98,7 +98,7 @@ class User
   end
 
   def get_dashboard_cses
-    CustomSearchEngine.build_parent(CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact)
+    CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact
   end
 
   def set_dashboard_cses(custom_search_engines)
@@ -130,12 +130,10 @@ class User
     end
     self.update(validate: false)
     keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
-    CustomSearchEngine.build_parent(keeped_cses)
   end
 
   def get_created_cses
-    created_cses = self.custom_search_engines.recent.compact
-    CustomSearchEngine.build_parent(created_cses)
+    self.custom_search_engines.recent.compact
   end
 
   def set_keeped_cses(custom_search_engines)

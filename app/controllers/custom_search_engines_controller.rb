@@ -82,13 +82,15 @@ class CustomSearchEnginesController < ApplicationController
       if @custom_search_engine.save
         add_cse_to_dashboard(@custom_search_engine)
         link_cse(@custom_search_engine)
-        flash[:success] = I18n.t('human.success.create', item: I18n.t('human.text.cse'))
+        flash[:success] = I18n.t('human.success.create', 
+                                 item: I18n.t('human.text.cse'))
         format.html { redirect_to cse_path(@custom_search_engine)}
         format.json { render json: @custom_search_engine, status: :created, 
-							location: @custom_search_engine }
+                      location: @custom_search_engine }
       else
         format.html { render action: "new" }
-        format.json { render json: @custom_search_engine.errors, status: :unprocessable_entity }
+        format.json { render json: @custom_search_engine.errors, 
+                      status: :unprocessable_entity }
       end
     end
   end
@@ -240,19 +242,19 @@ class CustomSearchEnginesController < ApplicationController
       @new = CustomSearchEngine.new
       @new.node = @custom_search_engine.node
       @new.author = current_user
-      @new.parent_id = @custom_search_engine.id
       @new.specification = @custom_search_engine.specification.clone
       @new.annotations = @custom_search_engine.annotations.map { |a| a.clone }
       @new.labels = @custom_search_engine.labels.map { |l| l.clone }
       @new.theme = @custom_search_engine.theme.clone
       @new.status = 'draft'
+      @new.parent = @custom_search_engine
     end
 
     respond_to do |format|
-      if @new.present? && @new.save
-        Notification.messager(receiver: @custom_search_engine.author, sender: current_user, 
-            source: 'cse', 
-              title: I18n.t('notification.clone', 
+      if @new.present? && @new.save 
+        Notification.messager(receiver: @custom_search_engine.author, 
+                              sender: current_user, source: 'cse', 
+                    title: I18n.t('notification.clone', 
                       {user: view_context.link_to(current_user.username, 
                         user_path(current_user)),
                         cse:view_context.link_to(@custom_search_engine.specification.title,
