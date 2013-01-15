@@ -1,3 +1,4 @@
+<% @custom_search_engine.build_theme if @custom_search_engine.theme.blank? %>
 <div class="container">
 	<div class="row">
 		<div class="span7 offset1">
@@ -20,16 +21,17 @@
 						<%= link_to @custom_search_engine.author.username, user_path(@custom_search_engine.author) %><small class="muted"><%= @custom_search_engine.author.mood.present? ? " (#{@custom_search_engine.author.mood})" : "" %></small><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(@custom_search_engine.created_at)%></span><span class="divider">•</span><span class="muted"><%= t('human.text.browse') %>&nbsp;<%= @custom_search_engine.browse_count %></span><span class="divider">•</span><span class="muted"><%= t('human.text.keeps') %>&nbsp;<%= @custom_search_engine.keep_count %></span>
 						<div class="btn-group pull-right">
 							<% if user_signed_in? && @custom_search_engine.author == current_user %>
-							<%= link_to raw('<i class="icon-edit"></i>'), 
+							<%= link_to '<i class="icon-trash"></i>'.html_safe, cse_path(@custom_search_engine), class: "btn", title: t("human.controls.link.delete"), method: 'delete', confirm: I18n.t('human.text.are_u_sure') %>
+							<%= link_to '<i class="icon-edit"></i>'.html_safe, 
 										edit_cse_path(@custom_search_engine), class: "btn", 
 										title: t('human.controls.link.edit') %>
 							<% if @custom_search_engine.status == 'draft'%>
-							<%= link_to raw('<i class="icon-share"></i>'), 
+							<%= link_to '<i class="icon-share"></i>'.html_safe, 
 										share_cse_path(@custom_search_engine), class: "btn", 
 										title: t('human.controls.link.publish') %>
 							<% end %>
 							<% end %>
-							<%= link_to raw('<i class="icon-search"></i>'), cse_query_path(id: @custom_search_engine.id) ,class: 'btn', title: t('human.text.try_search') %>
+							<%= link_to '<i class="icon-search"></i>'.html_safe, cse_query_path(id: @custom_search_engine.id) ,class: 'btn', title: t('human.text.try_search') %>
 						</div>
 						</div>
 					</div>
@@ -55,15 +57,14 @@
 							
 							<% if @labels_hash.any? %>
 								<% @labels_hash.each do |label, annotations| %>
-								<div class="cse-divider"></div>
 									<div class="row-fluid cse-grid cse-word">
 										<h5><span class="label label-info"><%= label %></span></h5>
 										<% annotations.each do |a| %>
 											<%= render 'annotation', annotation: a %>
 										<% end %>
 									</div>
+									<div class="cse-divider"></div>
 								<% end %>
-								<div class="cse-divider"></div>
 							<% end %>
 							
 							<% if @no_labels_arr.any? %>
@@ -72,16 +73,16 @@
 										<%= render 'annotation', annotation: a %>
 									</div>
 								<% end %>
+								<div class="cse-divider"></div>
 							<% end %>
 							
-							<div class="cse-divider"></div>
 							<div class="row-fluid cse-theme-show">
 							<h5><%= t('human.text.what_is_theme') %></h5>
 							<div class="row-fluid"><%= generate_themes_html(@custom_search_engine.theme,
 									[@custom_search_engine.theme.name]) %></div>
 							</div>
 							
-							<%= raw(get_keep_or_remove_html(@custom_search_engine)) %>
+							<%= raw get_keep_or_remove_html(@custom_search_engine) %>
 							<% if user_signed_in? %>
 							<% unless current_user.own_cse?(@custom_search_engine) %>
 							<div class="row-fluid cse-grid">

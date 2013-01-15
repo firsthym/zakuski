@@ -41,21 +41,13 @@ class ApplicationController < ActionController::Base
         end
       else
         # for guests, retrieve keeps and dashboard cses from cookies
-        if(cookies[:keeped_cse_ids].blank?)
-          @keeped_cses = CustomSearchEngine.get_hot_cses
-        else
+        if(cookies[:keeped_cse_ids].present?)
           @keeped_cses = CustomSearchEngine.get_from_cookie(cookies[:keeped_cse_ids])
-          if @keeped_cses.blank?
-            @keeped_cses = CustomSearchEngine.get_hot_cses
-          end
         end
         @keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
         cookies[:keeped_cse_ids] = @keeped_cse_ids.join(',') if @keeped_cses.present?
 
-        if(cookies[:dashboard_cse_ids].blank?)
-          # guests only get 5 slot at most
-          @dashboard_cses = @keeped_cses[0,5]
-        else
+        if(cookies[:dashboard_cse_ids].present?)
           cse_ids = cookies[:dashboard_cse_ids].split(',') & @keeped_cse_ids
           cse_ids.each do |id|
             @keeped_cses.each do |cse|
@@ -64,10 +56,6 @@ class ApplicationController < ActionController::Base
                 break
               end
             end
-          end
-          #@dashboard_cses = @keeped_cses.map{|cse| cse if cse_ids.include?(cse.id.to_s)}.compact
-          if @dashboard_cses.blank?
-            @dashboard_cses = @keeped_cses[0,5]
           end
         end
         cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',') if @dashboard_cses.present?
@@ -142,7 +130,11 @@ class ApplicationController < ActionController::Base
         # guests only get 5 slot at most
         if @keeped_cses.include?(custom_search_engine)
           if @dashboard_cses.count <= 4
-            cookies[:dashboard_cse_ids] += ",#{custom_search_engine.id}"
+            if cookies[:dashboard_cse_ids].present?
+              cookies[:dashboard_cse_ids] += ",#{custom_search_engine.id}"
+            else
+              cookies[:dashboard_cse_ids] = "#{custom_search_engine.id}"
+            end
           else
             false
           end

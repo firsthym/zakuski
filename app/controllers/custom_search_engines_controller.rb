@@ -112,10 +112,12 @@ class CustomSearchEnginesController < ApplicationController
   # DELETE /custom_search_engines/1.json
   def destroy
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-    @custom_search_engine.destroy
+    if @custom_search_engine.present?
+      @custom_search_engine.destroy
+    end
 
     respond_to do |format|
-      format.html { redirect_to cses_url }
+      format.html { redirect_to cses_path }
       format.json { head :no_content }
     end
   end
@@ -175,7 +177,11 @@ class CustomSearchEnginesController < ApplicationController
         @error = I18n.t('human.errors.limit_cses', limit: 10)
       else
         @keeped_cses.push @custom_search_engine
-        cookies[:keeped_cse_ids] += ",#{@custom_search_engine.id}"
+        if cookies[:keeped_cse_ids].present?
+          cookies[:keeped_cse_ids] += ",#{@custom_search_engine.id}"
+        else
+          cookies[:keeped_cse_ids] = "#{@custom_search_engine.id}"
+        end
       end
     end
 
@@ -318,7 +324,8 @@ class CustomSearchEnginesController < ApplicationController
       current_user.update_attribute(:dashboard_cses, [])
       flash[:success] = I18n.t('human.success.general')
     else
-      flash[:error] = I18n.t('human.errors.guest_clear')
+      cookies.delete(:dashboard_cse_ids)
+      flash[:success] = I18n.t('human.success.general')
     end
 
     respond_to do |format|
@@ -372,7 +379,8 @@ class CustomSearchEnginesController < ApplicationController
       @keeped_cses = []
       flash[:success] = I18n.t('human.success.general')
     else
-      flash[:error] = I18n.t('human.errors.guest_clear')
+      cookies.delete(:keeped_cse_ids)
+      flash[:success] = I18n.t('human.success.general')
     end
     respond_to do |format|
       format.html {redirect_to cses_path}

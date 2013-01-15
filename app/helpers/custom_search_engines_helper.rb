@@ -26,7 +26,7 @@ module CustomSearchEnginesHelper
 		if user_signed_in?
 			if current_user == custom_search_engine.author
 				return ""
-			elsif custom_search_engine.get_consumers.include?(current_user)
+			elsif custom_search_engine.get_consumers.include?(current_user) && @keeped_cses.include?(custom_search_engine)
 				label = I18n.t('human.text.remove_current_cse')
 				path = remove_cse_path(@custom_search_engine)
 			else
@@ -34,7 +34,7 @@ module CustomSearchEnginesHelper
 				path = keep_cse_path(@custom_search_engine)
 			end
 		else
-			if cookies[:keeped_cse_ids].split(',').include?(custom_search_engine.id.to_s)
+			if cookies[:keeped_cse_ids].present? && cookies[:keeped_cse_ids].split(',').include?(custom_search_engine.id.to_s)
 				label = I18n.t('human.text.remove_current_cse')
 				path = remove_cse_path(@custom_search_engine)
 			else

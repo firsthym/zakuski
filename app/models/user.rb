@@ -118,14 +118,17 @@ class User
 
   def get_keeped_cses
     keeped_cses = CustomSearchEngine.in(id: self.keeped_cses.map{|each| each["id"]}).recent.publish.limit(20).compact
-    keeped_cses.each do |cse|
-      self.keeped_cses.each do |each|
-        if each["id"] == cse.id
-          cse[:keeped_at] = each["time"]
+    self.keeped_cses.each do |kp|
+      keeped_cses.each do |c|
+        if kp[:id] == c.id
+          kp[:exist] = true
+          c[:keeped_at] = kp[:time]
           break
         end
       end
+      self.keeped_cses.delete(kp) unless kp[:exist].present?
     end
+    self.update(validate: false)
     keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
     CustomSearchEngine.build_parent(keeped_cses)
   end
