@@ -390,6 +390,19 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
+  def save_created_cses
+    current_user.custom_search_engines.delete_if { |cse| !params[:saved_cses].include?(cse.id) }
+    respond_to do |format|
+      if current_user.update
+        flash[:success] = I18n.t('human.success.general')
+        format.html { redirect_to cses_path }
+      else
+        flash[:success] = I18n.t('human.errors.general')
+        format.html { redirect_to cses_path }
+      end
+    end
+  end
+
   private
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
