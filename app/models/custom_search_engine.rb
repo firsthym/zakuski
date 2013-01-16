@@ -98,7 +98,11 @@ class CustomSearchEngine
   end
   
   def children
-    CustomSearchEngine.in(id: self.children_ids)
+    cses_on_db = CustomSearchEngine.in(id: self.children_ids)
+    cses_ids_on_db = cses_on_db.map { |cse| cse.id }
+    self.children_ids &= cses_ids_on_db
+    self.save
+    cses_on_db 
   end
 
   private

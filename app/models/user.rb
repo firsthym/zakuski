@@ -101,27 +101,22 @@ class User
     cses_on_db = CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact
     self.dashboard_cses.each do |dc|
       cses_on_db.each do |c|
-        if dc[:id] == c.id
-          dc[:exist] = true
+        if dc["id"] == c.id
+          dc["exist"] = true
           break
         end
       end
-      self.dashboard_cses.delete(dc) if dc[:exist].blank?
+      self.dashboard_cses.delete(dc) if dc["exist"].blank?
     end
-    self.update(validate: false) if self.changed?
+    self.update if self.changed?
     cses_on_db
   end
 
   def set_dashboard_cses(custom_search_engines)
     if custom_search_engines.present?
-      new_dashboard_cses = []
-      custom_search_engines.each do |cse|
-        item = {id: cse.id}
-        new_dashboard_cses.push item
-      end
-      if new_dashboard_cses.present?
-        self.update_attribute(:dashboard_cses, new_dashboard_cses)
-      end
+      ids = custom_search_engines.map { |cse| cse.id }
+      ids.each {|id| self.dashboard_cses.push Hash["id", id]} if ids.any?
+      self.update if self.changed?
     else
       false
     end
@@ -129,17 +124,13 @@ class User
 
   def get_keeped_cses
     keeped_cses = CustomSearchEngine.in(id: self.keeped_cses.map{|each| each["id"]}).recent.publish.limit(20).compact
-    self.keeped_cses.each do |kp|
-      keeped_cses.each do |c|
-        if kp[:id] == c.id
-          kp[:exist] = true
-          c[:keeped_at] = kp[:time]
-          break
-        end
+    ids = keeped_cses.map { |cse| cse.id }
+    self.keeped_cses.each do |hash|
+      unless ids.include?(hash["id"])
+        self.keeped_cses.delete(hash)
       end
-      self.keeped_cses.delete(kp) if kp[:exist].blank?
     end
-    self.update(validate: false) if self.changed?
+    self.update if self.changed?
     keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
   end
 
@@ -149,20 +140,13 @@ class User
 
   def set_keeped_cses(custom_search_engines)
     if custom_search_engines.present?
-      new_keeped_cses = []
-      custom_search_engines.each do |cse|
-        item = {id: cse.id}
-        self.keeped_cses.each do |each|
-          if each["id"] == cse.id
-            item.time = each.time
-            break
-          end
+      ids = custom_search_engines.map{ |cse| cse.id}
+      self.keeped_cses.each do |hash|
+        unless ids.include?(hash["id"])
+          self.keeped_cses.delete(hash)
         end
-        new_keeped_cses.push item
       end
-      if new_keeped_cses.present?
-        self.update_attribute(:keeped_cses, new_keeped_cses)
-      end
+      self.update if self.changed?
     else
       false
     end
@@ -170,11 +154,27 @@ class User
 
   def keeps_cse(custom_search_engine)
     time = Time.now
-    self.push(:keeped_cses, {id: custom_search_engine.id, time: time})
-    if self.dashboard_cses.count < 10
-      self.push(:dashboard_cses, {id: custom_search_engine.id})
+    has_keeped_cse_ids = self.keeped_cses.map { |hash| hash["id"] }
+    unless has_keeped_cse_ids.include?(custom_search_engine.id)
+      self.keeped_cses.push(Hash["id", custom_search_engine.id, "time", time])
     end
-    custom_search_engine.push(:consumers, {uid: self.id, time: time})
+    has_added_to_dashboard_cse_ids = self.dashboard_cses.map { |hash| hash["id"] }
+    unless has_added_to_dashboard_cse_ids.include? custom_search_engine.id
+      if self.dashboard_cses.count < 10
+        self.dashboard_cses.push(Hash["id", custom_search_engine.id])
+      end
+    end
+    self.keeped_cses = self.keeped_cses.uniq { |hash| hash["id"]}
+    self.dashboard_cses = self.dashboard_cses.uniq { |hash| hash["id"]}
+
+    if self.save
+      uids = custom_search_engine.consumers.map { |consumer| consumer["uid"] }
+      unless uids.include? self.id
+        custom_search_engine.consumers.push(Hash["uid", self.id, "time", time])
+      end
+      custom_search_engine.consumers = custom_search_engine.consumers.uniq { |hash| hash["uid"]}
+      custom_search_engine.save
+    end
   end
 
   def removes_cse(custom_search_engine)

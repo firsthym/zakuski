@@ -29,7 +29,9 @@
           </div>
           </div>
           <div class="control-group">
-            <div class="controls"><input type="submit" value="<%= t('human.controls.link.save') %>" class="btn" /></div>
+            <div class="controls">
+            <input type="submit" value="<%= t('human.controls.link.save') %>" class="btn" />
+            </div>
           </div>
           <% end %>
         <% end %>
@@ -50,13 +52,13 @@
             <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
           </li>
         <% end %>
-        <input type="submit" value="<%= t('human.controls.link.save') %>" class="btn" />
         </ul>
+        <input type="submit" value="<%= t('human.controls.link.save') %>" class="btn" />
         <% end %>
       <% else %>
         <%= t('human.text.no_records') %>
       <% end %>
-
+    </div>
       <!-- created cses -->
       <% if user_signed_in? %>
       <div class="cse-divider"></div>
@@ -80,8 +82,6 @@
         <% end %>
       </div>
       <% end %>
-
-      </div>
       </div>
     </div>
     <div class="span3">

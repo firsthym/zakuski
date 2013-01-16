@@ -116,6 +116,10 @@ class CustomSearchEnginesController < ApplicationController
   def destroy
     @custom_search_engine = CustomSearchEngine.find(params[:id])
     if @custom_search_engine.present?
+      if (parent = @custom_search_engine.parent).present?
+        parent.children_ids.delete(@custom_search_engine.id)
+        parent.save
+      end
       @custom_search_engine.destroy
     end
 
@@ -190,7 +194,6 @@ class CustomSearchEnginesController < ApplicationController
 
     if @error.nil?
       @message = I18n.t('human.success.general')
-      add_cse_to_dashboard(@custom_search_engine)
     end
     respond_to do |format|
       format.js
@@ -259,7 +262,6 @@ class CustomSearchEnginesController < ApplicationController
                         user_path(current_user)),
                         cse:view_context.link_to(@custom_search_engine.specification.title,
                         cse_path(@custom_search_engine))}))
-        add_cse_to_dashboard(@new)
         format.html {redirect_to edit_cse_path(@new)}
       else
         flash[:error] = @new.errors.full_messages
