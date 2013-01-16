@@ -93,7 +93,7 @@ class CustomSearchEngine
     self.parent_id = custom_search_engine.id.to_s
     unless custom_search_engine.children_ids.include? self.id
       custom_search_engine.children_ids.push self.id
-      custom_search_engine.update
+      custom_search_engine.save
     end
   end
   

@@ -128,7 +128,7 @@ class User
       end
       self.keeped_cses.delete(kp) unless kp[:exist].present?
     end
-    self.update(validate: false)
+    self.save(false)
     keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
   end
 
