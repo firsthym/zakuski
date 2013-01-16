@@ -27,11 +27,6 @@ class ApplicationController < ActionController::Base
         @created_cses = current_user.get_created_cses
         @keeped_cses = current_user.get_keeped_cses
         @dashboard_cses = current_user.get_dashboard_cses
-        if(@dashboard_cses.blank?)
-          # 10 slots at most for members
-          @dashboard_cses = (@keeped_cses | @created_cses)[0,10]
-          current_user.set_dashboard_cses(@dashboard_cses)
-        end
         # clear cookies
         if(cookies[:keeped_cse_ids].present?)
           cookies.delete(:keeped_cse_ids)

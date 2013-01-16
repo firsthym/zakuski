@@ -24,6 +24,7 @@ Myapp::Application.routes.draw do
     collection do
       post 'dashboard/save', action: :save_dashboard_cses
       post 'keepedcses/save', action: :save_keeped_cses
+      post 'createdcses/save', action: :save_created_cses
     end
   end
   resources :nodes, only: [:index, :show] do

@@ -98,7 +98,18 @@ class User
   end
 
   def get_dashboard_cses
-    CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact
+    cses_on_db = CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact
+    self.dashboard_cses.each do |dc|
+      cses_on_db.each do |c|
+        if dc[:id] == c.id
+          dc[:exist] = true
+          break
+        end
+      end
+      self.dashboard_cses.delete(dc) if dc[:exist].blank?
+    end
+    self.update(validate: false) if self.changed?
+    cses_on_db
   end
 
   def set_dashboard_cses(custom_search_engines)
@@ -126,9 +137,9 @@ class User
           break
         end
       end
-      self.keeped_cses.delete(kp) unless kp[:exist].present?
+      self.keeped_cses.delete(kp) if kp[:exist].blank?
     end
-    self.save(false)
+    self.update(validate: false) if self.changed?
     keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
   end
 
@@ -178,4 +189,5 @@ class User
   def to_param
     username
   end
+
 end

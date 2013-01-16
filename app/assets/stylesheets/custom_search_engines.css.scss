@@ -64,11 +64,16 @@ ul.cse-sortable,.cse-draggable{
 	margin: 0;
 	padding: 0;
 	margin-bottom: 10px;
+	height: 30px;
 	li{
 		margin: 5px;
 		padding: 5px;
 		width: 650px;
 	}
+}
+
+.cse-list{
+	width: 700px;
 }
 
 .cse-consumer{
