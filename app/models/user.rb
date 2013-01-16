@@ -99,14 +99,11 @@ class User
 
   def get_dashboard_cses
     cses_on_db = CustomSearchEngine.in(id: self.dashboard_cses.map{|each| each["id"]}).limit(10).compact
-    self.dashboard_cses.each do |dc|
-      cses_on_db.each do |c|
-        if dc["id"] == c.id
-          dc["exist"] = true
-          break
-        end
-      end
-      self.dashboard_cses.delete(dc) if dc["exist"].blank?
+    ids = cses_on_db.map { |cse| cse.id }
+    self.dashboard_cses.each do |hash|
+      unless ids.include? hash["id"]
+        self.dashboard_cses.delete(hash)
+      end  
     end
     self.update if self.changed?
     cses_on_db
@@ -115,8 +112,9 @@ class User
   def set_dashboard_cses(custom_search_engines)
     if custom_search_engines.present?
       ids = custom_search_engines.map { |cse| cse.id }
+      self.dashboard_cses.clear
       ids.each {|id| self.dashboard_cses.push Hash["id", id]} if ids.any?
-      self.update if self.changed?
+      self.update
     else
       false
     end

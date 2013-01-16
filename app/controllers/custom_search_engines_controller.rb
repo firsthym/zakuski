@@ -393,13 +393,30 @@ class CustomSearchEnginesController < ApplicationController
   end
 
   def save_created_cses
-    current_user.custom_search_engines.delete_if { |cse| !params[:saved_cses].include?(cse.id) }
+    if params[:saved_cses].present?
+      saved_cses = params[:saved_cses]
+    else
+      saved_cses = []
+    end
+    if saved_cses.any?
+      current_user.custom_search_engines.each do |cse|
+        unless saved_cses.include? cse.id.to_s
+          if cse.parent.present?
+            cse.parent.children_ids.delete(cse.id)
+            cse.parent.save
+          end
+          cse.destroy 
+        end
+      end
+    else
+      current_user.custom_search_engines.clear
+    end
     respond_to do |format|
-      if current_user.update
+      if current_user.save
         flash[:success] = I18n.t('human.success.general')
         format.html { redirect_to cses_path }
       else
-        flash[:success] = I18n.t('human.errors.general')
+        flash[:error] = I18n.t('human.errors.general')
         format.html { redirect_to cses_path }
       end
     end
