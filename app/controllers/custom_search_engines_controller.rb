@@ -16,35 +16,39 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1.json
   def show
     @custom_search_engine = CustomSearchEngine.find(params[:id])
-	 
     respond_to do |format|
       format.html do 
-			if @custom_search_engine.publish? || current_user == @custom_search_engine.author
-			  @valid_labels = @custom_search_engine.labels.map { |l| l.name }
-			  @labels_hash = Hash.new
-			  @no_labels_arr = Array.new
-			  @custom_search_engine.annotations.each do |a|
-			  	if a.labels_list.any?
-				  	a.labels_list.each do |l|
-				  		if @valid_labels.include?(l)
-				  			@labels_hash[l] = Array.new if @labels_hash[l].nil?
-				  			@labels_hash[l].push(a)
-				  		else
-				  			@no_labels_arr.push(a)
-				  		end
-				  	end
-				else
-					@no_labels_arr.push(a)
-				end  
-			  end
-			  if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
-			  	@custom_search_engine.inc(:browse_count, 1)
-			  end
-			  render 'show'
-			else
-			 flash[:error] = I18n.t('human.errors.only_publish_cse_available')
-				 redirect_to nodes_path  
-			end
+        if @custom_search_engine.blank?
+          flash[:error] = I18n.t('human.errors.no_records')
+          redirect_to nodes_path 
+          return
+        end
+        if @custom_search_engine.publish? || current_user == @custom_search_engine.author
+          @valid_labels = @custom_search_engine.labels.map { |l| l.name }
+          @labels_hash = Hash.new
+          @no_labels_arr = Array.new
+          @custom_search_engine.annotations.each do |a|
+            if a.labels_list.any?
+                a.labels_list.each do |l|
+                    if @valid_labels.include?(l)
+                        @labels_hash[l] = Array.new if @labels_hash[l].nil?
+                        @labels_hash[l].push(a)
+                    else
+                        @no_labels_arr.push(a)
+                    end
+                end
+            else
+                @no_labels_arr.push(a)
+            end  
+          end
+          if @custom_search_engine.status == 'publish' && current_user != @custom_search_engine.author
+            @custom_search_engine.inc(:browse_count, 1)
+          end
+          render 'show'
+        else
+         flash[:error] = I18n.t('human.errors.only_publish_cse_available')
+             redirect_to nodes_path  
+        end
       end
       #format.json { render json: @custom_search_engine }
       format.xml { @labels = @custom_search_engine.labels }
@@ -170,12 +174,14 @@ class CustomSearchEnginesController < ApplicationController
       else
         current_user.keeps_cse(@custom_search_engine)
         Notification.messager(title: I18n.t('notification.keep', 
-          {user: view_context.link_to(current_user.username, 
-            user_path(current_user)),
-            cse:view_context.link_to(@custom_search_engine.specification.title[0,30],
+          {user: view_context.link_to(view_context.truncate(
+            current_user.username, length: 15), user_path(current_user)),
+            cse:view_context.link_to(
+              view_context.truncate(
+                @custom_search_engine.specification.title, length: 25),
               cse_path(@custom_search_engine))}),
-                              receiver: @custom_search_engine.author, sender: current_user,
-                              source: 'cse')
+              receiver: @custom_search_engine.author, sender: current_user,
+              source: 'cse')
       end
     else
       #for guests
@@ -255,13 +261,17 @@ class CustomSearchEnginesController < ApplicationController
 
     respond_to do |format|
       if @new.present? && @new.save 
-        Notification.messager(receiver: @custom_search_engine.author, 
-                              sender: current_user, source: 'cse', 
-                    title: I18n.t('notification.clone', 
-                      {user: view_context.link_to(current_user.username, 
-                        user_path(current_user)),
-                        cse:view_context.link_to(@custom_search_engine.specification.title,
-                        cse_path(@custom_search_engine))}))
+        Notification.messager(
+              receiver: @custom_search_engine.author, 
+              sender: current_user, source: 'cse', 
+              title: I18n.t('notification.clone', 
+              {user: view_context.link_to(
+                    view_context.truncate(current_user.username, length: 15), 
+                    user_path(current_user)),
+                    cse:view_context.link_to(
+                      view_context.truncate(
+                        @custom_search_engine.specification.title, length: 25),
+                      cse_path(@custom_search_engine))}))
         format.html {redirect_to edit_cse_path(@new)}
       else
         flash[:error] = @new.errors.full_messages

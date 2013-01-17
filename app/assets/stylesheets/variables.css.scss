@@ -31,6 +31,12 @@ $orange:                #DD4814;
 $pink:                  #c3325f;
 $purple:                #772953;
 
+// Google-like colors
+// -------------------------
+$googleBlue:            #0040E2;
+$googleGreen:           #00B018;
+$googleRed:             #DD172C;
+$googleYellow:          #FFB400;
 
 // Scaffolding
 // -------------------------
@@ -40,8 +46,8 @@ $textColor:             $grayDark;
 
 // Links
 // -------------------------
-$linkColor:             $orange;
-$linkColorHover:        darken($linkColor, 15%);
+$linkColor:             lighten($googleBlue,15%);
+$linkColorHover:        $googleBlue;
 
 
 // Typography
