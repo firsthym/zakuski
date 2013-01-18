@@ -27,7 +27,7 @@ class CustomSearchEnginesController < ApplicationController
           @valid_labels = @custom_search_engine.labels.map { |l| l.name }
           @labels_hash = Hash.new
           @no_labels_arr = Array.new
-          @custom_search_engine.annotations.each do |a|
+          @custom_search_engine.annotations.score_desc.each do |a|
             if a.labels_list.any?
                 a.labels_list.each do |l|
                     if @valid_labels.include?(l)

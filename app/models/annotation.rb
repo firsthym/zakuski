@@ -13,6 +13,7 @@ class Annotation
 																	less_than: 11 }
 	embedded_in :custom_search_engine
 	
+    scope :score_desc,desc(:score)
 	def labels=(labels_str)
 		if labels_str.present?
 			self.labels_list = labels_str.split(',')
