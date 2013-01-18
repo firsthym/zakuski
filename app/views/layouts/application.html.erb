@@ -10,7 +10,7 @@
 </head>
 <body>
  <%= render 'layouts/header' %>
-<div class="cse-wrapper">
+<div class="cse-wrapper cse-container-medium">
 <% flash.each do |key, value| %>
 	<% unless key.to_s == 'timedout' %>
 		<div class="alert alert-<%= key %>">

@@ -12,9 +12,14 @@ class RepliesController < ApplicationController
 					notification.user = @custom_search_engine.author
 					notification.source = 'discus'
 					notification.title = I18n.t('notification.new_reply', 
-						{user: view_context.link_to(current_user.username, 
+						{user: view_context.link_to(
+                          view_context.truncate(
+                            current_user.username, length: 15),
 							user_path(current_user)),
-						topic: view_context.link_to(@custom_search_engine.specification.title,
+						topic: view_context.link_to(
+                          view_context.truncate(
+                            @custom_search_engine.specification.title, 
+                            length: 25),
 							cse_path(@custom_search_engine))})
 					notification.body = @reply.body
 					notification.sender = current_user.id
@@ -37,11 +42,16 @@ class RepliesController < ApplicationController
 			user_names &= user_names
 			User.in(username: user_names).each do |u|
 				if u.present? && u != current_user && u != @reply.custom_search_engine.author
-					Notification.messager(title: I18n.t('notification.at',
-			          {user: view_context.link_to(current_user.username, 
-			            user_path(current_user)),
-			            discus:view_context.link_to(@reply.custom_search_engine.specification.title[0,30],
-			              cse_path(@reply.custom_search_engine))}),
+					Notification.messager(
+                      title: I18n.t('notification.at',
+			              {user: view_context.link_to(
+                            view_context.truncate(current_user.username, 15), 
+			                user_path(current_user)),
+			               discus:view_context.link_to(
+                             view_context.truncate(
+                              @custom_search_engine.specification.title, 
+                              length: 25),
+			                cse_path(@reply.custom_search_engine))}),
 			                receiver: u, sender: current_user, source: 'discus', body: @reply.body)
 				end
 			end

@@ -10,10 +10,10 @@
         <div class="row-fluid">
           <%= raw notification.title %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(notification.created_at)%></span>
           <% unless notification.read %>
-            <span class="badge badge-info">new</span>
+            <span class="label label-info">new</span>
           <% end %>
           <%= link_to I18n.t('human.controls.link.delete'), notification, 
-          method: :delete, remote: true, class: 'btn btn-warning pull-right' %>
+          method: :delete, remote: true, class: 'btn pull-right' %>
         </div>
         <div class="row-fluid">
           <%= simple_text(notification.body) %>

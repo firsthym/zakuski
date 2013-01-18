@@ -17,7 +17,7 @@
           <% if @notifications.present? %>
             <%= link_to I18n.t('notification.mark_all_read'), 
             mark_read_notifications_path(source: @source),
-            class: 'btn btn-danger' %>
+            class: 'btn btn-primary' %>
             <%= link_to I18n.t('human.controls.link.clear'), 
             clear_notifications_path(source: @source),
             class: 'btn btn-danger pull-right' %>

@@ -38,7 +38,7 @@
 			display: inline;
 		}
 		cursor: pointer;
-		background-color: $pink;
+		background-color: lighten($linkColor, 15%);
 		a{
 			color: #fff;
 		}

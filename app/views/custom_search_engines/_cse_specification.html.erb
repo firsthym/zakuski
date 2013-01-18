@@ -6,7 +6,8 @@
   <% end %>
     <div class="controls">
       <%= specification_field.text_field :title, class: "span8", 
-      							placeholder: I18n.t('human.text.chars_limit', minimum:5, maximum: 50) %>
+            placeholder: I18n.t('human.text.chars_limit', 
+                                minimum:5, maximum: 50) %>
     </div>
 </div>
 
@@ -16,7 +17,10 @@
       <span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
     <% end %>
       <div class="controls">
-        <%= specification_field.text_area :description, class: 'span12', rows: 6, placeholder: I18n.t('human.text.chars_limit', minimum: 0, maximum: 1024) %>
+        <%= specification_field.text_area :description, 
+          class: 'span12', rows: 8, 
+            placeholder: I18n.t('human.text.chars_limit', 
+                                minimum: 0, maximum: 1024) %>
       </div>
 </div>
 <% end %>

@@ -37,6 +37,7 @@ $googleBlue:            #0040E2;
 $googleGreen:           #00B018;
 $googleRed:             #DD172C;
 $googleYellow:          #FFB400;
+$googleBlack:           #2D2D2D;
 
 // Scaffolding
 // -------------------------
@@ -79,17 +80,17 @@ $btnBorder:                         darken($white, 20%);
 $btnPrimaryBackground:              $linkColor;
 $btnPrimaryBackgroundHighlight:     adjust-hue($btnPrimaryBackground, 15%);
 
-$btnInfoBackground:                 lighten($purple, 15%);
-$btnInfoBackgroundHighlight:        $purple;
+$btnInfoBackground:                 lighten($googleBlue, 30%);
+$btnInfoBackgroundHighlight:        lighten($googleBlue, 15%);
 
-$btnSuccessBackground:              #62c462;
-$btnSuccessBackgroundHighlight:     #51a351;
+$btnSuccessBackground:              $googleGreen;
+$btnSuccessBackgroundHighlight:     darken($googleGreen, 10%);
 
-$btnWarningBackground:              lighten($orange, 15%);
-$btnWarningBackgroundHighlight:     $orange;
+$btnWarningBackground:              lighten($googleYellow, 10%);
+$btnWarningBackgroundHighlight:     $googleYellow;
 
-$btnDangerBackground:               #ee5f5b;
-$btnDangerBackgroundHighlight:      #bd362f;
+$btnDangerBackground:               lighten($googleRed, 15%);
+$btnDangerBackgroundHighlight:      $googleRed;
 
 $btnInverseBackground:              $gray;
 $btnInverseBackgroundHighlight:     $grayDarker;
@@ -140,9 +141,9 @@ $hrBorder:                $grayLighter;
 
 // Navbar
 // -------------------------
-$navbarHeight:                    40px;
-$navbarBackground:                $orange;
-$navbarBackgroundHighlight:       #CE4213;
+$navbarHeight:                    25px;
+$navbarBackground:                $googleBlack;
+$navbarBackgroundHighlight:       lighten($navbarBackground, 15%);
 
 $navbarText:                      $white;
 $navbarLinkColor:                 $white;
@@ -178,8 +179,8 @@ $successText:             #38B44A;
 $successBackground:       lighten($successText, 40%);
 $successBorder:           darken(adjust-hue($successBackground, -10), 5%);
 
-$infoText:                $purple;
-$infoBackground:          lighten($purple, 50%);
+$infoText:                $googleGreen;
+$infoBackground:          lighten($googleGreen, 50%);
 $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%);
 
 
