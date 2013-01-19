@@ -129,7 +129,11 @@ class User
       end
     end
     self.update if self.changed?
-    keeped_cses.sort {|x, y| y.keeped_at <=> x.keeped_at}
+    keeped_cses.each do |cse|
+      self.keeped_cses.each do |hash|
+        cse[:keeped_at] = hash["time"] if hash["id"] == cse.id
+      end
+    end.sort { |x,y| y.keeped_at <=> x.keeped_at}
   end
 
   def get_created_cses
