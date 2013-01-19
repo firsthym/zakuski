@@ -19,7 +19,10 @@
 			end
 			%>
 			if($('li.cse-link').length < <%= limit %>){
-				var cse_html = '<%= escape_javascript(render partial: 'shared/dashboard_cse', locals: {cse: @custom_search_engine}) %>'
+				var cse_html = $('<%= escape_javascript(render partial: 'shared/dashboard_cse', locals: {cse: @custom_search_engine}) %>')
+				if($('li.cse-link').length == 0){
+					cse_html.addClass('cse-selected');
+				}
 				$('ul#dashboard-cse').find('li:not([class])').remove();
 				$('ul#dashboard-cse').append(cse_html);
 			}

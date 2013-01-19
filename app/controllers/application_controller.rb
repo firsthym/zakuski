@@ -28,32 +28,46 @@ class ApplicationController < ActionController::Base
         @keeped_cses = current_user.get_keeped_cses
         @dashboard_cses = current_user.get_dashboard_cses
         # clear cookies
-        if(cookies[:keeped_cse_ids].present?)
-          cookies.delete(:keeped_cse_ids)
+        if(cookies[:keeped_cses].present?)
+          cookies.delete(:keeped_cses)
         end
-        if(cookies[:dashboard_cse_ids].present?)
-          cookies.delete(:dashboard_cse_ids)
+        if(cookies[:dashboard_cses].present?)
+          cookies.delete(:dashboard_cses)
         end
       else
         # for guests, retrieve keeps and dashboard cses from cookies
-        if(cookies[:keeped_cse_ids].present?)
-          @keeped_cses = CustomSearchEngine.get_from_cookie(cookies[:keeped_cse_ids])
+        if(cookies[:keeped_cses].present?)
+          @keeped_cses = CustomSearchEngine.get_from_cookie(cookies[:keeped_cses])
         end
-        @keeped_cse_ids = @keeped_cses.map{|cse| cse.id.to_s}
-        cookies[:keeped_cse_ids] = @keeped_cse_ids.join(',') if @keeped_cses.present?
+        if @keeped_cses.present?
+          cookies[:keeped_cses] = Marshal.dump(@keeped_cses) 
+        else
+          cookies.delete(:keeped_cses)
+        end
+        @keeped_cse_ids = @keeped_cses.map { |cse|  cse.id }
 
-        if(cookies[:dashboard_cse_ids].present?)
-          cse_ids = cookies[:dashboard_cse_ids].split(',') & @keeped_cse_ids
-          cse_ids.each do |id|
-            @keeped_cses.each do |cse|
-              if cse.id.to_s == id
-                @dashboard_cses << cse
-                break
-              end
+        if(cookies[:dashboard_cses].present?)
+          @dashboard_cses = CustomSearchEngine.get_from_cookie(cookies[:dashboard_cses])
+        end
+        if @dashboard_cses.present?
+          @dashboard_cses.each do |cse|
+            if @keeped_cse_ids.blank?
+              @dashboard_cses.clear
+              break
+            end
+            unless @keeped_cse_ids.include? cse.id
+              @dashboard_cses.delete(cse)
             end
           end
+          if @dashboard_cses.any?
+            cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
+          else
+            cookies.delete(:dashboard_cses)
+          end
+        else
+          cookies.delete(:dashboard_cses)
         end
-        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',') if @dashboard_cses.present?
+
       end
 
       # the linked custom search engine
@@ -67,7 +81,7 @@ class ApplicationController < ActionController::Base
           end
         end
         if @linked_cse.nil?
-          @linked_cse = @dashboard_cses.first || CustomSearchEngine.get_default_cse
+          @linked_cse = @dashboard_cses.first
         end
       end
       if @linked_cse.present?
@@ -125,11 +139,7 @@ class ApplicationController < ActionController::Base
         # guests only get 5 slot at most
         if @keeped_cses.include?(custom_search_engine)
           if @dashboard_cses.count <= 4
-            if cookies[:dashboard_cse_ids].present?
-              cookies[:dashboard_cse_ids] += ",#{custom_search_engine.id}"
-            else
-              cookies[:dashboard_cse_ids] = "#{custom_search_engine.id}"
-            end
+            cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses.push @custom_search_engine)
           else
             false
           end

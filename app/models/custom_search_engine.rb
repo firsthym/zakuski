@@ -56,13 +56,40 @@ class CustomSearchEngine
   
   before_save :check_labels
 
+  attr_accessor :keeped_at
+
+  # callbacks for Marshal.dump
+  def _dump level
+    [self.id, self.keeped_at.to_i].join(':')
+  end
+
+  # callbacks for Marshal.load
+  def self._load args
+    params = *args.split(':')
+    id = params[0]
+    keeped_at = Time.at(params[1].to_i)
+    cse = self.find(id)
+    if cse.present?
+      cse.keeped_at = keeped_at
+      cse
+    else
+      nil
+    end
+  end
+
   #TBD
   def self.get_default_cse
     self.publish.hot.compact.first
   end
 
   def self.get_from_cookie(cookie, limit = 10)
-    self.publish.in(id: cookie.split(',')[0,limit]).limit(limit).compact
+    #self.publish.in(id: cookie.split(',')[0,limit]).limit(limit).compact
+    begin
+      Marshal.load(cookie).compact
+    rescue
+      logger.debug "cookie -- #{cookie}"
+      []
+    end
   end
 
   def self.get_hot_cses(limit = 10)

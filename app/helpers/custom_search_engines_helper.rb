@@ -34,10 +34,18 @@ module CustomSearchEnginesHelper
 				path = keep_cse_path(@custom_search_engine)
 			end
 		else
-			if cookies[:keeped_cse_ids].present? && cookies[:keeped_cse_ids].split(',').include?(custom_search_engine.id.to_s)
-				label = I18n.t('human.text.remove_current_cse')
-				path = remove_cse_path(@custom_search_engine)
-			else
+			begin
+				keeped_cses = Marshal.load(cookies[:keeped_cses])
+				ids = keeped_cses.map { |cse| cse.id }
+				if ids.include?(custom_search_engine.id)
+					label = I18n.t('human.text.remove_current_cse')
+					path = remove_cse_path(@custom_search_engine)
+				else
+					label = I18n.t('human.text.keep_current_cse')
+					path = keep_cse_path(@custom_search_engine)
+				end
+			rescue
+				cookies.delete(:keeped_cses)
 				label = I18n.t('human.text.keep_current_cse')
 				path = keep_cse_path(@custom_search_engine)
 			end

@@ -131,7 +131,7 @@ class User
     self.update if self.changed?
     keeped_cses.each do |cse|
       self.keeped_cses.each do |hash|
-        cse[:keeped_at] = hash["time"] if hash["id"] == cse.id
+        cse.keeped_at = hash["time"] if hash["id"] == cse.id
       end
     end.sort { |x,y| y.keeped_at <=> x.keeped_at}
   end

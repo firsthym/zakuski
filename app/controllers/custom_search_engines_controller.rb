@@ -173,6 +173,7 @@ class CustomSearchEnginesController < ApplicationController
         @error = I18n.t('human.errors.limit_cses', limit: 20)
       else
         current_user.keeps_cse(@custom_search_engine)
+        add_cse_to_dashboard(@custom_search_engine)
         Notification.messager(title: I18n.t('notification.keep', 
           {user: view_context.link_to(view_context.truncate(
             current_user.username, length: 15), user_path(current_user)),
@@ -189,12 +190,10 @@ class CustomSearchEnginesController < ApplicationController
         # guests only keep 10 cses at most
         @error = I18n.t('human.errors.limit_cses', limit: 10)
       else
+        @custom_search_engine.keeped_at = Time.now
         @keeped_cses.push @custom_search_engine
-        if cookies[:keeped_cse_ids].present?
-          cookies[:keeped_cse_ids] += ",#{@custom_search_engine.id}"
-        else
-          cookies[:keeped_cse_ids] = "#{@custom_search_engine.id}"
-        end
+        cookies[:keeped_cses] = Marshal.dump(@keeped_cses)
+        add_cse_to_dashboard(@custom_search_engine)
       end
     end
 
@@ -218,14 +217,14 @@ class CustomSearchEnginesController < ApplicationController
         @keeped_cses.delete(@custom_search_engine)
         @dashboard_cses.delete(@custom_search_engine)
         if @keeped_cses.count == 0
-          cookies.delete(:keeped_cse_ids)
+          cookies.delete(:keeped_cses)
         else
-          cookies[:keeped_cse_ids] = @keeped_cses.map{ |cse| cse.id }.join(',')
+          cookies[:keeped_cses] = Marshal.dump(@keeped_cses)
         end
         if @dashboard_cses.count == 0
-          cookies.delete(:dashboard_cse_ids)
+          cookies.delete(:dashboard_cses)
         else
-          cookies[:dashboard_cse_ids] = @dashboard_cses.map{ |cse| cse.id }.join(',')
+          cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
         end
       end
       cookies.delete(:linked_cseid) if(cookies[:linked_cseid] == params[:id])
@@ -332,14 +331,14 @@ class CustomSearchEnginesController < ApplicationController
       if(user_signed_in?)
         current_user.set_dashboard_cses(@dashboard_cses)
       else
-        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+        cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
       end
       flash[:success] = I18n.t('human.success.general')
     elsif user_signed_in?
       current_user.update_attribute(:dashboard_cses, [])
       flash[:success] = I18n.t('human.success.general')
     else
-      cookies.delete(:dashboard_cse_ids)
+      cookies.delete(:dashboard_cses)
       flash[:success] = I18n.t('human.success.general')
     end
 
@@ -379,13 +378,12 @@ class CustomSearchEnginesController < ApplicationController
           end
         end
       else
-        cookies[:keeped_cse_ids] = @keeped_cses.map{|cse| cse.id}.join(',')
-        cookies[:dashboard_cse_ids] = @dashboard_cses.map{|cse| cse.id}.join(',')
+        cookies[:keeped_cses] = Marshal.dump(@keeped_cses)
+        cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
       end
       flash[:success] = I18n.t('human.success.general')
     elsif user_signed_in?
       current_user.update_attribute(:keeped_cses, [])
-      current_user.set_dashboard_cses(@created_cses)
 
       @keeped_cses.each do |cse|
         cse.consumers.delete_if{|each| each["uid"] == current_user.id}
@@ -394,7 +392,7 @@ class CustomSearchEnginesController < ApplicationController
       @keeped_cses = []
       flash[:success] = I18n.t('human.success.general')
     else
-      cookies.delete(:keeped_cse_ids)
+      cookies.delete(:keeped_cses)
       flash[:success] = I18n.t('human.success.general')
     end
     respond_to do |format|
