@@ -9,7 +9,7 @@ development:
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
-        - localhost:27017
+        - localhost:20131
       options:
         # Change whether the session persists in safe mode by default.
         # (default: false)
@@ -63,7 +63,7 @@ test:
     default:
       database: cse_test 
       hosts:
-        - localhost:27017 
+        - localhost:20131
       options:
         consistency: :strong
 production:
@@ -71,7 +71,7 @@ production:
     default:
       database: cse_production
       hosts:
-        - localhost:27017
+        - localhost:20131
       options:
         identity_map_enabled: true
         consistency: :strong
