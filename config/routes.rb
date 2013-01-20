@@ -61,7 +61,7 @@ Myapp::Application.routes.draw do
     put 'password', :to => 'devise/passwords#update', :as => :user_password
   end
 
-  match '/search', :to => 'custom_search_engines#search', :as => 'cse_search'
+  match '/search', :to => 'custom_search_engines#query', :as => 'cse_search'
   match '/q/:id(/:query)', :to => 'custom_search_engines#query', 
                             :query =>/.*/, :as => 'cse_query'
 

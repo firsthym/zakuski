@@ -133,18 +133,13 @@ class CustomSearchEnginesController < ApplicationController
     end
   end
 
-  # GET /search
-  def search
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  # GET /q/:id(/:query)
+  # GET /query(/:id/:query)
   def query
     if params[:id].present?
       @active_cse = CustomSearchEngine.find(params[:id])
       cookies[:active_cseid] = params[:id]
+    else
+      @active_cse = @linked_cse
     end
 
     @query = params[:query]
