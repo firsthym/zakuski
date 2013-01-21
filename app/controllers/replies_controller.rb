@@ -1,4 +1,5 @@
 class RepliesController < ApplicationController
+  before_filter :authenticate, onlu: [:create]
   before_filter :validate_reply, only: [:create] 
   def create
       @custom_search_engine = @reply.custom_search_engine
@@ -69,6 +70,17 @@ class RepliesController < ApplicationController
       end
 
       if @flag.present? && @flag == 'error'
+        respond_to do |format|
+          format.js { render 'create' }
+        end
+      end
+    end
+
+    def authenticate
+      @messages = []
+      unless user_signed_in?
+        @flag = 'error'
+        @messages << I18n.t('devise.failure.timeout')
         respond_to do |format|
           format.js { render 'create' }
         end
