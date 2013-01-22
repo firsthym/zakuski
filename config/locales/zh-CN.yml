@@ -441,3 +441,5 @@ zh-CN:
     is_empty: '没有通知消息'
     mark_all_read: '全部标记为已读'
     at: '%{user} 在 %{discus} 提到了你'
+  reply:
+    too_short: '请不要频繁回复'
