@@ -1,3 +1,4 @@
+<% tags_list = @custom_search_engine.tags.map {|tag| tag.name }.join(',') %>
 <%= cse_form.fields_for :specification do |specification_field| %>
 <div class="control-group">
   <%= specification_field.label :title, class: 'control-label' do %>
@@ -7,13 +8,26 @@
     <div class="controls">
       <%= specification_field.text_field :title, class: "span8", 
             placeholder: I18n.t('human.text.chars_limit', 
-                                minimum:5, maximum: 50) %>
+            minimum:5, maximum: 50) %>
     </div>
+      
 </div>
-
+<div class="control-group row-fluid">
+  <%= cse_form.label :tags, class: "control-label" do %>
+   <strong>*<%= I18n.t('human.text.tags.title') %></strong>
+   <span class="cse-small"><%= I18n.t('human.text.tags.what_is_tags') %></span> 
+  <% end %>
+  <div class="controls">
+  <%= cse_form.fields_for :tags do |builder| %>
+    <div class="span8">
+      <%= builder.text_field :name, class: 'cse-tags' %>
+    </div>
+  <% end %>
+  </div>
+</div>
 <div class="control-group">
     <%= specification_field.label :description, class: 'control-label' do %>
-      <strong>*<%= I18n.t('human.text.description') %></strong>
+      <strong><%= I18n.t('human.text.description') %></strong>
       <span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
     <% end %>
       <div class="controls">

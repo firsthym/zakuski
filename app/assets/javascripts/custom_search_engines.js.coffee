@@ -5,6 +5,7 @@ $(document).ready ->
 	# initializations for widgets
 	
 	$('.cse-labels').tagit()
+	$('.cse-tags').tagit()
 	
 	# Event bind
 

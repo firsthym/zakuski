@@ -40,9 +40,12 @@ class CustomSearchEngine
   accepts_nested_attributes_for :annotations, allow_destroy: true, 
                                 reject_if: proc { |attr| attr[:about].blank? }
   accepts_nested_attributes_for :theme
-
+  accepts_nested_attributes_for :tags, allow_destroy: true,
+                                reject_if: proc { |attr| attr[:tag].blank? ||
+                                         !Tag.where(name: attr[:tag]).exists? }
+  
   attr_accessible :node_id, :specification_attributes, :labels_attributes,
-    :annotations_attributes, :theme_attributes
+    :annotations_attributes, :theme_attributes, :tags_attributes
 
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
