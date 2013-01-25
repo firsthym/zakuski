@@ -61,12 +61,14 @@ class RepliesController < ApplicationController
 
     def validate_reply
       @reply = Reply.new(params[:reply])
+      @messages = []
       # can not reply in 5 seconds
       last_reply = current_user.replies.last
-      @messages = []
-      if (Time.now.to_i - last_reply.created_at.to_i) < 5
-        @flag = 'error'
-        @messages << I18n.t('reply.too_short')
+      if last_reply.present?
+        if (Time.now.to_i - last_reply.created_at.to_i) < 5
+          @flag = 'error'
+	  @messages << I18n.t('reply.too_short')
+	end
       end
 
       if @flag.present? && @flag == 'error'
