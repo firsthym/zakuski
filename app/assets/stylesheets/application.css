@@ -11,5 +11,6 @@
  *= require_self
  *= require_tree ../../../vendor/assets/stylesheets
  *= require jquery.tagit
+ *= require select2
  *= require_tree .
  */

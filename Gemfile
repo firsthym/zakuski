@@ -33,6 +33,8 @@ gem 'mini_magick','3.3'
 # markdown
 gem "redcarpet"
 
+gem "select2-rails"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

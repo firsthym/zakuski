@@ -4,8 +4,10 @@
 $(document).ready ->
 	# initializations for widgets
 	
-	$('.cse-labels').tagit()
-	$('.cse-tags').tagit()
+	$('.cse-labels').tagit
+		showAutocompleteOnFocus: true
+	$('.cse-tags').tagit
+		showAutocompleteOnFocus: true
 	
 	# Event bind
 
