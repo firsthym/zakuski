@@ -3,6 +3,7 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
+  before_filter :remove_empty_tags, only: [:create, :update]
   
   # GET /custom_search_engines
   # GET /custom_search_engines.json
@@ -429,5 +430,9 @@ class CustomSearchEnginesController < ApplicationController
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       correct_user!(@custom_search_engine.author)
+    end
+
+    def remove_empty_tags
+      params[:custom_search_engine][:tags].delete_if { |t| t.blank? }
     end
 end
