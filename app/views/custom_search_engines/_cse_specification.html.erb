@@ -18,15 +18,10 @@
    <span class="cse-small"><%= I18n.t('human.text.tags.what_is_tags') %></span> 
   <% end %>
   <div class="controls">
-  <%= cse_form.fields_for :tags do |builder| %>
-    <div class="span8">
-      <select style="width:100%" id="cse-tags" multiple="multiple">
-        <option value="interest">Interest</option>
-        <option value="games">Games</option>
-        <option value="jobs">Jobs</option>
-      </select>
-    </div>
-  <% end %>
+  <div class="span8">
+    <%= cse_form.select :tags, Tag.all.collect { |t| [t.name, t.id]}, {}, multiple: true, 
+                        class: 'cse-tags', style: "width:100%" %>
+  </div>
   </div>
 </div>
 <div class="control-group">

@@ -6,7 +6,7 @@ $(document).ready ->
 	
 	$('.cse-labels').tagit
 		showAutocompleteOnFocus: true
-	$('#cse-tags').select2()
+	$('.cse-tags').select2()
 	
 	# Event bind
 
