@@ -20,7 +20,11 @@
   <div class="controls">
   <%= cse_form.fields_for :tags do |builder| %>
     <div class="span8">
-      <%= builder.text_field :name, class: 'cse-tags' %>
+      <select style="width:100%" id="cse-tags" multiple="multiple">
+        <option value="interest">Interest</option>
+        <option value="games">Games</option>
+        <option value="jobs">Jobs</option>
+      </select>
     </div>
   <% end %>
   </div>
