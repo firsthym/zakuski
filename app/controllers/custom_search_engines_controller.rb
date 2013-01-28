@@ -61,6 +61,7 @@ class CustomSearchEnginesController < ApplicationController
   def new
     @custom_search_engine = CustomSearchEngine.new
     @custom_search_engine.node = Node.find(params[:node_id])
+    @custom_search_engine.tags.push Tag.first if @custom_search_engine.tags.empty?
     
     respond_to do |format|
       format.html # new.html.erb
@@ -433,6 +434,6 @@ class CustomSearchEnginesController < ApplicationController
     end
 
     def remove_empty_tags
-      params[:custom_search_engine][:tags].delete_if { |t| t.blank? }
+      params[:custom_search_engine][:tag_ids].delete_if { |t| t.blank? }
     end
 end
