@@ -61,7 +61,6 @@ class CustomSearchEnginesController < ApplicationController
   def new
     @custom_search_engine = CustomSearchEngine.new
     @custom_search_engine.node = Node.find(params[:node_id])
-    @custom_search_engine.tags.push Tag.first if @custom_search_engine.tags.empty?
     
     respond_to do |format|
       format.html # new.html.erb

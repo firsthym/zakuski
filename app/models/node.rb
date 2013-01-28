@@ -8,5 +8,5 @@ class Node
 
 	has_many :custom_search_engines
 	has_many :topics
-	
+	has_many :tags
 end
