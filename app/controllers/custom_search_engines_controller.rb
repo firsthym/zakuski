@@ -16,7 +16,8 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1
   # GET /custom_search_engines/1.json
   def show
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
+    @custom_search_engine = CustomSearchEngine.find(params[:cse_id])
+    @selected_node = Node.find(params[:node_id])
     respond_to do |format|
       format.html do 
         if @custom_search_engine.blank?

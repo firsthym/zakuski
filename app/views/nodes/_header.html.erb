@@ -1,7 +1,7 @@
 <div class="row-fluid">
 	<div>
 		<% Node.all.desc(:weight).each do |node| %>
-		<%= link_to "#{node.title}|#{node.custom_search_engines.publish.count}", node_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
+		<%= link_to "#{node.title}|#{node.get_custom_search_engines.count}", node_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
 		<% end %>
 		<div class="row-fluid cse-grid">
 		<p class="muted">

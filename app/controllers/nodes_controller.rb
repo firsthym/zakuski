@@ -3,11 +3,15 @@ class NodesController < ApplicationController
 	before_filter :current_nodes_cses
 	before_filter :current_nodes_topics
 	def index
-		render 'layout'
+		respond_to do |format|
+			format.html { render 'layout' }
+		end
 	end
 
 	def show
-		render 'layout'
+		respond_to do |format|
+			format.html { render 'layout' }
+		end
 	end
 
 	private
@@ -17,11 +21,15 @@ class NodesController < ApplicationController
 			else
 				@selected_node = Node.desc(:weight).limit(1).first
 			end
-            if params[:tag].present? && tag = Tag.find_by(name: params[:tag]) && tag.node == @selected_node
-              @custom_search_engines = tag.custom_search_engines
-            else
-			  @custom_search_engines = @selected_node.custom_search_engines.recent.publish.limit(20).page(params[:page])
-            end
+			if @selected_node.present?
+				if params[:tag].present? && tag = Tag.find_by(name: params[:tag]) && tag.node == @selected_node
+				  @custom_search_engines = tag.custom_search_engines
+				else
+				  @custom_search_engines = @selected_node.get_custom_search_engines.page(params[:page])
+				end
+			else
+				redirect_to root_path
+			end
 		end
 
 		def current_nodes_topics
