@@ -1,0 +1,8 @@
+<% if cse.tags.any? %>
+  <p>
+    <i class="icon-tags"></i>
+    <% cse.tags.each do |tag| %>
+    <%= link_to tag.name, '#', class: 'label label-info' %>
+    <% end %>
+  </p>
+<% end %>

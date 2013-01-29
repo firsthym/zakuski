@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'mongoid'
 
 gem 'bootstrap-sass', '~>2.1.0.0'
+gem 'bootstrap-google-sass'
 gem 'bcrypt-ruby', '3.0.1'
 
 # User Authentication & Authorization

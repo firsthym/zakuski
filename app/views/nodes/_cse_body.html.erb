@@ -10,6 +10,7 @@
 				<%= get_link_count_html(cse) %>
 				<%= link_to cse.specification.title, cse_path(cse) %>
 				</h5>
+                <%= render 'shared/cse_tags', cse: cse %>
 				<div class="cse-grid">
 					<div><%= link_to cse.author.username, user_path(cse.author) %><span class="divider">•</span><span class="muted"><%=  time_ago_in_words(cse.created_at)%></span><span class="divider">•</span><span class="muted"><%= t('human.text.browse') %>&nbsp;<%= cse.browse_count %></span><span class="divider">•</span><span class="muted"><%= t('human.text.keeps') %>&nbsp;<%= cse.keep_count %></span><span class="divider">•</span><span class="muted"><%= t('human.text.replies') %>&nbsp;<%= cse.replies.count %></span>
 					</div>

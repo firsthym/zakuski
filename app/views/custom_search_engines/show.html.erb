@@ -13,11 +13,7 @@
 				<div class="row-fluid">
 					<div class="span10">
 						<h4><%= @custom_search_engine.specification.title %></h4>
-						<p><i class="icon-tags"></i>
-							<% @custom_search_engine.tags.each do |tag| %>
-							<%= link_to tag.name, '#', class: 'label label-info' %>
-							<% end %>
-						</p>
+                        <%= render 'shared/cse_tags', cse: @custom_search_engine %> 
 					</div>
 					<div class="pull-right"><%= get_avatar(@custom_search_engine.author) %></div>
 				</div>
