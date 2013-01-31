@@ -2,10 +2,14 @@
 url_path = ''
 method = ''
 if @custom_search_engine.new_record?
-  url_path = cses_path
+  url_path = node_cses_path
   method = 'post'
 else
-  url_path = cse_path
+  if @node.present?
+    url_path = node_cse_path(@node)
+  else
+    url_path = cse_path
+  end
   method = 'put'
 end
 %>
@@ -15,7 +19,7 @@ end
 <% @custom_search_engine.build_theme if @custom_search_engine.theme.blank? %>
 <% @custom_search_engine.tags.build if @custom_search_engine.tags.blank? %>
 <%= form_for @custom_search_engine, url: url_path, method: method.to_sym do |f| %>
-  <%= f.hidden_field :node_id %>
+  <%= hidden_field_tag :node_id, @node.id if @node.present? %>
   <%= render partial: 'shared/error_messages', 
     locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
   <%= render partial: 'cse_specification', locals: {cse_form: f} %>

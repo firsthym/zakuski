@@ -13,26 +13,27 @@ Myapp::Application.routes.draw do
 
   resources :custom_search_engines, as: :cses, path: :cses do
     member do
-      get 'link', action: :link, as: :link_cse
-      get 'keep', action: :keep, as: :keep_cse
-      get 'clone', action: :clone, as: :clone_cse
-      get 'remove', action: :remove, as: :remove_cse
-      get 'consumers(/:more)', action: :consumers, as: :consumers_cse
-      get 'share', action: :share, as: :share_cse
+      get 'link', action: :link
+      get 'keep', action: :keep
+      get 'clone', action: :clone
+      get 'remove', action: :remove
+      get 'consumers(/:more)', action: :consumers
+      get 'share', action: :share
     end
     collection do
-      post 'dashboard/save', action: :save_dashboard_cses, as: :dashboard_save_cses
-      post 'keepedcses/save', action: :save_keeped_cses, as: :keepedcses_save_cses
-      post 'createdcses/save', action: :save_created_cses, as: :createdcses_save_cses
+      post 'dashboard/save', action: :save_dashboard_cses
+      post 'keepedcses/save', action: :save_keeped_cses
+      post 'createdcses/save', action: :save_created_cses
     end
   end
   resources :nodes, only: [:index, :show] do
     member do
       get 'tag/:tag/page/:page', action: :show
     end
-    resources :custom_search_engines, as: :cses, path: :cses, only: [:show] do
-      get 'reply/:page', action: :show
-    end
+    resources :custom_search_engines, as: :cses, 
+      path: :cses, only: [:new, :create, :show, :edit, :update] do
+        get 'reply/:page', action: :show
+      end
   end
   resources :replies, only: [:index, :new, :create, :edit, :update]
 

@@ -25,9 +25,15 @@
 						<div class="btn-group pull-right">
 							<% if user_signed_in? && @custom_search_engine.author == current_user %>
 							<%= link_to '<i class="icon-trash"></i>'.html_safe, cse_path(@custom_search_engine), class: "btn", title: t("human.controls.link.delete"), method: 'delete', confirm: I18n.t('human.text.are_u_sure') %>
-							<%= link_to '<i class="icon-edit"></i>'.html_safe, 
-										edit_cse_path(@custom_search_engine), class: "btn", 
-										title: t('human.controls.link.edit') %>
+                            <% if @node.present? %>
+                              <%= link_to '<i class="icon-edit"></i>'.html_safe, 
+                                edit_node_cse_path(@node, @custom_search_engine), 
+                                class: "btn", title: t('human.controls.link.edit') %>
+                            <% else %>
+                              <%= link_to '<i class="icon-edit"></i>'.html_safe, 
+                                edit_cse_path(@custom_search_engine), 
+                                class: "btn", title: t('human.controls.link.edit') %>
+                            <% end %>
 							<% if @custom_search_engine.status == 'draft'%>
 							<%= link_to '<i class="icon-share"></i>'.html_safe, 
 										share_cse_path(@custom_search_engine), class: "btn", 
