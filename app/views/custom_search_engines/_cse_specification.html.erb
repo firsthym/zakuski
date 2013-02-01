@@ -18,7 +18,8 @@
   <% end %>
   <div class="controls">
   <div class="span8">
-    <%= cse_form.select :tag_ids, Tag.all.collect { |t| [t.name, t.id]}, 
+    <% select_tags = Node.all.map {|n| [n.title, n.tags.map{|t|[t.name, t.id]}]} %> 
+    <%= cse_form.select :tag_ids, select_tags, 
                   {}, multiple: true, class: 'cse-tags', style: "width:100%" %>
   </div>
   </div>
