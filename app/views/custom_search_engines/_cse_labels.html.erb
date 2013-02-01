@@ -15,7 +15,7 @@
 <tbody class="hidden">
 <td><input type="checkbox" class="cse-checkbox-item"/></td>
 <td><input class="cse-input cse-label-name" id="custom_search_engine_labels_attributes_#_name" name="custom_search_engine[labels_attributes][#][name]" size="30" type="text"></td>
-<td><select class="cse-input input-small " id="custom_search_engine_labels_attributes_#_mode" name="custom_search_engine[labels_attributes][#][mode]"><option value="filter"><%= t('human.controls.select.filter') %></option>
+<td><select class="cse-input" id="custom_search_engine_labels_attributes_#_mode" name="custom_search_engine[labels_attributes][#][mode]"><option value="filter"><%= t('human.controls.select.filter') %></option>
 <option value="exclude"><%= t('human.controls.select.exclude') %></option>
 <option value="boost"><%= t('human.controls.select.boost') %></option></select></td>
 </tbody>
@@ -28,7 +28,7 @@
 		<td><%= label_field.select :mode, [ [I18n.t('human.controls.select.filter'), 'filter'],
 				 [I18n.t('human.controls.select.exclude'), 'exclude'], 
 				 [I18n.t('human.controls.select.boost'), 'boost'] ], {}, 
-				 class: "input-small cse-input" %></td>
+				 class: "cse-input" %></td>
 	</tr></tbody>
 <% end %>
 </table>

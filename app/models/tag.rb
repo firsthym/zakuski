@@ -1,9 +1,15 @@
 class Tag
-	include Mongoid::Document
-	include Mongoid::Timestamps
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-	field :name, type: String
-	validates :name, presence: true
+  field :name, type: String
+  validates :name, presence: true
 
-	has_and_belongs_to_many :custom_search_engines
+  has_and_belongs_to_many :custom_search_engines
+  belongs_to :node
+
+  # change id to name
+  def to_param
+    name
+  end
 end

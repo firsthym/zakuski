@@ -7,13 +7,25 @@
     <div class="controls">
       <%= specification_field.text_field :title, class: "span8", 
             placeholder: I18n.t('human.text.chars_limit', 
-                                minimum:5, maximum: 50) %>
+            minimum:5, maximum: 50) %>
     </div>
+      
 </div>
-
+<div class="control-group row-fluid">
+  <%= cse_form.label :tags, class: "control-label" do %>
+   <strong>*<%= I18n.t('human.text.tags.title') %></strong>
+   <span class="cse-small"><%= I18n.t('human.text.tags.what_is_tags') %></span> 
+  <% end %>
+  <div class="controls">
+  <div class="span8">
+    <%= cse_form.select :tag_ids, Tag.all.collect { |t| [t.name, t.id]}, 
+                  {}, multiple: true, class: 'cse-tags', style: "width:100%" %>
+  </div>
+  </div>
+</div>
 <div class="control-group">
     <%= specification_field.label :description, class: 'control-label' do %>
-      <strong>*<%= I18n.t('human.text.description') %></strong>
+      <strong><%= I18n.t('human.text.description') %></strong>
       <span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
     <% end %>
       <div class="controls">
