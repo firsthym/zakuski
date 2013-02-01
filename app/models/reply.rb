@@ -1,7 +1,7 @@
 class Reply
 	include Mongoid::Document
   	include Mongoid::Timestamps
-  	paginates_per 30
+  	paginates_per 50
 
   	field :body, type: String
   	field :index, type: Integer

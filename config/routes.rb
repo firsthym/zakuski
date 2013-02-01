@@ -34,7 +34,11 @@ Myapp::Application.routes.draw do
       path: :cses, only: [:new, :create, :show, :edit, :update] do
         get 'reply/:page', action: :show
       end
-    resources :tags, only: [:show]
+    resources :tags, only: [:show] do
+      member do
+	get 'page/:page', action: :show
+      end
+    end
   end
   resources :replies, only: [:index, :new, :create, :edit, :update]
 
