@@ -27,7 +27,7 @@
 				display: inline;
 			}
 			cursor: pointer;
-			background-color: $linkColor;
+			background-color: lighten($linkColor, 15%);
 			a{
 				color: #fff;
 			}
@@ -38,7 +38,7 @@
 			display: inline;
 		}
 		cursor: pointer;
-		background-color: lighten($linkColor, 15%);
+		background-color: $linkColor;
 		a{
 			color: #fff;
 		}

@@ -1,9 +1,13 @@
 <div class="row-fluid">
    <div class="well">
     <div class="row-fluid">
+      <p><%= t('human.text.dashboard')%></p>
+      <div class="row-fluid">
+        <%= link_to raw(t('human.controls.link.start_search') + ' <i class="icon-search icon-white"></i>'), 
+          cse_search_path, class: 'btn btn-block btn-info btn-large' %>
+      </div>
+      <div class="cse-divider"></div>
       <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
-          <li class="nav-header cse-small"><a href="<%= cse_search_path %>"><%= t('human.text.dashboard') + " - " + I18n.t('human.controls.link.start_search') %> <i class="icon-search"></i></a>
-</li>
           <% if @dashboard_cses.present? %>
             <% @dashboard_cses.each do |cse| %>
             <% unless cse.nil? %>
