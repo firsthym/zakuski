@@ -1,0 +1,10 @@
+<% if cse.tags.any? %>
+  <% node = @selected_node || @node %>
+  <p>
+    <i class="icon-tags"></i>
+    <% cse.tags.each do |tag| %>
+      <%= link_to tag.name, node_tag_path(tag.node, tag), 
+        class: (node.present? && node.tags.include?(tag)) ? 'label label-info' : 'label' %>
+    <% end %>
+  </p>
+<% end %>

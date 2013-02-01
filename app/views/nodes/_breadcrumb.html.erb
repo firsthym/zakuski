@@ -1,7 +1,8 @@
-<% current_node = (@custom_search_engine.node ||= Node.find(params[:node_id])) %>
+<% if @node.present? %>
 <div class="row-fluid">
-	<ul class="breadcrumb">
-    	<li><%= link_to I18n.t('human.text.all_nodes'), nodes_path %><span class="divider">/</span></li>
-    	<li><%= link_to current_node.title, node_path(current_node) %></li>
-  	</ul>
+  <ul class="breadcrumb">
+      <li><%= link_to I18n.t('human.text.all_nodes'), nodes_path %><span class="divider">/</span></li>
+      <li><%= link_to @node.title, node_path(@node) %></li>
+  </ul>
 </div>
+<% end %>
