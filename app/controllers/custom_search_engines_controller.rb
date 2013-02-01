@@ -247,7 +247,11 @@ class CustomSearchEnginesController < ApplicationController
       @new.specification = @custom_search_engine.specification.clone
       @new.annotations = @custom_search_engine.annotations.map { |a| a.clone }
       @new.labels = @custom_search_engine.labels.map { |l| l.clone }
-      @new.theme = @custom_search_engine.theme.clone
+      if @custom_search_engine.theme.present?
+	@new.theme = @custom_search_engine.theme.clone 
+      else
+	@new.build_theme
+      end
       @new.status = 'draft'
       @new.parent = @custom_search_engine
       @new.tags = @custom_search_engine.tags
