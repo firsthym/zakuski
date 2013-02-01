@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  before_filter :initialize_cses
   def show
     begin
       @selected_node = Node.find_by(title: params[:node_id])
