@@ -23,4 +23,9 @@ class Node
 		tag_ids = self.tags.map { |tag| tag.id }
 		CustomSearchEngine.recent.publish.from_tags(tag_ids).count
 	end
+    
+    # change id to title
+    def to_param
+      title
+    end
 end

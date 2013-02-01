@@ -437,7 +437,7 @@ class CustomSearchEnginesController < ApplicationController
 
     def check_node
       begin
-        @node = Node.find(params[:node_id]) if params[:node_id].present?
+        @node = Node.find_by(title: params[:node_id]) if params[:node_id].present?
         if params[:action] == 'new' || params[:action] == 'create'
           raise if @node.blank?
         end

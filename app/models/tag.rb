@@ -8,4 +8,8 @@ class Tag
   has_and_belongs_to_many :custom_search_engines
   belongs_to :node
 
+  # change id to name
+  def to_param
+    name
+  end
 end

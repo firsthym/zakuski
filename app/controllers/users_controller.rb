@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :initialize_cses, only: [:show]
   before_filter :authenticate_user!, only: [:edit, :update, :destroy]
-  before_filter :correct_user, only: [:edit, :update]
+  before_filter :correct_user, only: [:edit, :update, :destroy]
   #before_filter :admin_user, only: [:destroy]
 
   # GET /users

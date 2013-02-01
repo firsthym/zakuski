@@ -188,6 +188,7 @@ class User
     custom_search_engine.update
   end
 
+  # change id to usename
   def to_param
     username
   end

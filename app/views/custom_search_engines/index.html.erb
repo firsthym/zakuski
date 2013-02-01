@@ -71,9 +71,7 @@
         <ul class="cse-draggable">
           <% @created_cses.each do |cse| %>
             <li class="cse-to-dashboard <%= @dashboard_cses.include?(cse) ? "ui-state-default" : "ui-state-hover" %>"><%= render partial: 'shared/cse_info', locals: {cse: cse} %><span class="divider">•</span><span><%= time_ago_in_words(cse.created_at) %></span><% if cse.parent.present? %><span class="divider">•</span><span><%= t('human.text.cloned_from') %></span><%= link_to truncate(cse.parent.specification.title, length: 10), cse_path(cse.parent) %><% end %>
-            <% unless @dashboard_cses.include?(cse) %>
             <input type="hidden" name="saved_cses[]" value="<%= cse.id %>" />
-            <% end %>
             <span class="dashboard-cse-remove pull-right"><i class="icon-remove"></i></span>
             </li>
           <% end %>

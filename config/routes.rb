@@ -28,12 +28,13 @@ Myapp::Application.routes.draw do
   end
   resources :nodes, only: [:index, :show] do
     member do
-      get 'tag/:tag/page/:page', action: :show
+      get 'page/:page', action: :show
     end
     resources :custom_search_engines, as: :cses, 
       path: :cses, only: [:new, :create, :show, :edit, :update] do
         get 'reply/:page', action: :show
       end
+    resources :tags, only: [:show]
   end
   resources :replies, only: [:index, :new, :create, :edit, :update]
 
