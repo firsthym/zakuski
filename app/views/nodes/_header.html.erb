@@ -1,12 +1,14 @@
 <div class="row-fluid">
 	<div>
 		<% Node.all.desc(:weight).each do |node| %>
-		<%= link_to "#{node.title}|#{node.custom_search_engines.publish.count}", node_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
+		<%= link_to "#{node.title}|#{node.get_custom_search_engines.count}", node_path(node), class: node == @selected_node ? 'btn btn-success' : 'btn' %>
 		<% end %>
 		<div class="row-fluid cse-grid">
-		<p class="muted">
-			<small><%= @selected_node.description %></small>
-		</p>
+          <i class='icon-tags'></i>
+        <% @tags.each do |tag| %>
+          <%= link_to tag.name, node_tag_path(@selected_node, tag), 
+            class: tag == @tag ? 'label label-info' : 'label' %>
+        <% end %>
 		</div>
 	</div>
 </div>

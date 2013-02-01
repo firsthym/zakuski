@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'mongoid'
 
 gem 'bootstrap-sass', '~>2.1.0.0'
+gem 'bootstrap-google-sass'
 gem 'bcrypt-ruby', '3.0.1'
 
 # User Authentication & Authorization
@@ -32,6 +33,8 @@ gem 'mini_magick','3.3'
 
 # markdown
 gem "redcarpet"
+
+gem "select2-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.

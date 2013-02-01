@@ -3,6 +3,8 @@ class CustomSearchEnginesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
                                       :destroy, :share, :clone]
   before_filter :correct_user, only: [:edit, :update, :share, :destroy]
+  before_filter :check_node, only: [:new, :create, :edit, :update, :show]
+  before_filter :remove_empty_tags, only: [:create, :update]
   
   # GET /custom_search_engines
   # GET /custom_search_engines.json
@@ -15,14 +17,8 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/1
   # GET /custom_search_engines/1.json
   def show
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
     respond_to do |format|
       format.html do 
-        if @custom_search_engine.blank?
-          flash[:error] = I18n.t('human.errors.no_records')
-          redirect_to nodes_path 
-          return
-        end
         if @custom_search_engine.publish? || current_user == @custom_search_engine.author
           @valid_labels = @custom_search_engine.labels.map { |l| l.name }
           @labels_hash = Hash.new
@@ -59,7 +55,6 @@ class CustomSearchEnginesController < ApplicationController
   # GET /custom_search_engines/new.json
   def new
     @custom_search_engine = CustomSearchEngine.new
-    @custom_search_engine.node = Node.find(params[:node_id])
     
     respond_to do |format|
       format.html # new.html.erb
@@ -69,7 +64,6 @@ class CustomSearchEnginesController < ApplicationController
 
   # GET /custom_search_engines/1/edit
   def edit
-    @custom_search_engine = CustomSearchEngine.find(params[:id])
   end
 
   # POST /custom_search_engines
@@ -88,7 +82,7 @@ class CustomSearchEnginesController < ApplicationController
         link_cse(@custom_search_engine)
         flash[:success] = I18n.t('human.success.create', 
                                  item: I18n.t('human.text.cse'))
-        format.html { redirect_to cse_path(@custom_search_engine)}
+        format.html { redirect_to node_cse_path(@node, @custom_search_engine)}
         format.json { render json: @custom_search_engine, status: :created, 
                       location: @custom_search_engine }
       else
@@ -106,7 +100,13 @@ class CustomSearchEnginesController < ApplicationController
       @custom_search_engine.updated_at = Time.now
       if @custom_search_engine.update_attributes(params[:custom_search_engine])
         flash[:success] = I18n.t('human.success.update', item: I18n.t('human.text.cse'))
-        format.html { redirect_to cse_path(@custom_search_engine) }
+        format.html do
+          if @node.present?
+            redirect_to node_cse_path(@node, @custom_search_engine)
+          else
+            redirect_to cse_path(@custom_search_engine)
+          end
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -243,7 +243,6 @@ class CustomSearchEnginesController < ApplicationController
       flash[:error] = I18n.t('human.errors.clone') 
     else
       @new = CustomSearchEngine.new
-      @new.node = @custom_search_engine.node
       @new.author = current_user
       @new.specification = @custom_search_engine.specification.clone
       @new.annotations = @custom_search_engine.annotations.map { |a| a.clone }
@@ -251,6 +250,7 @@ class CustomSearchEnginesController < ApplicationController
       @new.theme = @custom_search_engine.theme.clone
       @new.status = 'draft'
       @new.parent = @custom_search_engine
+      @new.tags = @custom_search_engine.tags
     end
 
     respond_to do |format|
@@ -429,5 +429,29 @@ class CustomSearchEnginesController < ApplicationController
     def correct_user
       @custom_search_engine = CustomSearchEngine.find(params[:id])
       correct_user!(@custom_search_engine.author)
+    end
+
+    def remove_empty_tags
+      params[:custom_search_engine][:tag_ids].delete_if { |t| t.blank? }
+    end
+
+    def check_node
+      begin
+        @node = Node.find_by(title: params[:node_id]) if params[:node_id].present?
+        if params[:action] == 'new' || params[:action] == 'create'
+          raise if @node.blank?
+        end
+        if params[:id].present? 
+          @custom_search_engine = CustomSearchEngine.find(params[:id])
+          raise if @custom_search_engine.blank?
+        end 
+      rescue
+        respond_to do |format|
+          format.html do
+            flash[:error] = I18n.t('human.errors.no_records')
+            redirect_to nodes_path
+          end
+        end
+      end
     end
 end

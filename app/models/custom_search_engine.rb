@@ -26,33 +26,33 @@ class CustomSearchEngine
   has_one :theme
 
   belongs_to :author, class_name: 'User', inverse_of: :custom_search_engines
-  belongs_to :node
+  #belongs_to :node
 
 
   # Index
   index({author_id: 1}, {name: 'cse_author_id'})
-  index({node_id: 1}, {name: 'cse_node_id'})
+  #index({node_id: 1}, {name: 'cse_node_id'})
 
-  accepts_nested_attributes_for :specification, 
-                                reject_if: proc { |attr| attr[:title].blank? }
+  accepts_nested_attributes_for :specification
   accepts_nested_attributes_for :labels, allow_destroy: true, 
                                 reject_if: proc { |attr| attr[:name].blank? }
   accepts_nested_attributes_for :annotations, allow_destroy: true, 
                                 reject_if: proc { |attr| attr[:about].blank? }
   accepts_nested_attributes_for :theme
-
-  attr_accessible :node_id, :specification_attributes, :labels_attributes,
-    :annotations_attributes, :theme_attributes
+  
+  attr_accessible :specification_attributes, :labels_attributes,
+    :annotations_attributes, :theme_attributes, :tag_ids
 
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
-  validates :node_id, presence: true
+  #validates :node_id, presence: true
 
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   scope :hot, desc(:keep_count)
+  scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
   
   before_save :check_labels
 
@@ -87,7 +87,6 @@ class CustomSearchEngine
     begin
       Marshal.load(cookie).compact
     rescue
-      logger.debug "cookie -- #{cookie}"
       []
     end
   end

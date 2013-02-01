@@ -19,7 +19,6 @@ Myapp::Application.routes.draw do
       get 'remove', action: :remove
       get 'consumers(/:more)', action: :consumers
       get 'share', action: :share
-      get 'reply/:page', action: :show
     end
     collection do
       post 'dashboard/save', action: :save_dashboard_cses
@@ -31,7 +30,11 @@ Myapp::Application.routes.draw do
     member do
       get 'page/:page', action: :show
     end
-    resources :custom_search_engines, as: :cses, path: :cses, only: [:new]
+    resources :custom_search_engines, as: :cses, 
+      path: :cses, only: [:new, :create, :show, :edit, :update] do
+        get 'reply/:page', action: :show
+      end
+    resources :tags, only: [:show]
   end
   resources :replies, only: [:index, :new, :create, :edit, :update]
 
