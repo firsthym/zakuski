@@ -1,0 +1,55 @@
+<div class="container">
+<div class="row-fluid">
+<div class="page-header">
+<h1>帮助手册 <small>3分钟上手指南</small></h1>
+</div>
+<div class="row-fluid cse-word">
+<p><strong>如果你已经使用过Google自定义搜索服务，那么你会更快上手。
+	当你发现搜索不顺畅，建议尝试使用VPN。</strong></p>
+<ul>
+<li>
+<h4>首页布局</h4>
+<p>节点包含若干标签，标签可以用来快速筛选你感兴趣的自定义搜索引擎。右边的
+	<a href="#dashboard-intro">控制面板</a>在下一段介绍。</p>
+<div><%= image_tag 'help-left.png', width: '90%' %></div>
+</li>
+<li id="dashboard-intro">
+<h4>控制面板</h4>
+<p>当你初次使用cookgoogle的时候，你还没有收藏或者创建任何自定义搜索。</p>
+<div><%= image_tag 'help-right01.png' %></div>
+<p>所以，当你点击"开始搜索"的时候，会得到如下提示：</p>
+<div>
+<%= image_tag 'help-right02.png', width: '90%' %>
+</div>
+<p>你需要做的是，收藏或者<a href="#help-clone">克隆</a>一个已经存在的自定义搜索引擎，
+	更好的是，你愿意分享一些你知道的酷站，
+	<a href="#help-create">创建</a>一个自定义搜索引擎，
+	然后在<%= link_to '自定义搜索引擎管理界面', cses_path %>中
+	将它拖动并保存到控制面板中。</p>
+<blockquote>
+	<smal class="muted">只有注册用户才可以克隆和创建自定义搜索引擎。
+		但是匿名用户已经可以完整地使用自定义搜索功能。</small>
+</blockquote>
+<div><%= image_tag 'help-keep.png' %></div>
+<p>
+从<%= link_to '管理界面', cses_path %>中可以看到，
+有2个自定义搜索引擎已经添加到控制面板中。
+</p>
+<blockquote>
+	<smal class="muted">匿名用户控制面板上限为5，收藏上限为10，注册用户分别为10和20。</small>
+</blockquote>
+<div><%= image_tag 'help-dashboard.png', width: '90%' %></div>
+<p>通过点击右边的搜索图标可以加载一个自定义搜索引擎。</p>
+<div><%= image_tag 'help-link.png' %></div>
+</li>
+<li id="help-create"><h4>创建一个自定义搜索引擎</h4>
+<p>点击按钮进入创建页面</p>
+<div><%= image_tag 'help-create.png' %></div><br/>
+<div><%= image_tag 'help-create01.png' %></div>
+
+</li>
+<li id="help-clone"><h4>克隆一个自定义搜索引擎</h4></li>
+</ul>
+</div>
+</div>
+</div>

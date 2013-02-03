@@ -46,7 +46,7 @@ class CustomSearchEngine
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
-  #validates :node_id, presence: true
+  validates :tag_ids, presence: true
 
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')

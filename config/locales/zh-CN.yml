@@ -365,6 +365,7 @@ zh-CN:
         specification:  "搜索通用说明"
         annotations: "网络资源定义"
         consumers: "收藏用户"
+        tag_ids: "标签"
       user:
         username: "用户名"
         email: "邮箱"
