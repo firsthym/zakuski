@@ -1,7 +1,7 @@
 class CustomSearchEngine
   include Mongoid::Document
   include Mongoid::Timestamps
-  paginates_per 20
+  paginates_per 50 
 
   field :status, type: String
   field :browse_count, type: Integer, default: 0

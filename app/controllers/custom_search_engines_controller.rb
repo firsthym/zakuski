@@ -148,7 +148,7 @@ class CustomSearchEnginesController < ApplicationController
         format.html
       else
         flash[:error] = I18n.t('human.errors.invalid_link_cse')
-        format.html {redirect_to nodes_path}
+        format.html {redirect_to cses_path}
       end
     end
   end
