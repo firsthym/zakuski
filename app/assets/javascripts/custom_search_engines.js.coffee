@@ -31,6 +31,7 @@ $(document).ready ->
 		controls.find('table').append(new_row)
 		new_row.find('.new-cse-labels').addClass('cse-labels').tagit()
 		new_row.removeClass('hidden')
+		new_row.find('input:text').first().focus()
 		return
 
 

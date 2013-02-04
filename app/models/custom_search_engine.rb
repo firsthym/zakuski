@@ -1,7 +1,7 @@
 class CustomSearchEngine
   include Mongoid::Document
   include Mongoid::Timestamps
-  paginates_per 20
+  paginates_per 50 
 
   field :status, type: String
   field :browse_count, type: Integer, default: 0
@@ -46,7 +46,7 @@ class CustomSearchEngine
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
-  #validates :node_id, presence: true
+  validates :tag_ids, presence: true
 
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')

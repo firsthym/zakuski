@@ -13,7 +13,10 @@
 				<div class="row-fluid">
 					<div class="span10">
 						<h4><%= @custom_search_engine.specification.title %></h4>
-                        <%= render 'shared/cse_tags', cse: @custom_search_engine %> 
+                   <%= render 'shared/cse_tags', cse: @custom_search_engine %>
+                   <% if @custom_search_engine.parent.present? %> 
+                   	<p class="muted"><%= t('human.text.cloned_from') %><%= link_to truncate(@custom_search_engine.parent.specification.title, length: 20), cse_path(@custom_search_engine.parent), title: @custom_search_engine.parent.specification.title %></p>
+                   <% end %>
 					</div>
 					<div class="pull-right"><%= get_avatar(@custom_search_engine.author) %></div>
 				</div>
@@ -99,7 +102,7 @@
 									<%= link_to t('human.text.clone_current_cse'), 
 											clone_cse_path(@custom_search_engine),
 											confirm: I18n.t('human.text.are_u_sure'), 
-											class: 'btn btn-block' %>
+											class: 'btn btn-block btn-info' %>
 								</div>
 							</div>
 							<% end %>

@@ -23,7 +23,7 @@
       			<% if @created_cses.any? %>
 	      			<% @created_cses.each do |cse| %>
 	      				<p><span class="muted"><%= time_ago_in_words(cse.created_at) %></span>
-	      					<%= cse.parent.present? ? t('human.text.clones_and_creates') : t('human.text.creates') %>&nbsp;<%= link_to cse.node.title, node_path(cse.node) %><span class="divider">/</span><%= link_to cse.specification.title, cse_path(cse) %>
+	      					<%= cse.parent.present? ? t('human.text.clones_and_creates') : t('human.text.creates') %>&nbsp;<%= link_to cse.specification.title, cse_path(cse) %>
 	      				</p>
 	      			<% end %>
       			<% end %>
@@ -32,7 +32,7 @@
       			<div class="cse-divider"></div>
 	      			<% @keeped_cses.each do |cse| %>
 	      				<p><span class="muted"><%= time_ago_in_words(cse.keeped_at) %></span>
-	      					<%= t('human.text.keeps') %>&nbsp;<%= link_to cse.node.title, node_path(cse.node) %><span class="divider">/</span><%= link_to cse.specification.title, cse_path(cse) %>
+	      					<%= t('human.text.keeps') %>&nbsp;<%= link_to cse.specification.title, cse_path(cse) %>
 	      				</p>
 	      			<% end %>
       			<% end %>
@@ -48,7 +48,7 @@
 	      			<% @user.replies.recent.each do |reply| %>
 	      			<div class="cse-grid-dashed">
 	      				<p><span class="muted"><%= time_ago_in_words(reply.created_at) %></span>
-	      					<%= t('human.text.replies') %>&nbsp;<%= link_to reply.custom_search_engine.node.title, node_path(reply.custom_search_engine.node) %><span class="divider">/</span><%= link_to reply.custom_search_engine.specification.title, cse_path(reply.custom_search_engine) %>
+	      					<%= t('human.text.replies') %>&nbsp;<%= link_to reply.custom_search_engine.specification.title, cse_path(reply.custom_search_engine) %>
 	      				</p>
 	      				<p><%= simple_text(reply.body) %></p>
 	      			</div>
