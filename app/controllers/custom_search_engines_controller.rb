@@ -256,6 +256,7 @@ class CustomSearchEnginesController < ApplicationController
       @new.parent = @custom_search_engine
       @new.tags = @custom_search_engine.tags
     end
+    @new.is_cloned = true
 
     respond_to do |format|
       if @new.present? && @new.save 
