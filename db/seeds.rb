@@ -28,6 +28,8 @@ Tag.new(name: '媒体', node_id: node_job.id ).save unless Tag.where(name: '媒�
 Tag.new(name: '服务', node_id: node_job.id ).save unless Tag.where(name: '服务').exists?
 Tag.new(name: '建筑', node_id: node_job.id ).save unless Tag.where(name: '建筑').exists?
 Tag.new(name: '人力', node_id: node_job.id ).save unless Tag.where(name: '人力').exists?
+Tag.new(name: '程序员', node_id: node_job.id ).save unless Tag.where(name: '程序员').exists?
+Tag.new(name: '会计师', node_id: node_job.id ).save unless Tag.where(name: '会计师').exists?
 Tag.new(name: '视频', node_id: node_share.id ).save unless Tag.where(name: '视频').exists?
 Tag.new(name: '购物', node_id: node_share.id ).save unless Tag.where(name: '购物').exists?
 Tag.new(name: '好玩', node_id: node_share.id ).save unless Tag.where(name: '好玩').exists?
@@ -35,4 +37,5 @@ Tag.new(name: '生活', node_id: node_share.id ).save unless Tag.where(name: '�
 Tag.new(name: '城市', node_id: node_share.id ).save unless Tag.where(name: '城市').exists?
 Tag.new(name: '交易', node_id: node_share.id ).save unless Tag.where(name: '交易').exists?
 Tag.new(name: '工作', node_id: node_share.id ).save unless Tag.where(name: '工作').exists?
-Tag.new(name: '问答', node_id: node_share.id ).save unless Tag.where(name: '游戏').exists?
+Tag.new(name: '问答', node_id: node_share.id ).save unless Tag.where(name: '问答').exists?
+Tag.new(name: '医疗', node_id: node_share.id ).save unless Tag.where(name: '医疗').exists?

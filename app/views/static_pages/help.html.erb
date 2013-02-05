@@ -4,8 +4,26 @@
 <h1>帮助手册 <small>3分钟上手指南(Version 0.3)</small></h1>
 </div>
 <div class="row-fluid cse-word">
-<p><strong>如果你已经使用过Google自定义搜索服务，那么你会更快上手。
-	当你发现搜索不顺畅，建议尝试使用VPN。</strong></p>
+  <div class="span10">
+  <p><strong>这是一个以<a href="https://www.google.com/cse" target="_blank">Google自定义搜索服务</a>
+为基础的网络社区。你可以将自定义搜索简单地理解为主题搜索, 
+    比如搜索<%= link_to '游戏', node_tag_path(@hash_tag['游戏'].node, @hash_tag['游戏']), target: '_blank' %>
+    <%= link_to '音乐', node_tag_path(@hash_tag['音乐'].node, @hash_tag['音乐']), target: '_blank' %>等
+    <%= link_to '兴趣类', node_path(@hash_node['兴趣']), target: '_blank' %>，
+    或者<%= link_to '程序员', node_tag_path(@hash_tag['程序员'].node, @hash_tag['程序员']), target: '_blank' %>
+    <%= link_to '会计师', node_tag_path(@hash_tag['会计师'].node, @hash_tag['会计师']), target: '_blank' %>等
+    <%= link_to '职业类', node_path(@hash_node['职业']), target: '_blank' %>, 
+    或者<%= link_to '医疗', node_tag_path(@hash_tag['医疗'].node, @hash_tag['医疗']), target: '_blank' %>
+    <%= link_to '购物', node_tag_path(@hash_tag['购物'].node, @hash_tag['购物']), target: '_blank' %>等
+    <%= link_to '分享类', node_path(@hash_node['分享']), target: '_blank' %>。
+    人们在这里创建和分享各自感兴趣的主题搜索，所有人都可以自由使用。</strong></p>
+  <blockquote>
+    <div class="muted">如果你使用过Google自定义搜索，你会很快上手。当你发现搜索不顺畅的时候，请尝试<a href="http://zh.wikipedia.org/wiki/Vpn">VPN</a>。</div>
+  </blockquote>
+  </div>
+</div>
+<div class="row-fluid">
+  <div class="span10">
 	<ul>
 	<li>
 	<h4>首页布局</h4>
@@ -27,8 +45,8 @@
 		<p>然后在<%= link_to '自定义搜索引擎管理界面', cses_path %>中
 		将它拖动并保存到控制面板中。</p>
 	<blockquote>
-		<smal class="muted">只有注册用户才可以克隆和创建自定义搜索引擎。
-			但是匿名用户已经可以完整地使用自定义搜索功能。</small>
+		<div class="muted">只有注册用户才可以克隆和创建自定义搜索引擎。
+			但是匿名用户已经可以完整地使用自定义搜索功能。</div>
 	</blockquote>
 	<div><%= image_tag 'help-keep.png' %></div>
 	<p>
@@ -36,7 +54,7 @@
 	有2个自定义搜索引擎已经添加到控制面板中。
 	</p>
 	<blockquote>
-		<smal class="muted">匿名用户控制面板上限为5，收藏上限为10，注册用户分别为10和20。</small>
+		<div class="muted">匿名用户控制面板上限为5，收藏上限为10，注册用户分别为10和20。</div>
 	</blockquote>
 	<div><%= image_tag 'help-dashboard.png', width: '90%' %></div>
 	<p>通过点击右边的搜索图标可以加载一个自定义搜索引擎。OK，你已经可以<a href="#help-search">开始搜索</a>了！</p>
@@ -92,7 +110,7 @@
 	<div><%= image_tag 'help-clone.png' %></div><br/>
 	<p>克隆成功以后，会进入编辑状态，操作和<a href="#help-create">创建</a>一样。</p>
 	<blockquote>
-		<smal class="muted">建议你修改自定义搜索名称以便区分。</small>
+		<div class="muted">建议你修改自定义搜索名称以便区分。</div>
 	</blockquote>
 	<div><%= image_tag 'help-change-name.png' %></div><br/>
 	<p>保存成功以后，你也可以再次分享新的自定义搜索引擎，不过会显示克隆自哪一个自定义搜索。</p>
@@ -100,6 +118,7 @@
 	</li>
 	</ul>
 <h4>教程结束。你或许还没搞明白自定义搜索的原理，但我相信你已经会使用它了。赶紧试试吧！</h4>
+</div>
 </div>
 </div>
 </div>

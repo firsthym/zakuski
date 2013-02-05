@@ -53,8 +53,8 @@ Myapp::Application.routes.draw do
     post 'signin', :to => 'devise/sessions#create', :as => :user_session
     match 'signout', :to => 'devise/sessions#destroy', :as => :destroy_user_session
    
-    get 'signup', :to => 'devise/registrations#new', :as => :new_user_registration
-    post 'signup', :to => 'devise/registrations#create', :as => :user_registration
+    get 'signup', :to => 'registrations#new', :as => :new_user_registration
+    post 'signup', :to => 'registrations#create', :as => :user_registration
     
     get 'confirm/send', :to => 'devise/confirmations#new', :as => :new_user_confirmation
     post 'confirm', :to => 'devise/confirmations#create', :as => :user_confirmation

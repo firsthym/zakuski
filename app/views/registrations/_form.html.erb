@@ -1,0 +1,46 @@
+<%= form_for(resource, :as => resource_name, :url => new_user_registration_path) do |f| %>
+<div class="row-fluid">
+    <% if resource.new_record? %>
+		<%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
+    <% else %>
+    <%= render partial: 'shared/error_messages', locals: {object: f.object, error_title: I18n.t('human.errors.update')} %>
+    <% end %>
+		<div class="control-group">
+		<%= f.label :username, class: 'control-label' %>
+		<div class="controls">
+			<%= f.text_field :username, class: 'span12' %>
+		</div>
+		</div>
+
+		<div class="control-group">
+		<%= f.label :email, class: 'control-label' %>
+		<div class="controls">
+      		<%= f.text_field :email, class: 'span12' %>
+      	</div>
+      	</div>
+
+      	<div class="control-group">
+      	<%= f.label :password, class: 'control-label' %>
+      	<div class="controls">
+      	<%= f.password_field :password, class: 'span12' %>
+      	</div>
+      	</div>
+
+      	<div class="control-group">
+      	<%= f.label :password_confirmation, class: 'control-label' %>
+      	<div class="controls">
+     	<%= f.password_field :password_confirmation, class: 'span12' %>
+     	</div>
+     	</div>
+
+     	<div class="control-group">
+     	<div class="controls">
+        <% if resource.new_record? %>
+     		<%= f.submit I18n.t('human.controls.link.create'), class: "btn btn-large btn-primary" %>
+        <% else %>
+        <%= f.submit I18n.t('human.controls.link.submit'), class: "btn btn-large btn-primary" %>        
+        <% end %>
+     	</div>
+     	</div>
+</div>
+<% end %>
