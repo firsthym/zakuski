@@ -9,7 +9,8 @@
 				<div class="cse-divider"></div>
 				<h5>
 				<%= get_link_count_html(cse) %>
-				<%= link_to cse.specification.title, node_cse_path(@selected_node, cse) %>
+				<%= link_to cse.specification.title, node_cse_path(@selected_node, cse), 
+						title: cse.specification.title %>
 				</h5>
                 <%= render 'shared/cse_tags', cse: cse %>
 				<div class="cse-grid">

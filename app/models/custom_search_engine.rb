@@ -46,7 +46,7 @@ class CustomSearchEngine
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
-  #validates :node_id, presence: true
+  validates :tag_ids, presence: true, unless: Proc.new { |cse| cse.is_cloned }
 
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
@@ -57,6 +57,7 @@ class CustomSearchEngine
   before_save :check_labels
 
   attr_accessor :keeped_at
+  attr_accessor :is_cloned
 
   # callbacks for Marshal.dump
   def _dump level

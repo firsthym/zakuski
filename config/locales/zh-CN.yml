@@ -284,7 +284,7 @@ zh-CN:
       try_search: "体验一下！"
       cse_labels: "搜索标记"
       cse_labels_what: "标记可以用来分类显示和控制搜索结果"
-      cse_annotations: "搜索网址资源"
+      cse_annotations: "搜索网络资源"
       cse_annotations_what: "可以使用通配符*来匹配URL"
       what_is_labels: "该搜索引擎包含以下标记，可用于分类显示"
       look_and_feel: "外观"
@@ -365,6 +365,7 @@ zh-CN:
         specification:  "搜索通用说明"
         annotations: "网络资源定义"
         consumers: "收藏用户"
+        tag_ids: "标签"
       user:
         username: "用户名"
         email: "邮箱"
