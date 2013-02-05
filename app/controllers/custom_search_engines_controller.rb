@@ -1,8 +1,8 @@
 class CustomSearchEnginesController < ApplicationController
   before_filter :initialize_cses
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
-                                      :destroy, :share, :clone]
-  before_filter :correct_user, only: [:edit, :update, :share, :destroy]
+                                      :destroy, :share, :clone, :save_created_cses]
+  before_filter :correct_user, only: [:edit, :update, :share, :destroy, :save_created_cses]
   before_filter :check_node, only: [:new, :create, :edit, :update, :show]
   before_filter :remove_empty_tags, only: [:create, :update]
   
