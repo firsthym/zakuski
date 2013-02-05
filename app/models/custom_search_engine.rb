@@ -46,17 +46,19 @@ class CustomSearchEngine
   # validations
   validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
   validates :author_id, presence: true
-  validates :tag_ids, presence: true
+  validates :tag_ids, presence: true, unless: Proc.new { |cse| cse.is_cloned }
 
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
-  scope :hot, desc(:keep_count)
+  #scope :hot, desc(:keep_count)
+  scope :hot, desc(:browse_count)
   scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
   
   before_save :check_labels
 
   attr_accessor :keeped_at
+  attr_accessor :is_cloned
 
   # callbacks for Marshal.dump
   def _dump level
@@ -91,7 +93,7 @@ class CustomSearchEngine
     end
   end
 
-  def self.get_hot_cses(limit = 10)
+  def self.get_hot_cses(limit = 5)
     self.publish.hot.limit(limit).compact
   end
 

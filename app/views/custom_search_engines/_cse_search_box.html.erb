@@ -3,7 +3,7 @@
   <input type="text" class="span12" id="cse-query" value="<%= @query %>"/>
 </div>
 <div class="btn-group span2">
-    <a href="javascript:void(0)" class="btn" id="cse-go"><i class="icon-search"></i> <%= I18n.t("human.controls.link.search") %></a>
+    <a href="javascript:void(0)" class="btn" id="cse-go"><%= I18n.t("human.controls.link.search") %> <i class="icon-search"></i></a>
 </div>
 </div>
 <% if @active_cse.present? %>
@@ -13,6 +13,17 @@
 	<%= render partial: 'shared/cse_info', locals: {cse: @active_cse} %>
 	</span>
 </div>
+<% if @active_cse.specification.description.present? && @query.blank? %>
+<div class="row-fluid cse-container-medium">
+<div class="span10">
+<blockquote>
+  <p class="cse-word">
+  <%= truncate(@active_cse.specification.description, length: 200) %>
+  </p>
+</blockquote>
+</div>
+</div>
+<% end %>
 <% else %>
 <p class="muted"><%= t('human.text.no_active_cse') %></p>
 <% end %>
