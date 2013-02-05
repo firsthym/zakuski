@@ -61,13 +61,11 @@ class ApplicationController < ActionController::Base
           end
           if @dashboard_cses.any?
             cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
-          else
-            cookies.delete(:dashboard_cses)
           end
-        else
-          cookies.delete(:dashboard_cses)
         end
-
+      end
+      if @dashboard_cses.empty?
+        cookies.delete(:dashboard_cses)
       end
 
       # the linked custom search engine

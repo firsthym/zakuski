@@ -51,7 +51,8 @@ class CustomSearchEngine
   scope :recent, desc(:updated_at)
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
-  scope :hot, desc(:keep_count)
+  #scope :hot, desc(:keep_count)
+  scope :hot, desc(:browse_count)
   scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
   
   before_save :check_labels
@@ -92,7 +93,7 @@ class CustomSearchEngine
     end
   end
 
-  def self.get_hot_cses(limit = 10)
+  def self.get_hot_cses(limit = 5)
     self.publish.hot.limit(limit).compact
   end
 
