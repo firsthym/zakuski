@@ -35,7 +35,9 @@
               <% end %>
             </ul>
             <ul class="nav">
-              <li><%= link_to I18n.t('human.controls.link.home'), nodes_path %></li>
+              <li><%= link_to 'Cookgoogle', nodes_path, class: 'brand' %>
+              </li>
+              <li><%= link_to t('human.text.intro'), about_path%></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
