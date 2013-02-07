@@ -32,7 +32,7 @@ class NodesController < ApplicationController
 		end
 
         def current_node_tags
-          @tags = @selected_node.tags
+          @tags = @selected_node.tags.desc(:created_at)
         end
 
 		def current_node_topics
