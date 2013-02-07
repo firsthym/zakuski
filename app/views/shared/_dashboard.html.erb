@@ -7,6 +7,11 @@
           cse_search_path, class: 'btn btn-block btn-primary btn-large' %>
       </div>
       <div class="cse-divider"></div>
+      <% if cookies[:has_visited].blank? %>
+      <div class="row-fluid">
+      	<p class="muted"><%= t('human.text.recommend_cses') %></p>
+      </div>
+      <% end %>
       <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
           <% if @dashboard_cses.present? %>
             <% @dashboard_cses.each do |cse| %>
