@@ -1,7 +1,9 @@
 <div class="row-fluid">
 	<div class="row-fluid cse-container-small">
       <%= link_to raw("<i class='icon-plus'></i> ") + I18n.t('human.controls.link.new_cse'), 
-        new_node_cse_path(@selected_node), class: 'btn', id: 'new_cse' %>
+        new_node_cse_path(@selected_node), class: 'btn btn-large', 
+        id: 'new_cse' %>
+        <span class="muted"><%= t('human.text.create_cse') %></span>
 	</div>
 	<div class="row-fluid cse-grid">
 		<% if @custom_search_engines.any? %>

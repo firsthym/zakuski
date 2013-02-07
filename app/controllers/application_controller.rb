@@ -65,7 +65,14 @@ class ApplicationController < ActionController::Base
         end
       end
       if @dashboard_cses.empty?
-        cookies.delete(:dashboard_cses)
+        if cookies[:has_visited].blank?
+          @dashboard_cses = CustomSearchEngine.get_hot_cses
+          cookies[:has_visited] = true
+          cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses)
+          cookies[:keeped_cses] = Marshal.dump(@dashboard_cses)
+        else
+          cookies.delete(:dashboard_cses)
+        end
       end
 
       # the linked custom search engine

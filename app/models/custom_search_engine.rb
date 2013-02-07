@@ -94,7 +94,8 @@ class CustomSearchEngine
   end
 
   def self.get_hot_cses(limit = 5)
-    self.publish.hot.limit(limit).compact
+    hot_tags = Tag.desc(:browse_count).limit(limit)
+    hot_tags.collect { |t| t.custom_search_engines.hot.limit(1).first }.compact
   end
 
   def get_consumers

@@ -5,6 +5,8 @@ class TagsController < ApplicationController
       @selected_node = Node.find_by(title: params[:node_id])
       @tags = @selected_node.tags
       @tag = Tag.find_by(name: params[:id])
+      @tag.browse_count += 1
+      @tag.update
       @custom_search_engines = @tag.custom_search_engines.recent.publish.page(params[:page])
 
       respond_to do |format|

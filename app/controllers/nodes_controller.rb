@@ -19,6 +19,8 @@ class NodesController < ApplicationController
 		def current_node_cses
 			if(params[:id].present?)
 				@selected_node = Node.find_by(title: params[:id])
+                @selected_node.browse_count += 1
+                @selected_node.update
 			else
 				@selected_node = Node.desc(:weight).limit(1).first
 			end
