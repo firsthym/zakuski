@@ -36,4 +36,31 @@
                                 minimum: 0, maximum: 1024) %>
       </div>
 </div>
+<div class="control-group">
+    <%= specification_field.label :preference, class: 'control-label' do %>
+      <strong>*<%= I18n.t('human.text.preference') %></strong>
+      <span class="cse-small"><%= I18n.t('human.text.preference_what') %></span>
+    <% end %>
+      <div class="controls">
+        <%= specification_field.label :search_mode, class: 'control-label' do %>
+          <%= specification_field.radio_button :search_mode, 'filter' %>
+          <span><%= t('human.text.search_mode_filter') %></span>
+        <% end %>
+        <%= specification_field.label :search_mode, class: 'control-label' do %>
+          <%= specification_field.radio_button :search_mode, 'boost'%>
+          <span><%= t('human.text.search_mode_boost') %></span>
+        <% end %>
+      </div>
+      <div class="controls">
+        <%= specification_field.label :search_image, class: 'control-label' do %>
+          <%= specification_field.check_box :search_image %>
+          <span><%= t('human.text.search_image') %></span>
+        <% end %>
+        <%= specification_field.label :search_thumbnail, class: 'control-label' do %>
+          <%= specification_field.check_box :search_thumbnail %>
+          <span><%= t('human.text.search_thumbnail') %></span>
+        <% end %>
+      </div>
+</div>
 <% end %>
+<br/>
