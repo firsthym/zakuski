@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   def show
     begin
       @selected_node = Node.find_by(title: params[:node_id])
-      @tags = @selected_node.tags
+      @tags = @selected_node.tags.desc(:created_at)
       @tag = Tag.find_by(name: params[:id])
       @tag.browse_count += 1
       @tag.update

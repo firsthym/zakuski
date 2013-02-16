@@ -52,7 +52,7 @@ class CustomSearchEngine
   scope :publish, where(status: 'publish')
   scope :draft, where(status: 'draft')
   #scope :hot, desc(:keep_count)
-  scope :hot, desc(:browse_count)
+  scope :hot, desc(:keep_count)
   scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
   
   before_save :check_labels
@@ -95,7 +95,7 @@ class CustomSearchEngine
 
   def self.get_hot_cses(limit = 5)
     hot_tags = Tag.desc(:browse_count).limit(limit)
-    hot_tags.collect { |t| t.custom_search_engines.hot.limit(1).first }.compact
+    hot_tags.collect { |t| t.custom_search_engines.hot.limit(1).first }.compact.uniq { |c| c.id }
   end
 
   def get_consumers
