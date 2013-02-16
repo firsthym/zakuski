@@ -32,7 +32,7 @@
 	        {
 	          div: "cse-result",
 	          tag: 'searchresults-only'
-	         }).execute('<%= @query %>');
+	         }).execute("<%= j(@query) %>");
 	  } else {
 	    // Document is not ready yet, when CSE element is initialized.
 	    init();
@@ -41,7 +41,7 @@
 	            {
 	              div: "cse-result",
 	              tag: 'searchresults-only'
-	            }).execute('<%= @query %>');
+	            }).execute("<%= j(@query) %>");
 	    }, true);
 	  }
 	};
