@@ -13,7 +13,7 @@
 				<div class="row-fluid">
 					<div class="span10">
 						<h4><%= @custom_search_engine.specification.title %></h4>
-                   <%= render 'cse_tags', cse: @custom_search_engine %>
+                   <%= render 'shared/cse_tags', cse: @custom_search_engine %>
                    <% if @custom_search_engine.parent.present? %> 
                    	<p class="muted"><%= t('human.text.cloned_from') %><%= link_to truncate(@custom_search_engine.parent.specification.title, length: 20), cse_path(@custom_search_engine.parent), title: @custom_search_engine.parent.specification.title %></p>
                    <% end %>
@@ -72,7 +72,7 @@
 							<% end %>
                             <div class="row-fluid">
                                 <h5><%= t('human.text.preference') %></h5>
-                                <%= render 'cse_preference', cse: @custom_search_engine %> 
+                                <%= render 'shared/cse_preference', cse: @custom_search_engine %> 
                                 <div class="cse-divider"></div>
                             </div>
 							
