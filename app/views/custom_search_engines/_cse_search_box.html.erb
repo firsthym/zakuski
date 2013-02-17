@@ -7,23 +7,20 @@
 </div>
 </div>
 <% if @active_cse.present? %>
-<div class="row-fluid">
+<div class="row-fluid" id="linked-cse-desc">
 	<span class="muted"><%= I18n.t('human.text.active_cse') %></span>
-	<span id="linked-cse-desc">
 	<%= render partial: 'shared/cse_info', locals: {cse: @active_cse} %>
-	</span>
+    <div class="row-fluid">
+      <% if @query.blank? %>
+      <%= render 'cse_facet_labels', cse: @active_cse %>
+      <div class="row-fluid cse-container-small">
+        <p class="muted"><%= t('human.text.preference') %></p>
+        <%= render 'cse_preference', cse: @active_cse %>
+      </div>
+      <%= render 'cse_description', cse: @active_cse %>
+      <% end %>
+    </div>
 </div>
-<% if @active_cse.specification.description.present? && @query.blank? %>
-<div class="row-fluid cse-container-medium">
-<div class="span10">
-<blockquote>
-  <p class="cse-word">
-  <%= truncate(@active_cse.specification.description, length: 200) %>
-  </p>
-</blockquote>
-</div>
-</div>
-<% end %>
 <% else %>
 <p class="muted"><%= t('human.text.no_active_cse') %></p>
 <% end %>

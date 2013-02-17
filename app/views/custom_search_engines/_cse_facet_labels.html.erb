@@ -1,0 +1,8 @@
+<% if cse.labels.any? %>
+<div class="row-fluid cse-container-small">
+  <span class="muted"><%= t('human.text.cse_labels')%></span>
+  <% cse.labels.each do |l| %>
+    <span class="label label-info"><%= l.name %></span>
+  <% end %>
+</div>
+<% end %>

@@ -6,6 +6,16 @@
 	  <%= hidden_field_tag :cseid, cse.id %>
 	</div>
 	<div class="hide">
+	<span class="muted"><%= I18n.t('human.text.active_cse') %></span>
 	<%= render partial: 'shared/cse_info', locals: {cse: cse} %>
+    <div class="row-fluid">
+      <%= render 'cse_tags', cse: cse %>
+      <%= render 'cse_facet_labels', cse: cse %>
+      <div class="row-fluid cse-container-small">
+        <p class="muted"><%= t('human.text.preference') %></p>
+        <%= render 'cse_preference', cse: @active_cse %>
+      </div>
+      <%= render 'cse_description', cse: cse %>
+    </div>
 	</div>
 </li>
