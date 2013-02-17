@@ -13,7 +13,7 @@
       <%= render 'shared/cse_facet_labels', cse: cse %>
       <div class="row-fluid cse-container-small">
         <p class="muted"><%= t('human.text.preference') %></p>
-        <%= render 'shared/cse_preference', cse: @active_cse %>
+        <%= render 'shared/cse_preference', cse: cse %>
       </div>
       <%= render 'shared/cse_description', cse: cse %>
     </div>
