@@ -1,22 +1,22 @@
 (function(){
-  $(document).ready(function(){
-      var messages = '<div class="alert alert-<%= @flag %>"><a href="#" class="close" data-dismiss="alert">×</a>';
-      messages += '<div><ul class="unstyled">';
-      <% @messages.each do |msg| %>
-          messages += '<li><%= msg %></li>';
-      <% end %>
-      messages += '</ul></div></div>'
+	$(document).ready(function(){
+			var messages = '<div class="alert alert-<%= @flag %>"><a href="#" class="close" data-dismiss="alert">×</a>';
+			messages += '<div><ul class="unstyled">';
+			<% @messages.each do |msg| %>
+					messages += '<li><%= msg %></li>';
+			<% end %>
+			messages += '</ul></div></div>'
 
-      $('#reply-alert').html(messages);
-      $('#reply-alert').fadeIn();
-      <% if @flag == 'success' %>
-          var reply = '<%= escape_javascript(render partial: "replies/show", locals: {reply: @reply}) %>';
-          $('#replies').append(reply);
-          <% if @reply.index == 1 %>
-              $('#replies-box').removeClass('hide')
-          <% end %>
-          $('#reply_body').val('');
-          $('#replis-count').html(<%= @reply.index %>);
-      <% end %>
-  });
+			$('#reply-alert').html(messages);
+			$('#reply-alert').fadeIn();
+			<% if @flag == 'success' %>
+					var reply = '<%= escape_javascript(render partial: "replies/show", locals: {reply: @reply}) %>';
+					$('#replies').append(reply);
+					<% if @reply.index == 1 %>
+							$('#replies-box').removeClass('hide')
+					<% end %>
+					$('#reply_body').val('');
+					$('#replis-count').html(<%= @reply.index %>);
+			<% end %>
+	});
 }).call(this);

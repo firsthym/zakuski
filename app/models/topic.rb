@@ -1,13 +1,4 @@
-class Topic
-	include Mongoid::Document
-	include Mongoid::Timestamps
-
-	has_many :replies
-
-	belongs_to :node
-	belongs_to :user
-
-	# index
-	index({node_id: 1}, {name: 'topic_node_id'})
-	index({user_id: 1}, {name: 'topic_user_id'})
+class Topic < Post
+	field :title, type: String
+	validates :title, presence: true, length: { maximum: 50, minimum: 5 }
 end
