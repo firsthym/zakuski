@@ -12,11 +12,11 @@
 				<div class="well">
 				<div class="row-fluid">
 					<div class="span10">
-						<h4><%= @custom_search_engine.specification.title %></h4>
-                   <%= render 'shared/cse_tags', cse: @custom_search_engine %>
-                   <% if @custom_search_engine.parent.present? %> 
-                   	<p class="muted"><%= t('human.text.cloned_from') %><%= link_to truncate(@custom_search_engine.parent.specification.title, length: 20), cse_path(@custom_search_engine.parent), title: @custom_search_engine.parent.specification.title %></p>
-                   <% end %>
+						<h4><%= @custom_search_engine.title %></h4>
+					<%= render 'shared/cse_tags', cse: @custom_search_engine %>
+					<% if @custom_search_engine.parent.present? %> 
+					<p class="muted"><%= t('human.text.cloned_from') %><%= link_to truncate(@custom_search_engine.parent.title, length: 20), cse_path(@custom_search_engine.parent), title: @custom_search_engine.parent.title %></p>
+					<% end %>
 					</div>
 					<div class="pull-right"><%= get_avatar(@custom_search_engine.author) %></div>
 				</div>
@@ -28,34 +28,34 @@
 						<div class="btn-group pull-right">
 							<% if user_signed_in? && @custom_search_engine.author == current_user %>
 							<%= link_to '<i class="icon-trash"></i>'.html_safe, cse_path(@custom_search_engine), class: "btn", title: t("human.controls.link.delete"), method: 'delete', confirm: I18n.t('human.text.are_u_sure') %>
-                            <% if @node.present? %>
-                              <%= link_to '<i class="icon-edit"></i>'.html_safe, 
-                                edit_node_cse_path(@node, @custom_search_engine), 
-                                class: "btn", title: t('human.controls.link.edit') %>
-                            <% else %>
-                              <%= link_to '<i class="icon-edit"></i>'.html_safe, 
-                                edit_cse_path(@custom_search_engine), 
-                                class: "btn", title: t('human.controls.link.edit') %>
-                            <% end %>
+							<% if @node.present? %>
+							<%= link_to '<i class="icon-edit"></i>'.html_safe, 
+								edit_node_cse_path(@node, @custom_search_engine), 
+								class: "btn", title: t('human.controls.link.edit') %>
+							<% else %>
+								<%= link_to '<i class="icon-edit"></i>'.html_safe, 
+								edit_cse_path(@custom_search_engine), 
+								class: "btn", title: t('human.controls.link.edit') %>
+							<% end %>
 							<% if @custom_search_engine.status == 'draft'%>
 							<%= link_to '<i class="icon-share"></i>'.html_safe, 
 										share_cse_path(@custom_search_engine), class: "btn", 
 										title: t('human.controls.link.publish') %>
 							<% end %>
 							<% end %>
-                            <%= link_to '<i class="icon-search"></i>'.html_safe,
-                              cse_query_path(id: @custom_search_engine.id) ,
-                              class: 'btn', title: t('human.text.try_search'),
-                              target: '_blank'
-                              %>
+							<%= link_to '<i class="icon-search"></i>'.html_safe,
+								cse_query_path(id: @custom_search_engine.id) ,
+								class: 'btn', title: t('human.text.try_search'),
+								target: '_blank'
+							%>
 						</div>
 						</div>
 					</div>
-					<% if @custom_search_engine.specification.description.present? %>
+					<% if @custom_search_engine.content.present? %>
 					<div class="cse-grid">
 						<blockquote>
-  							<%= simple_format(h(@custom_search_engine.specification.description),
-  												class: 'cse-word') %>
+							<%= simple_format(h(@custom_search_engine.content),
+												class: 'cse-word') %>
 						</blockquote>
 					</div>
 					<% end %>
@@ -70,11 +70,11 @@
 							</div>
 							<div class="cse-divider"></div>
 							<% end %>
-                            <div class="row-fluid">
-                                <h5><%= t('human.text.preference') %></h5>
-                                <%= render 'shared/cse_preference', cse: @custom_search_engine %> 
-                                <div class="cse-divider"></div>
-                            </div>
+							<div class="row-fluid">
+								<h5><%= t('human.text.preference') %></h5>
+								<%= render 'shared/cse_preference', cse: @custom_search_engine %> 
+								<div class="cse-divider"></div>
+							</div>
 							
 							<% if @labels_hash.any? %>
 								<% @labels_hash.each do |label, annotations| %>

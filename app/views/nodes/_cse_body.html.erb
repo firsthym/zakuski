@@ -13,9 +13,9 @@
                 <div class="span9">
                   <h5>
                   <%= get_link_count_html(cse) %>
-                  <%= link_to truncate(cse.specification.title, length: 20),
+                  <%= link_to truncate(cse.title, length: 20),
                                node_cse_path(@selected_node, cse), 
-                              title: cse.specification.title %>
+                              title: cse.title %>
                   </h5>
                   <%= render 'shared/cse_tags', cse: cse %>
                   <div class="cse-grid">

@@ -1,22 +1,15 @@
 class CustomSearchEnginesController < PostsController
-	before_filter :initialize_cses
-	before_filter :authenticate_user!, only: [:new, :create, :edit, :update, 
-											:destroy, :share, :clone, :save_created_cses]
-	before_filter :correct_user, only: [:edit, :update, :share, :destroy, :save_created_cses]
-	before_filter :check_node, only: [:new, :create, :edit, :update, :show]
+	before_filter :authenticate_user!, only: [:share, :clone, :save_created_cses]
+	before_filter :correct_user, only: [:share, :save_created_cses]
 	before_filter :remove_empty_tags, only: [:create, :update]
 	
-	# GET /custom_search_engines
-	# GET /custom_search_engines.json
+	
 	def index
-		respond_to do |format|
-			format.html # index.html.erb
-		end
+		super
 	end
 
-	# GET /custom_search_engines/1
-	# GET /custom_search_engines/1.json
 	def show
+		super
 		respond_to do |format|
 			format.html do 
 				if @custom_search_engine.publish? || current_user == @custom_search_engine.author
@@ -51,24 +44,20 @@ class CustomSearchEnginesController < PostsController
 		end
 	end
 
-	# GET /custom_search_engines/new
-	# GET /custom_search_engines/new.json
+
 	def new
+		super
 		@custom_search_engine = CustomSearchEngine.new
 		
 		respond_to do |format|
 			format.html # new.html.erb
-			format.json { render json: @custom_search_engine }
+			#format.json { render json: @custom_search_engine }
 		end
 	end
 
-	# GET /custom_search_engines/1/edit
-	def edit
-	end
 
-	# POST /custom_search_engines
-	# POST /custom_search_engines.json
 	def create
+		super
 		@custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
 		@custom_search_engine.author = current_user
 		@custom_search_engine.status = 'draft'
@@ -93,8 +82,12 @@ class CustomSearchEnginesController < PostsController
 		end
 	end
 
-	# PUT /custom_search_engines/1
-	# PUT /custom_search_engines/1.json
+
+	def edit
+		super
+	end
+
+
 	def update
 		respond_to do |format|
 			@custom_search_engine.updated_at = Time.now
@@ -115,8 +108,7 @@ class CustomSearchEnginesController < PostsController
 		end
 	end
 
-	# DELETE /custom_search_engines/1
-	# DELETE /custom_search_engines/1.json
+
 	def destroy
 		@custom_search_engine = CustomSearchEngine.find(params[:id])
 		if @custom_search_engine.present?
@@ -174,7 +166,7 @@ class CustomSearchEnginesController < PostsController
 						current_user.username, length: 15), user_path(current_user)),
 						cse:view_context.link_to(
 							view_context.truncate(
-								@custom_search_engine.specification.title, length: 25),
+								@custom_search_engine.title, length: 25),
 							cse_path(@custom_search_engine))}),
 							receiver: @custom_search_engine.author, sender: current_user,
 							source: 'cse')
@@ -269,7 +261,7 @@ class CustomSearchEnginesController < PostsController
 										user_path(current_user)),
 										cse:view_context.link_to(
 											view_context.truncate(
-												@custom_search_engine.specification.title, length: 25),
+												@custom_search_engine.title, length: 25),
 											cse_path(@custom_search_engine))}))
 				format.html {redirect_to edit_cse_path(@new)}
 			else
@@ -429,34 +421,8 @@ class CustomSearchEnginesController < PostsController
 			end
 		end
 	end
-
-	private
-		def correct_user
-			@custom_search_engine = CustomSearchEngine.find(params[:id])
-			correct_user!(@custom_search_engine.author)
-		end
-
-		def remove_empty_tags
-			params[:custom_search_engine][:tag_ids].delete_if { |t| t.blank? }
-		end
-
-		def check_node
-			begin
-				@node = Node.find_by(title: params[:node_id]) if params[:node_id].present?
-				if params[:action] == 'new' || params[:action] == 'create'
-					raise if @node.blank?
-				end
-				if params[:id].present? 
-					@custom_search_engine = CustomSearchEngine.find(params[:id])
-					raise if @custom_search_engine.blank?
-				end 
-			rescue
-				respond_to do |format|
-					format.html do
-						flash[:error] = I18n.t('human.errors.no_records')
-						redirect_to nodes_path
-					end
-				end
-			end
-		end
+		
+	def remove_empty_tags
+		params[:custom_search_engine][:tag_ids].delete_if { |t| t.blank? }
+	end
 end

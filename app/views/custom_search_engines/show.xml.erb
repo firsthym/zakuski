@@ -2,20 +2,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GoogleCustomizations>
 <CustomSearchEngine language="zh-Hans">
-  <Title><%= @custom_search_engine.specification.title %></Title>
-  <Description><%= @custom_search_engine.specification.description %></Description>
-  <Context>
-    <BackgroundLabels>
-      <% if @custom_search_engine.specification.search_mode == 'filter' %>
-        <Label name="_cse_inclusive" mode="FILTER" />
-      <% else %>
-        <Label name="_cse_inclusive" mode="BOOST" weight="<%= @custom_search_engine.specification.mode_weight %>"/>
-      <% end %>
-      <Label name="_cse_exclude" mode="ELIMINATE" />
-    </BackgroundLabels>
-    <% if @labels.present? %>
-    <Facet>
-    	<% @labels.each do |label| %>
+	<Title><%= @custom_search_engine.title %></Title>
+	<Description><%= @custom_search_engine.content %></Description>
+	<Context>
+		<BackgroundLabels>
+			<% if @custom_search_engine.specification.search_mode == 'filter' %>
+				<Label name="_cse_inclusive" mode="FILTER" />
+			<% else %>
+				<Label name="_cse_inclusive" mode="BOOST" weight="<%= @custom_search_engine.specification.mode_weight %>"/>
+			<% end %>
+			<Label name="_cse_exclude" mode="ELIMINATE" />
+		</BackgroundLabels>
+		<% if @labels.present? %>
+		<Facet>
+			<% @labels.each do |label| %>
 			<FacetItem>
 				<Label name="_cse_<%= label.name.strip.gsub(/\s+/, '_') %>" mode="<%= label.mode.upcase %>"></Label>
 				<% if label.mode != 'exclude' %>
@@ -24,28 +24,28 @@
 					<Title/>
 				<% end %>
 			</FacetItem>
-    	<% end %>
-    </Facet>
+			<% end %>
+		</Facet>
 	<% end %>
-  </Context>
-  <%= render "themes/#{@custom_search_engine.theme.name}" %>
-  <AdSense />
-  <EnterpriseAccount />
-  <autocomplete_settings />
-  <ImageSearchSettings enable="<%= @custom_search_engine.specification.search_image%>" />
+	</Context>
+	<%= render "themes/#{@custom_search_engine.theme.name}" %>
+	<AdSense />
+	<EnterpriseAccount />
+	<autocomplete_settings />
+	<ImageSearchSettings enable="<%= @custom_search_engine.specification.search_image%>" />
 </CustomSearchEngine>
 <% if @custom_search_engine.annotations.present? %>
 <Annotations>
-  <% @custom_search_engine.annotations.each do |annotation| %>
-    <Annotation about="<%= annotation.about %>" score="<%= annotation.score.to_f/10 %>">
-    	<Label name="_cse_inclusive" />
-      	<% if annotation.labels_list.present? %>
-      	<% annotation.labels_list.each do |label| %>
-      		<Label name="_cse_<%= label.strip.gsub(/\s+/, '_') %>"/>
-      	<% end %>
-      	<% end %>
-    </Annotation>
-  <% end %>
+	<% @custom_search_engine.annotations.each do |annotation| %>
+		<Annotation about="<%= annotation.about %>" score="<%= annotation.score.to_f/10 %>">
+			<Label name="_cse_inclusive" />
+				<% if annotation.labels_list.present? %>
+				<% annotation.labels_list.each do |label| %>
+					<Label name="_cse_<%= label.strip.gsub(/\s+/, '_') %>"/>
+				<% end %>
+				<% end %>
+		</Annotation>
+	<% end %>
 </Annotations>
 <% end %>
 </GoogleCustomizations>

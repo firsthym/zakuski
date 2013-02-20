@@ -1,8 +1,6 @@
 class Specification
 	include Mongoid::Document
 
-	field :title, type: String
-	field :description, type: String
 	field :search_mode, type: String, default: 'boost'
 	field :mode_weight, type: Integer, default: 1
 	field :search_image, type: Boolean, default: false
@@ -13,8 +11,6 @@ class Specification
 					 :search_image, :sort_by, :search_thumbnail
 
 	# validations
-	validates :title, presence: true, length: { maximum: 50, minimum: 5 }
-	validates :description, length: { minimum: 0, maximum: 1024 }
 	validates :search_mode, inclusion: { in: ['filter', 'boost'] }
 	validates :sort_by, inclusion: { in: ['relevance', 'date'] }
 

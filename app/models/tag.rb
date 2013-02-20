@@ -6,7 +6,7 @@ class Tag
 	field :browse_count, type: Integer, default: 0
 	validates :name, presence: true
 
-	has_and_belongs_to_many :custom_search_engines
+	has_and_belongs_to_many :posts
 	belongs_to :node
 
 	# change id to name

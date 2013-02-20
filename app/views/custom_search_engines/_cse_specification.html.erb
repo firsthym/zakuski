@@ -1,66 +1,29 @@
 <%= cse_form.fields_for :specification do |specification_field| %>
 <div class="control-group">
-  <%= specification_field.label :title, class: 'control-label' do %>
-    <strong>*<%= I18n.t('human.text.title') %></strong>
-    <span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
-  <% end %>
-    <div class="controls">
-      <%= specification_field.text_field :title, class: "span8", 
-            placeholder: I18n.t('human.text.chars_limit', 
-            minimum:5, maximum: 50) %>
-    </div>
-      
-</div>
-<div class="control-group row-fluid">
-  <%= cse_form.label :tags, class: "control-label" do %>
-   <strong>*<%= I18n.t('human.text.tags.title') %></strong>
-   <span class="cse-small"><%= I18n.t('human.text.tags.what_is_tags') %></span> 
-  <% end %>
-  <div class="controls">
-  <div class="span8">
-    <% select_tags = Node.all.map {|n| [n.title, n.tags.map{|t|[t.name, t.id]}]} %> 
-    <%= cse_form.select :tag_ids, select_tags, 
-                  {}, multiple: true, class: 'cse-tags', style: "width:100%" %>
-  </div>
-  </div>
-</div>
-<div class="control-group">
-    <%= specification_field.label :description, class: 'control-label' do %>
-      <strong><%= I18n.t('human.text.description') %></strong>
-      <span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
-    <% end %>
-      <div class="controls">
-        <%= specification_field.text_area :description, 
-          class: 'span12', rows: 8, 
-            placeholder: I18n.t('human.text.chars_limit', 
-                                minimum: 0, maximum: 1024) %>
-      </div>
-</div>
-<div class="control-group">
-    <%= specification_field.label :preference, class: 'control-label' do %>
-      <strong>*<%= I18n.t('human.text.preference') %></strong>
-      <span class="cse-small"><%= I18n.t('human.text.preference_what') %></span>
-    <% end %>
-      <div class="controls">
-        <%= specification_field.label :search_mode, class: 'control-label' do %>
-          <%= specification_field.radio_button :search_mode, 'filter' %>
-          <span><%= t('human.text.search_mode_filter') %></span>
-        <% end %>
-        <%= specification_field.label :search_mode, class: 'control-label' do %>
-          <%= specification_field.radio_button :search_mode, 'boost'%>
-          <span><%= t('human.text.search_mode_boost') %></span>
-        <% end %>
-      </div>
-      <div class="controls">
-        <%= specification_field.label :search_image, class: 'control-label' do %>
-          <%= specification_field.check_box :search_image %>
-          <span><%= t('human.text.search_image') %></span>
-        <% end %>
-        <%= specification_field.label :search_thumbnail, class: 'control-label' do %>
-          <%= specification_field.check_box :search_thumbnail %>
-          <span><%= t('human.text.search_thumbnail') %></span>
-        <% end %>
-      </div>
+		<%= specification_field.label :preference, class: 'control-label' do %>
+			<strong>*<%= I18n.t('human.text.preference') %></strong>
+			<span class="cse-small"><%= I18n.t('human.text.preference_what') %></span>
+		<% end %>
+			<div class="controls">
+				<%= specification_field.label :search_mode, class: 'control-label' do %>
+					<%= specification_field.radio_button :search_mode, 'filter' %>
+					<span><%= t('human.text.search_mode_filter') %></span>
+				<% end %>
+				<%= specification_field.label :search_mode, class: 'control-label' do %>
+					<%= specification_field.radio_button :search_mode, 'boost'%>
+					<span><%= t('human.text.search_mode_boost') %></span>
+				<% end %>
+			</div>
+			<div class="controls">
+				<%= specification_field.label :search_image, class: 'control-label' do %>
+					<%= specification_field.check_box :search_image %>
+					<span><%= t('human.text.search_image') %></span>
+				<% end %>
+				<%= specification_field.label :search_thumbnail, class: 'control-label' do %>
+					<%= specification_field.check_box :search_thumbnail %>
+					<span><%= t('human.text.search_thumbnail') %></span>
+				<% end %>
+			</div>
 </div>
 <% end %>
 <br/>

@@ -1,10 +1,10 @@
-<% if cse.specification.description.present? %>
+<% if cse.content.present? %>
 <div class="row-fluid cse-container-small">
 <div class="span10">
 <blockquote>
-  <p class="cse-word">
-  <%= truncate(cse.specification.description, length: 200) %>
-  </p>
+	<p class="cse-word">
+	<%= truncate(cse.content, length: 200) %>
+	</p>
 </blockquote>
 </div>
 </div>

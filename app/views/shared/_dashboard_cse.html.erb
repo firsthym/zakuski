@@ -1,6 +1,6 @@
 <li class="cse-link <%= 'cse-selected' if cse == @linked_cse %>" id="dashboard-cse-<%= cse.id %>">
-	<%= link_to truncate(cse.specification.title, length: 12 ), cse_path(cse), 
-				title: cse.specification.title %>
+	<%= link_to truncate(cse.title, length: 12 ), cse_path(cse), 
+				title: cse.title %>
 	 <div class="controls-row pull-right">
 	  <a href="javascript:void(0)" class="link-cse" title="Link"><i class="icon-search icon-white"></i></a>
 	  <%= hidden_field_tag :cseid, cse.id %>

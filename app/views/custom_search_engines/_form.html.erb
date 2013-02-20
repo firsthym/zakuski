@@ -2,15 +2,15 @@
 url_path = ''
 method = ''
 if @custom_search_engine.new_record?
-  url_path = node_cses_path
-  method = 'post'
+	url_path = node_cses_path
+	method = 'post'
 else
-  if @node.present?
-    url_path = node_cse_path(@node)
-  else
-    url_path = cse_path
-  end
-  method = 'put'
+	if @node.present?
+		url_path = node_cse_path(@node)
+	else
+		url_path = cse_path
+	end
+	method = 'put'
 end
 %>
 <% @custom_search_engine.build_specification if @custom_search_engine.specification.blank? %>
@@ -19,19 +19,56 @@ end
 <% @custom_search_engine.build_theme if @custom_search_engine.theme.blank? %>
 <% @custom_search_engine.tags.build if @custom_search_engine.tags.blank? %>
 <%= form_for @custom_search_engine, url: url_path, method: method.to_sym do |f| %>
-  <%= hidden_field_tag :node_id, @node.id if @node.present? %>
-  <%= render partial: 'shared/error_messages', 
-    locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
-  <%= render partial: 'cse_specification', locals: {cse_form: f} %>
-  <%= render partial: 'cse_labels', locals: {cse_form: f} %>
-  <%= render partial: 'cse_annotations', locals: {cse_form: f} %>
-  <%= render 'look_and_feel', cse_form: f %>
-  <div class="row-fluid">
-  <div class="control-group">
-      <div class="controls">
-        <%= f.submit I18n.t("human.controls.link.save"), 
-              class: "btn btn-primary btn-large pull-right", id: "cse-save" %>
-      </div>
-  </div>
-  </div>
+	<%= hidden_field_tag :node_id, @node.id if @node.present? %>
+	<%= render partial: 'shared/error_messages', 
+		locals: {object: f.object, error_title: I18n.t('human.errors.general')} %>
+
+	<div class="control-group">
+	<%= f.label :title, class: 'control-label' do %>
+		<strong>*<%= I18n.t('human.text.title') %></strong>
+		<span class="cse-small"><%= I18n.t('human.text.title_what') %></span>
+	<% end %>
+		<div class="controls">
+			<%= f.text_field :title, class: "span8", 
+						placeholder: I18n.t('human.text.chars_limit', 
+						minimum:5, maximum: 50) %>
+		</div>		
+	</div>
+	<div class="control-group row-fluid">
+		<%= f.label :tags, class: "control-label" do %>
+		<strong>*<%= I18n.t('human.text.tags.title') %></strong>
+		<span class="cse-small"><%= I18n.t('human.text.tags.what_is_tags') %></span> 
+		<% end %>
+		<div class="controls">
+		<div class="span8">
+			<% select_tags = Node.all.map {|n| [n.title, n.tags.map{|t|[t.name, t.id]}]} %> 
+			<%= f.select :tag_ids, select_tags, 
+										{}, multiple: true, class: 'cse-tags', style: "width:100%" %>
+		</div>
+		</div>
+	</div>
+	<div class="control-group">
+			<%= f.label :content, class: 'control-label' do %>
+				<strong><%= I18n.t('human.text.description') %></strong>
+				<span class="cse-small"><%= I18n.t('human.text.description_what') %></span>
+			<% end %>
+				<div class="controls">
+					<%= f.text_area :content, 
+						class: 'span12', rows: 8, 
+							placeholder: I18n.t('human.text.chars_limit', 
+																	minimum: 0, maximum: 1024) %>
+				</div>
+	</div>
+	<%= render partial: 'cse_specification', locals: {cse_form: f} %>
+	<%= render partial: 'cse_labels', locals: {cse_form: f} %>
+	<%= render partial: 'cse_annotations', locals: {cse_form: f} %>
+	<%= render 'look_and_feel', cse_form: f %>
+	<div class="row-fluid">
+	<div class="control-group">
+			<div class="controls">
+				<%= f.submit I18n.t("human.controls.link.save"), 
+							class: "btn btn-primary btn-large pull-right", id: "cse-save" %>
+			</div>
+	</div>
+	</div>
 <% end %>

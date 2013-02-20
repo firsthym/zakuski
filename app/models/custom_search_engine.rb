@@ -25,7 +25,7 @@ class CustomSearchEngine < Post
 	accepts_nested_attributes_for :theme
 	
 	attr_accessible :specification_attributes, :labels_attributes,
-		:annotations_attributes, :theme_attributes, :tag_ids
+		:annotations_attributes, :theme_attributes
 
 	# validations
 	validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
