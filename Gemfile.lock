@@ -42,7 +42,6 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
-    bootstrap-google-sass (0.0.1)
     bootstrap-sass (2.3.0.0)
       sass (~> 3.2)
     builder (3.0.4)
@@ -212,7 +211,6 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
-  bootstrap-google-sass
   bootstrap-sass (~> 2.3.0.0)
   capybara
   carrierwave-mongoid!

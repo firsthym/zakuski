@@ -28,11 +28,13 @@ Myapp::Application.routes.draw do
 	end
 
 	resources :nodes, only: [:index, :show] do
-		member do
-			get ':post_type/page/:page', action: :show
-		end
 		collection do
-			get ':post_type/page/:page', action: :index
+			get '/posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
+				constraints: { post_type: /cses|topics/} , action: :index
+		end
+		member do
+			get '/posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
+				constraints: { post_type: /cses|topics/} , action: :show
 		end
 
 		resources :custom_search_engines, as: :cses, 
@@ -46,7 +48,7 @@ Myapp::Application.routes.draw do
 
 		resources :tags, only: [:show] do
 			member do
-				get '(:post_type/)page/:page', action: :show
+				get ':post_type/page/:page', defaults: { post_type: 'cses'}, action: :show
 			end
 		end
 	end

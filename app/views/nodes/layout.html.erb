@@ -6,8 +6,11 @@
 				<%= render 'nodes/header' %>
 			</div>
 			<div class="row-fluid">
-				<%= render 'nodes/cse_body' %>
-				<%= render 'nodes/topic_body' %>
+				<% if params[:post_type] == 'cses' %>
+					<%= render 'cse_body' %>
+				<% elsif params[:post_type] == 'topics' %>
+					<%= render 'topic_body' %>
+				<% end %>
 			</div>
 			<div class="row-fluid">
 				<%= render 'nodes/footer' %>

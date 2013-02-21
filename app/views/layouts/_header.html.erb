@@ -9,8 +9,8 @@
 					</a>
 					<div class="nav-collapse">
 						<ul class="nav pull-right">
-							<li><%= link_to t('human.text.sns'), nodes_topics_path %></li>
-							<li><%= link_to t('human.text.cse_repo'), root_path %></li>
+							<li><%= link_to t('human.text.sns'), nodes_path(post_type: 'topics') %></li>
+							<li><%= link_to t('human.text.cse_repo'), nodes_path(post_type: 'cses') %></li>
 							<% if user_signed_in? %>
 							 <li><%= link_to I18n.t('notification.name') + count_html(@total_count), source_notifications_path %></li>
 							<li class="dropdown">
@@ -36,7 +36,7 @@
 							<% end %>
 						</ul>
 						<ul class="nav">
-							<li><%= link_to 'Cookgoogle', nodes_path, class: 'brand' %>
+							<li><%= link_to 'Cookgoogle', root_path, class: 'brand' %>
 							</li>
 							<li><%= link_to t('human.text.intro'), about_path%></li>
 						</ul>
