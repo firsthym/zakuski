@@ -32,12 +32,11 @@ class CustomSearchEngine < Post
 	validates :author_id, presence: true
 	validates :tag_ids, presence: true, unless: Proc.new { |cse| cse.is_cloned }
 
-	scope :recent, desc(:updated_at)
-	scope :publish, where(status: 'publish')
-	scope :draft, where(status: 'draft')
+	#scope :recent, desc(:updated_at)
+	#scope :publish, where(status: 'publish')
+	#scope :draft, where(status: 'draft')
 	#scope :hot, desc(:keep_count)
-	scope :hot, desc(:keep_count)
-	scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
+	#scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
 	
 	before_save :check_labels
 
@@ -77,9 +76,9 @@ class CustomSearchEngine < Post
 		end
 	end
 
-	def self.get_hot_cses(limit = 5)
+	def self.get_hot_cses(limit = 5, post_type = 'cses')
 		hot_tags = Tag.desc(:browse_count).limit(limit)
-		hot_tags.collect { |t| t.custom_search_engines.hot.limit(1).first }.compact.uniq { |c| c.id }
+		hot_tags.collect { |t| t.posts.type(post_type).hot.limit(1).first }.compact.uniq { |c| c.id }
 	end
 
 	def get_consumers
@@ -116,10 +115,6 @@ class CustomSearchEngine < Post
 		self.children_ids &= cses_ids_on_db
 		self.save
 		cses_on_db 
-	end
-
-	def title
-		self.specification.title
 	end
 
 	private

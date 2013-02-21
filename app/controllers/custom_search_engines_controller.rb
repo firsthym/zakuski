@@ -2,7 +2,9 @@ class CustomSearchEnginesController < PostsController
 	before_filter :authenticate_user!, only: [:share, :clone, :save_created_cses]
 	before_filter :correct_user, only: [:share, :save_created_cses]
 	before_filter :remove_empty_tags, only: [:create, :update]
-	
+
+	before_filter :object_builder
+
 	
 	def index
 		super
@@ -236,13 +238,15 @@ class CustomSearchEnginesController < PostsController
 		else
 			@new = CustomSearchEngine.new
 			@new.author = current_user
+			@new.title = @custom_search_engine.title
+			@new.content = @custom_search_engine.content
 			@new.specification = @custom_search_engine.specification.clone
 			@new.annotations = @custom_search_engine.annotations.map { |a| a.clone }
 			@new.labels = @custom_search_engine.labels.map { |l| l.clone }
 			if @custom_search_engine.theme.present?
-			@new.theme = @custom_search_engine.theme.clone 
+				@new.theme = @custom_search_engine.theme.clone 
 			else
-			@new.build_theme
+				@new.build_theme
 			end
 			@new.status = 'draft'
 			@new.parent = @custom_search_engine
@@ -425,4 +429,11 @@ class CustomSearchEnginesController < PostsController
 	def remove_empty_tags
 		params[:custom_search_engine][:tag_ids].delete_if { |t| t.blank? }
 	end
+
+	def object_builder
+		if @post.present? && @post.class == CustomSearchEngine
+			@custom_search_engine = @post
+		end
+	end
+
 end

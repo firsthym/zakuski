@@ -17,4 +17,11 @@ class Post
 	validates :title, presence: true, length: { maximum: 50, minimum: 5 }
 	validates :content, length: { minimum: 0, maximum: 1024 }
 
+	scope :type, ->(type) { where(_type: type) }
+	scope :recent, desc(:updated_at)
+	scope :publish, where(status: 'publish')
+	scope :draft, where(status: 'draft')
+	scope :hot, desc(:keep_count)
+	scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
+
 end

@@ -4,9 +4,6 @@ class PostsController < ApplicationController
 	before_filter :correct_user, only: [:edit, :update, :destroy]
 	before_filter :check_node, only: [:new, :create, :edit, :update, :show]
 
-	# forth-compatible
-	before_filter :object_builder
-
 	def index
 	end
 
@@ -51,12 +48,6 @@ class PostsController < ApplicationController
 						redirect_to nodes_path
 					end
 				end
-			end
-		end
-
-		def object_builder
-			if @post.present? && @post.class == CustomSearchEngine
-				@custom_search_engine = @post
 			end
 		end
 end

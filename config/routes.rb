@@ -26,10 +26,16 @@ Myapp::Application.routes.draw do
 			post 'createdcses/save', action: :save_created_cses
 		end
 	end
+
 	resources :nodes, only: [:index, :show] do
 		member do
 			get 'page/:page', action: :show
 		end
+		
+		collection do
+			get 'topics', action: :show_topics
+		end
+
 		resources :custom_search_engines, as: :cses, 
 			path: :cses, only: [:new, :create, :show, :edit, :update] do
 				get 'reply/:page', action: :show
@@ -41,10 +47,11 @@ Myapp::Application.routes.draw do
 
 		resources :tags, only: [:show] do
 			member do
-				get 'page/:page', action: :show
+				get '(:post_type/)page/:page', action: :show
 			end
 		end
 	end
+
 	resources :replies, only: [:index, :new, :create, :edit, :update]
 
 	match '/about', :to => 'static_pages#about'

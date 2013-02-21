@@ -7,7 +7,12 @@ class TagsController < ApplicationController
 			@tag = Tag.find_by(name: params[:id])
 			@tag.browse_count += 1
 			@tag.update
-			@custom_search_engines = @tag.custom_search_engines.recent.publish.page(params[:page])
+			params[:post_type] = 'cses' if params[:post_type].blank?
+			if params[:post_type] == 'cses'
+				@custom_search_engines = @tag.posts.type('CustomSearchEngine').recent.publish.page(params[:page])
+			elsif params[:post_type] == 'topics'
+				@topics = @tag.posts.type('Topic').recent.publish.page(params[:page])
+			end
 
 			respond_to do |format|
 				format.html { render 'nodes/layout'}

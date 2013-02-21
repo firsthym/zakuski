@@ -7,8 +7,7 @@ class Specification
 	field :search_thumbnail, type: Boolean, default: true 
 	field :sort_by, type: String, default: 'relevance'
 
-	attr_accessible :title, :description, :search_mode,
-					 :search_image, :sort_by, :search_thumbnail
+	attr_accessible :search_mode, :search_image, :sort_by, :search_thumbnail
 
 	# validations
 	validates :search_mode, inclusion: { in: ['filter', 'boost'] }

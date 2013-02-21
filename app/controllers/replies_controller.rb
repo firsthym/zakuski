@@ -9,10 +9,8 @@ class RepliesController < ApplicationController
 					if @reply.save
 							at_users
 							unless current_user == @post.author
-									notification = Notification.new
-									notification.user = @post.author
-									notification.source = 'discus'
-									notification.title = I18n.t('notification.new_reply', 
+								Notification.messager(
+									title: I18n.t('notification.new_reply', 
 											{user: view_context.link_to(
 												view_context.truncate(
 													current_user.username, length: 15),
@@ -21,10 +19,12 @@ class RepliesController < ApplicationController
 												view_context.truncate(
 													@post.title, 
 													length: 25),
-													cse_path(@post))})
-									notification.body = @reply.body
-									notification.sender = current_user
-									notification.save
+													cse_path(@post))}),
+									source: 'discus',
+									body: @reply.body,
+									receiver: @post.author,
+									sender: current_user
+									)
 							end
 							@flag = 'success'
 							@messages = [I18n.t('human.success.reply')]
