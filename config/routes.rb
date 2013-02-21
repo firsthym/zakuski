@@ -29,11 +29,10 @@ Myapp::Application.routes.draw do
 
 	resources :nodes, only: [:index, :show] do
 		member do
-			get 'page/:page', action: :show
+			get ':post_type/page/:page', action: :show
 		end
-		
 		collection do
-			get 'topics', action: :show_topics
+			get ':post_type/page/:page', action: :index
 		end
 
 		resources :custom_search_engines, as: :cses, 
