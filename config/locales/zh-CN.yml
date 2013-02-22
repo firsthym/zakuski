@@ -293,8 +293,8 @@ zh-CN:
       intro: "集众人之智的个性化搜索平台"
       create_cse: '立即开始分享你的发现'
       recommend_cses: '热门搜索引擎推荐'
-      how_many_cses: '该节点下共包含 <strong>%{count}</strong> 个自定义搜索引擎'
-      how_many_topics: '该节点下共包含 <strong>%{count}</strong> 个主题'
+      how_many_cses: '<strong>%{count}</strong> 个自定义搜索引擎'
+      how_many_topics: '<strong>%{count}</strong> 个主题'
       search_mode_filter: '仅搜索自定义的网络资源'
       search_mode_boost: '搜索整个网络，但将重点放在自定义的网络资源上'
       preference: '搜索偏好设置'

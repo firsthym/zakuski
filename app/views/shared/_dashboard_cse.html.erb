@@ -8,14 +8,10 @@
 	<div class="hide">
 	<span class="muted"><%= I18n.t('human.text.active_cse') %></span>
 	<%= render partial: 'shared/cse_info', locals: {cse: cse} %>
-    <div class="row-fluid">
-      <%= render 'shared/cse_tags', cse: cse %>
-      <%= render 'shared/cse_facet_labels', cse: cse %>
-      <div class="row-fluid cse-container-small">
-        <p class="muted"><%= t('human.text.preference') %></p>
-        <%= render 'shared/cse_preference', cse: cse %>
-      </div>
-      <%= render 'shared/cse_description', cse: cse %>
-    </div>
+	<div class="row-fluid">
+		<%= render 'shared/cse_tags', cse: cse %>
+		<%= render 'shared/cse_config', cse: cse %>
+		<%= render 'shared/cse_description', cse: cse %>
+	</div>
 	</div>
 </li>
