@@ -14,7 +14,9 @@
 			<%= render 'shared/dashboard_cses_list', cses: @recommended_cses %>
 			<div class="cse-divider"></div>
 			<% end %>
-			<%= render 'shared/dashboard_cses_list', cses: @dashboard_cses %>
+			<div id="dashboard-cse">
+				<%= render 'shared/dashboard_cses_list', cses: @dashboard_cses %>
+			</div>
 			<div class="cse-container-medium pull-right"><%= link_to t('human.controls.link.manage_cses'), cses_path %></div>
 		</div>
 		</div>

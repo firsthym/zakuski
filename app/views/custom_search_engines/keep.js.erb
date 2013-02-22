@@ -23,8 +23,8 @@
 				if($('li.cse-link').length == 0){
 					cse_html.addClass('cse-selected');
 				}
-				$('ul#dashboard-cse').find('li:not([class])').remove();
-				$('ul#dashboard-cse').append(cse_html);
+				$('div#dashboard-cse ul').find('li:not([class])').remove();
+				$('div#dashboard-cse ul').append(cse_html);
 			}
 		<% else %>
 			alert('<%= @error %>')

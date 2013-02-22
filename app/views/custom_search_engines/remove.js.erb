@@ -12,7 +12,7 @@
 			<% end %>
 			$('li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
 			if($('li.cse-link').length == 0){
-				$('ul#dashboard-cse').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
+				$('div#dashboard-cse ul').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
 			}
 		<% else %>
 			alert('<%= @error %>')
