@@ -1,29 +1,21 @@
 <div class="row-fluid">
-   <div class="well">
-    <div class="row-fluid">
-      <p><%= t('human.text.dashboard')%></p>
-      <div class="row-fluid">
-        <%= link_to raw(t('human.controls.link.start_search')), 
-          cse_search_path, class: 'btn btn-block btn-primary btn-large' %>
-      </div>
-      <div class="cse-divider"></div>
-      <% if cookies[:has_visited].blank? %>
-      <div class="row-fluid">
-      	<p class="muted"><%= t('human.text.recommend_cses') %></p>
-      </div>
-      <% end %>
-      <ul class="nav nav-list cse-nav-list" id="dashboard-cse">
-          <% if @dashboard_cses.present? %>
-            <% @dashboard_cses.each do |cse| %>
-            <% unless cse.nil? %>
-            <%= render partial: 'shared/dashboard_cse', locals: {cse: cse} %>
-            <% end %>
-            <% end %>
-          <% else %>
-            <li><%= I18n.t('human.text.no_cses_ondashboard') %></li>
-          <% end %>
-      </ul>
-      <div class="cse-container-medium pull-right"><%= link_to t('human.controls.link.manage_cses'), cses_path %></div>
-    </div>
-    </div>
+	 <div class="well">
+		<div class="row-fluid">
+			<p><%= t('human.text.dashboard')%></p>
+			<div class="row-fluid">
+				<%= link_to raw(t('human.controls.link.start_search')), 
+					cse_search_path, class: 'btn btn-block btn-primary btn-large' %>
+			</div>
+			<div class="cse-divider"></div>
+			<% if @recommended_cses.any? && @dashboard_cses.count == 0 %>
+			<div class="row-fluid">
+				<p class="muted"><%= t('human.text.recommend_cses') %></p>
+			</div>
+			<%= render 'shared/dashboard_cses_list', cses: @recommended_cses %>
+			<div class="cse-divider"></div>
+			<% end %>
+			<%= render 'shared/dashboard_cses_list', cses: @dashboard_cses %>
+			<div class="cse-container-medium pull-right"><%= link_to t('human.controls.link.manage_cses'), cses_path %></div>
+		</div>
+		</div>
 </div>

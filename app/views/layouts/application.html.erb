@@ -3,15 +3,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="<%= t('human.text.keywords') %>" />
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
- <%= render 'layouts/shim' %>
- <%= content_for :head_script %>
+	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+	<%= render 'layouts/shim' %>
+	<%= content_for :head_script %>
 </head>
 <body>
  <%= render 'layouts/header' %>
-<div class="cse-wrapper cse-container-medium">
+<div class="cse-wrapper cse-container-large">
 <% flash.each do |key, value| %>
 	<% unless key.to_s == 'timedout' %>
 		<div class="alert alert-<%= key %>">

@@ -1,0 +1,11 @@
+<ul class="nav nav-list cse-nav-list" id="dashboard-cse">
+		<% if cses.present? %>
+			<% cses.each do |cse| %>
+			<% unless cse.nil? %>
+			<%= render partial: 'shared/dashboard_cse', locals: {cse: cse} %>
+			<% end %>
+			<% end %>
+		<% else %>
+			<li><%= I18n.t('human.text.no_cses_ondashboard') %></li>
+		<% end %>
+</ul>
