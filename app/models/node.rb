@@ -25,12 +25,12 @@ class Node
 		CustomSearchEngine.recent.publish.from_tags(tag_ids).count
 	end
 	
-	def get_posts(publish = true, type = 'cses')
+	def get_posts(type = 'cses', publish = true)
 		tag_ids = self.tags.map { |tag| tag.id }
 		if publish
-			Post.type(type).recent.publish.from_tags(tag_ids)
+			Post.post_type(type).recent.publish.from_tags(tag_ids)
 		else
-			Post.type(type).recent.from_tags(tag_ids)
+			Post.post_type(type).recent.from_tags(tag_ids)
 		end
 	end
 

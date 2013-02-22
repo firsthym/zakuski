@@ -1,8 +1,8 @@
 <% if @node.present? %>
 <div class="row-fluid">
   <ul class="breadcrumb">
-      <li><%= link_to I18n.t('human.text.all_nodes'), nodes_path %><span class="divider">/</span></li>
-      <li><%= link_to @node.title, node_path(@node) %></li>
+      <li><%= link_to I18n.t('human.text.all_nodes'), posts_nodes_path %><span class="divider">/</span></li>
+      <li><%= link_to @node.title, posts_node_path(@node) %></li>
   </ul>
 </div>
 <% end %>

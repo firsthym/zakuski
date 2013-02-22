@@ -29,12 +29,12 @@ Myapp::Application.routes.draw do
 
 	resources :nodes, only: [:index, :show] do
 		collection do
-			get '/posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
-				constraints: { post_type: /cses|topics/} , action: :index
+			get 'posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
+				constraints: { post_type: /cses|topics/} , action: :index, as: :posts
 		end
 		member do
-			get '/posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
-				constraints: { post_type: /cses|topics/} , action: :show
+			get 'posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
+				constraints: { post_type: /cses|topics/} , action: :show, as: :posts
 		end
 
 		resources :custom_search_engines, as: :cses, 
@@ -48,7 +48,8 @@ Myapp::Application.routes.draw do
 
 		resources :tags, only: [:show] do
 			member do
-				get ':post_type/page/:page', defaults: { post_type: 'cses'}, action: :show
+				get 'posts/:post_type(/page/:page)', defaults: { post_type: 'cses'}, 
+					action: :show, as: :posts
 			end
 		end
 	end
@@ -134,7 +135,7 @@ Myapp::Application.routes.draw do
 
 	# You can have the root of your site routed with "root"
 	# just remember to delete public/index.html.
-	root :to => 'nodes#index'
+	root :to => 'nodes#index', post_type: 'cses'
 
 	# See how all your routes lay out with "rake routes"
 
