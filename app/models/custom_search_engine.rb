@@ -76,9 +76,10 @@ class CustomSearchEngine < Post
 		end
 	end
 
-	def self.get_hot_cses(limit = 5, post_type = 'cses')
-		hot_tags = Tag.desc(:browse_count).limit(limit)
-		hot_tags.collect { |t| t.posts.post_type(post_type).hot.limit(1).first }.compact.uniq { |c| c.id }
+	def self.get_hot_cses(limit = 5)
+		#hot_tags = Tag.desc(:browse_count).limit(limit)
+		#hot_tags.collect { |t| t.posts.post_type(post_type).hot.limit(1).first }.compact.uniq { |c| c.id }
+		CustomSearchEngine.hot.limit(5).compact
 	end
 
 	def get_consumers

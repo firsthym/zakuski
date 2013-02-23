@@ -102,6 +102,8 @@ class ApplicationController < ActionController::Base
 				cookies[:linked_cseid] = @linked_cse.id 
 				@active_cse = @linked_cse
 				cookies[:active_cseid] = @active_cse.id
+			else
+				cookies.delete(:linked_cseid)
 			end
 			@dashboard_cse_ids = @dashboard_cses.map{|cse| cse.id} if @dashboard_cse_ids.nil?
 			@keeped_cse_ids = @keeped_cses.map{|cse| cse.id} if @keeped_cse_ids.nil?
