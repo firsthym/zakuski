@@ -6,36 +6,39 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-node_interest = Node.find_by(title: '兴趣') || Node.create(title: '兴趣', 
-            description: '游戏 电影 音乐 汽车 创意 艺术 旅行 文化', weight: 3)
-node_job = Node.find_by(title: '职业') || Node.create(title: '职业',
-              description: '科技 金融 教育 媒体 服务 建筑 人力', weight: 2)
-node_share = Node.find_by(title: '分享') || Node.create(title: '分享', 
-            description: '视频 购物 好玩 生活 城市 交易 工作 问答', weight: 1)
+node_interest = Node.find_by(title: '兴趣') || Node.create(title_translations: { "zh-CN" => '兴趣', "en" => 'Interests'},
+			description_translations: {"zh-CN" => '发现你8小时以外的人生。', "en" => ""}, 
+			weight: 3)
+node_job = Node.find_by(title: '职业') || Node.create(title_translations: { "zh-CN" => '职业', "en" => 'Jobs'},
+			description_translations: {"zh-CN" => '找到工作之所需，答案抑或朋友。', "en" => ""},
+			weight: 2)
+node_share = Node.find_by(title: '分享') || Node.create(title_translations: { "zh-CN" => '分享', "en" => 'Share'}, 
+			description_translations: {"zh-CN" => '分享你的发现，无论文艺，怪咖，还是其他。', "en" => ""},
+			weight: 1)
 
-Tag.new(name: '游戏', node_id: node_interest.id ).save unless Tag.where(name: '游戏').exists?
-Tag.new(name: '电影', node_id: node_interest.id ).save unless Tag.where(name: '电影').exists?
-Tag.new(name: '音乐', node_id: node_interest.id ).save unless Tag.where(name: '音乐').exists?
-Tag.new(name: '汽车', node_id: node_interest.id ).save unless Tag.where(name: '汽车').exists?
-Tag.new(name: '创意', node_id: node_interest.id ).save unless Tag.where(name: '创意').exists?
-Tag.new(name: '艺术', node_id: node_interest.id ).save unless Tag.where(name: '艺术').exists?
-Tag.new(name: '旅行', node_id: node_interest.id ).save unless Tag.where(name: '旅行').exists?
-Tag.new(name: '文化', node_id: node_interest.id ).save unless Tag.where(name: '文化').exists?
-Tag.new(name: '科技', node_id: node_job.id ).save unless Tag.where(name: '科技').exists?
-Tag.new(name: '金融', node_id: node_job.id ).save unless Tag.where(name: '金融').exists?
-Tag.new(name: '教育', node_id: node_job.id ).save unless Tag.where(name: '教育').exists?
-Tag.new(name: '媒体', node_id: node_job.id ).save unless Tag.where(name: '媒体').exists?
-Tag.new(name: '服务', node_id: node_job.id ).save unless Tag.where(name: '服务').exists?
-Tag.new(name: '建筑', node_id: node_job.id ).save unless Tag.where(name: '建筑').exists?
-Tag.new(name: '人力', node_id: node_job.id ).save unless Tag.where(name: '人力').exists?
-Tag.new(name: '程序员', node_id: node_job.id ).save unless Tag.where(name: '程序员').exists?
-Tag.new(name: '会计师', node_id: node_job.id ).save unless Tag.where(name: '会计师').exists?
-Tag.new(name: '视频', node_id: node_share.id ).save unless Tag.where(name: '视频').exists?
-Tag.new(name: '购物', node_id: node_share.id ).save unless Tag.where(name: '购物').exists?
-Tag.new(name: '好玩', node_id: node_share.id ).save unless Tag.where(name: '好玩').exists?
-Tag.new(name: '生活', node_id: node_share.id ).save unless Tag.where(name: '生活').exists?
-Tag.new(name: '城市', node_id: node_share.id ).save unless Tag.where(name: '城市').exists?
-Tag.new(name: '交易', node_id: node_share.id ).save unless Tag.where(name: '交易').exists?
-Tag.new(name: '工作', node_id: node_share.id ).save unless Tag.where(name: '工作').exists?
-Tag.new(name: '问答', node_id: node_share.id ).save unless Tag.where(name: '问答').exists?
-Tag.new(name: '医疗', node_id: node_share.id ).save unless Tag.where(name: '医疗').exists?
+Tag.new(name_translations: {"zh-CN" => '游戏', "en" => "Games" }, node_id: node_interest.id ).save unless Tag.where(name: '游戏').exists?
+Tag.new(name_translations: {"zh-CN" => '电影', "en" => "Movies" }, node_id: node_interest.id ).save unless Tag.where(name: '电影').exists?
+Tag.new(name_translations: {"zh-CN" => '音乐', "en" => "Music" }, node_id: node_interest.id ).save unless Tag.where(name: '音乐').exists?
+Tag.new(name_translations: {"zh-CN" => '汽车', "en" => "Cars" }, node_id: node_interest.id ).save unless Tag.where(name: '汽车').exists?
+Tag.new(name_translations: {"zh-CN" => '创意', "en" => "Creatives" }, node_id: node_interest.id ).save unless Tag.where(name: '创意').exists?
+Tag.new(name_translations: {"zh-CN" => '艺术', "en" => "Arts" }, node_id: node_interest.id ).save unless Tag.where(name: '艺术').exists?
+Tag.new(name_translations: {"zh-CN" => '旅行', "en" => "Traval" }, node_id: node_interest.id ).save unless Tag.where(name: '旅行').exists?
+Tag.new(name_translations: {"zh-CN" => '文化', "en" => "Culture" }, node_id: node_interest.id ).save unless Tag.where(name: '文化').exists?
+Tag.new(name_translations: {"zh-CN" => '科技', "en" => "Technology" }, node_id: node_job.id ).save unless Tag.where(name: '科技').exists?
+Tag.new(name_translations: {"zh-CN" => '金融', "en" => "Finace" }, node_id: node_job.id ).save unless Tag.where(name: '金融').exists?
+Tag.new(name_translations: {"zh-CN" => '教育', "en" => "Education" }, node_id: node_job.id ).save unless Tag.where(name: '教育').exists?
+Tag.new(name_translations: {"zh-CN" => '媒体', "en" => "Media" }, node_id: node_job.id ).save unless Tag.where(name: '媒体').exists?
+Tag.new(name_translations: {"zh-CN" => '服务', "en" => "Service" }, node_id: node_job.id ).save unless Tag.where(name: '服务').exists?
+Tag.new(name_translations: {"zh-CN" => '建筑', "en" => "Architecture" }, node_id: node_job.id ).save unless Tag.where(name: '建筑').exists?
+Tag.new(name_translations: {"zh-CN" => '人力', "en" => "Human Resource" }, node_id: node_job.id ).save unless Tag.where(name: '人力').exists?
+Tag.new(name_translations: {"zh-CN" => '程序员', "en" => "Programer" }, node_id: node_job.id ).save unless Tag.where(name: '程序员').exists?
+Tag.new(name_translations: {"zh-CN" => '会计师', "en" => "Accountant" }, node_id: node_job.id ).save unless Tag.where(name: '会计师').exists?
+Tag.new(name_translations: {"zh-CN" => '视频', "en" => "Video" }, node_id: node_share.id ).save unless Tag.where(name: '视频').exists?
+Tag.new(name_translations: {"zh-CN" => '购物', "en" => "Shopping" }, node_id: node_share.id ).save unless Tag.where(name: '购物').exists?
+Tag.new(name_translations: {"zh-CN" => '好玩', "en" => "Fun" }, node_id: node_share.id ).save unless Tag.where(name: '好玩').exists?
+Tag.new(name_translations: {"zh-CN" => '生活', "en" => "Life" }, node_id: node_share.id ).save unless Tag.where(name: '生活').exists?
+Tag.new(name_translations: {"zh-CN" => '城市', "en" => "City" }, node_id: node_share.id ).save unless Tag.where(name: '城市').exists?
+Tag.new(name_translations: {"zh-CN" => '交易', "en" => "Trade" }, node_id: node_share.id ).save unless Tag.where(name: '交易').exists?
+Tag.new(name_translations: {"zh-CN" => '工作', "en" => "Work" }, node_id: node_share.id ).save unless Tag.where(name: '工作').exists?
+Tag.new(name_translations: {"zh-CN" => '问答', "en" => "Q&A" }, node_id: node_share.id ).save unless Tag.where(name: '问答').exists?
+Tag.new(name_translations: {"zh-CN" => '医疗', "en" => "Medical" }, node_id: node_share.id ).save unless Tag.where(name: '医疗').exists?

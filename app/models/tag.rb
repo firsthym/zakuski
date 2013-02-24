@@ -2,7 +2,7 @@ class Tag
 	include Mongoid::Document
 	include Mongoid::Timestamps
 
-	field :name, type: String
+	field :name, type: String, localize: true
 	field :browse_count, type: Integer, default: 0
 	validates :name, presence: true
 
