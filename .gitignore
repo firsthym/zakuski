@@ -18,7 +18,7 @@ tmp/
 .DS_Store
 
 # Ignore public/assets
-public/assets/*.*
+public/assets
 public/uploads
 
 # Ignore linux swap files
