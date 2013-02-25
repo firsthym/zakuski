@@ -8,10 +8,12 @@
 					<p class="muted"><%= get_posts_count_text(@posts) %></p>
 					</div>
 		<div class="row-fluid cse-grid">
-					<i class='icon-tags'></i>
+				<ul class="inline narrow">
+				<i class='icon-tags'></i>
 				<% @tags.each do |tag| %>
-					<%= get_tag_link(tag, @selected_node, @tag) %>
+					<li><%= get_tag_link(tag, @selected_node) %></li>
 				<% end %>
+				</ul>
 		</div>
 	</div>
 </div>

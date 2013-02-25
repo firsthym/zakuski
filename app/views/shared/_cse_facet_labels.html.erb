@@ -2,9 +2,11 @@
 <div class="row-fluid cse-container-small">
 	<span class="muted"><%= t('human.text.cse_labels')%></span>
 	<div class="row-fluid">
-	<% cse.labels.each do |l| %>
-	<span class="label label-info"><%= l.name %></span>
-	<% end %>
+	<ul class="inline">
+		<% cse.labels.each do |l| %>
+		<li><span class="label label-info"><%= l.name %></span></li>
+		<% end %>
+	</ul>
 	</div>
 </div>
 <% end %>

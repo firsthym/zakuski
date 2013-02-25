@@ -1,10 +1,13 @@
 <% if cse.tags.any? %>
-  <% node = @selected_node || @node %>
-  <p>
-    <i class="icon-tags"></i>
-    <% cse.tags.each do |tag| %>
-      <%= link_to tag.name, node_tag_path(tag.node, tag), 
-        class: (node.present? && node.tags.include?(tag)) ? 'label label-info' : 'label' %>
-    <% end %>
-  </p>
+	<% node = @selected_node || @node %>
+	<p>
+	<ul class="inline narrow">
+	<li><i class="icon-tags"></i></li>
+	<% cse.tags.each do |tag| %>
+	<li>
+		<%= get_tag_link(tag, node) %>
+	</li>
+	<% end %>
+	</ul>
+	</p>
 <% end %>

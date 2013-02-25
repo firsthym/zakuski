@@ -64,9 +64,11 @@
 							<% if @valid_labels.present? %>
 							<div class="row-fluid">
 							<h5><%= t('human.text.what_is_labels') %></h5>
+							<ul class="inline">
 								<% @valid_labels.each do |vl| %>
-										<span class="label label-info"><%= vl %></span>
+										<li><span class="label label-info"><%= vl %></span></li>
 								<% end %>
+							</ul>
 							</div>
 							<div class="cse-divider"></div>
 							<% end %>

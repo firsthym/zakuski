@@ -29,14 +29,21 @@ module ApplicationHelper
 			class: node == selected_node ? 'btn btn-info' : 'btn'
 	end
 
-	def get_tag_link(tag, selected_node, selected_tag)
-		if params[:post_type] == 'cses'
-			path = posts_node_tag_path(selected_node, tag)
-		elsif params[:post_type] == 'topics'
-			path = posts_node_tag_path(selected_node, tag, post_type: 'topics')
+	def get_tag_link(tag, selected_node = nil, selected_tag = nil)
+		if params[:post_type] == 'topics'
+			path = posts_node_tag_path(tag.node, tag, post_type: 'topics')
+		else
+			path = posts_node_tag_path(tag.node, tag)
 		end
-		link_to tag.name, path, 
+		if selected_tag.present?
+			link_to tag.name, path, 
 				class: tag == selected_tag ? 'label label-info' : 'label'
+		elsif selected_node.present?
+			link_to tag.name, path, 
+				class: selected_node.tags.include?(tag) ? 'label label-info' : 'label'
+		else
+			link_to tag.name, path, class: 'label'
+		end
 	end
 
 	def get_posts_count_text(posts)
