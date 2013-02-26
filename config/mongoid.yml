@@ -66,7 +66,8 @@ test:
         - localhost:20131
       options:
         consistency: :strong
-        raise_not_found_error: false
+  options:
+    raise_not_found_error: false
 production:
   sessions:
     default:
@@ -76,3 +77,5 @@ production:
       options:
         identity_map_enabled: true
         consistency: :strong
+  options:
+    raise_not_found_error: false
