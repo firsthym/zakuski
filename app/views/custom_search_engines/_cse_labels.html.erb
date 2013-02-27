@@ -21,8 +21,10 @@
 	<option value="exclude"><%= t('human.controls.select.exclude') %></option>
 	<option value="boost"><%= t('human.controls.select.boost') %></option></select></td>
 	<td>
-			<a href="javascript:void(0)" class="btn btn-primay cse-add-item"><i class="icon-plus"></i></a>
-			<a href="javascript:void(0)" class="btn btn-primay cse-del-item"><i class="icon-remove"></i></a>
+		<div class="btn-group">
+			<a href="javascript:void(0)" class="btn btn-mini cse-add-item"><i class="icon-plus"></i></a>
+			<a href="javascript:void(0)" class="btn btn-mini cse-del-item"><i class="icon-remove"></i></a>
+		</div>
 	</td>
 	</tr>
 </tbody>
@@ -37,8 +39,10 @@
 				 [I18n.t('human.controls.select.boost'), 'boost'] ], {}, 
 				 class: "cse-input" %></td>
 		<td>
-			<a href="javascript:void(0)" class="btn btn-primay cse-add-item"><i class="icon-plus"></i></a>
-			<a href="javascript:void(0)" class="btn btn-primay cse-del-item"><i class="icon-remove"></i></a>
+			<div class="btn-group">
+			<a href="javascript:void(0)" class="btn btn-mini cse-add-item"><i class="icon-plus"></i></a>
+			<a href="javascript:void(0)" class="btn btn-mini cse-del-item"><i class="icon-remove"></i></a>
+			</div>
 	</td>
 	</tr></tbody>
 <% end %>
