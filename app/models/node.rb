@@ -11,6 +11,9 @@ class Node
 	has_many :topics
 	has_many :tags
 
+	#index
+	index({title: 1}, {unique: true, name: 'node_title'})
+
 	def get_custom_search_engines(publish = true)
 		tag_ids = self.tags.map { |tag| tag.id }
 		if publish

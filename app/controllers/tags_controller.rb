@@ -12,4 +12,25 @@ class TagsController < ApplicationController
 			format.html { render 'nodes/layout'}
 		end
 	end
+
+	def filter_by_tag
+		begin
+			@tag = Tag.find_by(name: params[:id])
+			@cses = []
+			@dashboard_cses.each do |cse|
+				tag_ids = cse.tags.map { |t|  t.id }
+				@cses.push cse if tag_ids.include? @tag.id
+			end
+
+			respond_to do |format|
+				format.js
+			end
+		rescue
+			@error = t('human.errors.general')
+			respond_to do |format|
+				format.js
+			end
+		end
+	end
+
 end

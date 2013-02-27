@@ -23,8 +23,13 @@
 				if($('li.cse-link').length == 0){
 					cse_html.addClass('cse-selected');
 				}
-				$('div#dashboard-cse ul').find('li:not([class])').remove();
-				$('div#dashboard-cse ul').append(cse_html);
+				$('div#dashboard-cses-list ul').find('li:not([class])').remove();
+				$('div#dashboard-cses-list ul').append(cse_html);
+
+				//dashboard-cses-tags
+				var tags_html = '';
+				tags_html += "<%= escape_javascript(get_cses_tags(@dashboard_cses)) %>";
+				$("#dashboard-cses-tags").html(tags_html);
 			}
 		<% else %>
 			alert('<%= @error %>')

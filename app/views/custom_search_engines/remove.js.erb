@@ -1,19 +1,23 @@
 (function(){
 	$(document).ready(function(){
 		<% if @error.nil? %>
-		alert('<%= @message %>')
-		$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
-			<% if user_signed_in? %>
-			$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
-			if($('.cse-consumer').length == 0){
-				$('#cse-consumers').find('#cse-consumers-divider').remove();
-				$('#cse-consumers').find('#cse-keep-note').remove();
-			}
-			<% end %>
-			$('div#dashboard-cse ul li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
+			alert('<%= @message %>')
+			$('#cse-keep-btn').html("<%= I18n.t('human.text.keep_current_cse') %>").attr('href', "<%= keep_cse_path(@custom_search_engine) %>");
+				<% if user_signed_in? %>
+				$('#cse-consumers').find('#cse-consumer-<%= current_user.id%>').remove();
+				if($('.cse-consumer').length == 0){
+					$('#cse-consumers').find('#cse-consumers-divider').remove();
+					$('#cse-consumers').find('#cse-keep-note').remove();
+				}
+				<% end %>
+			$('div#dashboard-cses-list ul li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
 			if($('li.cse-link').length == 0){
-				$('div#dashboard-cse ul').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
+				$('div#dashboard-cses-list ul').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
 			}
+			//dashboard-cses-tags
+			var tags_html = '';
+			tags_html += "<%= escape_javascript(get_cses_tags(@dashboard_cses)) %>";
+			$("#dashboard-cses-tags").html(tags_html);
 		<% else %>
 			alert('<%= @error %>')
 		<% end %>

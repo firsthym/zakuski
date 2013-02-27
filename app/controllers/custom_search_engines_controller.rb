@@ -436,5 +436,4 @@ class CustomSearchEnginesController < PostsController
 			@custom_search_engine = @post
 		end
 	end
-
 end

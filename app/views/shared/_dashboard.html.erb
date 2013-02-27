@@ -15,7 +15,8 @@
 			<div class="cse-divider"></div>
 			<% end %>
 			<div id="dashboard-cse">
-				<%= render 'shared/dashboard_cses_list', cses: @dashboard_cses %>
+				<div class="row-fluid" id="dashboard-cses-tags"><%= get_cses_tags(@dashboard_cses) %></div>
+				<div id="dashboard-cses-list"><%= render 'shared/dashboard_cses_list', cses: @dashboard_cses %></div>
 			</div>
 			<div class="cse-container-medium pull-right"><%= link_to t('human.controls.link.manage_cses'), cses_path %></div>
 		</div>

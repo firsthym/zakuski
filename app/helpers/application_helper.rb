@@ -56,4 +56,20 @@ module ApplicationHelper
 		end
 	end
 
+	def get_cses_tags(custom_search_engines)
+		tags =[]
+		custom_search_engines.each do |cse|
+			tag_ids = []
+			tag_ids = tags.map { |t| t.id } if tags.any?
+			cse.tags.each { |t| tags.push t unless tag_ids.include?(t.id) }
+		end
+		html = "<ul class=\"inline\">"
+		tags.each do |t|
+			html += "<li>"
+			html += link_to t.name, filter_tag_path(t), class: "label", remote: true, id: "tag-#{t.id}"
+			html += "</li>"
+		end
+		html += "</ul>"
+		html.html_safe
+	end
 end

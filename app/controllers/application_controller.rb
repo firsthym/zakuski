@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery
-		include ApplicationHelper
+	include ApplicationHelper
 
 	before_filter :set_locale
-		before_filter :unread_notifications_count
+	before_filter :unread_notifications_count
 
 	private
 		def set_locale
@@ -144,6 +144,7 @@ class ApplicationController < ActionController::Base
 				if current_user.get_created_cses.include?(custom_search_engine) || current_user.get_keeped_cses.include?(custom_search_engine)
 					# members get 10 slots at most
 					if current_user.get_dashboard_cses.count <= 9
+						@dashboard_cses.push custom_search_engine
 						current_user.push(:dashboard_cses, id: custom_search_engine.id)
 					else
 						false
@@ -155,7 +156,7 @@ class ApplicationController < ActionController::Base
 				# guests only get 5 slot at most
 				if @keeped_cses.include?(custom_search_engine)
 					if @dashboard_cses.count <= 4
-						cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses.push @custom_search_engine)
+						cookies[:dashboard_cses] = Marshal.dump(@dashboard_cses.push custom_search_engine)
 					else
 						false
 					end

@@ -9,6 +9,9 @@ class Tag
 	has_and_belongs_to_many :posts
 	belongs_to :node
 
+	#index
+	index({name: 1}, {unique: true, name: 'tag_name'})
+
 	# change id to name
 	def to_param
 		name

@@ -27,6 +27,12 @@ Myapp::Application.routes.draw do
 		end
 	end
 
+	resources :tags, only: [:filter_by_tag] do
+		member do
+			get 'filter', action: :filter_by_tag
+		end
+	end
+
 	resources :nodes, only: [:index, :show] do
 		collection do
 			get 'posts/:post_type(/page/:page)', defaults: { :post_type => 'cses' }, 
