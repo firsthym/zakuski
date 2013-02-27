@@ -66,7 +66,7 @@
 							<h5><%= t('human.text.what_is_labels') %></h5>
 							<ul class="inline">
 								<% @valid_labels.each do |vl| %>
-										<li><span class="label label-info"><%= vl %></span></li>
+										<li><%= get_facet_label_from_name(vl, @labels) %></li>
 								<% end %>
 							</ul>
 							</div>
@@ -81,7 +81,7 @@
 							<% if @labels_hash.any? %>
 								<% @labels_hash.each do |label, annotations| %>
 									<div class="row-fluid cse-grid cse-word">
-										<h5><span class="label label-info"><%= label %></span></h5>
+										<h5><%= get_facet_label_from_name(label, @labels) %></h5>
 										<% annotations.each do |a| %>
 											<%= render 'annotation', annotation: a %>
 										<% end %>

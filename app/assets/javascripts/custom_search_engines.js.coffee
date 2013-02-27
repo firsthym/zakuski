@@ -21,8 +21,14 @@ $(document).ready ->
 			
 			
 
-	$('.cse-add-item').click (e) ->
-		controls = $(this).closest('.controls')
+	$('.cse-add-manager').click (e) ->
+		addItem($(this))
+
+	$('.cse-add-item').live 'click', ->
+		addItem($(this))
+
+	addItem = (obj) ->
+		controls = obj.closest('.controls')
 		new_row = controls.find("tbody.hidden").clone()
 		count = controls.find('tbody:not(.hidden)').length
 		new_row.find('.cse-input').each ->
@@ -33,7 +39,6 @@ $(document).ready ->
 		new_row.removeClass('hidden')
 		new_row.find('input:text').first().focus()
 		return
-
 
 	$('.cse-checkbox-manager').click ->
 		check = if $(this).attr('checked') == 'checked' then true else false
@@ -52,7 +57,7 @@ $(document).ready ->
 		return
 
 
-	$('.cse-del-item').click ->
+	$('.cse-del-manager').click ->
 		controls = $(this).closest('.controls')
 		for each in controls.find('tbody:visible .cse-checkbox-item')
 			if $(each).attr('checked') == 'checked'
@@ -63,8 +68,16 @@ $(document).ready ->
 					$(each).closest('tbody').remove()
 		if controls.find('tbody:visible').length == 0
 			controls.find('.cse-checkbox-manager').attr('checked', false)
-		return
 
+	$('.cse-del-item').live 'click', ->
+		tbody = $(this).closest('tbody')
+		if(_destroy = tbody.find('.cse-checkbox-item ').siblings(':hidden')).length
+			answer = confirm('Are you sure?')
+			if answer
+				_destroy.val(true)
+				tbody.hide()
+		else
+			tbody.remove()
 
 	$('.link-cse').live 'click', ->
 		cseid = $(this).siblings(':hidden').val()
@@ -82,6 +95,6 @@ $(document).ready ->
 		$(this).addClass('cse-theme-choose')
 		theme = $(this).find('.cse-theme-name').val()
 		$(this).closest('.control-group').find('.cse-theme-selected').val(theme)
-	
+
 	# document ready end
 	return

@@ -15,7 +15,8 @@ class CustomSearchEnginesController < PostsController
 		respond_to do |format|
 			format.html do 
 				if @custom_search_engine.publish? || current_user == @custom_search_engine.author
-					@valid_labels = @custom_search_engine.labels.map { |l| l.name }
+					@labels = @custom_search_engine.labels
+					@valid_labels = @labels.map { |l| l.name }
 					@labels_hash = Hash.new
 					@no_labels_arr = Array.new
 					@custom_search_engine.annotations.score_desc.each do |a|

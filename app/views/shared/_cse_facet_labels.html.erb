@@ -1,10 +1,11 @@
-<% if cse.labels.any? %>
+<% labels = cse.labels %>
+<% if labels.any? %>
 <div class="row-fluid cse-container-small">
 	<span class="muted"><%= t('human.text.cse_labels')%></span>
 	<div class="row-fluid">
 	<ul class="inline">
-		<% cse.labels.each do |l| %>
-		<li><span class="label label-info"><%= l.name %></span></li>
+		<% labels.each do |l| %>
+		<li><%= get_facet_label_from_name(l.name, labels) %></li>
 		<% end %>
 	</ul>
 	</div>

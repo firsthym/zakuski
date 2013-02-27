@@ -86,4 +86,23 @@ module CustomSearchEnginesHelper
 		html += '</ul>'
 		html.html_safe
 	end
+
+	def get_facet_label_from_name(label_name, labels_array)
+		html = ''
+		labels_array.each do |label|
+			if label.name == label_name
+				if label.mode == 'filter'
+					title = t("human.controls.select.filter")
+					html = "<span class=\"label label-important\" title='#{title}''>#{label.name}</span>"
+				elsif label.mode == 'boost'
+					title = t("human.controls.select.boost")
+					html = "<span class=\"label label-info\" title='#{title}''>#{label.name}</span>"
+				else
+					html = "<span class=\"label\">#{label.name}</span>"
+				end
+				break
+			end
+		end
+		html.html_safe
+	end
 end
