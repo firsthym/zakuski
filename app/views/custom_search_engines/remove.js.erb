@@ -11,7 +11,7 @@
 				}
 				<% end %>
 			$('div#dashboard-cses-list ul li#dashboard-cse-<%= @custom_search_engine.id %>').remove();
-			if($('li.cse-link').length == 0){
+			if($('div#dashboard-cses-list li.cse-link').length == 0){
 				$('div#dashboard-cses-list ul').append('<li><%= I18n.t("human.text.no_cses_ondashboard") %></li>');
 			}
 			//dashboard-cses-tags

@@ -1,0 +1,18 @@
+(function(){
+	$(document).ready(function(){
+		<% if @error.present? %>
+			alert("<%= @error %>");
+		<% else %>
+			var html = '';
+			tag_links = $('#dashboard-cses-tags').find('a');
+			tag_links.removeClass("label-info");
+			tag_links.each(function(){
+				if($(this).attr("id") == "tag-<%=@tag.id.to_s %>"){
+					$(this).addClass("label-info");
+				}
+			});
+			html = "<%= escape_javascript(render 'shared/dashboard_cses_list', cses: @cses) %>";
+			$('#dashboard-cses-list').html(html);
+		<% end %>
+	});
+}).call(this);

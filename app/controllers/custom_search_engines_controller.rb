@@ -202,8 +202,12 @@ class CustomSearchEnginesController < PostsController
 			@error = I18n.t('human.errors.no_records')
 		elsif @keeped_cses.include?(@custom_search_engine)
 			if user_signed_in?
+				# for memebers
 				current_user.removes_cse(@custom_search_engine)
+				@keeped_cses = current_user.get_keeped_cses
+				@dashboard_cses = current_user.get_dashboard_cses
 			else
+				# for guests
 				@keeped_cses.delete(@custom_search_engine)
 				@dashboard_cses.delete(@custom_search_engine)
 				if @keeped_cses.count == 0
