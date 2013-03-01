@@ -4,8 +4,8 @@
 $(document).ready ->
 	# initializations for widgets
 	
-	$('.cse-labels').tagit
-		showAutocompleteOnFocus: true
+	$('.cse-labels').select2()
+
 	$('.cse-tags').select2()
 	
 	# Event bind
@@ -18,7 +18,11 @@ $(document).ready ->
 			$(this).closest('td').find('.cse-labels').tagit
 				availableTags: labels
 				showAutocompleteOnFocus: true
-			
+
+	$('.cse-labels').on 'open', ->
+		preload_data = [{ id: 'user0', text: 'Disabled User', locked: true}]
+		$(this).select2("data", preload_data)
+
 			
 
 	$('.cse-add-manager').click (e) ->

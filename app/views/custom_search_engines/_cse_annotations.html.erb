@@ -43,8 +43,10 @@
 							<td>
 									<%= annotation_field.text_field :about, placeholder: 'http://', class: "cse-input input-xlarge" %>
 							</td>
-							<td>
-									<%= annotation_field.text_field :labels, class: "cse-labels cse-input" %>
+							<td width="100%">
+									<% select_labels = annotation_field.object.get_labels_group_by_mode %>
+									<%= annotation_field.select :label_ids, select_labels, 
+										{}, multiple: true, class: 'cse-labels cse-input', style: "width:100%" %>
 							</td>
 							<td><%= annotation_field.text_field :score, class: "input-mini cse-input" %></td>
 							<td>

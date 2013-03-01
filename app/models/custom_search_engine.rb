@@ -120,9 +120,9 @@ class CustomSearchEngine < Post
 
 	private
 		def check_labels
-			labels = self.labels.map{ |l| l.name unless l.marked_for_destruction? }
+			valid_label_ids = self.labels.map{ |l| l.id.to_s unless l.marked_for_destruction? }
 			self.annotations.each do |a|
-				a.labels_list = a.labels_list & labels
+				a.label_ids = (a.label_ids & valid_label_ids)
 			end
 		end
 end
