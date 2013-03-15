@@ -4,7 +4,17 @@
 $(document).ready ->
 	# initializations for widgets
 	
-	$('.cse-labels').select2()
+	$('.cse-labels').select2
+		data: (->
+			data = []
+			$('.cse-label-name').each ->
+				if $(this).closest('tbody').next('input:hidden').val()?
+					id = $(this).closest('tbody').next('input:hidden').val()
+					text = $(this).val()
+					data.push({id: id, text: text})
+			data
+		)()
+		multiple: true
 
 	$('.cse-tags').select2()
 	
@@ -19,11 +29,6 @@ $(document).ready ->
 				availableTags: labels
 				showAutocompleteOnFocus: true
 
-	$('.cse-labels').on 'open', ->
-		preload_data = [{ id: 'user0', text: 'Disabled User', locked: true}]
-		$(this).select2("data", preload_data)
-
-			
 
 	$('.cse-add-manager').click (e) ->
 		addItem($(this))
