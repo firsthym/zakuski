@@ -93,10 +93,10 @@ module CustomSearchEnginesHelper
 			if label.name == label_name
 				if label.mode == 'filter'
 					title = t("human.controls.select.filter")
-					html = "<span class=\"label label-important\" title='#{title}''>#{label.name}</span>"
+					html = "<span class=\"label label-info\" title='#{title}''>#{label.name}</span>"
 				elsif label.mode == 'boost'
 					title = t("human.controls.select.boost")
-					html = "<span class=\"label label-info\" title='#{title}''>#{label.name}</span>"
+					html = "<span class=\"label label-success\" title='#{title}''>#{label.name}</span>"
 				else
 					html = "<span class=\"label\">#{label.name}</span>"
 				end

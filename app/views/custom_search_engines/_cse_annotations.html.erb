@@ -20,8 +20,8 @@
 					<td>
 							<input class="cse-input input-xlarge" id="custom_search_engine_annotations_attributes_#_about" name="custom_search_engine[annotations_attributes][#][about]" placeholder="http://" size="30" type="text">
 					</td>
-					<td>
-							<input class="cse-input new-cse-labels" id="custom_search_engine_annotations_attributes_#_labels" name="custom_search_engine[annotations_attributes][#][labels]" size="30" type="text">
+					<td width="100%">
+							<input class="cse-input new-cse-labels" id="custom_search_engine_annotations_attributes_#_labels" name="custom_search_engine[annotations_attributes][#][labels]" type="text">
 					</td>
 					<td>
 							<input class="input-mini cse-input" id="custom_search_engine_annotations_attributes_#_score" name="custom_search_engine[annotations_attributes][#][score]" size="30" type="text" value="1">
@@ -41,11 +41,10 @@
 							<%= annotation_field.hidden_field :_destroy %>
 							</td>
 							<td>
-									<%= annotation_field.text_field :about, placeholder: 'http://', class: "cse-input input-xlarge" %>
+								<%= annotation_field.text_field :about, placeholder: 'http://', class: "cse-input input-xlarge" %>
 							</td>
 							<td width="100%">
-								<%= annotation_field.hidden_field :labels, class: 'cse-labels cse-input', 
-									style: "width:100%" %>
+								<%= annotation_field.hidden_field :labels, class: 'cse-labels cse-input' %>
 							</td>
 							<td><%= annotation_field.text_field :score, class: "input-mini cse-input" %></td>
 							<td>

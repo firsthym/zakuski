@@ -4,34 +4,27 @@
 $(document).ready ->
 	# initializations for widgets
 	
+	getData = ->
+		data = []
+		$('.cse-label-name:visible').each ->
+			text = $(this).val().trim()
+			if text != ""
+				id = $(this).closest('tbody').next('input:hidden').val()
+				if typeof id == "undefined"
+					id = text
+				else
+					id = id.trim()
+				data.push({id: id, text: text})
+		{ results: data }
+
 	$('.cse-labels').select2
-		data: ->
-			data = []
-			$('.cse-label-name:visible').each ->
-				text = $(this).val().trim()
-				if text != ""
-					id = $(this).closest('tbody').next('input:hidden').val()
-					if typeof id == "undefined"
-						id = text
-					else
-						id = id.trim()
-					data.push({id: id, text: text})
-			{results:data}
+		data: getData
 		multiple: true
+		width: "100%"
 
 	$('.cse-tags').select2()
 	
 	# Event bind
-
-	$('.tagit-new input').live 'click', ->
-		labels = []
-		$('.cse-label-name:visible').each ->
-			labels.push($(this).val().trim()) if $(this).val() != ''
-		if labels?
-			$(this).closest('td').find('.cse-labels').tagit
-				availableTags: labels
-				showAutocompleteOnFocus: true
-
 
 	$('.cse-add-manager').click (e) ->
 		addItem($(this))
@@ -47,7 +40,10 @@ $(document).ready ->
 			$(this).attr('id', $(this).attr('id').replace(/#/, count))
 			$(this).attr('name', $(this).attr('name').replace(/#/, count))
 		controls.find('table').append(new_row)
-		new_row.find('.new-cse-labels').addClass('cse-labels').tagit()
+		new_row.find('.new-cse-labels').addClass('cse-labels').select2
+			data: getData
+			multiple: true
+			width: "100%"
 		new_row.removeClass('hidden')
 		new_row.find('input:text').first().focus()
 		return

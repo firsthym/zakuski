@@ -23,4 +23,7 @@ class Annotation
 		self.custom_search_engine.labels.where(:id.in => self.label_ids).map { |label| label.id }.join(',')
 	end
 
+	def labels_list
+		self.custom_search_engine.labels.where(:id.in => self.label_ids).map { |label| label.name }
+	end
 end

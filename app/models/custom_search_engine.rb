@@ -123,21 +123,17 @@ class CustomSearchEngine < Post
 			valid_labels = self.labels.map{ |l| l unless l.marked_for_destruction? }
 			valid_label_ids = valid_labels.map{ |l| l.id.to_s }
 			self.annotations.each do |a|
-				a.label_ids = a.label_ids.each do |id|
-					if valid_label_ids.index(id).nil?
+				a.label_ids.each_with_index do |id, index|
+					unless valid_label_ids.include?(id)
 						valid_labels.each do |label|
-							logger.debug "label.name: #{label.name}"
 							if label.name == id
-								id = label.id.to_s
-								logger.debug "id found in name!!!!!: #{id}"
+								a.label_ids[index] = label.id.to_s
 								break
 							end
 						end
 					end
 				end
-				logger.debug "before &&& #{a.label_ids}"
 				a.label_ids = (a.label_ids & valid_label_ids)
-				logger.debug "after &&& #{a.label_ids}"
 			end
 		end
 end
