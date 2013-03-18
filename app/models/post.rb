@@ -26,4 +26,6 @@ class Post
 	scope :draft, where(status: 'draft')
 	scope :hot, desc(:keep_count)
 
+	before_save { |post| post.title.strip }
+
 end

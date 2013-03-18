@@ -16,7 +16,7 @@ class Annotation
 	scope :score_desc,desc(:score)
 
 	def labels=(label_ids)
-		self.label_ids = label_ids.reject { |id| id.blank? }
+		self.label_ids = label_ids.split(',').compact.map{ |id| id.strip }
 	end
 	
 	def labels

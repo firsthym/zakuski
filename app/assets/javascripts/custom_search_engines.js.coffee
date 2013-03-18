@@ -5,15 +5,18 @@ $(document).ready ->
 	# initializations for widgets
 	
 	$('.cse-labels').select2
-		data: (->
+		data: ->
 			data = []
-			$('.cse-label-name').each ->
-				if $(this).closest('tbody').next('input:hidden').val()?
+			$('.cse-label-name:visible').each ->
+				text = $(this).val().trim()
+				if text != ""
 					id = $(this).closest('tbody').next('input:hidden').val()
-					text = $(this).val()
+					if typeof id == "undefined"
+						id = text
+					else
+						id = id.trim()
 					data.push({id: id, text: text})
-			data
-		)()
+			{results:data}
 		multiple: true
 
 	$('.cse-tags').select2()
