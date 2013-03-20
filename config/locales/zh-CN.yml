@@ -198,6 +198,7 @@ zh-CN:
     text:
       signup: "注册"
       signin: "登录"
+      welcome: "欢迎加入"
       welcome_signup: "欢迎你注册, %{name}"
       why_create_cse: "创建一个自定义搜索引擎来分享你的关注和发现"
       site_slogan: "一个关于搜索和分享的社区"
@@ -424,10 +425,12 @@ zh-CN:
       updated_not_active: '密码重置成功，但还没有登录'
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
+      reset: "发送密码重置邮件"
     confirmations:
       send_instructions: '激活码已经发出，请进入你的注册邮箱查收激活码。'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: '账号激活成功'
+      resend: "重新发送激活码"
     registrations:
       signed_up: '注册成功!'
       signed_up_but_unconfirmed: '请点击邮箱中的注册链接以激活你的账户'
