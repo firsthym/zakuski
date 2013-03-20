@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
 		def set_locale
 			if params[:locale].present?
-				I18n.locale = I18n.available_locales.include?(params[:locale]) ? params[:locale] : I18n.default_locale
+				I18n.locale = I18n.available_locales.include?(params[:locale].to_sym) ? params[:locale].to_sym : I18n.default_locale
 			else
 				I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
 			end
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
 		def extract_locale_from_accept_language_header
 			if request.env['HTTP_ACCEPT_LANGUAGE'].present?
-				client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first
+				client_locale = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}|[^a-z]{2}-[A-Z]{2}/).first.to_sym
 				client_locale if I18n.available_locales.include?(client_locale)
 			end
 		end

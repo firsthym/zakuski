@@ -72,4 +72,12 @@ module ApplicationHelper
 		html += "</ul>"
 		html.html_safe
 	end
+
+	def get_language_link(locale = "en", text = "English")
+		if I18n.locale == locale.to_sym
+			link_to text, url_for(locale: locale), class: "label label-info"
+		else
+			link_to text, url_for(locale: locale)
+		end
+	end
 end
