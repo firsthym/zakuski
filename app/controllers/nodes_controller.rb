@@ -12,7 +12,7 @@ class NodesController < ApplicationController
 	end
 
 	def show
-		@selected_node = Node.find_by(title: params[:id])
+		@selected_node = Node.find_by(keyname: params[:id])
 		@selected_node.browse_count += 1
 		@selected_node.update
 		@posts = @selected_node.get_posts(params[:post_type]).page(params[:page])

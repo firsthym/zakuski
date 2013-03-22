@@ -6,13 +6,14 @@ class Node
 	field :description, type: String, localize: true
 	field :weight, type: Integer, default: 0
 	field :browse_count, type: Integer, default: 0
+	field :keyname, type: String
 
 	#has_many :custom_search_engines
 	has_many :topics
 	has_many :tags
 
 	#index
-	index({title: 1}, {unique: true, name: 'node_title'})
+	index({keyname: 1}, {unique: true, name: 'node_keyname'})
 
 	def get_custom_search_engines(publish = true)
 		tag_ids = self.tags.map { |tag| tag.id }
@@ -43,6 +44,6 @@ class Node
 
 	# change id to title
 	def to_param
-	  title
+	  keyname
 	end
 end

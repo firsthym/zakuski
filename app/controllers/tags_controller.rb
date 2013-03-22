@@ -1,9 +1,9 @@
 class TagsController < ApplicationController
 	before_filter :initialize_cses
 	def show
-		@selected_node = Node.find_by(title: params[:node_id])
+		@selected_node = Node.find_by(keyname: params[:node_id])
 		@tags = @selected_node.tags.desc(:created_at)
-		@tag = Tag.find_by(name: params[:id])
+		@tag = Tag.find_by(keyname: params[:id])
 		@tag.browse_count += 1
 		@tag.update
 		@posts = @tag.posts.post_type(params[:post_type]).recent.publish.page(params[:page])
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
 
 	def filter_by_tag
 		begin
-			@tag = Tag.find_by(name: params[:id])
+			@tag = Tag.find_by(keyname: params[:id])
 			@cses = []
 			@dashboard_cses.each do |cse|
 				tag_ids = cse.tags.map { |t|  t.id }

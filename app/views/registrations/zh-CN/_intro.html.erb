@@ -1,0 +1,14 @@
+<div class="well">
+<p class="cse-word">这是一个可以方便地发现、创建和分享各种主题搜索的网络社区。
+    比如搜索<%= link_to @hash_tag['games'].name, node_tag_path(@hash_tag['games'].node, @hash_tag['games']), target: '_blank' %>，
+    <%= link_to @hash_tag['movies'].name, node_tag_path(@hash_tag['movies'].node, @hash_tag['movies']), target: '_blank' %>等
+    <%= link_to @hash_node['interests'].title, node_path(@hash_node['interests']), target: '_blank' %>，
+    <%= link_to @hash_tag['programmer'].name, node_tag_path(@hash_tag['programmer'].node, @hash_tag['programmer']), target: '_blank' %>
+    <%= link_to @hash_tag['accountant'].name, node_tag_path(@hash_tag['accountant'].node, @hash_tag['accountant']), target: '_blank' %>等
+    <%= link_to @hash_node['jobs'].title, node_path(@hash_node['jobs']), target: '_blank' %>, 
+    或者<%= link_to @hash_tag['medical'].name, node_tag_path(@hash_tag['medical'].node, @hash_tag['medical']), target: '_blank' %>
+    <%= link_to @hash_tag['shopping'].name, node_tag_path(@hash_tag['shopping'].node, @hash_tag['shopping']), target: '_blank' %>等
+    <%= link_to @hash_node['share'].title, node_path(@hash_node['share']), target: '_blank' %>。</p>
+<p class="cse-word">人们在使用主题搜索的过程中，还能找到朋友。</p>
+<p class="cse-word">搜索服务由<a href="https://www.google.com/cse">Google自定义搜索引擎</a>奋力驱动。</p>
+</div>

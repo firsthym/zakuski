@@ -1,0 +1,14 @@
+<div class="well">
+<p class="cse-word">Cookgoogle helps to find, create and share custom search engines. 
+    like <%= link_to @hash_tag['games'].name, node_tag_path(@hash_tag['games'].node, @hash_tag['games']), target: '_blank' %>，
+    <%= link_to @hash_tag['movies'].name, node_tag_path(@hash_tag['movies'].node, @hash_tag['movies']), target: '_blank' %> etc.
+    <%= link_to @hash_node['interests'].title, node_path(@hash_node['interests']), target: '_blank' %>，
+    <%= link_to @hash_tag['programmer'].name, node_tag_path(@hash_tag['programmer'].node, @hash_tag['programmer']), target: '_blank' %>
+    <%= link_to @hash_tag['accountant'].name, node_tag_path(@hash_tag['accountant'].node, @hash_tag['accountant']), target: '_blank' %> etc.
+    <%= link_to @hash_node['jobs'].title, node_path(@hash_node['jobs']), target: '_blank' %>, 
+    or <%= link_to @hash_tag['medical'].name, node_tag_path(@hash_tag['medical'].node, @hash_tag['medical']), target: '_blank' %>
+    <%= link_to @hash_tag['shopping'].name, node_tag_path(@hash_tag['shopping'].node, @hash_tag['shopping']), target: '_blank' %> etc.
+    <%= link_to @hash_node['share'].title, node_path(@hash_node['share']), target: '_blank' %>。</p>
+<p class="cse-word">You can find firends via the custom search engines.</p>
+<p class="cse-word">Search Engine is driven by <a href="https://www.google.com/cse">Google Custom Search Engine</a>.</p>
+</div>

@@ -11,27 +11,11 @@ Myapp::Application.routes.draw do
 					end
 				end
 			end
-			resources :users, only: [:index, :show, :edit, :update]
 
-			resources :custom_search_engines, as: :cses, path: :cses do
-				member do
-					get 'link', action: :link
-					get 'keep', action: :keep
-					get 'clone', action: :clone
-					get 'remove', action: :remove
-					get 'consumers(/:more)', action: :consumers
-					get 'share', action: :share
-				end
-				collection do
-					post 'dashboard/save', action: :save_dashboard_cses
-					post 'keepedcses/save', action: :save_keeped_cses
-					post 'createdcses/save', action: :save_created_cses
-				end
-			end
-
-			resources :tags, only: [:filter_by_tag] do
+			resources :tags, only: [:filter_by_tag, :show] do
 				member do
 					get 'filter', action: :filter_by_tag
+					get '(/page/:page)', action: :show, as: :posts
 				end
 			end
 
@@ -42,55 +26,66 @@ Myapp::Application.routes.draw do
 				member do
 					get '(/page/:page)', action: :show, as: :posts
 				end
-
-				resources :custom_search_engines, as: :cses, 
-					path: :cses, only: [:new, :create, :show, :edit, :update] do
-						get 'reply/:page', action: :show
-				end
-
-				resources :topics, only: [:new, :create, :show, :edit, :update] do
-					get 'reply/:page', action: :show
-				end
-
-				resources :tags, only: [:show] do
-					member do
-						get '(/page/:page)', action: :show, as: :posts
-					end
-				end
 			end
 
 			resources :replies, only: [:index, :new, :create, :edit, :update]
+		end
 
-			match '/about', :to => 'static_pages#about'
-			match '/help', :to  => 'static_pages#help'
-			match '/agreement', :to => 'static_pages#agreement'
-
-			devise_for :users, :skip => [:sessions, :registrations, 
-																	:confirmations, :passwords]  
-			devise_scope :user do
-				get "signin", :to => "devise/sessions#new", :as => :new_user_session
-				post 'signin', :to => 'devise/sessions#create', :as => :user_session
-				match 'signout', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-			
-				get 'signup', :to => 'registrations#new', :as => :new_user_registration
-				post 'signup', :to => 'registrations#create', :as => :user_registration
-				
-				get 'confirm/send', :to => 'devise/confirmations#new', :as => :new_user_confirmation
-				post 'confirm', :to => 'devise/confirmations#create', :as => :user_confirmation
-				get 'confirm/:confirmation_token', :to => 'devise/confirmations#show',
-																					 :as => :confirmation
-
-				get 'password/forget', :to => 'devise/passwords#new', :as => :new_user_password
-				post 'password', :to => 'devise/passwords#create', :as => :user_password
-				get 'password/reset/:reset_password_token', 
-							:to => 'devise/passwords#edit', :as => :edit_user_password
-				put 'password', :to => 'devise/passwords#update', :as => :user_password
+		resources :custom_search_engines, as: :cses, path: :cses do
+			member do
+				get 'link', action: :link
+				get 'keep', action: :keep
+				get 'clone', action: :clone
+				get 'remove', action: :remove
+				get 'consumers(/:more)', action: :consumers
+				get 'share', action: :share
 			end
+			collection do
+				post 'dashboard/save', action: :save_dashboard_cses
+				post 'keepedcses/save', action: :save_keeped_cses
+				post 'createdcses/save', action: :save_created_cses
+			end
+		end
 
-			match '/search', :to => 'custom_search_engines#query', :as => 'cse_search'
-			match '/q/:id(/:query)', :to => 'custom_search_engines#query', 
-																:query =>/.*/, :as => 'cse_query'
+		resources :custom_search_engines, as: :cses, 
+			path: :cses, only: [:new, :create, :show, :edit, :update] do
+				get 'reply/:page', action: :show
+		end
 
+		resources :topics, only: [:new, :create, :show, :edit, :update] do
+			get 'reply/:page', action: :show
+		end
+
+		resources :users, only: [:index, :show, :edit, :update]
+
+		devise_for :users, :skip => [:sessions, :registrations, 
+																		:confirmations, :passwords]  
+		devise_scope :user do
+			get "signin", :to => "devise/sessions#new", :as => :new_user_session
+			post 'signin', :to => 'devise/sessions#create', :as => :user_session
+			match 'signout', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+		
+			get 'signup', :to => 'registrations#new', :as => :new_user_registration
+			post 'signup', :to => 'registrations#create', :as => :user_registration
+			
+			get 'confirm/send', :to => 'devise/confirmations#new', :as => :new_user_confirmation
+			post 'confirm', :to => 'devise/confirmations#create', :as => :user_confirmation
+			get 'confirm/:confirmation_token', :to => 'devise/confirmations#show',
+																				 :as => :confirmation
+
+			get 'password/forget', :to => 'devise/passwords#new', :as => :new_user_password
+			post 'password', :to => 'devise/passwords#create', :as => :user_password
+			get 'password/reset/:reset_password_token', 
+						:to => 'devise/passwords#edit', :as => :edit_user_password
+			put 'password', :to => 'devise/passwords#update', :as => :user_password
+		end
+
+		match '/about', :to => 'static_pages#about'
+		match '/help', :to  => 'static_pages#help'
+		match '/agreement', :to => 'static_pages#agreement'
+		match '/search', :to => 'custom_search_engines#query', :as => 'cse_search'
+		match '/q/:id(/:query)', :to => 'custom_search_engines#query', 
+															:query =>/.*/, :as => 'cse_query'
 		# The priority is based upon order of creation:
 		# first created -> highest priority.
 
@@ -145,8 +140,9 @@ Myapp::Application.routes.draw do
 		# This is a legacy wild controller route that's not recommended for RESTful applications.
 		# Note: This route will make all actions in every controller accessible via GET requests.
 		# match ':controller(/:action(/:id))(.:format)'
-		end
 	end
+	
 	match '/:locale' => 'nodes#index', post_type: "cses", locale: "zh-CN"
+	
 	root :to => 'nodes#index', post_type: "cses"
 end

@@ -4,5 +4,4 @@
 
 <p><%= link_to '点击此处激活', confirmation_url(:confirmation_token => @resource.confirmation_token) %></p>
 
-<%= render 'devise/shared/signature' %>
-
+<%= render "devise/shared/#{I18n.locale}/signature" %>
