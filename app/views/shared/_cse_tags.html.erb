@@ -1,11 +1,10 @@
 <% if cse.tags.any? %>
-	<% node = @selected_node || @node %>
 	<p>
 	<ul class="inline narrow">
 	<li><i class="icon-tags"></i></li>
 	<% cse.tags.each do |tag| %>
 	<li>
-		<%= get_tag_link(tag, node) %>
+		<%= get_tag_link(tag) %>
 	</li>
 	<% end %>
 	</ul>

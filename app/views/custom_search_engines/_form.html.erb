@@ -2,14 +2,10 @@
 url_path = ''
 method = ''
 if @custom_search_engine.new_record?
-	url_path = node_cses_path
+	url_path = cses_path
 	method = 'post'
 else
-	if @node.present?
-		url_path = node_cse_path(@node)
-	else
-		url_path = cse_path
-	end
+	url_path = cse_path
 	method = 'put'
 end
 %>

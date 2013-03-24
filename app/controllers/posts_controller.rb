@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 	before_filter :initialize_cses
 	before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_filter :correct_user, only: [:edit, :update, :destroy]
-	before_filter :check_node, only: [:new, :create, :edit, :update, :show]
+	before_filter :init_post, only: [:show, :edit, :destroy]
 
 	def index
 	end
@@ -31,12 +31,8 @@ class PostsController < ApplicationController
 			correct_user!(@post.author)
 		end
 
-		def check_node
+		def init_post
 			begin
-				@node = Node.find_by(title: params[:node_id]) if params[:node_id].present?
-				if params[:action] == 'new' || params[:action] == 'create'
-					raise if @node.blank?
-				end
 				if params[:id].present? 
 					@post = Post.find(params[:id])
 					raise if @post.blank?

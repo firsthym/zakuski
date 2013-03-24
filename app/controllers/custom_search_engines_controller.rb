@@ -38,8 +38,8 @@ class CustomSearchEnginesController < PostsController
 					end
 					render 'show'
 				else
-				 flash[:error] = I18n.t('human.errors.only_publish_cse_available')
-						 redirect_to nodes_path  
+					flash[:error] = I18n.t('human.errors.only_publish_cse_available')
+					redirect_to nodes_path  
 				end
 			end
 			#format.json { render json: @custom_search_engine }
@@ -74,7 +74,7 @@ class CustomSearchEnginesController < PostsController
 				link_cse(@custom_search_engine)
 				flash[:success] = I18n.t('human.success.create', 
 																 item: I18n.t('human.text.cse'))
-				format.html { redirect_to node_cse_path(@node, @custom_search_engine)}
+				format.html { redirect_to cse_path(@custom_search_engine)}
 				format.json { render json: @custom_search_engine, status: :created, 
 											location: @custom_search_engine }
 			else
@@ -98,7 +98,7 @@ class CustomSearchEnginesController < PostsController
 				flash[:success] = I18n.t('human.success.update', item: I18n.t('human.text.cse'))
 				format.html do
 					if @node.present?
-						redirect_to node_cse_path(@node, @custom_search_engine)
+						redirect_to cse_path(@custom_search_engine)
 					else
 						redirect_to cse_path(@custom_search_engine)
 					end

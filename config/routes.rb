@@ -1,36 +1,9 @@
 Myapp::Application.routes.draw do
 	scope "/:locale", locale: /en|zh-CN/ do
-		scope "/:post_type", post_type: /cses|topics/, defaults: {post_type: "cses"} do
-			constraints(source: /discus|cse/) do
-				resources :notifications do
-					collection do
-						get 'clear/:source', action: :clear, as: :clear
-						get 'markread/:source', action: :mark_read, as: :mark_read
-						get ':source(/:page)', action: :index, as: :source,
-													defaults: {source: 'discus'}
-					end
-				end
-			end
-
-			resources :tags, only: [:filter_by_tag, :show] do
-				member do
-					get 'filter', action: :filter_by_tag
-					get '(/page/:page)', action: :show, as: :posts
-				end
-			end
-
-			resources :nodes, only: [:index, :show] do
-				collection do
-					get '(/page/:page)', action: :index, as: :posts
-				end
-				member do
-					get '(/page/:page)', action: :show, as: :posts
-				end
-			end
-
-			resources :replies, only: [:index, :new, :create, :edit, :update]
+		resources :custom_search_engines, as: :cses, 
+			path: :cses, only: [:new, :create, :show, :edit, :update] do
+				get 'reply/:page', action: :show
 		end
-
 		resources :custom_search_engines, as: :cses, path: :cses do
 			member do
 				get 'link', action: :link
@@ -45,11 +18,6 @@ Myapp::Application.routes.draw do
 				post 'keepedcses/save', action: :save_keeped_cses
 				post 'createdcses/save', action: :save_created_cses
 			end
-		end
-
-		resources :custom_search_engines, as: :cses, 
-			path: :cses, only: [:new, :create, :show, :edit, :update] do
-				get 'reply/:page', action: :show
 		end
 
 		resources :topics, only: [:new, :create, :show, :edit, :update] do
@@ -140,6 +108,23 @@ Myapp::Application.routes.draw do
 		# This is a legacy wild controller route that's not recommended for RESTful applications.
 		# Note: This route will make all actions in every controller accessible via GET requests.
 		# match ':controller(/:action(/:id))(.:format)'
+		
+		scope "/:post_type", post_type: /cses|topics/, defaults: {post_type: "cses"} do
+			constraints(source: /discus|cse/) do
+				resources :notifications do
+					collection do
+						get 'clear/:source', action: :clear, as: :clear
+						get 'markread/:source', action: :mark_read, as: :mark_read
+						get ':source(/:page)', action: :index, as: :source,
+													defaults: {source: 'discus'}
+					end
+				end
+			end
+
+			resources :tags, only: [:filter_by_tag, :show]
+			resources :nodes, only: [:index, :show]
+			resources :replies, only: [:index, :new, :create, :edit, :update]
+		end
 	end
 	
 	match '/:locale' => 'nodes#index', post_type: "cses", locale: "zh-CN"

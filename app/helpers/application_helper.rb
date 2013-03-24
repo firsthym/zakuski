@@ -30,11 +30,8 @@ module ApplicationHelper
 	end
 
 	def get_tag_link(tag, selected_node = nil, selected_tag = nil)
-		if params[:post_type] == 'topics'
-			path = posts_node_tag_path(tag.node, tag, post_type: 'topics')
-		else
-			path = posts_node_tag_path(tag.node, tag)
-		end
+		post_type = params[:post_type] =~ /cses|topics/ ? params[:post_type] : "cses"
+		path = tag_path(tag, post_type: post_type)
 		if selected_tag.present?
 			link_to tag.name, path, 
 				class: tag == selected_tag ? 'label label-info' : 'label'

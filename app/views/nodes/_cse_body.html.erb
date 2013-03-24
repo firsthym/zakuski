@@ -1,7 +1,7 @@
 <div class="row-fluid">
 	<div class="row-fluid cse-container-small">
       <%= link_to raw("<i class='icon-plus'></i> ") + I18n.t('human.controls.link.new_cse'), 
-        new_node_cse_path(@selected_node), class: 'btn btn-large', 
+        new_cse_path, class: 'btn btn-large', 
         id: 'new_cse' %>
         <span class="muted"><%= t('human.text.create_cse') %></span>
 	</div>
@@ -14,7 +14,7 @@
                   <h5>
                   <%= get_link_count_html(cse) %>
                   <%= link_to truncate(cse.title, length: 20),
-                               node_cse_path(@selected_node, cse), 
+                               cse_path(cse), 
                               title: cse.title %>
                   </h5>
                   <%= render 'shared/cse_tags', cse: cse %>
