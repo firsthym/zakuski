@@ -2,6 +2,6 @@
 
 <p>请点击以下链接来激活你的账号</p>
 
-<p><%= link_to '点击此处激活', confirmation_url(:confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to '点击此处激活', confirmation_url(locale: I18n.locale, :confirmation_token => @resource.confirmation_token) %></p>
 
 <%= render "devise/shared/#{I18n.locale}/signature" %>
