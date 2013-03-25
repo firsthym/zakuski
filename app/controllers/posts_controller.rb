@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
 	before_filter :initialize_cses
 	before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+	before_filter :init_post, only: [:show, :edit, :update, :destroy]
 	before_filter :correct_user, only: [:edit, :update, :destroy]
-	before_filter :init_post, only: [:show, :edit, :destroy]
 
 	def index
 	end
@@ -25,9 +25,8 @@ class PostsController < ApplicationController
 	def destroy
 	end
 
-	private
+	protected
 		def correct_user
-			@post = Post.find(params[:id])
 			correct_user!(@post.author)
 		end
 

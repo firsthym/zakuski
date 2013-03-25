@@ -20,11 +20,7 @@ module ApplicationHelper
 	end
 
 	def get_node_link(node, selected_node)
-		if params[:post_type] == 'cses'
-			path = posts_node_path(node)
-		elsif params[:post_type] == 'topics'
-			path = posts_node_path(node, post_type: 'topics')
-		end
+		path = node_path(node, post_type: params[:post_type])
 		link_to "#{node.title}", path, 
 			class: node == selected_node ? 'btn btn-info' : 'btn'
 	end

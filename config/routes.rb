@@ -1,9 +1,17 @@
 Myapp::Application.routes.draw do
 	scope "/:locale", locale: /en|zh-CN/ do
-		resources :custom_search_engines, as: :cses, 
-			path: :cses, only: [:new, :create, :show, :edit, :update] do
+		resources :custom_search_engines, as: :cses, path: :cses, 
+		only: [:new, :create, :show, :edit, :update] do
+			member do
 				get 'reply/:page', action: :show
+			end
 		end
+		resources :topics, only: [:new, :create, :show, :edit, :update] do
+			member do
+				get 'reply/:page', action: :show
+			end
+		end
+
 		resources :custom_search_engines, as: :cses, path: :cses do
 			member do
 				get 'link', action: :link
@@ -18,10 +26,6 @@ Myapp::Application.routes.draw do
 				post 'keepedcses/save', action: :save_keeped_cses
 				post 'createdcses/save', action: :save_created_cses
 			end
-		end
-
-		resources :topics, only: [:new, :create, :show, :edit, :update] do
-			get 'reply/:page', action: :show
 		end
 
 		resources :users, only: [:index, :show, :edit, :update]
@@ -109,7 +113,7 @@ Myapp::Application.routes.draw do
 		# Note: This route will make all actions in every controller accessible via GET requests.
 		# match ':controller(/:action(/:id))(.:format)'
 		
-		scope "/:post_type", post_type: /cses|topics/, defaults: {post_type: "cses"} do
+		scope "posts/:post_type", post_type: /cses|topics/, defaults: {post_type: "cses"} do
 			constraints(source: /discus|cse/) do
 				resources :notifications do
 					collection do
@@ -121,7 +125,11 @@ Myapp::Application.routes.draw do
 				end
 			end
 
-			resources :tags, only: [:filter_by_tag, :show]
+			resources :tags, only: [:filter_by_tag, :show] do
+				member do
+					get 'filter', action: :filter_by_tag
+				end
+			end
 			resources :nodes, only: [:index, :show]
 			resources :replies, only: [:index, :new, :create, :edit, :update]
 		end

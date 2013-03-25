@@ -1,17 +1,12 @@
 class CustomSearchEnginesController < PostsController
 	before_filter :authenticate_user!, only: [:share, :clone, :save_created_cses]
+	before_filter :init_post, only: [:share, :save_created_cses, :show, :edit, :update, :destroy]
 	before_filter :correct_user, only: [:share, :save_created_cses]
 	before_filter :remove_empty_tags, only: [:create, :update]
 
 	before_filter :object_builder
 
-	
-	def index
-		super
-	end
-
 	def show
-		super
 		respond_to do |format|
 			format.html do 
 				if @custom_search_engine.publish? || current_user == @custom_search_engine.author
@@ -49,7 +44,6 @@ class CustomSearchEnginesController < PostsController
 
 
 	def new
-		super
 		@custom_search_engine = CustomSearchEngine.new
 		
 		respond_to do |format|
@@ -60,7 +54,6 @@ class CustomSearchEnginesController < PostsController
 
 
 	def create
-		super
 		@custom_search_engine = CustomSearchEngine.new(params[:custom_search_engine])
 		@custom_search_engine.author = current_user
 		@custom_search_engine.status = 'draft'
@@ -83,11 +76,6 @@ class CustomSearchEnginesController < PostsController
 											status: :unprocessable_entity }
 			end
 		end
-	end
-
-
-	def edit
-		super
 	end
 
 
