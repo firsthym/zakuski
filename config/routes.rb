@@ -1,17 +1,5 @@
 Myapp::Application.routes.draw do
 	scope "/:locale", locale: /en|zh-CN/ do
-		resources :custom_search_engines, as: :cses, path: :cses, 
-		only: [:new, :create, :show, :edit, :update] do
-			member do
-				get 'reply/:page', action: :show
-			end
-		end
-		resources :topics, only: [:new, :create, :show, :edit, :update] do
-			member do
-				get 'reply/:page', action: :show
-			end
-		end
-
 		resources :custom_search_engines, as: :cses, path: :cses do
 			member do
 				get 'link', action: :link
@@ -130,7 +118,19 @@ Myapp::Application.routes.draw do
 					get 'filter', action: :filter_by_tag
 				end
 			end
-			resources :nodes, only: [:index, :show]
+			resources :nodes, only: [:index, :show] do
+				resources :custom_search_engines, as: :cses, path: :cses, 
+					only: [:new, :create, :edit, :update] do
+					member do
+						get 'reply/:page', action: :show
+					end
+				end
+				resources :topics, only: [:new, :create, :edit, :update] do
+					member do
+						get 'reply/:page', action: :show
+					end
+				end
+			end
 			resources :replies, only: [:index, :new, :create, :edit, :update]
 		end
 	end

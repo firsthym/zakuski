@@ -1,9 +1,9 @@
 class NodesController < ApplicationController	
 	
 	def index
-		@selected_node = Node.desc(:weight).limit(1).first
-		@posts = @selected_node.get_posts(params[:post_type]).page(params[:page])
-		@tags = @selected_node.tags.desc(:created_at)
+		@node = Node.desc(:weight).limit(1).first
+		@posts = @node.get_posts(params[:post_type]).page(params[:page])
+		@tags = @node.tags.desc(:created_at)
 		
 		respond_to do |format|
 			format.html { render 'layout' }
@@ -11,11 +11,11 @@ class NodesController < ApplicationController
 	end
 
 	def show
-		@selected_node = Node.find_by(keyname: params[:id])
-		@selected_node.browse_count += 1
-		@selected_node.update
-		@posts = @selected_node.get_posts(params[:post_type]).page(params[:page])
-		@tags = @selected_node.tags.desc(:created_at)
+		@node = Node.find_by(keyname: params[:id])
+		@node.browse_count += 1
+		@node.update
+		@posts = @node.get_posts(params[:post_type]).page(params[:page])
+		@tags = @node.tags.desc(:created_at)
 
 		respond_to do |format|
 			format.html { render 'layout' }
@@ -24,6 +24,6 @@ class NodesController < ApplicationController
 
 	private
 		def current_node_topics
-			@topics = @selected_node.topics
+			@topics = @node.topics
 		end
 end

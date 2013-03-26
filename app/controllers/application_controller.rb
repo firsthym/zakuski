@@ -91,22 +91,25 @@ class ApplicationController < ActionController::Base
 			if(cookies[:linked_cseid].nil?)
 				@linked_cse = @dashboard_cses.first
 				@linked_cse = @recommended_cses.first if @linked_cse.nil?
-			else
+			elsif @dashboard_cses.any?
 				@dashboard_cses.each do |cse|
 					if cse.id.to_s == cookies[:linked_cseid]
 						@linked_cse = cse
 						break
 					end
 				end
+			elsif @recommended_cses.any?
+				@recommended_cses.each do |cse|
+					if cse.id.to_s == cookies[:linked_cseid]
+						@linked_cse = cse
+						break
+					end
+				end
 			end
+
 			if @linked_cse.present?
 				cookies[:linked_cseid] = @linked_cse.id 
 				@active_cse = @linked_cse
-				cookies[:active_cseid] = @active_cse.id
-			elsif @dashboard_cses.any?
-				@linked_cse = @dashboard_cses.first
-				@active_cse = @linked_cse
-				cookies[:linked_cseid] = @linked_cse.id
 				cookies[:active_cseid] = @active_cse.id
 			else
 				cookies.delete(:linked_cseid)

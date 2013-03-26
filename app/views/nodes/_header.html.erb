@@ -1,17 +1,17 @@
 <div class="row-fluid">
 	<div>
 		<% Node.all.desc(:weight).each do |node| %>
-					<%= get_node_link(node, @selected_node) %>
+					<%= get_node_link(node, @node) %>
 				<% end %>
 				<div class="row-fluid cse-grid">
-					<p><%= @selected_node.description %></p>
+					<p><%= @node.description %></p>
 					<p class="muted"><%= get_posts_count_text(@posts) %></p>
 					</div>
 		<div class="row-fluid cse-grid">
 				<ul class="inline narrow">
 				<i class='icon-tags'></i>
 				<% @tags.each do |tag| %>
-					<li><%= get_tag_link(tag, @selected_node) %></li>
+					<li><%= get_tag_link(tag, @node) %></li>
 				<% end %>
 				</ul>
 		</div>

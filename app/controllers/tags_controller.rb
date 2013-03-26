@@ -1,8 +1,8 @@
 class TagsController < ApplicationController
 	def show
 		@tag = Tag.find_by(keyname: params[:id])
-		@selected_node = @tag.node
-		@tags = @selected_node.tags.desc(:created_at)
+		@node = @tag.node
+		@tags = @node.tags.desc(:created_at)
 		@tag.browse_count += 1
 		@tag.update
 		@posts = @tag.posts.post_type(params[:post_type]).recent.publish.page(params[:page])
