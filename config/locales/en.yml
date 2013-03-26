@@ -203,7 +203,7 @@ en:
       welcome: "Welcome to"
       welcome_signup: "Welcome, %{name}"
       why_create_cse: "Create one Custom Search Engine to find and share what you like."
-      site_slogan: "Search and Social"
+      site_slogan: "Search And Social"
       public: "Public"
       public_what: "It can be used by anyone."
       protected: "Protect"
@@ -293,7 +293,7 @@ en:
       look_and_feel: "Theme"
       what_is_look_and_feel: "Choose your favored theme for the Custom Search Engine"
       what_is_theme: "Theme for the CSE（You can clone the CSE and change the theme）"
-      intro: "One place to share your search."
+      intro: "Share your search things"
       create_cse: "Share your find immediately"
       recommend_cses: "Recommended CSEs"
       how_many_cses: "<strong>%{count}</strong> Custom Search Engines"
@@ -428,6 +428,9 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can\'t access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       reset: "Reset your password"
+      new_password: "New Password"
+      confirm_password: "Password Confirmation"
+      reset_password: "Reset"
     confirmations:
       send_instructions: "Please go to your "
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'

@@ -7,15 +7,15 @@
 	  							error_title: I18n.t('human.errors.general')} %>
 	  <%= f.hidden_field :reset_password_token %>
 	  <div class="control-group">
-	  	<%= f.label :password, "新密码", class: "control-label" %>
+	  	<%= f.label :password, t('devise.passwords.new_password'), class: "control-label" %>
 	  	<div class="controls"><%= f.password_field :password %></div>
 	  </div>
 	  <div class="control-group">
-	  	<%= f.label :password_confirmation, "确认密码", class: "control-label" %>
+	  	<%= f.label :password_confirmation, t('devise.passwords.confirm_password'), class: "control-label" %>
 	  	<div class="controls"><%= f.password_field :password_confirmation %></div>
 	  </div>
 	  <div class="control-group">
-	  	<div class="controls"><%= f.submit "更改密码", class: "btn" %></div>
+	  	<div class="controls"><%= f.submit t('devise.passwords.reset_password'), class: "btn" %></div>
 	  </div>
 	<% end %>
 </div>

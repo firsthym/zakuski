@@ -1,6 +1,4 @@
-
 class NotificationsController < ApplicationController
-  before_filter :initialize_cses
   before_filter :available_source
   before_filter :authenticate_user!
 

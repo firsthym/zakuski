@@ -426,6 +426,9 @@ zh-CN:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       reset: "发送密码重置邮件"
+      new_password: "新密码"
+      confirm_password: "确认密码"
+      reset_password: "更改密码"
     confirmations:
       send_instructions: '激活码已经发出，请进入你的注册邮箱查收激活码。'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'

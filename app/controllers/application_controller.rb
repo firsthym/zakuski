@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
 	before_filter :set_locale
 	before_filter :unread_notifications_count
+	before_filter :initialize_cses
 
 	private
 		def default_url_options(options={})

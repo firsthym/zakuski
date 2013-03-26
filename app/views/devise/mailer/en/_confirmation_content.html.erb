@@ -1,0 +1,5 @@
+<p>Hello <%= @resource.username %>!</p>
+
+<p>Please click the following link to active your account.</p>
+
+<p><%= link_to 'Active', confirmation_url(locale: I18n.locale, :confirmation_token => @resource.confirmation_token) %></p>

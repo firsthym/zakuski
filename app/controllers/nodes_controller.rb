@@ -1,5 +1,4 @@
 class NodesController < ApplicationController	
-	before_filter :initialize_cses
 	
 	def index
 		@selected_node = Node.desc(:weight).limit(1).first

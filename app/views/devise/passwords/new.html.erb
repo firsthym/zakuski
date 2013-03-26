@@ -4,15 +4,15 @@
 <div class="row-fluid">
 	<%= form_for(resource, :as => resource_name, :url => user_password_path, 
 									:html => { :method => :post, class: 'form-inline'  }) do |f| %>
-	  <%= render partial: 'shared/error_messages', locals: {object: f.object, 
-	  							error_title: I18n.t('human.errors.general')} %>
+	<%= render partial: 'shared/error_messages', locals: {object: f.object, 
+								error_title: I18n.t('human.errors.general')} %>
 
-	  <div class="control-group">
-	  <div class="controls">
-		  <%= f.email_field :email, placeholder: "Email" %>
-		  <%= f.submit t('devise.passwords.reset'), class: "btn" %>
-	  </div>
-	  </div>
+	<div class="control-group">
+	<div class="controls">
+		<%= f.email_field :email, placeholder: "Email" %>
+		<%= f.submit t('devise.passwords.reset'), class: "btn" %>
+	</div>
+	</div>
 	<% end %>
 
 	<%= render "devise/shared/links" %>

@@ -1,5 +1,4 @@
 class TagsController < ApplicationController
-	before_filter :initialize_cses
 	def show
 		@tag = Tag.find_by(keyname: params[:id])
 		@selected_node = @tag.node

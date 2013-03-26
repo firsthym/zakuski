@@ -5,20 +5,18 @@
 </div>
 <div class="row-fluid cse-word">
   <div class="span10">
-  <p><strong>这是一个以<a href="https://www.google.com/cse" target="_blank">Google自定义搜索服务</a>
-为基础的网络社区。你可以将自定义搜索简单地理解为主题搜索, 
-    比如搜索<%= link_to '游戏', node_tag_path(@hash_tag['游戏'].node, @hash_tag['游戏']), target: '_blank' %>
-    <%= link_to '音乐', node_tag_path(@hash_tag['音乐'].node, @hash_tag['音乐']), target: '_blank' %>等
-    <%= link_to '兴趣类', node_path(@hash_node['兴趣']), target: '_blank' %>，
-    或者<%= link_to '程序员', node_tag_path(@hash_tag['程序员'].node, @hash_tag['程序员']), target: '_blank' %>
-    <%= link_to '会计师', node_tag_path(@hash_tag['会计师'].node, @hash_tag['会计师']), target: '_blank' %>等
-    <%= link_to '职业类', node_path(@hash_node['职业']), target: '_blank' %>, 
-    或者<%= link_to '医疗', node_tag_path(@hash_tag['医疗'].node, @hash_tag['医疗']), target: '_blank' %>
-    <%= link_to '购物', node_tag_path(@hash_tag['购物'].node, @hash_tag['购物']), target: '_blank' %>等
-    <%= link_to '分享类', node_path(@hash_node['分享']), target: '_blank' %>。
-    人们在这里创建和分享各自感兴趣的主题搜索，所有人都可以自由使用。</strong></p>
+ <p class="cse-word"><strong>Cookgoogle helps to find, create and share custom search engines. 
+	like <%= link_to @hash_tag['games'].name, tag_path(@hash_tag['games']), target: '_blank' %>，
+	<%= link_to @hash_tag['movies'].name, tag_path(@hash_tag['movies']), target: '_blank' %> etc.
+	<%= link_to @hash_node['interests'].title, node_path(@hash_node['interests']), target: '_blank' %>，
+	<%= link_to @hash_tag['programmer'].name, tag_path(@hash_tag['programmer']), target: '_blank' %>
+	<%= link_to @hash_tag['accountant'].name, tag_path(@hash_tag['accountant']), target: '_blank' %> etc.
+	<%= link_to @hash_node['jobs'].title, node_path(@hash_node['jobs']), target: '_blank' %>, 
+	or <%= link_to @hash_tag['medical'].name, tag_path(@hash_tag['medical']), target: '_blank' %>
+	<%= link_to @hash_tag['shopping'].name, tag_path(@hash_tag['shopping']), target: '_blank' %> etc.
+	<%= link_to @hash_node['share'].title, node_path(@hash_node['share']), target: '_blank' %>.</strong></p>
   <blockquote>
-    <div class="muted">如果你使用过Google自定义搜索，你会很快上手。当你发现搜索不顺畅的时候，请尝试<a href="http://zh.wikipedia.org/wiki/Vpn">VPN</a>。</div>
+	<div class="muted">如果你使用过Google自定义搜索，你会很快上手。当你发现搜索不顺畅的时候，请尝试<a href="http://zh.wikipedia.org/wiki/Vpn">VPN</a>。</div>
   </blockquote>
   </div>
 </div>
