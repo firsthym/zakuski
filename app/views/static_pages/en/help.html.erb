@@ -30,85 +30,76 @@
 	<p>You will get some recommended custom search engines when you come here for the first time.</p>
 	<div><%= image_tag 'help-right01-en.png' %></div>
 	<p>You can follow or <a href="#help-clone">clone</a> an existing custom search engine.</p>
+	<blockquote>
+		<div class="muted">Only registered users can clone custom search engines.</div>
+	</blockquote>
 	<div><%= image_tag 'help-keep-en.png' %></div>
-	<div>It's better that you would like to share some custom search engines with the cool web sites.</div>
-		<p><a href="#help-create">Create</a> a new custom search engine, </p>
-		<p>然后在<%= link_to '自定义搜索引擎管理界面', cses_path %>中
-		将它拖动并保存到控制面板中。</p>
-	<blockquote>
-		<div class="muted">只有注册用户才可以克隆和创建自定义搜索引擎。
-			但是匿名用户已经可以完整地使用自定义搜索功能。</div>
-	</blockquote>
 	
-	<p>
-	从<%= link_to '管理界面', cses_path %>中可以看到，
-	有2个自定义搜索引擎已经添加到控制面板中。
-	</p>
+	<p><br/>
+	On <%= link_to 'CSE Management Panel', cses_path %>, you can drag and drop the followed custom search engine to the dashboard.</p>
 	<blockquote>
-		<div class="muted">匿名用户控制面板上限为5，收藏上限为10，注册用户分别为10和20。</div>
+		<div class="muted">There is upper limit on the dashboard and followed custom search engine count.</div>
 	</blockquote>
-	<div><%= image_tag 'help-dashboard.png', width: '90%' %></div>
-	<p>通过点击右边的搜索图标可以加载一个自定义搜索引擎。OK，你已经可以<a href="#help-search">开始搜索</a>了！</p>
+	<div><%= image_tag 'help-dashboard-en.png', width: '90%' %></div><br/>
+	<p>You can active the custom search engine by click the search icon. Ok, you can <a href="#help-search">search</a> now!</p>
 	<div><%= image_tag 'help-link.png' %></div>
 	</li>
 	<li id="help-search">
-	<h4>开始搜索！</h4>
-	<p>你可以通过3种方式开始搜索：</p>
+	<h4>Search Now!</h4>
+	<p>You can begin search by the following 3 ways: </p>
 	<ol>
-	<li><strong>顶部导航</strong>
+	<li><strong>Navigator</strong>
 	<div><%= image_tag 'help-search01.png' %></div><br/>
 	</li>
-	<li><strong>控制面板</strong>
+	<li><strong>Dashboard</strong>
 	<div><%= image_tag 'help-search02.png' %></div><br/>
 	</li>
-	<li><strong>体验按钮</strong>
+	<li><strong>Try Search Button</strong>
 	<div><%= image_tag 'help-search03.png' %></div><br/>
 	</li>
 	</ol>
-	<p>进入搜索页面，开始你全新的搜索之旅吧！</p>
+	<p>You can find what fits for you terriblely by the Google Custom Search Engine.</p>
 	<div><%= image_tag 'help-search04.png', width: '90%' %></div><br/>
 	</li>
-	<li id="help-create"><h4>创建一个自定义搜索引擎</h4>
-	<p>点击按钮进入创建页面</p>
+	<li id="help-create"><h4>Create your custom search engine</h4>
+	<p>Click the button to start.</p>
 	<div><%= image_tag 'help-create.png' %></div><br/>
-	<p>比如我们要创建一个"dota视频搜索"，搜索源来自于游戏网站。</p>
+	<p>Say you want to create a custom search engine for searching videos about the game *Dota*.</p>
 	<div><%= image_tag 'help-create01.png' %></div><br/>
-	<p><a href="https://developers.google.com/custom-search/docs/refinements#overview">搜索标记</a>
-	可以帮助你将搜索结果按一定逻辑分类，通过和
-	<a href="https://developers.google.com/custom-search/docs/ranking#mode">模式</a>组合，
-	你可以进一步优化搜索结果。</p>
+	<p><a href="https://developers.google.com/custom-search/docs/refinements#overview">Refinement Labels</a>
+	helps group search results. You can take a further control on search results by  
+	<a href="https://developers.google.com/custom-search/docs/ranking#mode">Mode</a>: </p>
 	<dl class="dl-horizontal">
-	<dt>包含</dt>
-	<dd>搜索结果中只包含打上该标记的网络资源。</dd>
-	<dt>排除</dt>
-	<dd>搜索结果中排除打上该标记的网络资源。</dd>
-	<dt>优化</dt>
-	<dd>搜索结果可能包含所有网络资源，搜索引擎根据相关性筛选排序。</dd>
+	<dt>Filter</dt>
+	<dd>There are only filter-tagged web resources to be shown in search results.</dd>
+	<dt>Exclude</dt>
+	<dd>Exclude-tagged web resources can't be shown in search results.</dd>
+	<dt>Boost</dt>
+	<dd>All web resources you defined in the annotations are shown in search results. <br/>In case that you enable full web search, other web resources ranked by Google <br/>come to your search results.</dd>
 	</dl>
 	<div><%= image_tag 'help-label.png' %></div><br/>
-	<p>网址可以用通配符*来表现。搜索标记之前已经定义好了，可以为空，有自动提示补齐。
-	<a href="https://developers.google.com/custom-search/docs/ranking#score">排名系数</a>
-	会影响搜索标记的作用。
+	<p>The web resource is URL. You can use wild-card * to march a serial URLs. The refinement labels can be empty.<br/>
+	<a href="https://developers.google.com/custom-search/docs/ranking#score">Score</a> impacts the search rank.
 	</p>
 	<div><%= image_tag 'help-annotations.png' %></div><br/>
-	<p>搜索外观可以根据自己的喜好来选择。目前是7选1，预计下一个版本中加入自定义。</p>
+	<p>You can choose one of the following seven themes for your custom search engine.</p>
 	<div><%= image_tag 'help-look.png' %></div><br/>
-	<p>保存设置以后，别忘了分享你的自定义搜索引擎，除非你确实不想那么做。</p>
+	<p>Please share your custom search engine after creating except you want to keep it private.</p>
 	<div><%= image_tag 'help-share.png' %></div><br/>
 	</li>
-	<li id="help-clone"><h4>克隆一个自定义搜索引擎</h4>
-	<p>如果你是注册用户，你可以改进一个已经存在的自定义搜索引擎或者根据自己的需要定制。</p>
+	<li id="help-clone"><h4>Clone a custom search engine</h4>
+	<p>You can refine and optimize an exist custom search engine by cloning it if you have been registered.</p>
 	<div><%= image_tag 'help-clone.png' %></div><br/>
-	<p>克隆成功以后，会进入编辑状态，操作和<a href="#help-create">创建</a>一样。</p>
+	<p>You will be redirected to the edit page after cloning successfully. All the settings are the same as <a href="#help-create">creating</a></p>
 	<blockquote>
-		<div class="muted">建议你修改自定义搜索名称以便区分。</div>
+		<div class="muted">Change the name of your cloned custom search engine in order to diffrentiate from the origin one.</div>
 	</blockquote>
 	<div><%= image_tag 'help-change-name.png' %></div><br/>
-	<p>保存成功以后，你也可以再次分享新的自定义搜索引擎，不过会显示克隆自哪一个自定义搜索。</p>
+	<p>You can also share the cloned custom search engine, and the origin one will be displayed.</p>
 	<div><%= image_tag 'help-clone01.png' %></div><br/>
 	</li>
 	</ul>
-<h4>教程结束。你或许还没搞明白自定义搜索的原理，但我相信你已经会使用它了。赶紧试试吧！</h4>
+<h4>Done! For any questions, please contact <a href="mailto: firsthym@gmail.com">me</a>.</h4>
 </div>
 </div>
 </div>
