@@ -9,6 +9,7 @@
 					</a>
 					<div class="nav-collapse">
 						<ul class="nav pull-right">
+							<li><%= link_to t('human.controls.link.start_search'), cse_search_path %></li>
 							<li><%= link_to t('human.text.sns'), nodes_path(post_type: 'topics') %></li>
 							<li><%= link_to t('human.text.cse_repo'), nodes_path(post_type: 'cses') %></li>
 							<% if user_signed_in? %>

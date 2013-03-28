@@ -293,7 +293,7 @@ en:
       look_and_feel: "Theme"
       what_is_look_and_feel: "Choose your favored theme for the Custom Search Engine"
       what_is_theme: "Theme for the CSE（You can clone the CSE and change the theme）"
-      intro: "Share your search things"
+      intro: "Search can be different."
       create_cse: "Share your find immediately"
       recommend_cses: "Recommended CSEs"
       how_many_cses: "<strong>%{count}</strong> Custom Search Engines"

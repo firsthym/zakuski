@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-	before_filter :init_post, only: [:show, :edit, :update, :destroy]
-	before_filter :correct_user, only: [:edit, :update, :destroy]
+	before_filter :init_post, only: [:create, :show, :edit, :update, :destroy]
+	before_filter :correct_user, only: [:new, :create, :edit, :update, :destroy]
 	before_filter :init_node, only: [:show, :new, :create, :edit, :update]
 
 	def index
