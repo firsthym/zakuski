@@ -30,7 +30,7 @@
 		var q = $("#cse-query").val();
 		if(q){
 			$("#cse-result").html('');
-			search_url = 'http://' + window.location.host + '/q/'+ $.cookie('active_cseid') + '/' + q;
+			search_url = 'http://' + window.location.host + '/<%= I18n.locale%>/q/'+ $.cookie('active_cseid') + '/' + q;
 			window.location.href = search_url
 		}
 	});

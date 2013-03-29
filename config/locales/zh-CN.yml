@@ -196,6 +196,7 @@ zh-CN:
     pm: 下午
   human:
     text:
+      founder: "黄树"
       signup: "注册"
       signin: "登录"
       welcome: "欢迎加入"
