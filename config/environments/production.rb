@@ -54,7 +54,7 @@ Myapp::Application.configure do
   config.action_mailer.perform_deliveries = true 
   config.action_mailer.delivery_method = :sendmail
 
-  config.action_mailer.default_url_options = { :host => 'cse.so' }
+  config.action_mailer.default_url_options = { :host => 'www.cookgoogle.com' }
 
   # Enable threaded mode
   # config.threadsafe!
