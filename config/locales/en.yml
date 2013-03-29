@@ -198,6 +198,7 @@ en:
     pm: pm
   human:
     text:
+      founder: "Shu Huang"
       signup: "Sign up"
       signin: "Sign in"
       welcome: "Welcome to"
