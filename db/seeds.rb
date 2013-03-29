@@ -31,7 +31,7 @@ Tag.new(name_translations: {"zh-CN" => '媒体', "en" => "Media" }, node_id: nod
 Tag.new(name_translations: {"zh-CN" => '服务', "en" => "Service" }, node_id: node_job.id, keyname: "service").save unless Tag.where(name: '服务').exists?
 Tag.new(name_translations: {"zh-CN" => '建筑', "en" => "Architecture" }, node_id: node_job.id, keyname: "architecture").save unless Tag.where(name: '建筑').exists?
 Tag.new(name_translations: {"zh-CN" => '人力', "en" => "Human Resource" }, node_id: node_job.id, keyname: "hr").save unless Tag.where(name: '人力').exists?
-Tag.new(name_translations: {"zh-CN" => '程序员', "en" => "Programmer" }, node_id: node_job.id, keyname: "programmer").save unless Tag.where(name: '程序员').exists?
+Tag.new(name_translations: {"zh-CN" => '程序员', "en" => "Programer" }, node_id: node_job.id, keyname: "programer").save unless Tag.where(name: '程序员').exists?
 Tag.new(name_translations: {"zh-CN" => '会计师', "en" => "Accountant" }, node_id: node_job.id, keyname: "accountant").save unless Tag.where(name: '会计师').exists?
 Tag.new(name_translations: {"zh-CN" => '视频', "en" => "Video" }, node_id: node_share.id, keyname: "video").save unless Tag.where(name: '视频').exists?
 Tag.new(name_translations: {"zh-CN" => '购物', "en" => "Shopping" }, node_id: node_share.id, keyname: "shopping").save unless Tag.where(name: '购物').exists?
