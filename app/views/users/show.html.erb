@@ -46,12 +46,14 @@
 					<!-- replies -->
 						<% if @user.replies.recent.any? %>
 							<% @user.replies.recent.each do |reply| %>
+							<% if reply.post.present? %>
 							<div class="cse-grid-dashed">
 								<p><span class="muted"><%= time_ago_in_words(reply.created_at) %></span>
 									<%= t('human.text.replies') %>&nbsp;<%= link_to reply.post.title, cse_path(reply.post) %>
 								</p>
 								<p><%= simple_text(reply.body) %></p>
 							</div>
+							<% end %>
 							<% end %>
 						<% end %>
 					</div>

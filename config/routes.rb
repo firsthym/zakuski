@@ -1,5 +1,5 @@
 Myapp::Application.routes.draw do
-	scope "/:locale", locale: /en|zh-CN/ do
+	scope "(/:locale)", locale: /en|zh-CN/ do
 		resources :custom_search_engines, as: :cses, path: :cses do
 			member do
 				get 'link', action: :link
