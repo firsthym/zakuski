@@ -1,7 +1,13 @@
 class CustomSearchEnginesController < PostsController
-	before_filter :authenticate_user!, only: [:share, :clone, :save_created_cses]
-	before_filter :init_post, only: [:create, :share, :save_created_cses, :show, :edit, :update, :destroy]
-	before_filter :correct_user, only: [:share, :edit, :update, :destroy]
+	before_filter only: [:share, :clone, :save_created_cses] do
+		authenticate_user!
+	end
+	before_filter only: [:share, :save_created_cses] do
+		init_post
+	end
+	before_filter only: [:share] do
+		correct_user!
+	end
 	before_filter :remove_empty_tags, only: [:create, :update]
 
 	before_filter :object_builder
