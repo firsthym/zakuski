@@ -7,7 +7,7 @@
 					cse_search_path, class: 'btn btn-block btn-primary btn-large' %>
 			</div>
 			<div class="cse-divider"></div>
-			<% if @recommended_cses.any? && @dashboard_cses.count == 0 %>
+			<% if @recommended_cses.any? && @dashboard_cses.count < 5 %>
 			<div class="row-fluid">
 				<p class="muted"><%= t('human.text.recommend_cses') %></p>
 			</div>
