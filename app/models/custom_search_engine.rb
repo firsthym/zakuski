@@ -76,9 +76,11 @@ class CustomSearchEngine < Post
 		end
 	end
 
+	def self.get_recommended_cses(limit = 5)
+		self.where(is_recommended: true).publish.desc(:browse_count).limit(limit).compact
+	end
+
 	def self.get_hot_cses(limit = 5)
-		#hot_tags = Tag.desc(:browse_count).limit(limit)
-		#hot_tags.collect { |t| t.posts.post_type(post_type).hot.limit(1).first }.compact.uniq { |c| c.id }
 		CustomSearchEngine.hot.publish.limit(limit).compact
 	end
 

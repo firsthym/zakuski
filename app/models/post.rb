@@ -6,6 +6,7 @@ class Post
 	field :title, type: String
 	field :content, type: String
 	field :browse_count, type: Integer, default: 0
+	field :is_recommended, type: Boolean, default: false
 
 	has_many :replies, dependent: :delete
 	has_and_belongs_to_many :tags

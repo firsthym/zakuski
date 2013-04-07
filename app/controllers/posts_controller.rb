@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 	before_filter :init_post, only: [:create, :show, :edit, :update, :destroy]
-	before_filter :correct_user, only: [:new, :create, :edit, :update, :destroy]
+	before_filter only: [:edit, :update, :destroy] do
+		correct_user!(@post.author)
+	end
 	before_filter :init_node, only: [:show, :new, :create, :edit, :update]
 
 	def index
@@ -26,10 +28,6 @@ class PostsController < ApplicationController
 	end
 
 	protected
-		def correct_user
-			correct_user!(@post.author)
-		end
-
 		def init_post
 			begin
 				if params[:id].present? 

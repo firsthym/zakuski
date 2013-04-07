@@ -73,9 +73,12 @@ class ApplicationController < ActionController::Base
 					end
 				end
 			end
-			@recommended_cses = CustomSearchEngine.get_hot_cses
+			@recommended_cses = CustomSearchEngine.get_recommended_cses
 			@recommended_cses = @recommended_cses - (@recommended_cses & @dashboard_cses)
-
+			if @recommended_cses.empty?
+				@recommended_cses = CustomSearchEngine.get_hot_cses
+				@recommended_cses = @recommended_cses - (@recommended_cses & @dashboard_cses)
+			end
 			if @dashboard_cses.empty?
 				if cookies[:has_visited].blank?
 					@dashboard_cses = @recommended_cses
