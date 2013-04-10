@@ -8,12 +8,24 @@ Myapp::Application.routes.draw do
 				get 'remove', action: :remove
 				get 'consumers(/:more)', action: :consumers
 				get 'share', action: :share
+				get 'reply/:page', action: :show
 			end
 			collection do
 				post 'dashboard/save', action: :save_dashboard_cses
 				post 'keepedcses/save', action: :save_keeped_cses
 				post 'createdcses/save', action: :save_created_cses
 			end
+		end
+		resources :topics do
+			member do
+				get 'reply/:page', action: :show
+			end
+		end
+
+		resources :nodes, only: [:index, :show] do
+			resources :custom_search_engines, as: :cses, path: :cses, 
+				only: [:new, :create, :edit, :update]
+			resources :topics, only: [:new, :create, :edit, :update]
 		end
 
 		resources :users, only: [:index, :show, :edit, :update]
@@ -100,7 +112,6 @@ Myapp::Application.routes.draw do
 		# This is a legacy wild controller route that's not recommended for RESTful applications.
 		# Note: This route will make all actions in every controller accessible via GET requests.
 		# match ':controller(/:action(/:id))(.:format)'
-		
 		scope "posts/:post_type", post_type: /cses|topics/, defaults: {post_type: "cses"} do
 			constraints(source: /discus|cse/) do
 				resources :notifications do
@@ -116,19 +127,6 @@ Myapp::Application.routes.draw do
 			resources :tags, only: [:filter_by_tag, :show] do
 				member do
 					get 'filter', action: :filter_by_tag
-				end
-			end
-			resources :nodes, only: [:index, :show] do
-				resources :custom_search_engines, as: :cses, path: :cses, 
-					only: [:new, :create, :edit, :update] do
-					member do
-						get 'reply/:page', action: :show
-					end
-				end
-				resources :topics, only: [:new, :create, :edit, :update] do
-					member do
-						get 'reply/:page', action: :show
-					end
 				end
 			end
 			resources :replies, only: [:index, :new, :create, :edit, :update]

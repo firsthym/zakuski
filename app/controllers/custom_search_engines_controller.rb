@@ -6,7 +6,7 @@ class CustomSearchEnginesController < PostsController
 		init_post
 	end
 	before_filter only: [:share] do
-		correct_user!
+		correct_user!(current_user)
 	end
 	before_filter :remove_empty_tags, only: [:create, :update]
 
@@ -130,7 +130,6 @@ class CustomSearchEnginesController < PostsController
 		else
 			@active_cse = @linked_cse
 		end
-
 		@query = params[:query]
 		respond_to do |format|
 			if @active_cse.present? && can_access?(@active_cse)

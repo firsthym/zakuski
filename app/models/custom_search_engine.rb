@@ -1,5 +1,4 @@
 class CustomSearchEngine < Post
-	field :status, type: String
 
 	# consumers
 	field :consumers, type: Array, default: []
@@ -28,15 +27,8 @@ class CustomSearchEngine < Post
 		:annotations_attributes, :theme_attributes
 
 	# validations
-	validates :status, presence: true, inclusion: {in: ['draft', 'publish']}
 	validates :author_id, presence: true
 	validates :tag_ids, presence: true, unless: Proc.new { |cse| cse.is_cloned }
-
-	#scope :recent, desc(:updated_at)
-	#scope :publish, where(status: 'publish')
-	#scope :draft, where(status: 'draft')
-	#scope :hot, desc(:keep_count)
-	#scope :from_tags, ->(tag_ids) { where(:tag_ids.in => tag_ids) }
 	
 	before_save :check_labels
 
@@ -92,14 +84,6 @@ class CustomSearchEngine < Post
 		self.consumers.count
 	end
  
-	def publish?
-		if self.status == 'publish'
-			true
-		else
-			false
-		end
-	end
-	
 	def parent
 	 CustomSearchEngine.find(self.parent_id) if self.parent_id.present? 
 	end

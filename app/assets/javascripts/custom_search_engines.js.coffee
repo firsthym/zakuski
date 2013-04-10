@@ -93,7 +93,7 @@ $(document).ready ->
 		$.cookie('active_cseid', cseid, {path: '/'})
 		linked_cse_info = $(this).closest('div').siblings('.hide').html()
 		$('#linked-cse-desc').html(linked_cse_info)
-		$(this).closest('ul').find('.cse-selected').removeClass('cse-selected')
+		$('.cse-selected').removeClass('cse-selected')
 		$(this).closest('li.cse-link').addClass('cse-selected')
 		return
 	
