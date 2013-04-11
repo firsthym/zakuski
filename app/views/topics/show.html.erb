@@ -1,0 +1,5 @@
+<% if @post.thumbnail? %>
+<%= image_tag @post.thumbnail_url %>
+<% else %>
+<%= image_tag @post.image_url %>
+<% end %>

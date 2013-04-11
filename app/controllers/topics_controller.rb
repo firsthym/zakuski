@@ -1,17 +1,27 @@
 class TopicsController < PostsController
-	before_filter :remove_empty_tags, only: [:create, :update]
+	#before_filter :remove_empty_tags, only: [:create, :update]
+
+	def new
+		@post = Topic.new
+	end
 
 	def create
-		@post = Post.new(params[:post])
+		@post = Topic.new(params[:topic])
 		@post.author = current_user
-		@post.thumbnail = File.open(params[:thumbnail_url]) if params[:thumbnail_url].present?
+		@post.status = 'draft'
 
 		respond_to do |format|
 			if @post.save
+				ShadowWorker.perform_async(@post.id)
 				format.js
-				format.html { redirect_to topic_path(@post)}
+				format.html { redirect_to @post}
 			else
-				format.js { @error = true}
+				@errors = @post.errors
+				format.html do
+					flash[:error] = @errors
+					redirect_to root_path
+				end
+				format.js
 			end
 		end
 	end
@@ -20,6 +30,9 @@ class TopicsController < PostsController
 	end
 
 	def append
+	end
+
+	def show
 	end
 
 	def remove_empty_tags
