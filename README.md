@@ -1,13 +1,13 @@
 ## CSE.SO
-This is the source code of [cse](http://cse.so) website
+This is the source code of [Cookgoogle](http://cookgoogle.com) website
 
 Thounsands of  people use search engines to find the stuff they are insterested in, like movies, films, pets, jobs, techniques, ...
 
-People will make friends via the search behavior.
+People can make friends via the search behavior.
 
 ## Custom Seach Engine supported by
-* [Google](http://google.com/cse)
+* [Google Custom Search Engine](http://google.com/cse)
 
 ## License
 
-Copyright (c) 2012 Huang Yanming
+CSE.SO is released under [MIT License](http://opensource.org/licenses/MIT)
